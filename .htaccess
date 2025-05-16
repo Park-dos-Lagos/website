@@ -1,0 +1,46 @@
+# BEGIN HMWP_RULES
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+# Redireciona dev.parkdoslagos.com para parkdoslagos.com/dev/
+RewriteCond %{HTTP_HOST} ^dev\.parkdoslagos\.com$ [NC]
+RewriteRule ^(.*)$ https://parkdoslagos.com/dev/$1 [R=301,L]
+
+# Bloquear /?author=ID no domínio principal
+RewriteCond %{REQUEST_URI} !/wp-admin [NC]
+RewriteCond %{QUERY_STRING} ^author=\d+ [NC]
+RewriteRule ^(.*)$ - [L,R=404]
+</IfModule>
+
+<IfModule mod_headers.c>
+Header always unset x-powered-by
+Header always unset server
+ServerSignature Off
+</IfModule>
+
+<IfModule mod_headers.c>
+Header set Strict-Transport-Security "max-age=15768000; includeSubDomains"
+Header set Content-Security-Policy "object-src 'none'"
+Header set X-XSS-Protection "1; mode=block"
+</IfModule>
+# END HMWP_VULNERABILITY
+
+# BEGIN WordPress
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
+# END WordPress
+
+# PHP ini configs
+php_value upload_max_filesize 25M
+php_value post_max_size 25M
+php_value memory_limit 1024M
+php_value max_input_time 180
+php_value max_execution_time 180
+

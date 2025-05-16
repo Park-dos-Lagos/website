@@ -2420,15 +2420,15 @@ Thanks!
  *
  * @since 2.8.5
  *
- * @param bool|null $force Optional. Whether to force SSL in admin screens. Default null.
+ * @param bool $force
  * @return bool True if forced, false if not forced.
  */
-function force_ssl_content( $force = null ) {
+function force_ssl_content( $force = '' ) {
 	static $forced_content = false;
 
-	if ( ! is_null( $force ) ) {
+	if ( ! $force ) {
 		$old_forced     = $forced_content;
-		$forced_content = (bool) $force;
+		$forced_content = $force;
 		return $old_forced;
 	}
 
@@ -2869,8 +2869,8 @@ All at ###SITENAME###
 function wp_network_admin_email_change_notification( $option_name, $new_email, $old_email, $network_id ) {
 	$send = true;
 
-	// Don't send the notification for an empty email address or the default 'admin_email' value.
-	if ( empty( $old_email ) || 'you@example.com' === $old_email ) {
+	// Don't send the notification to the default 'admin_email' value.
+	if ( 'you@example.com' === $old_email ) {
 		$send = false;
 	}
 
