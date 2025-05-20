@@ -12793,7 +12793,7 @@ class VikBooking
 			// titles and headings
 			array_push($css_classes, '.vbo-pref-color-text { color: ' . $pref_colors['textcolor'] . '  }');
 			// stepbar, oconfirm
-			array_push($css_classes, 'ol.vbo-stepbar li.vbo-step-complete, ol.vbo-stepbar li.vbo-step-current, ol.vbo-stepbar li.vbo-step-current:before, .vbo-coupon-outer, .vbo-enterpin-block { border-color: ' . $pref_colors['textcolor'] . '  }');
+			array_push($css_classes, 'ol.vbo-stepbar li.vbo-step-complete, ol.vbo-stepbar li.vbo-step-current, ol.vbo-stepbar li.vbo-step-current:before, .vbo-coupon-outer, .vbo-enterpin-block {   }');
 			// buttons secondary color
 			array_push($css_classes, '. { border: 2px solid ' . $pref_colors['textcolor'] . '  color: ' . $pref_colors['textcolor'] . '  background: transparent  }');
 			if (!empty($pref_colors['fontcolor'])) {
