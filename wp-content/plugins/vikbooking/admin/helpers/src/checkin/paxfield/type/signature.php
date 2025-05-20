@@ -133,7 +133,7 @@ final class VBOCheckinPaxfieldTypeSignature extends VBOCheckinPaxfieldType
 		$field_html = <<<HTML
 <div class="vbo-pax-field-signature-container">
 	<div class="vbo-pax-field-signature-commands">
-		<button type="button" class="btn vbo-pref-color-btn-secondary vbo-pax-field-signature-cmd-view" data-id="$field_id">{$viewdoc_icon} {$viewdoc_lbl}</button>
+		<button type="button" class="btn  vbo-pax-field-signature-cmd-view" data-id="$field_id">{$viewdoc_icon} {$viewdoc_lbl}</button>
 		<button type="button" class="btn vbo-pref-color-btn vbo-pax-field-signature-cmd-sign" data-id="$field_id">{$signdoc_icon} {$signdoc_lbl}</button>
 	</div>
 	<div class="vbo-pax-field-signature-checkindoc-helper" data-id="$field_id" style="display: none;">
@@ -153,7 +153,7 @@ final class VBOCheckinPaxfieldTypeSignature extends VBOCheckinPaxfieldType
 						</div>
 						<div class="vbo-signature-cmds">
 							<div class="vbo-signature-cmd">
-								<button type="button" class="btn btn-large vbo-pref-color-btn-secondary vbo-pax-field-signature-cmd-clearpad" data-id="$field_id">{$clearpad_icon} {$signclear_lbl}</button>
+								<button type="button" class="btn btn-large  vbo-pax-field-signature-cmd-clearpad" data-id="$field_id">{$clearpad_icon} {$signclear_lbl}</button>
 							</div>
 							<div class="vbo-signature-cmd">
 								<button type="button" class="btn btn-large vbo-pref-color-btn vbo-pax-field-signature-cmd-savesign" data-id="$field_id">{$savepad_icon} {$signsave_lbl}</button>

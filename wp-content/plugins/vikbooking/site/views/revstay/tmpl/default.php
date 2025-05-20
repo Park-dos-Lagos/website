@@ -140,7 +140,7 @@ JText::script('VBOREVIEWMESSLIM');
 				?>
 				<div class="vbo-booking-review-cmds">
 					<div class="vbo-booking-review-cmd">
-						<a class="btn vbo-pref-color-btn-secondary" href="<?php echo JRoute::_('index.php?option=com_vikbooking&view=booking&sid=' . (!empty($this->order['idorderota']) && !empty($this->order['channel']) ? $this->order['idorderota'] : $this->order['sid']) . '&ts=' . $this->order['ts'] . (!empty($bestitemid) ? '&Itemid='.$bestitemid : (!empty($pitemid) ? '&Itemid='.$pitemid : ''))); ?>"><?php echo JText::_('VBDIALOGBTNCANCEL'); ?></a>
+						<a class="btn " href="<?php echo JRoute::_('index.php?option=com_vikbooking&view=booking&sid=' . (!empty($this->order['idorderota']) && !empty($this->order['channel']) ? $this->order['idorderota'] : $this->order['sid']) . '&ts=' . $this->order['ts'] . (!empty($bestitemid) ? '&Itemid='.$bestitemid : (!empty($pitemid) ? '&Itemid='.$pitemid : ''))); ?>"><?php echo JText::_('VBDIALOGBTNCANCEL'); ?></a>
 					</div>
 					<div class="vbo-booking-review-cmd">
 						<button type="submit" class="btn vbo-pref-color-btn"><?php echo JText::_('VBOREVIEWSUBMIT'); ?></button>

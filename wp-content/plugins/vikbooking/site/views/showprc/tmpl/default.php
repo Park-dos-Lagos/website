@@ -864,11 +864,11 @@ if (count($this->mod_booking)) {
 			<?php
 			if ($is_package === true) {
 				?>
-				<a class="vbo-goback-link vbo-pref-color-btn-secondary" href="<?php echo JRoute::_('index.php?option=com_vikbooking&view=packagedetails&pkgid='.$this->pkg['id'].(!empty($pitemid) ? '&Itemid='.$pitemid : ''), false); ?>"><?php echo JText::_('VBBACK'); ?></a>
+				<a class="vbo-goback-link " href="<?php echo JRoute::_('index.php?option=com_vikbooking&view=packagedetails&pkgid='.$this->pkg['id'].(!empty($pitemid) ? '&Itemid='.$pitemid : ''), false); ?>"><?php echo JText::_('VBBACK'); ?></a>
 				<?php
 			} else {
 				?>
-				<a class="vbo-goback-link vbo-pref-color-btn-secondary" href="<?php echo JRoute::_('index.php?option=com_vikbooking&task=search&checkindate='.urlencode($checkinforlink).'&checkoutdate='.urlencode($checkoutforlink).'&roomsnum='.$this->roomsnum.$peopleforlink.(!empty($pitemid) ? '&Itemid='.$pitemid : ''), false); ?>"><?php echo JText::_('VBBACK'); ?></a>
+				<a class="vbo-goback-link " href="<?php echo JRoute::_('index.php?option=com_vikbooking&task=search&checkindate='.urlencode($checkinforlink).'&checkoutdate='.urlencode($checkoutforlink).'&roomsnum='.$this->roomsnum.$peopleforlink.(!empty($pitemid) ? '&Itemid='.$pitemid : ''), false); ?>"><?php echo JText::_('VBBACK'); ?></a>
 				<?php
 			}
 			?>

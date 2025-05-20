@@ -12795,9 +12795,9 @@ class VikBooking
 			// stepbar, oconfirm
 			array_push($css_classes, 'ol.vbo-stepbar li.vbo-step-complete, ol.vbo-stepbar li.vbo-step-current, ol.vbo-stepbar li.vbo-step-current:before, .vbo-coupon-outer, .vbo-enterpin-block { border-color: ' . $pref_colors['textcolor'] . ' !important; }');
 			// buttons secondary color
-			array_push($css_classes, '.vbo-pref-color-btn-secondary { border: 2px solid ' . $pref_colors['textcolor'] . ' !important; color: ' . $pref_colors['textcolor'] . ' !important; background: transparent !important; }');
+			array_push($css_classes, '. { border: 2px solid ' . $pref_colors['textcolor'] . ' !important; color: ' . $pref_colors['textcolor'] . ' !important; background: transparent !important; }');
 			if (!empty($pref_colors['fontcolor'])) {
-				array_push($css_classes, '.vbo-pref-color-btn-secondary:hover { color: ' . $pref_colors['fontcolor'] . ' !important; background: ' . $pref_colors['textcolor'] . ' !important; }');
+				array_push($css_classes, '.:hover { color: ' . $pref_colors['fontcolor'] . ' !important; background: ' . $pref_colors['textcolor'] . ' !important; }');
 			}
 			// datepicker
 			array_push($css_classes, '.ui-datepicker .ui-datepicker-today {

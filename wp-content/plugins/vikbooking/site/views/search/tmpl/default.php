@@ -257,7 +257,7 @@ function vbSelectRoom(roomnum, idroom) {
 				<h3 id="vbdialogrname" class="vbdialogrname"></h3>
 			</div>
 			<div class="vbdialog-right-bottom">
-				<button type="button" class="btn vbo-pref-color-btn-secondary" id="vbdialog-cancel" onclick="Javascript: vbDialogClose();"><?php echo JText::_('VBDIALOGBTNCANCEL'); ?></button>
+				<button type="button" class="btn " id="vbdialog-cancel" onclick="Javascript: vbDialogClose();"><?php echo JText::_('VBDIALOGBTNCANCEL'); ?></button>
 				<button type="button" class="btn vbo-pref-color-btn" id="vbdialog-confirm" onclick="Javascript: void(0);"><?php echo JText::_('VBDIALOGBTNCONTINUE'); ?></button>
 			</div>
 		</div>
@@ -346,7 +346,7 @@ if (count($this->mod_booking)) {
 		<div class="vbo-results-chdates">
 			<div class="vbo-results-head-det">
 				<span class="vbo-results-head-det-val">
-					<a href="<?php echo $change_dates_uri; ?>" class="vbo-pref-color-btn-secondary"><?php echo JText::_('VBCHANGEDATES'); ?></a>
+					<a href="<?php echo $change_dates_uri; ?>" class=""><?php echo JText::_('VBCHANGEDATES'); ?></a>
 				</span>
 			</div>
 		</div>
@@ -416,7 +416,7 @@ if ($this->roomsnum < 2) {
 	}
 	?>
 	<div class="goback">
-		<a class="vbo-goback-link vbo-pref-color-btn-secondary" href="<?php echo $change_dates_uri; ?>"><?php echo JText::_('VBCHANGEDATES'); ?></a>
+		<a class="vbo-goback-link " href="<?php echo $change_dates_uri; ?>"><?php echo JText::_('VBCHANGEDATES'); ?></a>
 	</div>
 	<div id="vbsearchmainsbmt" class="vbsearchmainsbmt" style="display: none;">
 		<input type="submit" name="continue" value="<?php echo JText::_('VBSEARCHCONTINUESUBM'); ?>" class="btn vbsubmit vbo-pref-color-btn"/>

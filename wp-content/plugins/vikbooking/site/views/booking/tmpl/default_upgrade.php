@@ -91,7 +91,7 @@ if ($upgrade_options) {
 						</div>
 					</div>
 					<div class="vbo-roomupgrade-current-keep">
-						<button type="button" class="btn vbo-pref-color-btn-secondary" onclick="vboUpgradeNavigate();"><?php echo JText::_('VBO_KEEP_ROOM'); ?></button>
+						<button type="button" class="btn " onclick="vboUpgradeNavigate();"><?php echo JText::_('VBO_KEEP_ROOM'); ?></button>
 					</div>
 				</div>
 				<div class="vbo-roomupgrade-solutions-wrap">
