@@ -12791,74 +12791,74 @@ class VikBooking
 		
 		if (!empty($pref_colors['textcolor'])) {
 			// titles and headings
-			array_push($css_classes, '.vbo-pref-color-text { color: ' . $pref_colors['textcolor'] . ' !important; }');
+			array_push($css_classes, '.vbo-pref-color-text { color: ' . $pref_colors['textcolor'] . '  }');
 			// stepbar, oconfirm
-			array_push($css_classes, 'ol.vbo-stepbar li.vbo-step-complete, ol.vbo-stepbar li.vbo-step-current, ol.vbo-stepbar li.vbo-step-current:before, .vbo-coupon-outer, .vbo-enterpin-block { border-color: ' . $pref_colors['textcolor'] . ' !important; }');
+			array_push($css_classes, 'ol.vbo-stepbar li.vbo-step-complete, ol.vbo-stepbar li.vbo-step-current, ol.vbo-stepbar li.vbo-step-current:before, .vbo-coupon-outer, .vbo-enterpin-block { border-color: ' . $pref_colors['textcolor'] . '  }');
 			// buttons secondary color
-			array_push($css_classes, '. { border: 2px solid ' . $pref_colors['textcolor'] . ' !important; color: ' . $pref_colors['textcolor'] . ' !important; background: transparent !important; }');
+			array_push($css_classes, '. { border: 2px solid ' . $pref_colors['textcolor'] . '  color: ' . $pref_colors['textcolor'] . '  background: transparent  }');
 			if (!empty($pref_colors['fontcolor'])) {
-				array_push($css_classes, '.:hover { color: ' . $pref_colors['fontcolor'] . ' !important; background: ' . $pref_colors['textcolor'] . ' !important; }');
+				array_push($css_classes, '.:hover { color: ' . $pref_colors['fontcolor'] . '  background: ' . $pref_colors['textcolor'] . '  }');
 			}
 			// datepicker
 			array_push($css_classes, '.ui-datepicker .ui-datepicker-today {
-				border-color: ' . $pref_colors['textcolor'] . ' !important;
-				color: ' . $pref_colors['textcolor'] . ' !important;
+				border-color: ' . $pref_colors['textcolor'] . ' 
+				color: ' . $pref_colors['textcolor'] . ' 
 			}');
 			// operators tableaux
 			if ($view == 'tableaux') {
-				array_push($css_classes, '.vbo-roomdaynote-empty .vbo-roomdaynote-trigger i { color: ' . $pref_colors['textcolor'] . ' !important; }');
+				array_push($css_classes, '.vbo-roomdaynote-empty .vbo-roomdaynote-trigger i { color: ' . $pref_colors['textcolor'] . '  }');
 			}
 		}
 
 		if (!empty($pref_colors['bgcolor']) && !empty($pref_colors['fontcolor'])) {
 			// elements with backgrounds
-			array_push($css_classes, '.vbo-pref-color-element { background-color: ' . $pref_colors['bgcolor'] . ' !important; color: ' . $pref_colors['fontcolor'] . ' !important; }');
-			array_push($css_classes, '.vbo-pref-bordercolor { border-color: ' . $pref_colors['bgcolor'] . ' !important; }');
-			array_push($css_classes, '.vbo-pref-bordertext { color: ' . $pref_colors['bgcolor'] . ' !important; border-color: ' . $pref_colors['bgcolor'] . ' !important; }');
+			array_push($css_classes, '.vbo-pref-color-element { background-color: ' . $pref_colors['bgcolor'] . '  color: ' . $pref_colors['fontcolor'] . '  }');
+			array_push($css_classes, '.vbo-pref-bordercolor { border-color: ' . $pref_colors['bgcolor'] . '  }');
+			array_push($css_classes, '.vbo-pref-bordertext { color: ' . $pref_colors['bgcolor'] . '  border-color: ' . $pref_colors['bgcolor'] . '  }');
 			// buttons with backgrounds
-			array_push($css_classes, '.vbo-pref-color-btn { background-color: ' . $pref_colors['bgcolor'] . ' !important; color: ' . $pref_colors['fontcolor'] . ' !important; }');
+			array_push($css_classes, '.vbo-pref-color-btn { background-color: ' . $pref_colors['bgcolor'] . '  color: ' . $pref_colors['fontcolor'] . '  }');
 			// stepbar
-			array_push($css_classes, 'ol.vbo-stepbar li.vbo-step-complete:before { background-color: ' . $pref_colors['bgcolor'] . ' !important; }');
+			array_push($css_classes, 'ol.vbo-stepbar li.vbo-step-complete:before { background-color: ' . $pref_colors['bgcolor'] . '  }');
 			// datepicker
 			array_push($css_classes, '.ui-datepicker-calendar td.checkin-date > *, .ui-datepicker-calendar td.checkout-date > *, .ui-datepicker-calendar td.ui-state-highlight > *, .ui-datepicker-calendar td.ui-datepicker-current-day > * {
-				background: ' . $pref_colors['bgcolor'] . ' !important;
-				border-color: ' . $pref_colors['bgcolor'] . ' !important;
-				color: ' . $pref_colors['fontcolor'] . ' !important;
+				background: ' . $pref_colors['bgcolor'] . ' 
+				border-color: ' . $pref_colors['bgcolor'] . ' 
+				color: ' . $pref_colors['fontcolor'] . ' 
 			}');
 			array_push($css_classes, '.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active {
-				border-color: ' . $pref_colors['bgcolor'] . ' !important;
+				border-color: ' . $pref_colors['bgcolor'] . ' 
 			}');
 			array_push($css_classes, '.ui-datepicker-header .ui-corner-all.ui-state-hover {
-				border-color: ' . $pref_colors['bgcolor'] . ' !important;
-				color: ' . $pref_colors['bgcolor'] . ' !important;
+				border-color: ' . $pref_colors['bgcolor'] . ' 
+				color: ' . $pref_colors['bgcolor'] . ' 
 			}');
 			array_push($css_classes, '.ui-datepicker .ui-datepicker-current-day a {
-				color: ' . $pref_colors['fontcolor'] . ' !important;
+				color: ' . $pref_colors['fontcolor'] . ' 
 			}');
 			array_push($css_classes, '.ui-datepicker td:not(.ui-state-highlight):not(.ui-datepicker-unselectable):not(.date-will):not(.ui-datepicker-current-day) > *:hover {
-				border-color: ' . $pref_colors['bgcolor'] . ' !important;
-				color: ' . $pref_colors['bgcolor'] . ' !important;
+				border-color: ' . $pref_colors['bgcolor'] . ' 
+				color: ' . $pref_colors['bgcolor'] . ' 
 			}');
 			array_push($css_classes, '.ui-datepicker td.checkin-date a:hover, .ui-datepicker td.checkout-date a:hover, .ui-datepicker-calendar td.ui-datepicker-current-day > *:hover {
-				color: ' . $pref_colors['fontcolor'] . ' !important;
+				color: ' . $pref_colors['fontcolor'] . ' 
 			}');
 			// operators tableaux
 			if ($view == 'tableaux') {
-				array_push($css_classes, '.vbo-tableaux-roombooks > div:not(.vbo-tableaux-booking-empty), .vbo-tableaux-togglefullscreen { background-color: ' . $pref_colors['bgcolor'] . ' !important; color: ' . $pref_colors['fontcolor'] . ' !important; }');
+				array_push($css_classes, '.vbo-tableaux-roombooks > div:not(.vbo-tableaux-booking-empty), .vbo-tableaux-togglefullscreen { background-color: ' . $pref_colors['bgcolor'] . '  color: ' . $pref_colors['fontcolor'] . '  }');
 			}
 			// listing capacity room-details
 			array_push($css_classes, '.vbo-rdetails-capacity-icn i {
-				background: ' . $pref_colors['bgcolor'] . ' !important;
-				color: ' . $pref_colors['fontcolor'] . ' !important;
+				background: ' . $pref_colors['bgcolor'] . ' 
+				color: ' . $pref_colors['fontcolor'] . ' 
 			}');
 		}
 
 		if (!empty($pref_colors['bgcolorhov']) && !empty($pref_colors['fontcolorhov'])) {
 			// buttons with backgrounds during hover state
-			array_push($css_classes, '.vbo-pref-color-btn:hover { background-color: ' . $pref_colors['bgcolorhov'] . ' !important; color: ' . $pref_colors['fontcolorhov'] . ' !important; }');
+			array_push($css_classes, '.vbo-pref-color-btn:hover { background-color: ' . $pref_colors['bgcolorhov'] . '  color: ' . $pref_colors['fontcolorhov'] . '  }');
 			// operators tableaux
 			if ($view == 'tableaux') {
-				array_push($css_classes, '.vbo-tableaux-togglefullscreen:hover { background-color: ' . $pref_colors['bgcolorhov'] . ' !important; color: ' . $pref_colors['fontcolorhov'] . ' !important; }');
+				array_push($css_classes, '.vbo-tableaux-togglefullscreen:hover { background-color: ' . $pref_colors['bgcolorhov'] . '  color: ' . $pref_colors['fontcolorhov'] . '  }');
 			}
 		}
 
