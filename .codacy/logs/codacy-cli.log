@@ -1,2 +1,10 @@
 2025-09-17T19:28:27-03:00 [INFO] (codacy-cli-v2/cli-v2.go:27) Starting Codacy CLI version=1.0.0-main.356.sha.ee1b0e6 (ee1b0e6) built at 2025-09-04T15:20:51Z
 2025-09-17T19:28:27-03:00 [INFO] (codacy-cli-v2/cmd/root.go:34) Executing CLI command args=[] command=init full_command=[/root/.cache/codacy/codacy-cli-v2/1.0.0-main.356.sha.ee1b0e6/codacy-cli-v2 init]
+2025-09-17T19:28:48-03:00 [INFO] (codacy-cli-v2/cli-v2.go:27) Starting Codacy CLI version=1.0.0-main.356.sha.ee1b0e6 (ee1b0e6) built at 2025-09-04T15:20:51Z
+2025-09-17T19:28:49-03:00 [INFO] (codacy-cli-v2/cmd/root.go:34) Executing CLI command command=analyze full_command=[/root/.cache/codacy/codacy-cli-v2/1.0.0-main.356.sha.ee1b0e6/codacy-cli-v2 analyze /mnt/d/Rede/Github/Park-dos-Lagos/website/.git/COMMIT_EDITMSG --format sarif] args=[/mnt/d/Rede/Github/Park-dos-Lagos/website/.git/COMMIT_EDITMSG]
+2025-09-17T19:28:49-03:00 [INFO] (codacy-cli-v2/cmd/analyze.go:341) Config file found for tool tool=trivy toolConfigPath=.codacy/tools-configs/trivy.yaml
+2025-09-17T19:28:50-03:00 [INFO] (codacy-cli-v2/cli-v2.go:27) Starting Codacy CLI version=1.0.0-main.356.sha.ee1b0e6 (ee1b0e6) built at 2025-09-04T15:20:51Z
+2025-09-17T19:28:51-03:00 [INFO] (codacy-cli-v2/cmd/root.go:34) Executing CLI command command=install full_command=[/root/.cache/codacy/codacy-cli-v2/1.0.0-main.356.sha.ee1b0e6/codacy-cli-v2 install] args=[]
+2025-09-17T19:28:52-03:00 [INFO] (codacy-cli-v2/cmd/install.go:72) All components are already installed
+2025-09-17T19:28:53-03:00 [INFO] (codacy-cli-v2/cli-v2.go:27) Starting Codacy CLI version=1.0.0-main.356.sha.ee1b0e6 (ee1b0e6) built at 2025-09-04T15:20:51Z
+2025-09-17T19:28:53-03:00 [INFO] (codacy-cli-v2/cmd/root.go:34) Executing CLI command command=discover full_command=[/root/.cache/codacy/codacy-cli-v2/1.0.0-main.356.sha.ee1b0e6/codacy-cli-v2 config discover d:/Rede/Github/Park-dos-Lagos/website/docs/README.md] args=[d:/Rede/Github/Park-dos-Lagos/website/docs/README.md]
