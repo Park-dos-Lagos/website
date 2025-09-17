@@ -1,1 +1,2 @@
 2025-09-17T19:28:27-03:00 [INFO] (codacy-cli-v2/cli-v2.go:27) Starting Codacy CLI version=1.0.0-main.356.sha.ee1b0e6 (ee1b0e6) built at 2025-09-04T15:20:51Z
+2025-09-17T19:28:27-03:00 [INFO] (codacy-cli-v2/cmd/root.go:34) Executing CLI command args=[] command=init full_command=[/root/.cache/codacy/codacy-cli-v2/1.0.0-main.356.sha.ee1b0e6/codacy-cli-v2 init]
