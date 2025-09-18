@@ -104,6 +104,7 @@
 }
 
 #wpforms-panel-fields .wpforms-panel-sidebar .sub-label {
+  display: block;
   color: #86919e;
   font-size: 12px;
   line-height: 14px;
@@ -1268,6 +1269,15 @@
 
 .wpforms-panel-sidebar .wpforms-smart-tags-widget-input + .wpforms-show-smart-tags:hover i, .wpforms-panel-sidebar .wpforms-smart-tags-widget-input + .wpforms-show-smart-tags.active i {
   color: #86919e;
+}
+
+.wpforms-panel-sidebar .wpforms-field-options-column .wpforms-smart-tags-widget-container {
+  width: calc(100% - 2px);
+}
+
+.wpforms-panel-sidebar .wpforms-field-options-column .wpforms-builder-dropdown-list {
+  width: 370px;
+  left: -192px;
 }
 
 .wp-editor-wrap .mce-toolbar .mce-wpforms-smart-tags-mce-button.active {

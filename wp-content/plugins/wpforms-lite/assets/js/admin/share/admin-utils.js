@@ -1,5 +1,6 @@
-/* global wpforms_builder, WPFormsUtils */
+/* global wpforms_builder, WPFormsUtils, tinyMCE */
 
+// noinspection JSUnusedGlobalSymbols
 /**
  * @param window.DOMPurify
  * @param wpforms_builder.currency_decimal
@@ -11,7 +12,22 @@
 const wpf = {
 
 	cachedFields: {},
+
+	/**
+	 * The savedState property is deprecated.
+	 *
+	 * @deprecated 1.9.6
+	 */
 	savedState: false,
+
+	/**
+	 * Save the current form state to determine if the form was changed.
+	 *
+	 * @since 1.9.6
+	 *
+	 * @type {Object}
+	 */
+	savedFormState: {},
 	initialSave: true,
 	orders: {
 		fields: [],
@@ -40,9 +56,6 @@ const wpf = {
 	 * @since 1.0.1
 	 */
 	ready() {
-		// Load initial form saved state.
-		wpf.savedState = wpf.getFormState( '#wpforms-builder-form' );
-
 		// Save field and choice order for sorting later.
 		wpf.setFieldOrders();
 		wpf.setChoicesOrders();
@@ -128,7 +141,7 @@ const wpf = {
 
 	/**
 	 * Maintain multiselect dropdown with search.
-	 * If a multiple select has selected choices - hide a placeholder text.
+	 * If a 'multiple select' has selected choices - hide a placeholder text.
 	 * In case if select is empty - we return placeholder text.
 	 *
 	 * @since 1.7.6
@@ -192,7 +205,7 @@ const wpf = {
 			wpf.showMoreButtonForChoices( this );
 		} );
 
-		// Remove focus from input when dropdown is hidden.
+		// Remove focus from input when the dropdown is hidden.
 		jQuery( document ).on( 'hideDropdown', '.choices:not(.is-disabled)', function() {
 			jQuery( this ).find( '.choices__inner input.choices__input' ).trigger( 'blur' );
 		} );
@@ -209,13 +222,13 @@ const wpf = {
 		setTimeout( () => {
 			container.find( '.choices select' ).each( function() {
 				const $choiceInstance = jQuery( this ).data( 'choicesjs' );
-				wpf.showMoreButtonForChoices( $choiceInstance.containerOuter.element );
+				wpf.showMoreButtonForChoices( $choiceInstance?.containerOuter.element );
 			} );
 		}, 100 );
 	},
 
 	/**
-	 * Trigger fired for all field update related actions.
+	 * Trigger fired for all field-update-related actions.
 	 *
 	 * @since 1.0.1
 	 */
@@ -292,10 +305,10 @@ const wpf = {
 				}
 			}
 
-			// Add additional fields to the fields object.
+			// Add additional fields to the field object.
 			wpf.addAdditionalFields( fields );
 
-			// Cache the all the fields now that they have been ordered and initially processed.
+			// Cache all the fields now that they have been ordered and initially processed.
 			wpf.cachedFields = jQuery.extend( {}, fields );
 
 			wpf.debug( 'getFields triggered' );
@@ -344,7 +357,7 @@ const wpf = {
 	},
 
 	/**
-	 * Add additional fields to the fields object.
+	 * Add additional fields to the field object.
 	 *
 	 * @since 1.8.9
 	 *
@@ -373,7 +386,7 @@ const wpf = {
 					addressFields[ index ] = fieldKey.replace( '_placeholder', '' );
 				} );
 
-				// Add the address fields to the fields object
+				// Add the address fields to the field object
 				fields[ key ].additional = addressFields;
 			}
 		}
@@ -430,12 +443,15 @@ const wpf = {
 	 * Get form state.
 	 *
 	 * @since 1.3.8
+	 * @deprecated 1.9.6
 	 *
 	 * @param {Object} el Element.
 	 *
 	 * @return {string} Form state.
 	 */
 	getFormState( el ) {
+		// eslint-disable-next-line
+		console.warn( 'WARNING! Function "wpf.getFormState( el )" has been deprecated.' );
 		// Serialize tested the most performant string we can use for comparisons.
 		return jQuery( el ).serialize();
 	},
@@ -513,7 +529,7 @@ const wpf = {
 	},
 
 	/**
-	 * Get query string in a URL.
+	 * Get a query string in a URL.
 	 *
 	 * @since 1.0.0
 	 *
@@ -528,7 +544,7 @@ const wpf = {
 	},
 
 	/**
-	 * Remove defined query parameter in the current URL.
+	 * Remove the defined query parameter in the current URL.
 	 *
 	 * @see https://gist.github.com/simonw/9445b8c24ddfcbb856ec#gistcomment-3117674
 	 *
@@ -604,7 +620,7 @@ const wpf = {
 		if ( wpforms_builder.currency_decimal === ',' && ( amount.indexOf( wpforms_builder.currency_decimal ) !== -1 ) ) {
 			const sepFound = amount.indexOf( wpforms_builder.currency_decimal );
 
-			amount = amount.substr( 0, sepFound ) + '.' + amount.substr( sepFound + 1, amount.length - 1 );
+			amount = amount = amount.substring( 0, sepFound ) + '.' + amount.substring( sepFound + 1 );
 		}
 
 		// Strip "," from the amount (if set as the thousand separators)
@@ -653,7 +669,7 @@ const wpf = {
 	 * @param {string} number       Number to format.
 	 * @param {number} decimals     How many decimals should be there.
 	 * @param {string} decimalSep   What is the decimal separator.
-	 * @param {string} thousandsSep What is the thousand separator.
+	 * @param {string} thousandsSep What is the thousands' separator.
 	 *
 	 * @return {string} Formatted number.
 	 */
@@ -746,7 +762,7 @@ const wpf = {
 	},
 
 	/**
-	 * Focus the input/textarea and put the caret at the end of the text.
+	 * Focus on the input/textarea and put the caret at the end of the text.
 	 *
 	 * @since 1.4.1
 	 *
@@ -778,7 +794,7 @@ const wpf = {
 		/* eslint-disable max-depth */
 		for ( let v = 0; v < fields.length; v++ ) {
 			const field = jQuery( fields[ v ] ),
-				name = field.prop( 'name' ).replace( /\]/gi, '' ).split( '[' );
+				name = field.prop( 'name' ).replace( /]/gi, '' ).split( '[' );
 			let value = field.val(),
 				lineConf = {};
 
@@ -813,7 +829,7 @@ const wpf = {
 							value = false;
 						} else if ( ! isNaN( parseFloat( value ) ) && parseFloat( value ).toString() === value ) {
 							value = parseFloat( value );
-						} else if ( typeof value === 'string' && ( value.substr( 0, 1 ) === '{' || value.substr( 0, 1 ) === '[' ) ) {
+						} else if ( typeof value === 'string' && ( value.substring( 0, 1 ) === '{' || value.substring( 0, 1 ) === '[' ) ) {
 							try {
 								value = JSON.parse( value );
 							} catch ( e ) {
@@ -857,12 +873,11 @@ const wpf = {
 			return;
 		}
 
-		const isRTL = jQuery( 'body' ).hasClass( 'rtl' );
-		const position = isRTL ? 'left' : 'right';
+		const isRTL = jQuery( 'body' ).hasClass( 'rtl' ),
+			position = isRTL ? 'left' : 'right',
+			$tooltips = $scope ? jQuery( $scope ).find( '.wpforms-help-tooltip' ) : jQuery( '.wpforms-help-tooltip' );
 
-		const $tooltips = ! $scope ? jQuery( '.wpforms-help-tooltip' ) : jQuery( $scope ).find( '.wpforms-help-tooltip' );
-
-		$tooltips.each( function() {
+		$tooltips.one( 'mouseenter', function() {
 			const $this = jQuery( this );
 
 			$this.tooltipster( {
@@ -874,7 +889,7 @@ const wpf = {
 				debug: false,
 				IEmin: 11,
 				zIndex: 99999999,
-			} );
+			} ).tooltipster( 'open' );
 		} );
 	},
 
@@ -1297,7 +1312,7 @@ const wpf = {
 	},
 
 	/**
-	 * Copy the target element to clipboard.
+	 * Copy the target element to the clipboard.
 	 *
 	 * @since 1.9.5
 	 *
@@ -1308,7 +1323,7 @@ const wpf = {
 	copyValueToClipboard( event, $copyButton, targetElement ) {
 		event.preventDefault();
 
-		// Use Clipboard API for modern browsers and HTTPS connections, in other cases use old-fashioned way.
+		// Use Clipboard API for modern browsers and HTTPS connections, in other cases use the old-fashioned way.
 		if ( navigator.clipboard ) {
 			navigator.clipboard.writeText( targetElement.val() ).then(
 				function() {
@@ -1351,6 +1366,66 @@ const wpf = {
 		setTimeout( () => wpf.isRepeatedCallData[ context ] = false, timeout );
 
 		return false;
+	},
+
+	/**
+	 * Receive current form settings in the key=>value format.
+	 *
+	 * @since 1.9.6
+	 *
+	 * @internal
+	 *
+	 * @return {Object} Object with all field names and their values.
+	 */
+	_getCurrentFormState() { // eslint-disable-line complexity
+		const currentState = Object.fromEntries( new FormData( document.getElementById( 'wpforms-builder-form' ) ).entries() );
+
+		// noinspection JSUnusedLocalSymbols
+		// eslint-disable-next-line no-unused-vars
+		for ( const [ key ] of Object.entries( currentState ) ) {
+			// The lock option is used to keep AJAX requests up to date.
+			if ( key.includes( '[__lock__]' ) ) {
+				delete currentState[ key ];
+			}
+		}
+
+		// Textarea created by tinyMCE updates only before form saving.
+		// We should determine if these fields where updated and update the form state separately.
+		if ( typeof tinyMCE !== 'undefined' && tinyMCE.editors ) {
+			for ( const key in tinyMCE.editors ) {
+				const editor = tinyMCE.editors[ key ];
+				const editorName = editor.targetElm.getAttribute( 'name' );
+
+				if ( ! editorName ) {
+					continue;
+				}
+
+				if ( editor.isDirty() ) {
+					currentState[ editorName ] = editor.getContent();
+				}
+			}
+		}
+
+		currentState.fieldsOrder = wpf.orders.fields.toString();
+
+		// Keyword filter stores separately and doesn't have a name attribute.
+		const $keywordFilter = jQuery( '.wpforms-panel-field-keyword-keywords textarea' );
+
+		if ( $keywordFilter.length ) {
+			currentState.keywordFilter = $keywordFilter.val();
+		}
+
+		return currentState;
+	},
+
+	/**
+	 * Update form state.
+	 * For internal usage only.
+	 *
+	 * @since 1.9.6
+	 */
+	_updateFormState() {
+		wpf.savedFormState = wpf._getCurrentFormState();
 	},
 };
 

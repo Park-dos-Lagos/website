@@ -53,9 +53,12 @@ do_action( 'neve_html_start_before' );
 	 */
 	do_action( 'neve_head_end_before' );
 	?>
+	
+
 </head>
 
 <body  <?php body_class(); ?> <?php neve_body_attrs(); ?> >
+
 <?php
 /**
  * Executes actions after the body tag is opened.

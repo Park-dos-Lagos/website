@@ -55,7 +55,7 @@ if (!empty($pcheckin) && !empty($pbid)) {
 					<legend class="adminlegend"><?php echo JText::_('VBOCUSTOMERDETAILS'); ?></legend>
 					<div class="vbo-params-container">
 					<?php
-					if (count($customer) && !empty($customer['pic'])) {
+					if (!empty($customer['pic'])) {
 						$avatar_caption = ltrim($customer['first_name'] . ' ' . $customer['last_name']);
 						?>
 						<div class="vbo-param-container">
@@ -71,7 +71,7 @@ if (!empty($pcheckin) && !empty($pbid)) {
 						</div>
 						<?php
 					}
-					if (count($customer)) {
+					if ($customer) {
 						// count total bookings
 						?>
 						<div class="vbo-param-container">
@@ -95,29 +95,29 @@ if (!empty($pcheckin) && !empty($pbid)) {
 					?>
 						<div class="vbo-param-container">
 							<div class="vbo-param-label"><?php echo JText::_('VBCUSTOMERFIRSTNAME'); ?> <sup>*</sup></div>
-							<div class="vbo-param-setting"><input type="text" id="vbo_first_name" name="first_name" value="<?php echo count($customer) ? $customer['first_name'] : ''; ?>" size="30"/></div>
+							<div class="vbo-param-setting"><input type="text" id="vbo_first_name" name="first_name" value="<?php echo $customer ? $customer['first_name'] : ''; ?>" size="30"/></div>
 						</div>
 						<div class="vbo-param-container">
 							<div class="vbo-param-label"><?php echo JText::_('VBCUSTOMERLASTNAME'); ?> <sup>*</sup></div>
-							<div class="vbo-param-setting"><input type="text" id="vbo_last_name" name="last_name" value="<?php echo count($customer) ? $customer['last_name'] : ''; ?>" size="30"/></div>
+							<div class="vbo-param-setting"><input type="text" id="vbo_last_name" name="last_name" value="<?php echo $customer ? $customer['last_name'] : ''; ?>" size="30"/></div>
 						</div>
 						<div class="vbo-param-container">
 							<div class="vbo-param-label"><?php echo JText::_('VBCUSTOMEREMAIL'); ?> <sup>*</sup></div>
-							<div class="vbo-param-setting"><input type="text" id="vbo_email" name="email" value="<?php echo count($customer) ? $customer['email'] : ''; ?>" size="30"/></div>
+							<div class="vbo-param-setting"><input type="text" id="vbo_email" name="email" value="<?php echo $customer ? $customer['email'] : ''; ?>" size="30"/></div>
 						</div>
 						<div class="vbo-param-container">
 							<div class="vbo-param-label"><?php echo JText::_('VBCUSTOMERPHONE'); ?> <sup>*</sup></div>
-							<div class="vbo-param-setting"><?php echo $vbo_app->printPhoneInputField(array('name' => 'phone', 'id' => 'vbo-phone', 'value' => (count($customer) ? $customer['phone'] : ''))); ?></div>
+							<div class="vbo-param-setting"><?php echo $vbo_app->printPhoneInputField(array('name' => 'phone', 'id' => 'vbo-phone', 'value' => ($customer ? $customer['phone'] : ''))); ?></div>
 						</div>
 						<div class="vbo-param-container">
 							<div class="vbo-param-label"><?php echo JText::_('VBO_CUSTOMER_PROF_PIC'); ?></div>
 							<div class="vbo-param-setting">
 								<div class="input-append">
-									<input type="text" name="pic" value="<?php echo count($customer) ? $customer['pic'] : ''; ?>" size="30"/>
+									<input type="text" name="pic" value="<?php echo $customer ? $customer['pic'] : ''; ?>" size="30"/>
 									<button type="button" class="btn btn-primary vbo-trig-upd-pic"><?php VikBookingIcons::e('upload'); ?><span></span></button>
 								</div>
 							<?php
-							if (count($customer) && !empty($customer['pic'])) {
+							if (!empty($customer['pic'])) {
 								?>
 								<div class="vbo-cur-idscan">
 									<i class="vboicn-eye"></i><a href="<?php echo strpos($customer['pic'], 'http') === 0 ? $customer['pic'] : VBO_SITE_URI . 'resources/uploads/' . $customer['pic']; ?>" target="_blank"><?php echo $customer['pic']; ?></a>
@@ -131,23 +131,23 @@ if (!empty($pcheckin) && !empty($pbid)) {
 						</div>
 						<div class="vbo-param-container">
 							<div class="vbo-param-label"><?php echo JText::_('VBCUSTOMERCOMPANY'); ?></div>
-							<div class="vbo-param-setting"><input type="text" name="company" value="<?php echo count($customer) ? $customer['company'] : ''; ?>" size="30"/></div>
+							<div class="vbo-param-setting"><input type="text" name="company" value="<?php echo $customer ? $customer['company'] : ''; ?>" size="30"/></div>
 						</div>
 						<div class="vbo-param-container">
 							<div class="vbo-param-label"><?php echo JText::_('VBCUSTOMERCOMPANYVAT'); ?></div>
-							<div class="vbo-param-setting"><input type="text" name="vat" value="<?php echo count($customer) ? $customer['vat'] : ''; ?>" size="30"/></div>
+							<div class="vbo-param-setting"><input type="text" name="vat" value="<?php echo $customer ? $customer['vat'] : ''; ?>" size="30"/></div>
 						</div>
 						<div class="vbo-param-container">
 							<div class="vbo-param-label"><?php echo JText::_('VBCUSTOMERFISCCODE'); ?> <?php echo $vbo_app->createPopover(array('title' => JText::_('VBCUSTOMERFISCCODE'), 'content' => JText::_('VBCUSTOMERFISCCODEHELP'))); ?></div>
-							<div class="vbo-param-setting"><input type="text" name="fisccode" value="<?php echo count($customer) ? $customer['fisccode'] : ''; ?>" size="30"/></div>
+							<div class="vbo-param-setting"><input type="text" name="fisccode" value="<?php echo $customer ? $customer['fisccode'] : ''; ?>" size="30"/></div>
 						</div>
 						<div class="vbo-param-container">
 							<div class="vbo-param-label"><?php echo JText::_('VBCUSTOMERPEC'); ?> <?php echo $vbo_app->createPopover(array('title' => JText::_('VBCUSTOMERPEC'), 'content' => JText::_('VBCUSTOMERPECHELP'))); ?></div>
-							<div class="vbo-param-setting"><input type="text" name="pec" value="<?php echo count($customer) ? $customer['pec'] : ''; ?>" size="30"/></div>
+							<div class="vbo-param-setting"><input type="text" name="pec" value="<?php echo $customer ? $customer['pec'] : ''; ?>" size="30"/></div>
 						</div>
 						<div class="vbo-param-container">
 							<div class="vbo-param-label"><?php echo JText::_('VBCUSTOMERRECIPCODE'); ?> <?php echo $vbo_app->createPopover(array('title' => JText::_('VBCUSTOMERRECIPCODE'), 'content' => JText::_('VBCUSTOMERRECIPCODEHELP'))); ?></div>
-							<div class="vbo-param-setting"><input type="text" name="recipcode" value="<?php echo count($customer) ? $customer['recipcode'] : ''; ?>" size="30"/></div>
+							<div class="vbo-param-setting"><input type="text" name="recipcode" value="<?php echo $customer ? $customer['recipcode'] : ''; ?>" size="30"/></div>
 						</div>
 						<div class="vbo-param-container">
 							<div class="vbo-param-label"><?php echo JText::_('VBCUSTOMERCOUNTRY'); ?> <sup>*</sup></div>
@@ -157,7 +157,7 @@ if (!empty($pcheckin) && !empty($pbid)) {
 								<?php
 								foreach ($this->countries as $country) {
 									?>
-									<option data-c2code="<?php echo $country['country_2_code']; ?>" value="<?php echo $country['country_3_code']; ?>"<?php echo count($customer) && $customer['country'] == $country['country_3_code'] ? ' selected="selected"' : ''; ?>><?php echo $country['country_name']; ?></option>
+									<option data-c2code="<?php echo $country['country_2_code']; ?>" value="<?php echo $country['country_3_code']; ?>"<?php echo $customer && $customer['country'] == $country['country_3_code'] ? ' selected="selected"' : ''; ?>><?php echo $country['country_name']; ?></option>
 									<?php
 								}
 								?>
@@ -167,48 +167,48 @@ if (!empty($pcheckin) && !empty($pbid)) {
 						<div class="vbo-param-container">
 							<div class="vbo-param-label"><?php echo JText::_('VBO_STATE_PROVINCE'); ?></div>
 							<div class="vbo-param-setting">
-								<select name="state" data-stateset="<?php echo count($customer) ? $customer['state'] : ''; ?>">
+								<select name="state" data-stateset="<?php echo $customer ? $customer['state'] : ''; ?>">
 									<option value="">-----</option>
 								</select>
 							</div>
 						</div>
 						<div class="vbo-param-container">
 							<div class="vbo-param-label"><?php echo JText::_('VBCUSTOMERCITY'); ?></div>
-							<div class="vbo-param-setting"><input type="text" name="city" value="<?php echo count($customer) ? $customer['city'] : ''; ?>" size="30"/></div>
+							<div class="vbo-param-setting"><input type="text" name="city" value="<?php echo $customer ? $customer['city'] : ''; ?>" size="30"/></div>
 						</div>
 						<div class="vbo-param-container">
 							<div class="vbo-param-label"><?php echo JText::_('VBCUSTOMERADDRESS'); ?></div>
-							<div class="vbo-param-setting"><input type="text" name="address" value="<?php echo count($customer) ? $customer['address'] : ''; ?>" size="30"/></div>
+							<div class="vbo-param-setting"><input type="text" name="address" value="<?php echo $customer ? $customer['address'] : ''; ?>" size="30"/></div>
 						</div>
 						<div class="vbo-param-container">
 							<div class="vbo-param-label"><?php echo JText::_('VBCUSTOMERZIP'); ?></div>
-							<div class="vbo-param-setting"><input type="text" name="zip" value="<?php echo count($customer) ? $customer['zip'] : ''; ?>" size="6"/></div>
+							<div class="vbo-param-setting"><input type="text" name="zip" value="<?php echo $customer ? $customer['zip'] : ''; ?>" size="6"/></div>
 						</div>
 						<div class="vbo-param-container">
 							<div class="vbo-param-label<?php echo !empty($pcheckin) && !empty($pbid) && empty($customer['gender']) ? ' vbo-config-param-cell-warn' : ''; ?>"><?php echo JText::_('VBCUSTOMERGENDER'); ?></div>
 							<div class="vbo-param-setting">
 								<select name="gender">
 									<option value=""></option>
-									<option value="M"<?php echo count($customer) && $customer['gender'] == 'M' ? ' selected="selected"' : ''; ?>><?php echo JText::_('VBCUSTOMERGENDERM'); ?></option>
-									<option value="F"<?php echo count($customer) && $customer['gender'] == 'F' ? ' selected="selected"' : ''; ?>><?php echo JText::_('VBCUSTOMERGENDERF'); ?></option>
+									<option value="M"<?php echo $customer && $customer['gender'] == 'M' ? ' selected="selected"' : ''; ?>><?php echo JText::_('VBCUSTOMERGENDERM'); ?></option>
+									<option value="F"<?php echo $customer && $customer['gender'] == 'F' ? ' selected="selected"' : ''; ?>><?php echo JText::_('VBCUSTOMERGENDERF'); ?></option>
 								</select>
 							</div>
 						</div>
 						<div class="vbo-param-container">
-							<div class="vbo-param-label<?php echo count($customer) && !empty($pcheckin) && !empty($pbid) && empty($customer['bdate']) ? ' vbo-config-param-cell-warn' : ''; ?>"><?php echo JText::_('VBCUSTOMERBDATE'); ?></div>
+							<div class="vbo-param-label<?php echo $customer && !empty($pcheckin) && !empty($pbid) && empty($customer['bdate']) ? ' vbo-config-param-cell-warn' : ''; ?>"><?php echo JText::_('VBCUSTOMERBDATE'); ?></div>
 							<div class="vbo-param-setting"><?php echo $vbo_app->getCalendar('', 'bdate', 'bdate', $df, array('class'=>'', 'size'=>'10', 'maxlength'=>'19', 'todayBtn' => 'true')); ?></div>
 						</div>
 						<div class="vbo-param-container">
-							<div class="vbo-param-label<?php echo count($customer) && !empty($pcheckin) && !empty($pbid) && empty($customer['pbirth']) ? ' vbo-config-param-cell-warn' : ''; ?>"><?php echo JText::_('VBCUSTOMERPBIRTH'); ?></div>
-							<div class="vbo-param-setting"><input type="text" name="pbirth" value="<?php echo count($customer) ? $customer['pbirth'] : ''; ?>" size="30"/></div>
+							<div class="vbo-param-label<?php echo $customer && !empty($pcheckin) && !empty($pbid) && empty($customer['pbirth']) ? ' vbo-config-param-cell-warn' : ''; ?>"><?php echo JText::_('VBCUSTOMERPBIRTH'); ?></div>
+							<div class="vbo-param-setting"><input type="text" name="pbirth" value="<?php echo $customer ? $customer['pbirth'] : ''; ?>" size="30"/></div>
 						</div>
 						<div class="vbo-param-container">
 							<div class="vbo-param-label"><?php echo JText::_('VBCUSTOMERDOCTYPE'); ?></div>
-							<div class="vbo-param-setting"><input type="text" name="doctype" value="<?php echo count($customer) ? $customer['doctype'] : ''; ?>" size="30"/></div>
+							<div class="vbo-param-setting"><input type="text" name="doctype" value="<?php echo $customer ? $customer['doctype'] : ''; ?>" size="30"/></div>
 						</div>
 						<div class="vbo-param-container">
 							<div class="vbo-param-label"><?php echo JText::_('VBCUSTOMERDOCNUM'); ?></div>
-							<div class="vbo-param-setting"><input type="text" name="docnum" value="<?php echo count($customer) ? $customer['docnum'] : ''; ?>" size="15"/></div>
+							<div class="vbo-param-setting"><input type="text" name="docnum" value="<?php echo $customer ? $customer['docnum'] : ''; ?>" size="15"/></div>
 						</div>
 						<div class="vbo-param-container">
 							<div class="vbo-param-label">
@@ -223,7 +223,7 @@ if (!empty($pcheckin) && !empty($pbid)) {
 								<input type="file" name="docimg" id="docimg" size="30" />
 								<input type="hidden" name="scandocimg" id="scandocimg" value="" />
 							<?php
-							if (count($customer) && !empty($customer['docimg'])) {
+							if (!empty($customer['docimg'])) {
 								?>
 								<div class="vbo-cur-idscan">
 									<i class="vboicn-eye"></i><a href="<?php echo VBO_ADMIN_URI.'resources/idscans/'.$customer['docimg']; ?>" target="_blank"><?php echo $customer['docimg']; ?></a>
@@ -236,7 +236,7 @@ if (!empty($pcheckin) && !empty($pbid)) {
 						<div class="vbo-param-container">
 							<div class="vbo-param-label"><?php echo JText::_('VBCUSTOMERPIN'); ?></div>
 							<div class="vbo-param-setting">
-								<input type="text" name="pin" id="pin" value="<?php echo count($customer) ? $customer['pin'] : ''; ?>" size="6" placeholder="54321" />
+								<input type="text" name="pin" id="pin" value="<?php echo $customer ? $customer['pin'] : ''; ?>" size="6" placeholder="54321" />
 								&nbsp;&nbsp;
 								<button type="button" class="btn vbo-config-btn" onclick="generatePin();" style="vertical-align: top;"><?php echo JText::_('VBCUSTOMERGENERATEPIN'); ?></button>
 							</div>
@@ -270,7 +270,7 @@ if (!empty($pcheckin) && !empty($pbid)) {
 						?>
 						<div class="vbo-param-container">
 							<div class="vbo-param-label"><?php echo JText::_('VBCUSTOMERNOTES'); ?></div>
-							<div class="vbo-param-setting"><textarea cols="80" rows="5" name="notes" style="width: 90%; height: 130px; resize: vertical;"><?php echo count($customer) ? htmlspecialchars((string) $customer['notes']) : ''; ?></textarea></div>
+							<div class="vbo-param-setting"><textarea cols="80" rows="5" name="notes" style="width: 90%; height: 130px; resize: vertical;"><?php echo $customer ? htmlspecialchars((string) $customer['notes']) : ''; ?></textarea></div>
 						</div>
 					</div>
 				</div>
@@ -279,7 +279,7 @@ if (!empty($pcheckin) && !empty($pbid)) {
 
 	<?php
 	$customerch_params = array();
-	if (count($customer) && !empty($customer['chdata'])) {
+	if (!empty($customer['chdata'])) {
 		$customerch_params = json_decode($customer['chdata'], true);
 		$customerch_params = is_array($customerch_params) ? $customerch_params : array();
 	}
@@ -291,7 +291,7 @@ if (!empty($pcheckin) && !empty($pbid)) {
 					<div class="vbo-params-container">
 						<div class="vbo-param-container">
 							<div class="vbo-param-label"><?php echo JText::_('VBOCUSTOMERISCHANNEL'); ?></div>
-							<div class="vbo-param-setting"><?php echo $vbo_app->printYesNoButtons('ischannel', JText::_('VBYES'), JText::_('VBNO'), (count($customer) && intval($customer['ischannel']) == 1 ? 1 : 0), 1, 0); ?></div>
+							<div class="vbo-param-setting"><?php echo $vbo_app->printYesNoButtons('ischannel', JText::_('VBYES'), JText::_('VBNO'), ($customer && intval($customer['ischannel']) == 1 ? 1 : 0), 1, 0); ?></div>
 						</div>
 						<div class="vbo-param-container">
 							<div class="vbo-param-label"><?php echo JText::_('VBOCUSTOMERCOMMISSION'); ?> <sup>*</sup></div>
@@ -318,14 +318,14 @@ if (!empty($pcheckin) && !empty($pbid)) {
 						<div class="vbo-param-container">
 							<div class="vbo-param-label"><?php echo JText::_('VBOCUSTOMERCMMSNAME'); ?> <sup>*</sup></div>
 							<div class="vbo-param-setting">
-								<input type="text" name="chname" value="<?php echo array_key_exists('chname', $customerch_params) && !empty($customerch_params['chname']) ? $customerch_params['chname'] : (count($customer) && intval($customer['ischannel']) > 0 ? str_replace(' ', '-', trim($customer['first_name'].' '.$customer['last_name'])) : ''); ?>" size="30" />
+								<input type="text" name="chname" value="<?php echo array_key_exists('chname', $customerch_params) && !empty($customerch_params['chname']) ? $customerch_params['chname'] : ($customer && intval($customer['ischannel']) > 0 ? str_replace(' ', '-', trim($customer['first_name'].' '.$customer['last_name'])) : ''); ?>" size="30" />
 							</div>
 						</div>
 						<div class="vbo-param-container">
 							<div class="vbo-param-label"><?php echo JText::_('VBOCUSTOMERCMMSCOLOR'); ?> <sup>*</sup></div>
 							<div class="vbo-param-setting">
-								<div class="vbo-colortag-square" style="background-color: <?php echo array_key_exists('chcolor', $customerch_params) && !empty($customerch_params['chcolor']) ? $customerch_params['chcolor'] : (count($customer) && intval($customer['ischannel']) > 0 ? '#000000' : '#ffffff'); ?>"></div>
-								<input type="hidden" name="chcolor" class="chcolor" value="<?php echo array_key_exists('chcolor', $customerch_params) && !empty($customerch_params['chcolor']) ? $customerch_params['chcolor'] : (count($customer) && intval($customer['ischannel']) > 0 ? '#000000' : '#ffffff'); ?>" />
+								<div class="vbo-colortag-square" style="background-color: <?php echo array_key_exists('chcolor', $customerch_params) && !empty($customerch_params['chcolor']) ? $customerch_params['chcolor'] : ($customer && intval($customer['ischannel']) > 0 ? '#000000' : '#ffffff'); ?>"></div>
+								<input type="hidden" name="chcolor" class="chcolor" value="<?php echo array_key_exists('chcolor', $customerch_params) && !empty($customerch_params['chcolor']) ? $customerch_params['chcolor'] : ($customer && intval($customer['ischannel']) > 0 ? '#000000' : '#ffffff'); ?>" />
 							</div>
 						</div>
 					</div>
@@ -386,7 +386,7 @@ if (count($customer)) {
 	<?php
 }
 ?>
-	<input type="hidden" name="task" value="<?php echo count($customer) ? 'updatecustomer' : 'savecustomer'; ?>">
+	<input type="hidden" name="task" value="<?php echo $customer ? 'updatecustomer' : 'savecustomer'; ?>">
 	<input type="hidden" name="option" value="com_vikbooking">
 	<?php echo JHtml::_('form.token'); ?>
 </form>
@@ -740,15 +740,22 @@ jQuery(function() {
 	});
 
 <?php
-if (count($customer) && !empty($customer['bdate'])) {
+if (!empty($customer['bdate'])) {
 	?>
 	jQuery("#bdate").val("<?php echo $customer['bdate']; ?>").attr('data-alt-value', "<?php echo $customer['bdate']; ?>");
 	<?php
 }
-if (count($customer) && !empty($customer['country'])) {
+if (!empty($customer['country'])) {
 	?>
 	setTimeout(() => {
 		jQuery('select[name="country"]').trigger('change');
+	}, 200);
+	<?php
+}
+if (!empty($customer['phone']) && VBOPlatformDetection::isWordPress() && wp_doing_ajax()) {
+	?>
+	setTimeout(() => {
+		jQuery('#vbo-phone').val('<?php echo $customer['phone']; ?>').trigger('change');
 	}, 200);
 	<?php
 }

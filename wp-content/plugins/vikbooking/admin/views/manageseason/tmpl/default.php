@@ -153,7 +153,7 @@ function addMoreOverrides() {
 var rooms_sel_ids = [];
 var rooms_names_map = [];
 var rooms_adults_pricing = <?php echo json_encode($adults_diff); ?>;
-jQuery(document).ready(function() {
+jQuery(function() {
 	var rseltag = document.getElementById("idrooms");
 	for(var i=0; i < rseltag.length; i++) {
 		rooms_names_map[rseltag.options[i].value] = rseltag.options[i].text;
@@ -640,7 +640,7 @@ jQuery(function() {
 		}
 	});
 
-	if (jQuery.isFunction(jQuery.fn.tooltip)) {
+	if (typeof jQuery.fn.tooltip === 'function') {
 		jQuery(".hasTooltip").tooltip();
 	} else {
 		jQuery.fn.tooltip = function(){};

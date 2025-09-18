@@ -650,7 +650,7 @@ class VikBookingController extends JControllerVikBooking
 			}
 			$finaldest = $dest.$j.$filename;
 			$check = getimagesize($pimg['tmp_name']);
-			if ($check[2] & imagetypes()) {
+			if (($check[2] & imagetypes()) && preg_match("/\.(a?png|jpe?g|bmp|gif|ico|webp)\z/i", $filename)) {
 				if (VikBooking::uploadFile($src, $finaldest)) {
 					$gimg = $j.$filename;
 					//orig img
@@ -794,7 +794,7 @@ class VikBookingController extends JControllerVikBooking
 			}
 			$finaldest = $dest.$j.$filename;
 			$check = getimagesize($pimg['tmp_name']);
-			if ($check[2] & imagetypes()) {
+			if (($check[2] & imagetypes()) && preg_match("/\.(a?png|jpe?g|bmp|gif|ico|webp)\z/i", $filename)) {
 				if (VikBooking::uploadFile($src, $finaldest)) {
 					$gimg = $j.$filename;
 					//orig img
@@ -2137,7 +2137,7 @@ class VikBookingController extends JControllerVikBooking
 				}
 
 				//Booking History
-				VikBooking::getBookingHistoryInstance()->setBid($ord['id'])->store('MB', "({$user->name}) " . VikBooking::getLogBookingModification($ord));
+				VikBooking::getBookingHistoryInstance($ord['id'])->setPrevBooking($ord)->store('MB', "({$user->name}) " . VikBooking::getLogBookingModification($ord));
 				//
 				$app->redirect("index.php?option=com_vikbooking&task=editbusy".($pvcm == 1 ? '&vcm=1' : '').($pfrominv == 1 ? '&frominv=1' : '')."&cid[]=".$ord['id'].($pgoto == 'overv' ? "&goto=overv" : ""));
 				exit;
@@ -2314,40 +2314,47 @@ class VikBookingController extends JControllerVikBooking
 		 * 
 		 * @since 	1.13.0 (J) - 1.3.0 (WP)
 		 */
-		if ($opertwounits === true && count($subunits_involved_bids)) {
+		if ($opertwounits === true && $subunits_involved_bids) {
 			$subunits_involved_bids = array_unique($subunits_involved_bids);
 			// grab all the information about the bids involved and the related rooms/indexes
-			$q = "SELECT `or`.`idorder`, `or`.`idroom`, `or`.`roomindex`, `o`.`checkin`, `o`.`checkout`, `r`.`name`, `r`.`params` 
-				FROM `#__vikbooking_ordersrooms` AS `or` LEFT JOIN `#__vikbooking_orders` AS `o` ON `or`.`idorder`=`o`.`id` 
-				LEFT JOIN `#__vikbooking_rooms` AS `r` ON `or`.`idroom`=`r`.`id` 
+			$q = "SELECT `or`.`idorder`, `or`.`idroom`, `or`.`roomindex` 
+				FROM `#__vikbooking_ordersrooms` AS `or` 
 				WHERE `or`.`idorder` IN (" . implode(', ', array_keys($subunits_involved_bids)) . ");";
 			$dbo->setQuery($q);
 			$involved_data = $dbo->loadAssocList();
-			if ($involved_data) {
-				foreach ($involved_data as $invb) {
-					if (empty($invb['roomindex'])) {
-						continue;
-					}
-					foreach ($subunits_involved_bids[$invb['idorder']] as $bookedindex) {
-						if ($bookedindex['idroom'] == $invb['idroom'] && $bookedindex['roomindex'] == $invb['roomindex']) {
-							// this same sub-unit is occupied by this booking ID: raise an error message to inform the administrator
-							$subunit_name = $invb['roomindex'];
-							$room_params = json_decode($invb['params'], true);
-							if (is_array($room_params) && isset($room_params['features']) && @count($room_params['features'])) {
-								foreach ($room_params['features'] as $rind => $rfeatures) {
-									if ($rind == $invb['roomindex']) {
-										foreach ($rfeatures as $fname => $fval) {
-											if (strlen($fval)) {
-												$subunit_name = '#' . $rind . ' - ' . JText::_($fname) . ': ' . $fval;
-												break;
-											}
-										}
+			foreach ($involved_data as $invb) {
+				if (empty($invb['roomindex'])) {
+					continue;
+				}
+				foreach ($subunits_involved_bids[$invb['idorder']] as $bookedindex) {
+					if ($bookedindex['idroom'] == $invb['idroom'] && $bookedindex['roomindex'] == $invb['roomindex']) {
+						// this same sub-unit is occupied by this booking ID: raise an error message to inform the administrator
+						$involved_booking = VikBooking::getBookingInfoFromID($invb['idorder']);
+						$involved_room = VikBooking::getRoomInfo($invb['idroom'], ['name', 'params'], $no_cache = true);
+						$subunit_name = $invb['roomindex'];
+						$room_params = (array) json_decode($involved_room['params'] ?? '[]', true);
+						foreach (($room_params['features'] ?? []) as $rind => $rfeatures) {
+							if ($rind == $invb['roomindex']) {
+								foreach ($rfeatures as $fname => $fval) {
+									if (strlen($fval)) {
+										$subunit_name = '#' . $rind . ' - ' . JText::_($fname) . ': ' . $fval;
+										break;
 									}
 								}
 							}
-							$adjust_link = '<br/><a class="btn btn-danger" target="_blank" href="index.php?option=com_vikbooking&task=editorder&cid[]=' . $invb['idorder'] . '">' . JText::_('VBOSUBUNITOVERBOOKEDGOTO') . '</a>';
-							VikError::raiseWarning('', JText::sprintf('VBOSUBUNITOVERBOOKEDERR', $subunit_name, $invb['name'], date($df, $invb['checkin']), date($df, $invb['checkout']), $invb['idorder']) . $adjust_link);
 						}
+						$adjust_link = '<br/><a class="btn btn-danger" target="_blank" href="index.php?option=com_vikbooking&task=editorder&cid[]=' . $invb['idorder'] . '">' . JText::_('VBOSUBUNITOVERBOOKEDGOTO') . '</a>';
+						$app->enqueueMessage(
+							JText::sprintf(
+								'VBOSUBUNITOVERBOOKEDERR',
+								$subunit_name,
+								$involved_room['name'] ?? $invb['idroom'],
+								date($df, $involved_booking['checkin'] ?? 0),
+								date($df, $involved_booking['checkout'] ?? 0),
+								$invb['idorder']
+							) . $adjust_link,
+							'error'
+						);
 					}
 				}
 			}
@@ -2591,6 +2598,7 @@ class VikBookingController extends JControllerVikBooking
 			$tot_taxes = 0;
 			$tot_city_taxes = 0;
 			$tot_fees = 0;
+			$tot_damage_dep = 0;
 			$doup = true;
 			$tars = array();
 			$cust_costs = array();
@@ -2633,6 +2641,7 @@ class VikBookingController extends JControllerVikBooking
 				$ppkgid = VikRequest::getString('pkgid'.$num, '', 'request');
 				$pcust_cost = VikRequest::getString('cust_cost'.$num, '', 'request');
 				$paliq = VikRequest::getString('aliq'.$num, '', 'request');
+				$pcust_cpolicy_id = VikRequest::getInt('cust_cpolicy_id'.$num, 0, 'request');
 				if ($is_package === true && !empty($ppkgid)) {
 					$pkg_cost = $or['cust_cost'];
 					$pkg_idiva = $or['cust_idiva'];
@@ -2650,7 +2659,11 @@ class VikBookingController extends JControllerVikBooking
 					continue;
 				}
 				if (empty($ppriceid) && !empty($pcust_cost) && floatval($pcust_cost) > 0) {
-					$cust_costs[$num] = array('cust_cost' => $pcust_cost, 'aliq' => $paliq);
+					$cust_costs[$num] = [
+						'cust_cost' => $pcust_cost,
+						'aliq' => $paliq,
+						'cust_cpolicy_id' => $pcust_cpolicy_id,
+					];
 					$cost_after_tax = VikBooking::sayPackagePlusIva((float)$pcust_cost, (int)$paliq);
 					$isdue += $cost_after_tax;
 					$cost_minus_tax = VikBooking::sayPackageMinusIva((float)$pcust_cost, (int)$paliq);
@@ -2744,6 +2757,9 @@ class VikBookingController extends JControllerVikBooking
 					$wop = "";
 
 					foreach ($toptionals as $opt) {
+						// option params
+						$opt_params = !empty($opt['oparams']) ? json_decode($opt['oparams'], true) : [];
+						$opt_params = is_array($opt_params) ? $opt_params : [];
 						if (!empty($opt['ageintervals']) && ($or['children'] > 0 || (array_key_exists($num, $arrpeople) && array_key_exists('children', $arrpeople[$num]))) ) {
 							$tmpvar = VikRequest::getInt('optid'.$num.$opt['id'], []);
 							if (is_array($tmpvar) && $tmpvar) {
@@ -2815,6 +2831,8 @@ class VikBookingController extends JControllerVikBooking
 										$tot_city_taxes += $tmpopr;
 									} elseif ($opt['is_fee'] == 1) {
 										$tot_fees += $tmpopr;
+									} elseif ($opt_params['damagedep'] ?? 0) {
+										$tot_damage_dep += $tmpopr;
 									}
 									// VBO 1.11 - always calculate the amount of tax no matter if this is already a tax or a fee
 									if ($tmpopr == $realcost) {
@@ -2890,6 +2908,8 @@ class VikBookingController extends JControllerVikBooking
 									$tot_city_taxes += $tmpopr;
 								} elseif ($opt['is_fee'] == 1) {
 									$tot_fees += $tmpopr;
+								} elseif ($opt_params['damagedep'] ?? 0) {
+									$tot_damage_dep += $tmpopr;
 								}
 								// VBO 1.11 - always calculate the amount of tax no matter if this is already a tax or a fee
 								if ($tmpopr == $realcost) {
@@ -2910,6 +2930,7 @@ class VikBookingController extends JControllerVikBooking
 						$upd_fields[] = "`idtar`='".$tars[$num][0]['id']."'";
 						$upd_fields[] = "`cust_cost`=NULL";
 						$upd_fields[] = "`cust_idiva`=NULL";
+						$upd_fields[] = "`cust_cpolicy_id`=NULL";
 						$upd_fields[] = "`room_cost`=".(array_key_exists($num, $rooms_costs_map) ? $dbo->quote($rooms_costs_map[$num]) : "NULL");
 					} elseif ($is_package === true && array_key_exists($num, $cust_costs)) {
 						// packages do not update name or cost, just set again the same package ID to avoid risks of empty upd_fields to update
@@ -2917,12 +2938,14 @@ class VikBookingController extends JControllerVikBooking
 						$upd_fields[] = "`pkg_id`='".$cust_costs[$num]['pkgid']."'";
 						$upd_fields[] = "`cust_cost`='".$cust_costs[$num]['cust_cost']."'";
 						$upd_fields[] = "`cust_idiva`='".$cust_costs[$num]['aliq']."'";
+						$upd_fields[] = "`cust_cpolicy_id`='" . (int) ($cust_costs[$num]['cust_cpolicy_id'] ?? 0) . "'";
 						$upd_fields[] = "`room_cost`=NULL";
 					} elseif (array_key_exists($num, $cust_costs) && array_key_exists('cust_cost', $cust_costs[$num])) {
 						// custom rate + custom tax rate
 						$upd_fields[] = "`idtar`=NULL";
 						$upd_fields[] = "`cust_cost`='".$cust_costs[$num]['cust_cost']."'";
 						$upd_fields[] = "`cust_idiva`='".$cust_costs[$num]['aliq']."'";
+						$upd_fields[] = "`cust_cpolicy_id`='" . (int) ($cust_costs[$num]['cust_cpolicy_id'] ?? 0) . "'";
 						$upd_fields[] = "`room_cost`=NULL";
 						// inject new room price
 						$ordersrooms[$kor]['modified_price'] = $cust_costs[$num]['cust_cost'];
@@ -3026,7 +3049,7 @@ class VikBookingController extends JControllerVikBooking
 				}
 
 				// update totals
-				$q = "UPDATE `#__vikbooking_orders` SET `total`='".$isdue."', `tot_taxes`='".$tot_taxes."', `tot_city_taxes`='".$tot_city_taxes."', `tot_fees`='".$tot_fees."' WHERE `id`=".$ord['id'].";";
+				$q = "UPDATE `#__vikbooking_orders` SET `total`='".$isdue."', `tot_taxes`='".$tot_taxes."', `tot_city_taxes`='".$tot_city_taxes."', `tot_fees`='".$tot_fees."', `tot_damage_dep`='".$tot_damage_dep."' WHERE `id`=".$ord['id'].";";
 				$dbo->setQuery($q);
 				$dbo->execute();
 				$upd_esit = JText::_('VBORESRATESUPDATED');
@@ -3099,7 +3122,7 @@ class VikBookingController extends JControllerVikBooking
 			if (!$opertwounits && $forcebooking) {
 				$history_descr .= "\n" . JText::_('VBO_FORCED_BOOKDATES');
 			}
-			VikBooking::getBookingHistoryInstance()->setBid($ord['id'])->store('MB', $history_descr);
+			VikBooking::getBookingHistoryInstance($ord['id'])->setPrevBooking($ord)->store('MB', $history_descr);
 
 			// enqueue result message
 			$app->enqueueMessage($upd_esit);
@@ -5086,7 +5109,7 @@ class VikBookingController extends JControllerVikBooking
 					}
 					$finaldest = $dest . $j . $filename;
 					$check = getimagesize($customer_pic_img['tmp_name']);
-					if (($check[2] & imagetypes())) {
+					if (($check[2] & imagetypes()) && preg_match("/\.(a?png|jpe?g|bmp|gif|ico|webp)\z/i", $filename)) {
 						if (VikBooking::uploadFile($src, $finaldest)) {
 							$customer_pic = $j . $filename;
 						} else {
@@ -5368,7 +5391,7 @@ class VikBookingController extends JControllerVikBooking
 					}
 					$finaldest = $dest . $j . $filename;
 					$check = getimagesize($customer_pic_img['tmp_name']);
-					if (($check[2] & imagetypes())) {
+					if (($check[2] & imagetypes()) && preg_match("/\.(a?png|jpe?g|bmp|gif|ico|webp)\z/i", $filename)) {
 						if (VikBooking::uploadFile($src, $finaldest)) {
 							$customer_pic = $j . $filename;
 						} else {
@@ -9752,7 +9775,7 @@ class VikBookingController extends JControllerVikBooking
 			$pemailsubj = str_replace('{booking_id}', $pbid, $pemailsubj);
 			//
 			$is_html = (strpos($pemailcont, '<') !== false && strpos($pemailcont, '>') !== false);
-			$pemailcont = $is_html ? nl2br($pemailcont) : $pemailcont;
+			$pemailcont = !$is_html ? nl2br($pemailcont) : $pemailcont;
 			$vbo_app = VikBooking::getVboApplication();
 			$vbo_app->sendMail($pemailfrom, $pemailfrom, $pemail, $pemailfrom, $pemailsubj, $pemailcont, $is_html, 'base64', $email_attach);
 			$mainframe->enqueueMessage(JText::_('VBSENDEMAILOK'));
@@ -10069,7 +10092,7 @@ class VikBookingController extends JControllerVikBooking
 				}
 				if (!$is_error) {
 					$check = getimagesize($bulkphotos['tmp_name'][$updk]);
-					if ($check[2] & imagetypes()) {
+					if (($check[2] & imagetypes()) && preg_match("/\.(a?png|jpe?g|bmp|gif|ico|webp)\z/i", $filename)) {
 						if (VikBooking::uploadFile($src, $finaldest)) {
 							$gimg = $j.$filename;
 							//orig img
@@ -10783,30 +10806,62 @@ class VikBookingController extends JControllerVikBooking
 		VBOHttpDocument::getInstance()->json($booking_infos);
 	}
 
-	public function switchRoomIndex() {
-		//to be called via ajax
-		$dbo = JFactory::getDBO();
-		$bid = VikRequest::getInt('bid', '', 'request');
-		$rid = VikRequest::getInt('rid', '', 'request');
-		$old_rindex = VikRequest::getInt('old_rindex', '', 'request');
-		$new_rindex = VikRequest::getInt('new_rindex', '', 'request');
-		if (empty($bid) || empty($rid) || empty($old_rindex) || empty($new_rindex)) {
-			echo 'e4j.error.#1 Missing Data';
-			exit;
+	/**
+	 * AJAX endpoint to switch a booking room index.
+	 * 
+	 * @return 	void
+	 * 
+	 * @since 	1.18.2 (J) - 1.8.2 (WP) method refactored.
+	 */
+	public function switchRoomIndex()
+	{
+		if (!JSession::checkToken()) {
+			VBOHttpDocument::getInstance()->close(403, JText::_('JINVALID_TOKEN'));
 		}
-		$q = "SELECT * FROM `#__vikbooking_ordersrooms` WHERE `idorder`=".$bid." AND `idroom`=".$rid." AND `roomindex`=".$old_rindex.";";
-		$dbo->setQuery($q);
-		$dbo->execute();
-		if ($dbo->getNumRows() < 1) {
-			echo 'e4j.error.#2 Record not found';
-			exit;
+
+		$app = JFactory::getApplication();
+		$dbo = JFactory::getDbo();
+
+		$bid = $app->input->getInt('bid', 0);
+		$rid = $app->input->getInt('rid', 0);
+		$old_rindex = $app->input->getInt('old_rindex', 0);
+		$new_rindex = $app->input->getInt('new_rindex', 0);
+		$is_tmp_row = $app->input->getBool('is_tmp_row', false);
+		$is_from_tmp_row = $app->input->getBool('is_from_tmp_row', false);
+
+		if (empty($bid) || empty($rid) || (empty($old_rindex) && !$is_from_tmp_row) || (empty($new_rindex) && !$is_tmp_row) || $new_rindex < 0) {
+			// abort for missing or invalid room indexes
+			VBOHttpDocument::getInstance($app)->close(200, 'e4j.error.#1 Missing Data');
 		}
-		$rows = $dbo->loadAssocList();
-		$q = "UPDATE `#__vikbooking_ordersrooms` SET `roomindex`=".$new_rindex." WHERE `id`=".$rows[0]['id'].";";
-		$dbo->setQuery($q);
+
+		// fetch the current booking room record
+		$dbo->setQuery(
+			$dbo->getQuery(true)
+				->select('*')
+				->from($dbo->qn('#__vikbooking_ordersrooms'))
+				->where($dbo->qn('idorder') . ' = ' . $bid)
+				->where($dbo->qn('idroom') . ' = ' . $rid)
+				->where($dbo->qn('roomindex') . (empty($old_rindex) && $is_from_tmp_row ? ' IS NULL' : ' = ' . $old_rindex))
+				->order($dbo->qn('id') . ' ASC')
+		);
+		$roomRow = $dbo->loadAssoc();
+
+		if (!$roomRow) {
+			// abort for record not found
+			VBOHttpDocument::getInstance($app)->close(200, 'e4j.error.#2 Record not found');
+		}
+
+		// update booking room record by switching sub-unit
+		$dbo->setQuery(
+			$dbo->getQuery(true)
+				->update($dbo->qn('#__vikbooking_ordersrooms'))
+				->set($dbo->qn('roomindex') . ' = ' . (empty($new_rindex) && $is_tmp_row ? 'NULL' : $new_rindex))
+				->where($dbo->qn('id') . ' = ' . (int) $roomRow['id'])
+		);
 		$dbo->execute();
-		echo 'e4j.ok';
-		exit;
+
+		// process completed
+		VBOHttpDocument::getInstance($app)->close(200, 'e4j.ok');
 	}
 
 	public function searchcustomer()
@@ -11747,7 +11802,7 @@ jQuery(".' . $selector . '").hover(function() {
 		//
 
 		//Booking History
-		VikBooking::getBookingHistoryInstance()->setBid($ord['id'])->store('MB', "({$user->name}) " . VikBooking::getLogBookingModification($ord));
+		VikBooking::getBookingHistoryInstance($ord['id'])->setPrevBooking($ord)->store('MB', "({$user->name}) " . VikBooking::getLogBookingModification($ord));
 		//
 
 		$vcm_autosync = VikBooking::vcmAutoUpdate();
@@ -12584,7 +12639,7 @@ jQuery(".' . $selector . '").hover(function() {
 		header('Content-Disposition: attachment; filename="customers_export_'.(!empty($pcountry) ? strtolower($pcountry).'_' : '').date('Y-m-d').'.csv"');
 		$outstream = fopen("php://output", 'w');
 		foreach ($csvlines as $csvline) {
-			fputcsv($outstream, $csvline);
+			fputcsv($outstream, $csvline, $separator = ',', $enclosure = '"', $escape = '');
 		}
 		fclose($outstream);
 		exit;
@@ -13141,7 +13196,26 @@ jQuery(".' . $selector . '").hover(function() {
 		$pujid = VikRequest::getInt('ujid', '', 'request');
 		$pwhere = VikRequest::getInt('where', '', 'request');
 
-		if (!empty($pfirst_name) && !empty($pemail) && (!empty($pcode) || !empty($pujid))) {
+		$work_days_week = (array) $app->input->get('work_days_week', [], 'array');
+		$work_days_exceptions = (array) $app->input->get('work_days_exceptions', [], 'array');
+
+		// normalize to linear arrays
+		$work_days_week_schedule = array_combine(array_keys($work_days_week), array_values($work_days_week));
+		$work_days_week = [];
+		foreach ($work_days_week_schedule as $wday => $whours) {
+			$work_days_week[] = [
+				'wday'  => $wday,
+				'hours' => $whours,
+			];
+		}
+		foreach ($work_days_exceptions as &$wexceptions) {
+			if (is_scalar($wexceptions)) {
+				$wexceptions = json_decode($wexceptions, true);
+			}
+		}
+		unset($wexceptions);
+
+		if (!empty($pfirst_name) && !empty($pemail) && !empty($pcode)) {
 			$q = "SELECT * FROM `#__vikbooking_operators` WHERE `id`=".(int)$pwhere." LIMIT 1;";
 			$dbo->setQuery($q);
 			$customer = $dbo->loadAssoc();
@@ -13177,7 +13251,7 @@ jQuery(".' . $selector . '").hover(function() {
 					}
 					$finaldest = $dest . $j . $filename;
 					$check = getimagesize($operator_pic_img['tmp_name']);
-					if (($check[2] & imagetypes())) {
+					if (($check[2] & imagetypes()) && preg_match("/\.(a?png|jpe?g|bmp|gif|ico|webp)\z/i", $filename)) {
 						if (VikBooking::uploadFile($src, $finaldest)) {
 							$operator_pic = $j . $filename;
 						} else {
@@ -13189,7 +13263,7 @@ jQuery(".' . $selector . '").hover(function() {
 				}
 
 				// update record
-				$q = "UPDATE `#__vikbooking_operators` SET `first_name`=" . $dbo->q($pfirst_name) . ",`last_name`=" . $dbo->q($plast_name) . ",`email`=" . $dbo->q($pemail) . ",`phone`=" . $dbo->q($pphone) . ",`code`=" . $dbo->q($pcode) . ",`ujid`=" . $dbo->q($pujid) . ",`fingpt`=" . $dbo->q($fingpt) . ",`pic`=" . $dbo->q($operator_pic) . " WHERE `id`=" . (int)$pwhere;
+				$q = "UPDATE `#__vikbooking_operators` SET `first_name`=" . $dbo->q($pfirst_name) . ",`last_name`=" . $dbo->q($plast_name) . ",`email`=" . $dbo->q($pemail) . ",`phone`=" . $dbo->q($pphone) . ",`code`=" . $dbo->q($pcode) . ",`ujid`=" . $dbo->q($pujid) . ",`fingpt`=" . $dbo->q($fingpt) . ",`pic`=" . $dbo->q($operator_pic) . ",`work_days_week`=" . ($work_days_week ? $dbo->q(json_encode($work_days_week)) : 'NULL') . ",`work_days_exceptions`=" . ($work_days_exceptions ? $dbo->q(json_encode($work_days_exceptions)) : 'NULL') . " WHERE `id`=" . (int)$pwhere;
 				$dbo->setQuery($q);
 				$dbo->execute();
 				$app->enqueueMessage(JText::_('VBOPERATORSAVED'));
@@ -13227,7 +13301,26 @@ jQuery(".' . $selector . '").hover(function() {
 		$pcode = VikRequest::getString('code', '', 'request');
 		$pujid = VikRequest::getInt('ujid', '', 'request');
 
-		if (!empty($pfirst_name) && !empty($pemail) && (!empty($pcode) || !empty($pujid))) {
+		$work_days_week = (array) $app->input->get('work_days_week', [], 'array');
+		$work_days_exceptions = (array) $app->input->get('work_days_exceptions', [], 'array');
+
+		// normalize to linear arrays
+		$work_days_week_schedule = array_combine(array_keys($work_days_week), array_values($work_days_week));
+		$work_days_week = [];
+		foreach ($work_days_week_schedule as $wday => $whours) {
+			$work_days_week[] = [
+				'wday'  => $wday,
+				'hours' => $whours,
+			];
+		}
+		foreach ($work_days_exceptions as &$wexceptions) {
+			if (is_scalar($wexceptions)) {
+				$wexceptions = json_decode($wexceptions, true);
+			}
+		}
+		unset($wexceptions);
+
+		if (!empty($pfirst_name) && !empty($pemail) && !empty($pcode)) {
 			$q = "SELECT * FROM `#__vikbooking_operators` WHERE `email`=".$dbo->quote($pemail)." OR ".(!empty($pcode) ? "`code`=".$dbo->quote($pcode) : "`ujid`=".$dbo->quote($pujid))." LIMIT 1;";
 			$dbo->setQuery($q);
 			$ex_operator = $dbo->loadAssoc();
@@ -13252,7 +13345,7 @@ jQuery(".' . $selector . '").hover(function() {
 					}
 					$finaldest = $dest . $j . $filename;
 					$check = getimagesize($operator_pic_img['tmp_name']);
-					if (($check[2] & imagetypes())) {
+					if (($check[2] & imagetypes()) && preg_match("/\.(a?png|jpe?g|bmp|gif|ico|webp)\z/i", $filename)) {
 						if (VikBooking::uploadFile($src, $finaldest)) {
 							$operator_pic = $j . $filename;
 						} else {
@@ -13263,7 +13356,7 @@ jQuery(".' . $selector . '").hover(function() {
 					}
 				}
 
-				$q = "INSERT INTO `#__vikbooking_operators` (`first_name`,`last_name`,`email`,`phone`,`code`,`ujid`,`pic`) VALUES(" . $dbo->q($pfirst_name) . ", " . $dbo->q($plast_name) . ", " . $dbo->q($pemail) . ", " . $dbo->q($pphone) . ", " . $dbo->q($pcode) . ", " . $dbo->q($pujid) . ", " . $dbo->q($operator_pic) . ");";
+				$q = "INSERT INTO `#__vikbooking_operators` (`first_name`,`last_name`,`email`,`phone`,`code`,`ujid`,`pic`,`work_days_week`,`work_days_exceptions`) VALUES(" . $dbo->q($pfirst_name) . ", " . $dbo->q($plast_name) . ", " . $dbo->q($pemail) . ", " . $dbo->q($pphone) . ", " . $dbo->q($pcode) . ", " . $dbo->q($pujid) . ", " . $dbo->q($operator_pic) . ", " . ($work_days_week ? $dbo->q(json_encode($work_days_week)) : 'NULL') . ", " . ($work_days_exceptions ? $dbo->q(json_encode($work_days_exceptions)) : 'NULL') . ");";
 				$dbo->setQuery($q);
 				$dbo->execute();
 				$lid = $dbo->insertid();

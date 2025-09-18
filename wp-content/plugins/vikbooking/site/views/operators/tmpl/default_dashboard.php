@@ -31,7 +31,7 @@ $pitemid = VikRequest::getInt('Itemid', 0, 'request');
 	</h3>
 	<div class="vbo-operator-dashboard-logout">
 		<form action="<?php echo JRoute::_('index.php?option=com_vikbooking&task=operatorlogout&Itemid=' . $pitemid); ?>" method="post">
-			<input type="submit" name="logout" value="<?php echo JText::_('VBOLOGOUT'); ?>" class="vbo-logout " />
+			<input type="submit" name="logout" value="<?php echo JText::_('VBOLOGOUT'); ?>" class="vbo-logout vbo-pref-color-btn-secondary" />
 			<input type="hidden" name="option" value="com_vikbooking" />
 			<input type="hidden" name="task" value="operatorlogout" />
 			<?php

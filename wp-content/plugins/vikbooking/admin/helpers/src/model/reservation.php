@@ -1650,6 +1650,78 @@ class VBOModelReservation extends JObject
 	}
 
 	/**
+	 * Tells whether a given booking ID can be moved to new stay dates. Ignores rooms individual stay
+	 * dates or split stay reservations. Should be called when changing the dates for a whole booking.
+	 * 
+	 * @param 	int 		$booking_id 	The booking ID to modify.
+	 * @param 	int|string 	$new_checkin 	The new check-in date (timestamp or date string with no time).
+	 * @param 	int|string 	$new_checkout 	The new check-out date (timestamp or date string with no time).
+	 * 
+	 * @return 	bool 						True if all booking rooms are available on the new dates.
+	 * 
+	 * @throws 	Exception
+	 * 
+	 * @since 	1.18.2 (J) - 1.8.2 (WP)
+	 */
+	public function bookingModifiable(int $booking_id, $new_checkin, $new_checkout)
+	{
+		// load all booking rooms
+		$booking_rooms = VikBooking::loadOrdersRoomsData($booking_id);
+
+		if (!$booking_rooms) {
+			throw new Exception('Could not find any rooms booked within the reservation.', 500);
+		}
+
+		if (empty($new_checkin) || empty($new_checkout)) {
+			throw new Exception('Missing stay dates.', 500);
+		}
+
+		// load the booking occupied record IDs, if any
+		$busy_ids = VikBooking::loadBookingBusyIds($booking_id);
+
+		// load check-in and check-out times
+		list($checkin_h, $checkin_m, $checkout_h, $checkout_m) = $this->loadCheckinOutTimes();
+
+		// get the new stay timestamps
+		$new_checkin  = is_numeric($new_checkin) ? date('Y-m-d', $new_checkin) : $new_checkin;
+		$new_checkout = is_numeric($new_checkout) ? date('Y-m-d', $new_checkout) : $new_checkout;
+		$from_ts = VikBooking::getDateTimestamp($new_checkin, $checkin_h, $checkin_m);
+		$to_ts   = VikBooking::getDateTimestamp($new_checkout, $checkout_h, $checkout_m);
+
+		if ($to_ts <= $from_ts) {
+			throw new Exception('Invalid stay dates provided.', 500);
+		}
+
+		// count room equal units
+		$rooms_units_counter = [];
+		foreach ($booking_rooms as $booking_room) {
+			$rooms_units_counter[$booking_room['idroom']] = ($rooms_counter[$booking_room['idroom']] ?? -1) + 1;
+		}
+
+		// check the availability for each room booked
+		$rooms_parsed = [];
+		foreach ($booking_rooms as $booking_room) {
+			if (in_array($booking_room['idroom'], $rooms_parsed)) {
+				continue;
+			}
+
+			// count effective units to check
+			$effective_units = $booking_room['tot_units'] - $rooms_units_counter[$booking_room['idroom']];
+
+			// check if the room is available on the new dates
+			if (!VikBooking::roomBookable($booking_room['idroom'], $effective_units, $from_ts, $to_ts, $busy_ids)) {
+				// the room is occupied
+				return false;
+			}
+
+			// push room just checked
+			$rooms_parsed[] = $booking_room['idroom'];
+		}
+
+		return true;
+	}
+
+	/**
 	 * Attempts to invoke the payment processor assigned to the current booking.
 	 * 
 	 * @param 	array 	$card 	Optional credit card details to bind.
@@ -1699,6 +1771,9 @@ class VBOModelReservation extends JObject
 			'source'         => (($booking['channel'] ?? '') ?: 'Website'),
 			'ota_booking_id' => (($booking['idorderota'] ?? '') ?: ''),
 			'guest_name'     => implode(' ', array_filter([($customer['first_name'] ?? ''), ($customer['last_name'] ?? '')])),
+			'guest_email'    => $customer['email'] ?? null,
+			'guest_phone'    => $customer['phone'] ?? null,
+			'guest_country'  => $customer['country'] ?? null,
 		];
 
 		if (VBOPlatformDetection::isWordPress()) {
@@ -1744,6 +1819,39 @@ class VBOModelReservation extends JObject
 	}
 
 	/**
+	 * Attempts to get the most recent transaction data for an off-session capturing.
+	 * 
+	 * @param 	string 	$tn_driver 	Optional payment processor driver name.
+	 * 
+	 * @return 	object[] 			Eligible transaction data list or empty array.
+	 * 
+	 * @since 	1.18.0 (J) - 1.8.0 (WP)
+	 */
+	public function getOffSessionTransactionData(string $tn_driver = '')
+	{
+		// transaction data validation callback
+		$tn_data_callback = function($data) use ($tn_driver) {
+			return (is_object($data) && isset($data->driver) && (!$tn_driver || basename($data->driver, '.php') == basename($tn_driver, '.php')) && ($data->future_usage ?? null));
+		};
+
+		// get previous transactions (in date ascending order)
+		$prev_tn_data = (array) VikBooking::getBookingHistoryInstance($this->get('id', 0))->getEventsWithData(['P0', 'PN'], $tn_data_callback);
+
+		if (!$prev_tn_data) {
+			return [];
+		}
+
+		// return the eligible transaction data list in reverse order
+		return array_reverse(array_values(array_filter(array_map(function($data) {
+			if (is_array($data)) {
+				// cast to object
+				$data = (object) $data;
+			}
+			return is_object($data) ? $data : null;
+		}, $prev_tn_data))));
+	}
+
+	/**
 	 * Attempts to get the credit card value pairs from the current booking.
 	 * 
 	 * @return 	array 	Associative list of CC value-pairs, if any.
@@ -1786,7 +1894,8 @@ class VBOModelReservation extends JObject
 				// invoke the OTA Booking helper class from VCM
 				$cc_helper = VCMOtaBooking::getInstance([
 					'channel_source' => $channel_source,
-					'ota_id' 		 => $booking_info['idorderota'],
+					'ota_id'         => $booking_info['idorderota'],
+					'booking'        => $booking_info,
 				], $anew = true);
 
 				if (method_exists($cc_helper, 'decodeCreditCardDetails')) {
@@ -1798,6 +1907,12 @@ class VBOModelReservation extends JObject
 					}
 				}
 			}
+		}
+
+		// check if we have already a full VCC
+		if (($remote_cc_data['card_number'] ?? '') && strlen(preg_replace('/[^0-9]/', '', (string) $remote_cc_data['card_number'])) >= 15) {
+			// do not merge any local data and return the full VCC details
+			return $remote_cc_data;
 		}
 
 		// merge remotely decoded CC details with parsed payment log (if any)

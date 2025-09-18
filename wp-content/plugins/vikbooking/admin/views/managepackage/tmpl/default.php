@@ -91,7 +91,7 @@ function vboExcludeWDays() {
 		}
 	}
 }
-jQuery(document).ready(function() {
+jQuery(function() {
 	jQuery('#vbo-rooms').select2();
 	jQuery(".vbo-select-all").click(function() {
 		var elem = jQuery(this).next("select");

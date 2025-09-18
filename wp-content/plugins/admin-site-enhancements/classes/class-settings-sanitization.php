@@ -26,9 +26,9 @@ class Settings_Sanitization {
         ;
         $roles = $wp_roles->get_names();
         $options_extra = get_option( ASENHA_SLUG_U . '_extra', array() );
-        if ( false === $options_extra ) {
-            add_option( ASENHA_SLUG_U . '_extra', array(), true );
-        }
+        // if ( false === $options_extra ) {
+        // 	add_option( ASENHA_SLUG_U . '_extra', array(), true );
+        // }
         $common_methods = new Common_Methods();
         // Content Duplication
         if ( !isset( $options['enable_duplication'] ) ) {
@@ -59,6 +59,10 @@ class Settings_Sanitization {
             $options['enable_media_replacement'] = false;
         }
         $options['enable_media_replacement'] = ( 'on' == $options['enable_media_replacement'] ? true : false );
+        if ( !isset( $options['disable_media_replacement_cache_busting'] ) ) {
+            $options['disable_media_replacement_cache_busting'] = false;
+        }
+        $options['disable_media_replacement_cache_busting'] = ( 'on' == $options['disable_media_replacement_cache_busting'] ? true : false );
         // Enable SVG Upload
         if ( !isset( $options['enable_svg_upload'] ) ) {
             $options['enable_svg_upload'] = false;
@@ -183,6 +187,10 @@ class Settings_Sanitization {
                     $options['hide_admin_bar_for'][$role_slug] = false;
                 }
                 $options['hide_admin_bar_for'][$role_slug] = ( 'on' == $options['hide_admin_bar_for'][$role_slug] ? true : false );
+                if ( !isset( $options['hide_admin_bar_always_show_for_admins'] ) ) {
+                    $options['hide_admin_bar_always_show_for_admins'] = false;
+                }
+                $options['hide_admin_bar_always_show_for_admins'] = ( 'on' == $options['hide_admin_bar_always_show_for_admins'] ? true : false );
             }
         }
         // Wider Admin Menu
@@ -294,6 +302,10 @@ class Settings_Sanitization {
             $options['custom_login_slug'] = 'backend';
         }
         $options['custom_login_slug'] = ( !empty( $options['custom_login_slug'] ) ? sanitize_text_field( trim( $options['custom_login_slug'], '/' ) ) : 'backend' );
+        if ( !isset( $options['custom_login_whitelist'] ) ) {
+            $options['custom_login_whitelist'] = '';
+        }
+        $options['custom_login_whitelist'] = ( !empty( $options['custom_login_whitelist'] ) ? sanitize_textarea_field( $options['custom_login_whitelist'] ) : '' );
         // Login ID Type
         if ( !isset( $options['login_id_type_restriction'] ) ) {
             $options['login_id_type_restriction'] = false;
@@ -447,6 +459,10 @@ class Settings_Sanitization {
             $options['insert_head_body_footer_code'] = false;
         }
         $options['insert_head_body_footer_code'] = ( 'on' == $options['insert_head_body_footer_code'] ? true : false );
+        if ( !isset( $options['disable_code_unslash'] ) ) {
+            $options['disable_code_unslash'] = false;
+        }
+        $options['disable_code_unslash'] = ( 'on' == $options['disable_code_unslash'] ? true : false );
         if ( !isset( $options['head_code_priority'] ) ) {
             $options['head_code_priority'] = 10;
         }
@@ -521,6 +537,11 @@ class Settings_Sanitization {
             $options['disable_all_updates'] = false;
         }
         $options['disable_all_updates'] = ( 'on' == $options['disable_all_updates'] ? true : false );
+        // Disable Author Archives
+        if ( !isset( $options['disable_author_archives'] ) ) {
+            $options['disable_author_archives'] = false;
+        }
+        $options['disable_author_archives'] = ( 'on' == $options['disable_author_archives'] ? true : false );
         // Disable Smaller Components
         if ( !isset( $options['disable_smaller_components'] ) ) {
             $options['disable_smaller_components'] = false;

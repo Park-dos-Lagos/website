@@ -21,7 +21,4 @@ $layout_data = [
 ];
 
 // render the permissions layout
-echo JLayoutHelper::render('customer.dropfiles', $layout_data, null, [
-	'component' => 'com_vikbooking',
-	'client' 	=> 'administrator',
-]);
+echo JLayoutHelper::render('customer.dropfiles', $layout_data);

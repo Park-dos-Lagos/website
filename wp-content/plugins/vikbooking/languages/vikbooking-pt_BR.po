@@ -1,42 +1,39 @@
 msgid ""
 msgstr ""
+"Project-Id-Version: vix\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: POEditor.com\n"
-"Project-Id-Version: vix\n"
-"Language: pt-br\n"
+"X-Generator: Poedit 3.6\n"
 
-#: admin/com_vikbooking:VBSAVE
-#: admin/com_vikbooking:VBAPPLYDISCOUNTSAVE
-#: admin/com_vikbooking:VBOSIGNATURESAVE
-#: site/com_vikbooking:VBOSIGNATURESAVE
+#: admin/com_vikbooking:VBSAVE admin/com_vikbooking:VBAPPLYDISCOUNTSAVE
+#: admin/com_vikbooking:VBOSIGNATURESAVE site/com_vikbooking:VBOSIGNATURESAVE
 msgid "Save"
 msgstr "Salvar"
 
-#: admin/com_vikbooking:VBANNULLA
-#: site/com_vikbooking:VBDIALOGBTNCANCEL
+#: admin/com_vikbooking:VBANNULLA site/com_vikbooking:VBDIALOGBTNCANCEL
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: admin/com_vikbooking:VBELIMINA
-#: admin/com_vikbooking:VBMAINSEASONSDEL
+#: admin/com_vikbooking:VBELIMINA admin/com_vikbooking:VBMAINSEASONSDEL
 msgid "Delete"
 msgstr "Deletar"
 
-#: admin/com_vikbooking:VBBACK
-#: site/com_vikbooking:VBBACK
+#: admin/com_vikbooking:VBBACK site/com_vikbooking:VBBACK
 msgid "Back"
 msgstr "Voltar"
 
-#: admin/com_vikbooking:VBCONFIRMED
-#: admin/com_vikbooking:VBCSVSTATUSCONFIRMED
+#: admin/com_vikbooking:VBCONFIRMED admin/com_vikbooking:VBCSVSTATUSCONFIRMED
 #: site/com_vikbooking:VBCONFIRMED
 msgid "Confirmed"
 msgstr "Confirmado"
 
-#: admin/com_vikbooking:VBSTANDBY
-#: site/com_vikbooking:VBSTANDBY
+#: admin/com_vikbooking:VBSTANDBY site/com_vikbooking:VBSTANDBY
 msgid "Standby"
 msgstr "Em espera"
 
@@ -52,8 +49,7 @@ msgstr "Direita"
 msgid "Bottom, Center"
 msgstr "Inferior, Centro"
 
-#: admin/com_vikbooking:VBSTATUS
-#: admin/com_vikbooking:VBPVIEWORDERSEIGHT
+#: admin/com_vikbooking:VBSTATUS admin/com_vikbooking:VBPVIEWORDERSEIGHT
 #: admin/com_vikbooking:VBDASHUPRESFIVE
 #: admin/com_vikbooking:VBTRANSLATIONINISTATUS
 msgid "Status"
@@ -231,14 +227,12 @@ msgstr "Vik Booking - Listas Reservas"
 msgid "Remove Bookings"
 msgstr "Apagar Pedidos"
 
-#: admin/com_vikbooking:VBMAINORDEREDIT
-#: admin/com_vikbooking:VBORDERDETAILS
+#: admin/com_vikbooking:VBMAINORDEREDIT admin/com_vikbooking:VBORDERDETAILS
 #: admin/com_vikbooking:VBOINVCOLBOOKINGDETS
 #: admin/com_vikbooking:VBOINVBOOKDETAILS
 #: admin/com_vikbooking:VBOBOOKDETTABDETAILS
 #: admin/sys:COM_VIKBOOKING_BOOKING_VIEW_DEFAULT_TITLE
-#: site/com_vikbooking:VBORDERDETAILS
-#: site/com_vikbooking:VBOINVCOLBOOKINGDETS
+#: site/com_vikbooking:VBORDERDETAILS site/com_vikbooking:VBOINVCOLBOOKINGDETS
 msgid "Booking Details"
 msgstr "Detalhes da reserva"
 
@@ -258,8 +252,7 @@ msgstr "Reservas de"
 msgid "Vik Booking - Edit Reservation"
 msgstr "Vik Booking - Editar Reservas"
 
-#: admin/com_vikbooking:VBMAINEBUSYDEL
-#: admin/com_vikbooking:VBJSDELBUSY
+#: admin/com_vikbooking:VBMAINEBUSYDEL admin/com_vikbooking:VBJSDELBUSY
 msgid "Delete Reservation"
 msgstr "Apagar Reservas"
 
@@ -271,32 +264,25 @@ msgstr "Vik Booking - Configuração Global"
 msgid "Vik Booking - Payment Methods"
 msgstr "Vik Booking - Métodos de Pagamento"
 
-#: admin/com_vikbooking:VBMAINPAYMENTSDEL
-#: admin/com_vikbooking:VBMAINCUSTOMFDEL
+#: admin/com_vikbooking:VBMAINPAYMENTSDEL admin/com_vikbooking:VBMAINCUSTOMFDEL
 #: admin/com_vikbooking:VBMAINCOUPONDEL
 #: admin/com_vikbooking:VBMAINRESTRICTIONDEL
-#: admin/com_vikbooking:VBMAINCUSTOMERDEL
-#: admin/com_vikbooking:VBMAINPACKAGEDEL
-#: admin/com_vikbooking:VBMAINCRONDEL
-#: site/com_vikbooking:VBOUPSELLREMOVE
+#: admin/com_vikbooking:VBMAINCUSTOMERDEL admin/com_vikbooking:VBMAINPACKAGEDEL
+#: admin/com_vikbooking:VBMAINCRONDEL site/com_vikbooking:VBOUPSELLREMOVE
 msgid "Remove"
 msgstr "Remover"
 
 #: admin/com_vikbooking:VBMAINPAYMENTSEDIT
 #: admin/com_vikbooking:VBMAINSEASONSEDIT
-#: admin/com_vikbooking:VBMAINCUSTOMFEDIT
-#: admin/com_vikbooking:VBMAINCOUPONEDIT
+#: admin/com_vikbooking:VBMAINCUSTOMFEDIT admin/com_vikbooking:VBMAINCOUPONEDIT
 #: admin/com_vikbooking:VBMAINRESTRICTIONEDIT
 #: admin/com_vikbooking:VBMAINCUSTOMEREDIT
-#: admin/com_vikbooking:VBMAINPACKAGEEDIT
-#: admin/com_vikbooking:VBMAINCRONEDIT
+#: admin/com_vikbooking:VBMAINPACKAGEEDIT admin/com_vikbooking:VBMAINCRONEDIT
 msgid "Edit"
 msgstr "Editar"
 
-#: admin/com_vikbooking:VBMAINPAYMENTSNEW
-#: admin/com_vikbooking:VBMAINCUSTOMFNEW
-#: admin/com_vikbooking:VBMAINCOUPONNEW
-#: admin/com_vikbooking:VBMAINCUSTOMERNEW
+#: admin/com_vikbooking:VBMAINPAYMENTSNEW admin/com_vikbooking:VBMAINCUSTOMFNEW
+#: admin/com_vikbooking:VBMAINCOUPONNEW admin/com_vikbooking:VBMAINCUSTOMERNEW
 #: admin/com_vikbooking:VBMAINPACKAGENEW
 msgid "New"
 msgstr "Novo"
@@ -333,8 +319,7 @@ msgstr "Companhia e Encomendas"
 msgid "Reservation Deleted"
 msgstr "Reservas Apagadas"
 
-#: admin/com_vikbooking:VBROOMNOTCONSTO
-#: admin/com_vikbooking:VBDAYSTO
+#: admin/com_vikbooking:VBROOMNOTCONSTO admin/com_vikbooking:VBDAYSTO
 msgid "to"
 msgstr "Para"
 
@@ -370,16 +355,13 @@ msgstr "Classe arquivo já está sendo usado em outra forma de pagamento"
 msgid "Payment Method Updated"
 msgstr "Método de Pagamento Atualizado"
 
-#: admin/com_vikbooking:VBRENTALORD
-#: admin/com_vikbooking:VBO_AITOOL_RESERVATION
-#: site/com_vikbooking:VBORDNOL
-#: site/com_vikbooking:VBRENTALORD
+#: admin/com_vikbooking:VBRENTALORD admin/com_vikbooking:VBO_AITOOL_RESERVATION
+#: site/com_vikbooking:VBORDNOL site/com_vikbooking:VBRENTALORD
 #: site/com_vikbooking:VBRENTAL
 msgid "Reservation"
 msgstr "Reserva"
 
-#: admin/com_vikbooking:VBCOMPLETED
-#: site/com_vikbooking:VBCOMPLETED
+#: admin/com_vikbooking:VBCOMPLETED site/com_vikbooking:VBCOMPLETED
 msgid "Completed"
 msgstr "Completado"
 
@@ -415,15 +397,11 @@ msgstr "Aqui"
 msgid "Days Field is empty"
 msgstr "Campo Dias está vazio"
 
-#: admin/com_vikbooking:VBDAYS
-#: admin/com_vikbooking:VBPVIEWORDERSSIX
+#: admin/com_vikbooking:VBDAYS admin/com_vikbooking:VBPVIEWORDERSSIX
 #: admin/com_vikbooking:VBEDITORDERFOUR
-#: admin/com_vikbooking:VBNEWSEASONNIGHTSOVR
-#: admin/com_vikbooking:VBCSVNIGHTS
-#: admin/com_vikbooking:VBRATESOVWRATESCALCNUMNIGHTS
-#: site/com_vikbooking:VBDAYS
-#: site/com_vikbooking:ORDDD
-#: site/com_vikbooking:VBJSTOTNIGHTS
+#: admin/com_vikbooking:VBNEWSEASONNIGHTSOVR admin/com_vikbooking:VBCSVNIGHTS
+#: admin/com_vikbooking:VBRATESOVWRATESCALCNUMNIGHTS site/com_vikbooking:VBDAYS
+#: site/com_vikbooking:ORDDD site/com_vikbooking:VBJSTOTNIGHTS
 #: site/com_vikbooking:VBSEARCHRESNIGHTS
 #: site/mod_vikbooking_search:VBMJSTOTNIGHTS
 #: site/mod_vikbooking_horizontalsearch:VBMJSTOTNIGHTS
@@ -431,8 +409,7 @@ msgstr "Campo Dias está vazio"
 msgid "Nights"
 msgstr "Diárias"
 
-#: admin/com_vikbooking:VBDAYSFROM
-#: site/mod_vikbooking_rooms:VBMODROOMSTARTFROM
+#: admin/com_vikbooking:VBDAYSFROM site/mod_vikbooking_rooms:VBMODROOMSTARTFROM
 msgid "from"
 msgstr "de"
 
@@ -440,8 +417,7 @@ msgstr "de"
 msgid "Price(s) per Night"
 msgstr "Preços por diária"
 
-#: admin/com_vikbooking:VBDAY
-#: site/com_vikbooking:VBDAY
+#: admin/com_vikbooking:VBDAY site/com_vikbooking:VBDAY
 #: site/com_vikbooking:VBSEARCHRESNIGHT
 msgid "Night"
 msgstr "Diária"
@@ -486,10 +462,8 @@ msgstr "Em"
 msgid "Check-out Date and Time"
 msgstr "Data e Hora de Saída"
 
-#: admin/com_vikbooking:VBCUSTINFO
-#: admin/com_vikbooking:VBPVIEWORDERSTWO
-#: admin/com_vikbooking:VBCSVCUSTINFO
-#: admin/com_vikbooking:VBOINVCOLCUSTINFO
+#: admin/com_vikbooking:VBCUSTINFO admin/com_vikbooking:VBPVIEWORDERSTWO
+#: admin/com_vikbooking:VBCSVCUSTINFO admin/com_vikbooking:VBOINVCOLCUSTINFO
 #: site/com_vikbooking:VBOINVCOLCUSTINFO
 msgid "Customer Information"
 msgstr "Informações do cliente"
@@ -521,65 +495,50 @@ msgstr "6 Meses"
 msgid "1 Year"
 msgstr "1 Ano"
 
-#: admin/com_vikbooking:VBSUN
-#: site/com_vikbooking:VBSUN
+#: admin/com_vikbooking:VBSUN site/com_vikbooking:VBSUN
 msgid "Sun"
 msgstr "Domingo"
 
-#: admin/com_vikbooking:VBMON
-#: site/com_vikbooking:VBMON
+#: admin/com_vikbooking:VBMON site/com_vikbooking:VBMON
 msgid "Mon"
 msgstr "Segunda"
 
-#: admin/com_vikbooking:VBTUE
-#: site/com_vikbooking:VBTUE
+#: admin/com_vikbooking:VBTUE site/com_vikbooking:VBTUE
 msgid "Tue"
 msgstr "Terça"
 
-#: admin/com_vikbooking:VBWED
-#: site/com_vikbooking:VBWED
+#: admin/com_vikbooking:VBWED site/com_vikbooking:VBWED
 msgid "Wed"
 msgstr "Quarta"
 
-#: admin/com_vikbooking:VBTHU
-#: site/com_vikbooking:VBTHU
+#: admin/com_vikbooking:VBTHU site/com_vikbooking:VBTHU
 msgid "Thu"
 msgstr "Quinta"
 
-#: admin/com_vikbooking:VBFRI
-#: site/com_vikbooking:VBFRI
+#: admin/com_vikbooking:VBFRI site/com_vikbooking:VBFRI
 msgid "Fri"
 msgstr "Sexta"
 
-#: admin/com_vikbooking:VBSAT
-#: site/com_vikbooking:VBSAT
+#: admin/com_vikbooking:VBSAT site/com_vikbooking:VBSAT
 msgid "Sat"
 msgstr "Sábado"
 
-#: admin/com_vikbooking:VBPICKUPAT
-#: admin/com_vikbooking:VBPVIEWORDERSFOUR
-#: admin/com_vikbooking:VBEDITORDERFIVE
-#: admin/com_vikbooking:VBDASHUPRESTHREE
-#: admin/com_vikbooking:VBCSVCHECKIN
-#: admin/com_vikbooking:VBOVERVIEWLEGGREEN
+#: admin/com_vikbooking:VBPICKUPAT admin/com_vikbooking:VBPVIEWORDERSFOUR
+#: admin/com_vikbooking:VBEDITORDERFIVE admin/com_vikbooking:VBDASHUPRESTHREE
+#: admin/com_vikbooking:VBCSVCHECKIN admin/com_vikbooking:VBOVERVIEWLEGGREEN
 #: admin/com_vikbooking:VBOINVCHECKIN
 #: admin/com_vikbooking:VBOSETCHECKEDSTATUSIN
-#: admin/com_vikbooking:VBOBOOKHISTORYTRB
-#: site/com_vikbooking:VBPICKUP
+#: admin/com_vikbooking:VBOBOOKHISTORYTRB site/com_vikbooking:VBPICKUP
 #: site/com_vikbooking:VBOINVCHECKIN
 msgid "Check-in"
 msgstr "Check-in"
 
-#: admin/com_vikbooking:VBRELEASEAT
-#: admin/com_vikbooking:VBPVIEWORDERSFIVE
-#: admin/com_vikbooking:VBEDITORDERSIX
-#: admin/com_vikbooking:VBDASHUPRESFOUR
-#: admin/com_vikbooking:VBCSVCHECKOUT
-#: admin/com_vikbooking:VBOINVCHECKOUT
+#: admin/com_vikbooking:VBRELEASEAT admin/com_vikbooking:VBPVIEWORDERSFIVE
+#: admin/com_vikbooking:VBEDITORDERSIX admin/com_vikbooking:VBDASHUPRESFOUR
+#: admin/com_vikbooking:VBCSVCHECKOUT admin/com_vikbooking:VBOINVCHECKOUT
 #: admin/com_vikbooking:VBOMANAGECHECKOUT
 #: admin/com_vikbooking:VBOSETCHECKEDSTATUSOUT
-#: admin/com_vikbooking:VBOBOOKHISTORYTRC
-#: site/com_vikbooking:VBRETURN
+#: admin/com_vikbooking:VBOBOOKHISTORYTRC site/com_vikbooking:VBRETURN
 #: site/com_vikbooking:VBOINVCHECKOUT
 msgid "Check-out"
 msgstr "Check-out"
@@ -592,48 +551,37 @@ msgstr "Quartos não encontrados"
 msgid "Every selected Room will be removed with its own contents. Confirm"
 msgstr "Cada quarto selecionado será removido com seus próprios conteúdos. Confirmar"
 
-#: admin/com_vikbooking:VBPVIEWROOMONE
-#: admin/com_vikbooking:VBPVIEWPLACESONE
-#: admin/com_vikbooking:VBPVIEWIVAONE
-#: admin/com_vikbooking:VBPVIEWOPTIONALSONE
+#: admin/com_vikbooking:VBPVIEWROOMONE admin/com_vikbooking:VBPVIEWPLACESONE
+#: admin/com_vikbooking:VBPVIEWIVAONE admin/com_vikbooking:VBPVIEWOPTIONALSONE
 #: admin/com_vikbooking:VBPSHOWPAYMENTSONE
-#: admin/com_vikbooking:VBPVIEWCUSTOMFONE
-#: admin/com_vikbooking:ORDER_NAME
+#: admin/com_vikbooking:VBPVIEWCUSTOMFONE admin/com_vikbooking:ORDER_NAME
 #: admin/com_vikbooking:VBPSHOWSEASONSPNAME
-#: admin/com_vikbooking:VBPVIEWRESTRICTIONSONE
-#: site/com_vikbooking:VBNAME
-#: site/com_vikbooking:ORDER_NAME
-#: site/com_vikbooking:VBREGNAME
+#: admin/com_vikbooking:VBPVIEWRESTRICTIONSONE site/com_vikbooking:VBNAME
+#: site/com_vikbooking:ORDER_NAME site/com_vikbooking:VBREGNAME
 #: site/mod_vikbooking_horizontalsearch:ORDER_NAME
 msgid "Name"
 msgstr "Nome"
 
 #: admin/com_vikbooking:VBPVIEWROOMTWO
 #: admin/sys:COM_VIKBOOKING_CATEGORY_FIELD_SELECT_TITLE
-#: site/com_vikbooking:VBCAT
-#: site/mod_vikbooking_search:VBMROOMCAT
+#: site/com_vikbooking:VBCAT site/mod_vikbooking_search:VBMROOMCAT
 #: site/mod_vikbooking_horizontalsearch:VBMROOMCAT
 msgid "Category"
 msgstr "Categoria"
 
-#: admin/com_vikbooking:VBPVIEWROOMTHREE
-#: admin/com_vikbooking:VBMENUTENFOUR
+#: admin/com_vikbooking:VBPVIEWROOMTHREE admin/com_vikbooking:VBMENUTENFOUR
 #: admin/com_vikbooking:VBOXMLTRANSLATECHARACTERISTICS
 #: site/com_vikbooking:VBCHARACTERISTICS
 msgid "Characteristics"
 msgstr "Características"
 
-#: admin/com_vikbooking:VBPVIEWROOMFOUR
-#: admin/com_vikbooking:VBEDITORDEREIGHT
-#: admin/com_vikbooking:VBCSVOPTIONS
-#: site/com_vikbooking:VBACCOPZ
-#: site/com_vikbooking:VBOPTS
-#: site/com_vikbooking:VBSTEPOPTIONS
+#: admin/com_vikbooking:VBPVIEWROOMFOUR admin/com_vikbooking:VBEDITORDEREIGHT
+#: admin/com_vikbooking:VBCSVOPTIONS site/com_vikbooking:VBACCOPZ
+#: site/com_vikbooking:VBOPTS site/com_vikbooking:VBSTEPOPTIONS
 msgid "Options"
 msgstr "Opções"
 
-#: admin/com_vikbooking:VBPVIEWROOMSIX
-#: site/com_vikbooking:VBLEGFREE
+#: admin/com_vikbooking:VBPVIEWROOMSIX site/com_vikbooking:VBLEGFREE
 msgid "Available"
 msgstr "Disponível"
 
@@ -649,12 +597,9 @@ msgstr "Indisponível Fazer"
 msgid "Make Available"
 msgstr "Disponível Fazer"
 
-#: admin/com_vikbooking:VBANYTHING
-#: admin/com_vikbooking:VBSEASONANY
-#: admin/com_vikbooking:VBDASHALLPLACES
-#: site/com_vikbooking:VBANY
-#: site/com_vikbooking:VBALLCAT
-#: site/mod_vikbooking_search:VBMALLCAT
+#: admin/com_vikbooking:VBANYTHING admin/com_vikbooking:VBSEASONANY
+#: admin/com_vikbooking:VBDASHALLPLACES site/com_vikbooking:VBANY
+#: site/com_vikbooking:VBALLCAT site/mod_vikbooking_search:VBMALLCAT
 #: site/mod_vikbooking_horizontalsearch:VBMALLCAT
 msgid "Any"
 msgstr "Qualquer"
@@ -668,32 +613,25 @@ msgid "Every selected booking will be removed with its reservation. Confirm"
 msgstr "Cada ordem selecionada será removida com a sua reserva. Confirmar"
 
 #: admin/com_vikbooking:VBPVIEWORDERSONE
-#: admin/com_vikbooking:VBNEWCUSTOMFDATETYPE
-#: admin/com_vikbooking:VBOINVDATE
+#: admin/com_vikbooking:VBNEWCUSTOMFDATETYPE admin/com_vikbooking:VBOINVDATE
 #: admin/com_vikbooking:VBOCHECKINDOCTODAYDT
 #: admin/com_vikbooking:VBOFISCRECEIPTDATE
 #: admin/com_vikbooking:VBOBOOKHISTORYLBLDATE
-#: admin/com_vikbooking:VBOREPORTREVENUEDAY
-#: site/com_vikbooking:VBDATE
+#: admin/com_vikbooking:VBOREPORTREVENUEDAY site/com_vikbooking:VBDATE
 #: site/com_vikbooking:VBOINVDATE
 msgid "Date"
 msgstr "Data"
 
 #: admin/com_vikbooking:VBPVIEWORDERSTHREE
 #: admin/com_vikbooking:VBEDITORDERROOMSNUM
-#: admin/com_vikbooking:VBNEWSEASONFIVE
-#: admin/com_vikbooking:VBMENUTWO
-#: admin/com_vikbooking:VBPVIEWCOUPONSFOUR
-#: admin/com_vikbooking:VBNEWCOUPONFIVE
-#: admin/com_vikbooking:VBDASHUPRESTWO
-#: admin/com_vikbooking:VBDASHNOROOMS
+#: admin/com_vikbooking:VBNEWSEASONFIVE admin/com_vikbooking:VBMENUTWO
+#: admin/com_vikbooking:VBPVIEWCOUPONSFOUR admin/com_vikbooking:VBNEWCOUPONFIVE
+#: admin/com_vikbooking:VBDASHUPRESTWO admin/com_vikbooking:VBDASHNOROOMS
 #: admin/com_vikbooking:VBRESTRLISTROOMS
 #: admin/com_vikbooking:VBOXMLTRANSLATEROOMS
 #: admin/sys:COM_VIKBOOKING_ROOMIDS_FIELD_SELECT_TITLE
-#: site/com_vikbooking:VBFORMROOMSN
-#: site/com_vikbooking:VBSEARCHRESROOMS
-#: site/com_vikbooking:VBSTEPROOMSELECTION
-#: site/com_vikbooking:VBOROOMSBOOKED
+#: site/com_vikbooking:VBFORMROOMSN site/com_vikbooking:VBSEARCHRESROOMS
+#: site/com_vikbooking:VBSTEPROOMSELECTION site/com_vikbooking:VBOROOMSBOOKED
 #: site/mod_vikbooking_search:VBMFORMROOMSN
 #: site/mod_vikbooking_horizontalsearch:VBMFORMROOMSN
 #: site/mod_vikbooking_channelrates:VBMFORMROOMSN
@@ -701,29 +639,21 @@ msgid "Rooms"
 msgstr "Quartos"
 
 #: admin/com_vikbooking:VBPVIEWORDERSPEOPLE
-#: admin/com_vikbooking:VBQUICKRESGUESTS
-#: admin/com_vikbooking:VBOINVTOTGUESTS
+#: admin/com_vikbooking:VBQUICKRESGUESTS admin/com_vikbooking:VBOINVTOTGUESTS
 #: admin/com_vikbooking:VBO_NOTIFS_GROUP_GUESTS
-#: site/com_vikbooking:VBOINVTOTGUESTS
-#: site/com_vikbooking:VBOSIGNATUREGUESTS
+#: site/com_vikbooking:VBOINVTOTGUESTS site/com_vikbooking:VBOSIGNATUREGUESTS
 #: site/mod_vikbooking_horizontalsearch:VBMHORSGUESTS
 #: site/mod_vikbooking_channelrates:VBMHORSGUESTS
 msgid "Guests"
 msgstr "Hóspedes"
 
-#: admin/com_vikbooking:VBPVIEWORDERSSEVEN
-#: admin/com_vikbooking:VBEDITORDERNINE
-#: admin/com_vikbooking:VBLIBSIX
-#: admin/com_vikbooking:VBADULTSDIFFONTOTAL
-#: admin/com_vikbooking:VBCSVTOTAL
-#: admin/com_vikbooking:VBCALCRATESTOT
+#: admin/com_vikbooking:VBPVIEWORDERSSEVEN admin/com_vikbooking:VBEDITORDERNINE
+#: admin/com_vikbooking:VBLIBSIX admin/com_vikbooking:VBADULTSDIFFONTOTAL
+#: admin/com_vikbooking:VBCSVTOTAL admin/com_vikbooking:VBCALCRATESTOT
 #: admin/com_vikbooking:VBNEWPKGCOSTTYPETOTAL
-#: admin/com_vikbooking:VBOINVCOLTOTAL
-#: admin/com_vikbooking:VBOREPORTSTOTALROW
-#: site/com_vikbooking:VBTOTAL
-#: site/com_vikbooking:VBLIBSIX
-#: site/com_vikbooking:VBNEWTOTAL
-#: site/com_vikbooking:VBOINVCOLTOTAL
+#: admin/com_vikbooking:VBOINVCOLTOTAL admin/com_vikbooking:VBOREPORTSTOTALROW
+#: site/com_vikbooking:VBTOTAL site/com_vikbooking:VBLIBSIX
+#: site/com_vikbooking:VBNEWTOTAL site/com_vikbooking:VBOINVCOLTOTAL
 msgid "Total"
 msgstr "Total"
 
@@ -747,8 +677,7 @@ msgstr "Categorias não encontradas"
 msgid "Remove every selected Category"
 msgstr "Remover todas as Categorias selecionadas"
 
-#: admin/com_vikbooking:VBPVIEWCATEGORIESONE
-#: admin/com_vikbooking:VBNEWCATONE
+#: admin/com_vikbooking:VBPVIEWCATEGORIESONE admin/com_vikbooking:VBNEWCATONE
 msgid "Category Name"
 msgstr "Nome da Categoria"
 
@@ -760,8 +689,7 @@ msgstr "Características não encontradas"
 msgid "Remove every selected Characteristic"
 msgstr "Remover todas as Características selecionadas"
 
-#: admin/com_vikbooking:VBPVIEWCARATONE
-#: admin/com_vikbooking:VBNEWCARATONE
+#: admin/com_vikbooking:VBPVIEWCARATONE admin/com_vikbooking:VBNEWCARATONE
 msgid "Characteristic Name"
 msgstr "Nome da Característica"
 
@@ -770,8 +698,7 @@ msgid "Icon"
 msgstr "Ícone"
 
 #: admin/com_vikbooking:VBPVIEWCARATTHREE
-#: admin/com_vikbooking:VBNEWCUSTOMFTHREE
-#: admin/com_vikbooking:VBO_TPL_TEXT
+#: admin/com_vikbooking:VBNEWCUSTOMFTHREE admin/com_vikbooking:VBO_TPL_TEXT
 msgid "Text"
 msgstr "Texto"
 
@@ -783,8 +710,7 @@ msgstr "Opções não encontradas"
 msgid "Remove every selected Option"
 msgstr "Remover todas as Opções selecionadas"
 
-#: admin/com_vikbooking:VBPVIEWOPTIONALSTWO
-#: admin/com_vikbooking:VBPLACEDESCR
+#: admin/com_vikbooking:VBPVIEWOPTIONALSTWO admin/com_vikbooking:VBPLACEDESCR
 #: admin/com_vikbooking:VBNEWCATDESCR
 #: admin/com_vikbooking:VBPVIEWCATEGORIESDESCR
 #: admin/com_vikbooking:VBOINVCOLDESCR
@@ -795,18 +721,14 @@ msgid "Description"
 msgstr "Descrição"
 
 #: admin/com_vikbooking:VBPVIEWOPTIONALSTHREE
-#: admin/com_vikbooking:VBPACKAGESCOST
-#: admin/com_vikbooking:VBOINVCOLPRICE
-#: site/com_vikbooking:VBPRICE
-#: site/com_vikbooking:VBOINVCOLPRICE
+#: admin/com_vikbooking:VBPACKAGESCOST admin/com_vikbooking:VBOINVCOLPRICE
+#: site/com_vikbooking:VBPRICE site/com_vikbooking:VBOINVCOLPRICE
 msgid "Price"
 msgstr "Preço"
 
 #: admin/com_vikbooking:VBPVIEWOPTIONALSFOUR
-#: admin/com_vikbooking:VBPVIEWPRICESTHREE
-#: admin/com_vikbooking:VBNEWIVATWO
-#: admin/com_vikbooking:VBNEWPRICETHREE
-#: admin/com_vikbooking:VBNEWOPTFOUR
+#: admin/com_vikbooking:VBPVIEWPRICESTHREE admin/com_vikbooking:VBNEWIVATWO
+#: admin/com_vikbooking:VBNEWPRICETHREE admin/com_vikbooking:VBNEWOPTFOUR
 #: admin/com_vikbooking:VBO_INV_TAX_ALIQUOTE
 #: site/com_vikbooking:VBO_INV_TAX_ALIQUOTE
 msgid "Tax Rate"
@@ -838,13 +760,11 @@ msgstr "Preços não encontrados"
 msgid "Remove every selected Price ? Each Tax Rate with one of these prices will become null."
 msgstr "Remover todos os Preços selecionado? Cada Taxa com um desses preços torna-se nula."
 
-#: admin/com_vikbooking:VBPVIEWPRICESONE
-#: admin/com_vikbooking:VBNEWPRICEONE
+#: admin/com_vikbooking:VBPVIEWPRICESONE admin/com_vikbooking:VBNEWPRICEONE
 msgid "Price Name"
 msgstr "Nome do Preço"
 
-#: admin/com_vikbooking:VBPVIEWPRICESTWO
-#: admin/com_vikbooking:VBNEWPRICETWO
+#: admin/com_vikbooking:VBPVIEWPRICESTWO admin/com_vikbooking:VBNEWPRICETWO
 msgid "Price Attributes"
 msgstr "Atributos do Preço"
 
@@ -852,12 +772,9 @@ msgstr "Atributos do Preço"
 msgid "Reservation not found"
 msgstr "Dados das ordens não encontrados"
 
-#: admin/com_vikbooking:VBPEDITBUSYTWO
-#: admin/com_vikbooking:VBEDITORDERONE
-#: admin/com_vikbooking:VBLIBEIGHT
-#: site/com_vikbooking:VBORDEREDON
-#: site/com_vikbooking:VBLIBEIGHT
-#: site/com_vikbooking:VBBOOKINGDATE
+#: admin/com_vikbooking:VBPEDITBUSYTWO admin/com_vikbooking:VBEDITORDERONE
+#: admin/com_vikbooking:VBLIBEIGHT site/com_vikbooking:VBORDEREDON
+#: site/com_vikbooking:VBLIBEIGHT site/com_vikbooking:VBBOOKINGDATE
 msgid "Booking Date"
 msgstr "Data da reserva"
 
@@ -865,14 +782,10 @@ msgstr "Data da reserva"
 msgid "Reservation for"
 msgstr "Reserva para"
 
-#: admin/com_vikbooking:VBPEDITBUSYFOUR
-#: admin/com_vikbooking:VBLIBFOUR
-#: admin/com_vikbooking:VBLIBELEVEN
-#: admin/com_vikbooking:VBOFILTERDATEIN
-#: admin/com_vikbooking:VBPICKUPROOM
-#: site/com_vikbooking:VBPICKUPROOM
-#: site/com_vikbooking:VBLIBFOUR
-#: site/com_vikbooking:VBLIBELEVEN
+#: admin/com_vikbooking:VBPEDITBUSYFOUR admin/com_vikbooking:VBLIBFOUR
+#: admin/com_vikbooking:VBLIBELEVEN admin/com_vikbooking:VBOFILTERDATEIN
+#: admin/com_vikbooking:VBPICKUPROOM site/com_vikbooking:VBPICKUPROOM
+#: site/com_vikbooking:VBLIBFOUR site/com_vikbooking:VBLIBELEVEN
 msgid "Check-in date"
 msgstr "Data de Chegada"
 
@@ -880,14 +793,10 @@ msgstr "Data de Chegada"
 msgid "At H:M"
 msgstr "Em H:M"
 
-#: admin/com_vikbooking:VBPEDITBUSYSIX
-#: admin/com_vikbooking:VBLIBFIVE
-#: admin/com_vikbooking:VBLIBTWELVE
-#: admin/com_vikbooking:VBOFILTERDATEOUT
-#: admin/com_vikbooking:VBRETURNROOM
-#: site/com_vikbooking:VBRETURNROOM
-#: site/com_vikbooking:VBLIBFIVE
-#: site/com_vikbooking:VBLIBTWELVE
+#: admin/com_vikbooking:VBPEDITBUSYSIX admin/com_vikbooking:VBLIBFIVE
+#: admin/com_vikbooking:VBLIBTWELVE admin/com_vikbooking:VBOFILTERDATEOUT
+#: admin/com_vikbooking:VBRETURNROOM site/com_vikbooking:VBRETURNROOM
+#: site/com_vikbooking:VBLIBFIVE site/com_vikbooking:VBLIBTWELVE
 msgid "Check-out date"
 msgstr "Data de Saída"
 
@@ -899,17 +808,13 @@ msgstr "Preços"
 msgid "Options/Taxes/Fees"
 msgstr "Opções"
 
-#: admin/com_vikbooking:VBEDITORDERTWO
-#: admin/com_vikbooking:VBLIBTWO
+#: admin/com_vikbooking:VBEDITORDERTWO admin/com_vikbooking:VBLIBTWO
 msgid "Customer Info"
 msgstr "Informações do Comprados"
 
-#: admin/com_vikbooking:VBEDITORDERTHREE
-#: admin/com_vikbooking:VBCSVROOM
-#: admin/com_vikbooking:VBRATESOVWROOM
-#: admin/com_vikbooking:VBDASHROOMNAME
-#: site/com_vikbooking:VBFORMNUMROOM
-#: site/com_vikbooking:VBSEARCHROOMNUM
+#: admin/com_vikbooking:VBEDITORDERTHREE admin/com_vikbooking:VBCSVROOM
+#: admin/com_vikbooking:VBRATESOVWROOM admin/com_vikbooking:VBDASHROOMNAME
+#: site/com_vikbooking:VBFORMNUMROOM site/com_vikbooking:VBSEARCHROOMNUM
 #: site/com_vikbooking:VBSEARCHRESROOM
 #: site/mod_vikbooking_search:VBMFORMNUMROOM
 #: site/mod_vikbooking_horizontalsearch:VBMFORMNUMROOM
@@ -922,19 +827,13 @@ msgstr "Quarto"
 msgid "Rate"
 msgstr "Taxa Imposto"
 
-#: admin/com_vikbooking:VBEDITORDERADULTS
-#: admin/com_vikbooking:VBDASHUPRESSIX
-#: admin/com_vikbooking:VBNEWROOMADULTS
-#: admin/com_vikbooking:VBPVIEWROOMADULTS
-#: admin/com_vikbooking:VBMAILADULTS
-#: admin/com_vikbooking:VBQUICKADULTS
+#: admin/com_vikbooking:VBEDITORDERADULTS admin/com_vikbooking:VBDASHUPRESSIX
+#: admin/com_vikbooking:VBNEWROOMADULTS admin/com_vikbooking:VBPVIEWROOMADULTS
+#: admin/com_vikbooking:VBMAILADULTS admin/com_vikbooking:VBQUICKADULTS
 #: admin/com_vikbooking:VBRATESOVWRATESCALCNUMADULTS
-#: admin/com_vikbooking:VBOINVTOTADULTS
-#: site/com_vikbooking:VBFORMADULTS
-#: site/com_vikbooking:VBSEARCHROOMADULTS
-#: site/com_vikbooking:VBSEARCHRESADULTS
-#: site/com_vikbooking:VBMAILADULTS
-#: site/com_vikbooking:VBOINVTOTADULTS
+#: admin/com_vikbooking:VBOINVTOTADULTS site/com_vikbooking:VBFORMADULTS
+#: site/com_vikbooking:VBSEARCHROOMADULTS site/com_vikbooking:VBSEARCHRESADULTS
+#: site/com_vikbooking:VBMAILADULTS site/com_vikbooking:VBOINVTOTADULTS
 #: site/mod_vikbooking_search:VBMFORMADULTS
 #: site/mod_vikbooking_horizontalsearch:VBMFORMADULTS
 #: site/mod_vikbooking_channelrates:VBMFORMADULTS
@@ -943,16 +842,12 @@ msgstr "Adultos"
 
 #: admin/com_vikbooking:VBEDITORDERCHILDREN
 #: admin/com_vikbooking:VBNEWROOMCHILDREN
-#: admin/com_vikbooking:VBPVIEWROOMCHILDREN
-#: admin/com_vikbooking:VBMAILCHILDREN
-#: admin/com_vikbooking:VBQUICKCHILDREN
-#: admin/com_vikbooking:VBCSVCHILDREN
+#: admin/com_vikbooking:VBPVIEWROOMCHILDREN admin/com_vikbooking:VBMAILCHILDREN
+#: admin/com_vikbooking:VBQUICKCHILDREN admin/com_vikbooking:VBCSVCHILDREN
 #: admin/com_vikbooking:VBRATESOVWRATESCALCNUMCHILDREN
-#: admin/com_vikbooking:VBOINVTOTCHILDREN
-#: site/com_vikbooking:VBFORMCHILDREN
+#: admin/com_vikbooking:VBOINVTOTCHILDREN site/com_vikbooking:VBFORMCHILDREN
 #: site/com_vikbooking:VBSEARCHROOMCHILDREN
-#: site/com_vikbooking:VBSEARCHRESCHILDREN
-#: site/com_vikbooking:VBMAILCHILDREN
+#: site/com_vikbooking:VBSEARCHRESCHILDREN site/com_vikbooking:VBMAILCHILDREN
 #: site/com_vikbooking:VBOINVTOTCHILDREN
 #: site/mod_vikbooking_search:VBFORMCHILDREN
 #: site/mod_vikbooking_horizontalsearch:VBFORMCHILDREN
@@ -1080,8 +975,7 @@ msgstr "Quarto com check-out está disponível depois"
 msgid "Check-in/out Date Format"
 msgstr "Formato da Data Check-in/out"
 
-#: admin/com_vikbooking:VBCONFIGONETWELVE
-#: site/com_vikbooking:VBCONFIGONETWELVE
+#: admin/com_vikbooking:VBCONFIGONETWELVE site/com_vikbooking:VBCONFIGONETWELVE
 msgid "DD/MM/YYYY"
 msgstr "DD/MM/YYYY"
 
@@ -1122,8 +1016,7 @@ msgstr "Pagamentos Conta(para Gateways como Paypal)"
 msgid "Pay Entire Amount"
 msgstr "Pagar Valor Total"
 
-#: admin/com_vikbooking:VBCONFIGTWOFOUR
-#: admin/com_vikbooking:VBLEAVEDEPOSIT
+#: admin/com_vikbooking:VBCONFIGTWOFOUR admin/com_vikbooking:VBLEAVEDEPOSIT
 #: site/com_vikbooking:VBLEAVEDEPOSIT
 msgid "Leave a deposit of "
 msgstr "Deixe um depósito de"
@@ -1136,10 +1029,8 @@ msgstr "Preços de Imposto incluído"
 msgid "Payment Transaction Name"
 msgstr "Nome da Transação de Pagamento"
 
-#: admin/com_vikbooking:VBCONFIGTHREEONE
-#: admin/com_vikbooking:VBCUSTOMERCOMPANY
-#: admin/com_vikbooking:VBISCOMPANY
-#: site/com_vikbooking:VBCUSTOMERCOMPANY
+#: admin/com_vikbooking:VBCONFIGTHREEONE admin/com_vikbooking:VBCUSTOMERCOMPANY
+#: admin/com_vikbooking:VBISCOMPANY site/com_vikbooking:VBCUSTOMERCOMPANY
 msgid "Company Name"
 msgstr "Nome da empresa"
 
@@ -1225,20 +1116,16 @@ msgstr "Data da reserva"
 msgid "Units Available"
 msgstr "Unidades Disponíveis"
 
-#: admin/com_vikbooking:VBYES
-#: admin/com_vikbooking:VBNEWPAYMENTSIX
-#: site/com_vikbooking:VBYES
-#: site/mod_vikbooking_search:JYES
+#: admin/com_vikbooking:VBYES admin/com_vikbooking:VBNEWPAYMENTSIX
+#: site/com_vikbooking:VBYES site/mod_vikbooking_search:JYES
 #: site/mod_vikbooking_horizontalsearch:JYES
 #: site/mod_vikbooking_currencyconverter:JYES
 #: site/mod_vikbooking_pricefilter:JYES
 msgid "Yes"
 msgstr "Sim"
 
-#: admin/com_vikbooking:VBNO
-#: admin/com_vikbooking:VBNEWPAYMENTSEVEN
-#: site/com_vikbooking:VBNO
-#: site/mod_vikbooking_search:JNO
+#: admin/com_vikbooking:VBNO admin/com_vikbooking:VBNEWPAYMENTSEVEN
+#: site/com_vikbooking:VBNO site/mod_vikbooking_search:JNO
 #: site/mod_vikbooking_horizontalsearch:JNO
 #: site/mod_vikbooking_currencyconverter:JNO
 #: site/mod_vikbooking_pricefilter:JNO
@@ -1281,131 +1168,111 @@ msgstr "Mostrar Dias Parcialmente Reservados"
 msgid "Number of Months to Show"
 msgstr "Número de meses para mostrar"
 
-#: admin/com_vikbooking:VBLIBONE
-#: site/com_vikbooking:VBLIBONE
+#: admin/com_vikbooking:VBLIBONE site/com_vikbooking:VBLIBONE
 msgid "Reservation Received on the"
 msgstr "Ordem recebida no"
 
-#: admin/com_vikbooking:VBLIBTHREE
-#: site/com_vikbooking:VBLIBTHREE
+#: admin/com_vikbooking:VBLIBTHREE site/com_vikbooking:VBLIBTHREE
 msgid "Rooms Reserved"
 msgstr "Quartos Reservados"
 
-#: admin/com_vikbooking:VBLIBSEVEN
-#: admin/com_vikbooking:VBCSVEXPFILTBSTATUS
-#: admin/com_vikbooking:VBCALBOOKINGSTATUS
-#: site/com_vikbooking:VBLIBSEVEN
+#: admin/com_vikbooking:VBLIBSEVEN admin/com_vikbooking:VBCSVEXPFILTBSTATUS
+#: admin/com_vikbooking:VBCALBOOKINGSTATUS site/com_vikbooking:VBLIBSEVEN
 msgid "Booking Status"
 msgstr "Status Ordem"
 
-#: admin/com_vikbooking:VBLIBNINE
-#: site/com_vikbooking:VBPERSDETS
+#: admin/com_vikbooking:VBLIBNINE site/com_vikbooking:VBPERSDETS
 #: site/com_vikbooking:VBLIBNINE
 msgid "Personal Details"
 msgstr "Detalhes Pessoais"
 
-#: admin/com_vikbooking:VBLIBTEN
-#: site/com_vikbooking:VBLIBTEN
+#: admin/com_vikbooking:VBLIBTEN site/com_vikbooking:VBLIBTEN
 msgid "Rooms Booked"
 msgstr "Quartos Reservados"
 
-#: admin/com_vikbooking:VBLIBTENTHREE
-#: site/com_vikbooking:VBLIBTENTHREE
+#: admin/com_vikbooking:VBLIBTENTHREE site/com_vikbooking:VBLIBTENTHREE
 msgid "To see your booking details, visit the following page"
 msgstr "Para ver os detalhes do pedido, visite a seguinte página"
 
-#: admin/com_vikbooking:VBMONTHONE
-#: site/com_vikbooking:VBMONTHONE
+#: admin/com_vikbooking:VBMONTHONE site/com_vikbooking:VBMONTHONE
 #: site/mod_vikbooking_search:VBMONTHONE
 #: site/mod_vikbooking_horizontalsearch:VBMONTHONE
 #: site/mod_vikbooking_channelrates:VBMONTHONE
 msgid "January"
 msgstr "Janeiro"
 
-#: admin/com_vikbooking:VBMONTHTWO
-#: site/com_vikbooking:VBMONTHTWO
+#: admin/com_vikbooking:VBMONTHTWO site/com_vikbooking:VBMONTHTWO
 #: site/mod_vikbooking_search:VBMONTHTWO
 #: site/mod_vikbooking_horizontalsearch:VBMONTHTWO
 #: site/mod_vikbooking_channelrates:VBMONTHTWO
 msgid "February"
 msgstr "Fevereiro"
 
-#: admin/com_vikbooking:VBMONTHTHREE
-#: site/com_vikbooking:VBMONTHTHREE
+#: admin/com_vikbooking:VBMONTHTHREE site/com_vikbooking:VBMONTHTHREE
 #: site/mod_vikbooking_search:VBMONTHTHREE
 #: site/mod_vikbooking_horizontalsearch:VBMONTHTHREE
 #: site/mod_vikbooking_channelrates:VBMONTHTHREE
 msgid "March"
 msgstr "Março"
 
-#: admin/com_vikbooking:VBMONTHFOUR
-#: site/com_vikbooking:VBMONTHFOUR
+#: admin/com_vikbooking:VBMONTHFOUR site/com_vikbooking:VBMONTHFOUR
 #: site/mod_vikbooking_search:VBMONTHFOUR
 #: site/mod_vikbooking_horizontalsearch:VBMONTHFOUR
 #: site/mod_vikbooking_channelrates:VBMONTHFOUR
 msgid "April"
 msgstr "Abril"
 
-#: admin/com_vikbooking:VBMONTHFIVE
-#: admin/com_vikbooking:VBSHORTMONTHFIVE
-#: site/com_vikbooking:VBMONTHFIVE
-#: site/com_vikbooking:VBSHORTMONTHFIVE
+#: admin/com_vikbooking:VBMONTHFIVE admin/com_vikbooking:VBSHORTMONTHFIVE
+#: site/com_vikbooking:VBMONTHFIVE site/com_vikbooking:VBSHORTMONTHFIVE
 #: site/mod_vikbooking_search:VBMONTHFIVE
 #: site/mod_vikbooking_horizontalsearch:VBMONTHFIVE
 #: site/mod_vikbooking_channelrates:VBMONTHFIVE
 msgid "May"
 msgstr "Maio"
 
-#: admin/com_vikbooking:VBMONTHSIX
-#: site/com_vikbooking:VBMONTHSIX
+#: admin/com_vikbooking:VBMONTHSIX site/com_vikbooking:VBMONTHSIX
 #: site/mod_vikbooking_search:VBMONTHSIX
 #: site/mod_vikbooking_horizontalsearch:VBMONTHSIX
 #: site/mod_vikbooking_channelrates:VBMONTHSIX
 msgid "June"
 msgstr "Junho"
 
-#: admin/com_vikbooking:VBMONTHSEVEN
-#: site/com_vikbooking:VBMONTHSEVEN
+#: admin/com_vikbooking:VBMONTHSEVEN site/com_vikbooking:VBMONTHSEVEN
 #: site/mod_vikbooking_search:VBMONTHSEVEN
 #: site/mod_vikbooking_horizontalsearch:VBMONTHSEVEN
 #: site/mod_vikbooking_channelrates:VBMONTHSEVEN
 msgid "July"
 msgstr "Julho"
 
-#: admin/com_vikbooking:VBMONTHEIGHT
-#: site/com_vikbooking:VBMONTHEIGHT
+#: admin/com_vikbooking:VBMONTHEIGHT site/com_vikbooking:VBMONTHEIGHT
 #: site/mod_vikbooking_search:VBMONTHEIGHT
 #: site/mod_vikbooking_horizontalsearch:VBMONTHEIGHT
 #: site/mod_vikbooking_channelrates:VBMONTHEIGHT
 msgid "August"
 msgstr "Agosto"
 
-#: admin/com_vikbooking:VBMONTHNINE
-#: site/com_vikbooking:VBMONTHNINE
+#: admin/com_vikbooking:VBMONTHNINE site/com_vikbooking:VBMONTHNINE
 #: site/mod_vikbooking_search:VBMONTHNINE
 #: site/mod_vikbooking_horizontalsearch:VBMONTHNINE
 #: site/mod_vikbooking_channelrates:VBMONTHNINE
 msgid "September"
 msgstr "Setembro"
 
-#: admin/com_vikbooking:VBMONTHTEN
-#: site/com_vikbooking:VBMONTHTEN
+#: admin/com_vikbooking:VBMONTHTEN site/com_vikbooking:VBMONTHTEN
 #: site/mod_vikbooking_search:VBMONTHTEN
 #: site/mod_vikbooking_horizontalsearch:VBMONTHTEN
 #: site/mod_vikbooking_channelrates:VBMONTHTEN
 msgid "October"
 msgstr "Outubro"
 
-#: admin/com_vikbooking:VBMONTHELEVEN
-#: site/com_vikbooking:VBMONTHELEVEN
+#: admin/com_vikbooking:VBMONTHELEVEN site/com_vikbooking:VBMONTHELEVEN
 #: site/mod_vikbooking_search:VBMONTHELEVEN
 #: site/mod_vikbooking_horizontalsearch:VBMONTHELEVEN
 #: site/mod_vikbooking_channelrates:VBMONTHELEVEN
 msgid "November"
 msgstr "Novembro"
 
-#: admin/com_vikbooking:VBMONTHTWELVE
-#: site/com_vikbooking:VBMONTHTWELVE
+#: admin/com_vikbooking:VBMONTHTWELVE site/com_vikbooking:VBMONTHTWELVE
 #: site/mod_vikbooking_search:VBMONTHTWELVE
 #: site/mod_vikbooking_horizontalsearch:VBMONTHTWELVE
 #: site/mod_vikbooking_channelrates:VBMONTHTWELVE
@@ -1416,13 +1283,11 @@ msgstr "Dezembro"
 msgid "No Special Prices found"
 msgstr "Não há preços especiais encontrados"
 
-#: admin/com_vikbooking:VBJSDELSEASONS
-#: admin/com_vikbooking:VBJSDELPAYMENTS
+#: admin/com_vikbooking:VBJSDELSEASONS admin/com_vikbooking:VBJSDELPAYMENTS
 msgid "Confirm"
 msgstr "Confirmar"
 
-#: admin/com_vikbooking:VBPSHOWSEASONSONE
-#: admin/com_vikbooking:VBNEWSEASONONE
+#: admin/com_vikbooking:VBPSHOWSEASONSONE admin/com_vikbooking:VBNEWSEASONONE
 #: admin/com_vikbooking:VBPLACEOPENTIMEFROM
 #: admin/com_vikbooking:VBCONFIGSEARCHPFROM
 #: admin/com_vikbooking:VBPVIEWORDERCHANNEL
@@ -1431,39 +1296,32 @@ msgstr "Confirmar"
 msgid "From"
 msgstr "De"
 
-#: admin/com_vikbooking:VBPSHOWSEASONSTWO
-#: admin/com_vikbooking:VBNEWSEASONTWO
+#: admin/com_vikbooking:VBPSHOWSEASONSTWO admin/com_vikbooking:VBNEWSEASONTWO
 #: admin/com_vikbooking:VBPLACEOPENTIMETO
 #: admin/com_vikbooking:VBCONFIGSEARCHPTO
-#: admin/com_vikbooking:VBOROVWSELPERIODTO
-#: site/com_vikbooking:VBOPROMORENTTO
+#: admin/com_vikbooking:VBOROVWSELPERIODTO site/com_vikbooking:VBOPROMORENTTO
 msgid "To"
 msgstr "Até"
 
 #: admin/com_vikbooking:VBPSHOWSEASONSTHREE
-#: admin/com_vikbooking:VBNEWSEASONTHREE
-#: admin/com_vikbooking:VBPVIEWCUSTOMFTWO
-#: admin/com_vikbooking:VBNEWCUSTOMFTWO
-#: admin/com_vikbooking:VBPVIEWCOUPONSTWO
+#: admin/com_vikbooking:VBNEWSEASONTHREE admin/com_vikbooking:VBPVIEWCUSTOMFTWO
+#: admin/com_vikbooking:VBNEWCUSTOMFTWO admin/com_vikbooking:VBPVIEWCOUPONSTWO
 msgid "Type"
 msgstr "Tipo"
 
-#: admin/com_vikbooking:VBPSHOWSEASONSFOUR
-#: admin/com_vikbooking:VBNEWSEASONFOUR
+#: admin/com_vikbooking:VBPSHOWSEASONSFOUR admin/com_vikbooking:VBNEWSEASONFOUR
 #: admin/com_vikbooking:VBNEWCOUPONFOUR
 #: admin/com_vikbooking:VBNEWSEASONVALUESOVR
 #: admin/com_vikbooking:VBODISTFEATUREVAL
 msgid "Value"
 msgstr "Valor"
 
-#: admin/com_vikbooking:VBPSHOWSEASONSFIVE
-#: admin/com_vikbooking:VBNEWSEASONSIX
+#: admin/com_vikbooking:VBPSHOWSEASONSFIVE admin/com_vikbooking:VBNEWSEASONSIX
 #: admin/com_vikbooking:VBNEWAGEINTERVALCOST
 msgid "Charge"
 msgstr "Custo"
 
-#: admin/com_vikbooking:VBPSHOWSEASONSSIX
-#: admin/com_vikbooking:VBNEWSEASONSEVEN
+#: admin/com_vikbooking:VBPSHOWSEASONSSIX admin/com_vikbooking:VBNEWSEASONSEVEN
 #: admin/com_vikbooking:VBADMINDISCOUNT
 msgid "Discount"
 msgstr "Desconto"
@@ -1497,10 +1355,8 @@ msgid "File"
 msgstr "Arquivos"
 
 #: admin/com_vikbooking:VBPSHOWPAYMENTSTHREE
-#: admin/com_vikbooking:VBNEWPAYMENTFIVE
-#: admin/com_vikbooking:ORDER_NOTES
-#: admin/com_vikbooking:VBCUSTOMERNOTES
-#: site/com_vikbooking:VBADDNOTES
+#: admin/com_vikbooking:VBNEWPAYMENTFIVE admin/com_vikbooking:ORDER_NOTES
+#: admin/com_vikbooking:VBCUSTOMERNOTES site/com_vikbooking:VBADDNOTES
 #: site/com_vikbooking:ORDER_NOTES
 msgid "Notes"
 msgstr "Notas"
@@ -1511,8 +1367,7 @@ msgid "Cost"
 msgstr "Custo"
 
 #: admin/com_vikbooking:VBPSHOWPAYMENTSFIVE
-#: admin/com_vikbooking:VBNEWPAYMENTTHREE
-#: admin/com_vikbooking:VBCRONPUBLISHED
+#: admin/com_vikbooking:VBNEWPAYMENTTHREE admin/com_vikbooking:VBCRONPUBLISHED
 msgid "Published"
 msgstr "Publicado"
 
@@ -1524,10 +1379,8 @@ msgstr "Nome do Pagamento"
 msgid "File Class"
 msgstr "Classe de arquivo"
 
-#: admin/com_vikbooking:VBLIBPAYNAME
-#: admin/com_vikbooking:VBCSVPAYMENTMETHOD
-#: site/com_vikbooking:VBCHOOSEPAYMENT
-#: site/com_vikbooking:VBLIBPAYNAME
+#: admin/com_vikbooking:VBLIBPAYNAME admin/com_vikbooking:VBCSVPAYMENTMETHOD
+#: site/com_vikbooking:VBCHOOSEPAYMENT site/com_vikbooking:VBLIBPAYNAME
 msgid "Payment Method"
 msgstr "Método de Pagamento"
 
@@ -1550,17 +1403,13 @@ msgstr "Necessário"
 
 #: admin/com_vikbooking:VBPVIEWCUSTOMFFOUR
 #: admin/com_vikbooking:VBPVIEWOPTIONALSORDERING
-#: admin/com_vikbooking:VBORDERING
-#: site/mod_vikbooking_rooms:ORDERING
+#: admin/com_vikbooking:VBORDERING site/mod_vikbooking_rooms:ORDERING
 msgid "Ordering"
 msgstr "Ordenação"
 
-#: admin/com_vikbooking:VBPVIEWCUSTOMFFIVE
-#: admin/com_vikbooking:ORDER_EMAIL
-#: site/com_vikbooking:VBMAIL
-#: site/com_vikbooking:ORDER_EMAIL
-#: site/com_vikbooking:VBREGEMAIL
-#: site/com_vikbooking:VBREQUESTCANCMODEMAIL
+#: admin/com_vikbooking:VBPVIEWCUSTOMFFIVE admin/com_vikbooking:ORDER_EMAIL
+#: site/com_vikbooking:VBMAIL site/com_vikbooking:ORDER_EMAIL
+#: site/com_vikbooking:VBREGEMAIL site/com_vikbooking:VBREQUESTCANCMODEMAIL
 #: site/com_vikbooking:VBOROOMREQINFOEMAIL
 msgid "e-Mail"
 msgstr "E-mail"
@@ -1609,16 +1458,14 @@ msgstr "Reservas"
 msgid "Global"
 msgstr "Global"
 
-#: admin/com_vikbooking:VBMENUFIVE
-#: admin/com_vikbooking:VBDASHNOPRICES
+#: admin/com_vikbooking:VBMENUFIVE admin/com_vikbooking:VBDASHNOPRICES
 #: admin/com_vikbooking:VBOSPTYPESPRICE
 #: admin/com_vikbooking:VBPARAMSEASONCALENDARPRICES
 #: admin/com_vikbooking:VBOXMLTRANSLATETYPESPRICE
 msgid "Types of Price"
 msgstr "Tipos de preço"
 
-#: admin/com_vikbooking:VBMENUSIX
-#: admin/com_vikbooking:VBDASHNOCATEGORIES
+#: admin/com_vikbooking:VBMENUSIX admin/com_vikbooking:VBDASHNOCATEGORIES
 #: admin/com_vikbooking:VBOXMLTRANSLATECATEGORIES
 msgid "Categories"
 msgstr "Categorias"
@@ -1668,71 +1515,54 @@ msgstr "Visão Global"
 msgid "Custom Fields"
 msgstr "Campos personalizados"
 
-#: admin/com_vikbooking:ORDER_LNAME
-#: admin/com_vikbooking:VBTRAVELERLNAME
-#: admin/com_vikbooking:VBCUSTOMERLASTNAME
-#: site/com_vikbooking:VBLNAME
-#: site/com_vikbooking:ORDER_LNAME
-#: site/com_vikbooking:VBREGLNAME
+#: admin/com_vikbooking:ORDER_LNAME admin/com_vikbooking:VBTRAVELERLNAME
+#: admin/com_vikbooking:VBCUSTOMERLASTNAME site/com_vikbooking:VBLNAME
+#: site/com_vikbooking:ORDER_LNAME site/com_vikbooking:VBREGLNAME
 #: site/com_vikbooking:VBCCLASTNAME
 msgid "Last Name"
 msgstr "Último Nome"
 
-#: admin/com_vikbooking:ORDER_PHONE
-#: admin/com_vikbooking:VBCUSTOMERPHONE
-#: site/com_vikbooking:VBPHONE
-#: site/com_vikbooking:ORDER_PHONE
+#: admin/com_vikbooking:ORDER_PHONE admin/com_vikbooking:VBCUSTOMERPHONE
+#: site/com_vikbooking:VBPHONE site/com_vikbooking:ORDER_PHONE
 #: site/com_vikbooking:VBCCPHONE
 msgid "Phone"
 msgstr "Telefone"
 
-#: admin/com_vikbooking:ORDER_ADDRESS
-#: admin/com_vikbooking:VBCUSTOMERADDRESS
-#: admin/com_vikbooking:VBISADDRESS
-#: site/com_vikbooking:VBADDR
-#: site/com_vikbooking:ORDER_ADDRESS
-#: site/com_vikbooking:VBCCADDRESS
+#: admin/com_vikbooking:ORDER_ADDRESS admin/com_vikbooking:VBCUSTOMERADDRESS
+#: admin/com_vikbooking:VBISADDRESS site/com_vikbooking:VBADDR
+#: site/com_vikbooking:ORDER_ADDRESS site/com_vikbooking:VBCCADDRESS
 msgid "Address"
 msgstr "Endereço"
 
-#: admin/com_vikbooking:ORDER_ZIP
-#: site/com_vikbooking:VBCAP
+#: admin/com_vikbooking:ORDER_ZIP site/com_vikbooking:VBCAP
 #: site/com_vikbooking:ORDER_ZIP
 msgid "Zip Code"
 msgstr "CEP"
 
-#: admin/com_vikbooking:ORDER_CITY
-#: admin/com_vikbooking:VBCUSTOMERCITY
-#: admin/com_vikbooking:VBISCITY
-#: site/com_vikbooking:VBCITY
-#: site/com_vikbooking:ORDER_CITY
-#: site/com_vikbooking:VBCCCITY
+#: admin/com_vikbooking:ORDER_CITY admin/com_vikbooking:VBCUSTOMERCITY
+#: admin/com_vikbooking:VBISCITY site/com_vikbooking:VBCITY
+#: site/com_vikbooking:ORDER_CITY site/com_vikbooking:VBCCCITY
 #: site/mod_vikbooking_horizontalsearch:ORDER_CITY
 msgid "City"
 msgstr "Cidade"
 
-#: admin/com_vikbooking:ORDER_STATE
-#: admin/com_vikbooking:VBNEWCUSTOMFCOUNTRY
+#: admin/com_vikbooking:ORDER_STATE admin/com_vikbooking:VBNEWCUSTOMFCOUNTRY
 #: admin/com_vikbooking:VBCUSTOMERCOUNTRY
-#: admin/com_vikbooking:VBOREPORTTOPCOUNTRIESC
-#: site/com_vikbooking:ORDER_STATE
+#: admin/com_vikbooking:VBOREPORTTOPCOUNTRIESC site/com_vikbooking:ORDER_STATE
 #: site/com_vikbooking:VBCCCOUNTRY
 #: site/mod_vikbooking_horizontalsearch:ORDER_STATE
 msgid "Country"
 msgstr "País"
 
-#: admin/com_vikbooking:ORDER_DBIRTH
-#: admin/com_vikbooking:VBCUSTOMERBDATE
+#: admin/com_vikbooking:ORDER_DBIRTH admin/com_vikbooking:VBCUSTOMERBDATE
 msgid "Date of Birth"
 msgstr "Data de nascimento"
 
-#: admin/com_vikbooking:ORDER_FLIGHTNUM
-#: site/com_vikbooking:ORDER_FLIGHTNUM
+#: admin/com_vikbooking:ORDER_FLIGHTNUM site/com_vikbooking:ORDER_FLIGHTNUM
 msgid "Flight Number"
 msgstr "Número de Vôo"
 
-#: admin/com_vikbooking:COM_VIKBOOKING_MENU
-#: admin/sys:COM_VIKBOOKING
+#: admin/com_vikbooking:COM_VIKBOOKING_MENU admin/sys:COM_VIKBOOKING
 #: admin/sys:COM_VIKBOOKING_MENU
 msgid "VikBooking"
 msgstr "VikBooking"
@@ -1757,8 +1587,7 @@ msgstr "Requisitar Login"
 msgid "Season"
 msgstr "Período"
 
-#: admin/com_vikbooking:VBWEEKDAYS
-#: admin/com_vikbooking:VBPSHOWSEASONSWDAYS
+#: admin/com_vikbooking:VBWEEKDAYS admin/com_vikbooking:VBPSHOWSEASONSWDAYS
 msgid "Week Days"
 msgstr "Dias da Semana"
 
@@ -1766,70 +1595,56 @@ msgstr "Dias da Semana"
 msgid "Days of the Week"
 msgstr "Dias da Semana"
 
-#: admin/com_vikbooking:VBSUNDAY
-#: admin/com_vikbooking:VBWEEKDAYZERO
-#: site/com_vikbooking:VBJQCALSUN
-#: site/com_vikbooking:VBWEEKDAYZERO
+#: admin/com_vikbooking:VBSUNDAY admin/com_vikbooking:VBWEEKDAYZERO
+#: site/com_vikbooking:VBJQCALSUN site/com_vikbooking:VBWEEKDAYZERO
 #: site/mod_vikbooking_search:VBJQCALSUN
 #: site/mod_vikbooking_horizontalsearch:VBJQCALSUN
 #: site/mod_vikbooking_channelrates:VBJQCALSUN
 msgid "Sunday"
 msgstr "Domingo"
 
-#: admin/com_vikbooking:VBMONDAY
-#: admin/com_vikbooking:VBWEEKDAYONE
-#: site/com_vikbooking:VBJQCALMON
-#: site/com_vikbooking:VBWEEKDAYONE
+#: admin/com_vikbooking:VBMONDAY admin/com_vikbooking:VBWEEKDAYONE
+#: site/com_vikbooking:VBJQCALMON site/com_vikbooking:VBWEEKDAYONE
 #: site/mod_vikbooking_search:VBJQCALMON
 #: site/mod_vikbooking_horizontalsearch:VBJQCALMON
 #: site/mod_vikbooking_channelrates:VBJQCALMON
 msgid "Monday"
 msgstr "Segunda-feira"
 
-#: admin/com_vikbooking:VBTUESDAY
-#: admin/com_vikbooking:VBWEEKDAYTWO
-#: site/com_vikbooking:VBJQCALTUE
-#: site/com_vikbooking:VBWEEKDAYTWO
+#: admin/com_vikbooking:VBTUESDAY admin/com_vikbooking:VBWEEKDAYTWO
+#: site/com_vikbooking:VBJQCALTUE site/com_vikbooking:VBWEEKDAYTWO
 #: site/mod_vikbooking_search:VBJQCALTUE
 #: site/mod_vikbooking_horizontalsearch:VBJQCALTUE
 #: site/mod_vikbooking_channelrates:VBJQCALTUE
 msgid "Tuesday"
 msgstr "Terça-feira"
 
-#: admin/com_vikbooking:VBWEDNESDAY
-#: admin/com_vikbooking:VBWEEKDAYTHREE
-#: site/com_vikbooking:VBJQCALWED
-#: site/com_vikbooking:VBWEEKDAYTHREE
+#: admin/com_vikbooking:VBWEDNESDAY admin/com_vikbooking:VBWEEKDAYTHREE
+#: site/com_vikbooking:VBJQCALWED site/com_vikbooking:VBWEEKDAYTHREE
 #: site/mod_vikbooking_search:VBJQCALWED
 #: site/mod_vikbooking_horizontalsearch:VBJQCALWED
 #: site/mod_vikbooking_channelrates:VBJQCALWED
 msgid "Wednesday"
 msgstr "Quarta-feira"
 
-#: admin/com_vikbooking:VBTHURSDAY
-#: admin/com_vikbooking:VBWEEKDAYFOUR
-#: site/com_vikbooking:VBJQCALTHU
-#: site/com_vikbooking:VBWEEKDAYFOUR
+#: admin/com_vikbooking:VBTHURSDAY admin/com_vikbooking:VBWEEKDAYFOUR
+#: site/com_vikbooking:VBJQCALTHU site/com_vikbooking:VBWEEKDAYFOUR
 #: site/mod_vikbooking_search:VBJQCALTHU
 #: site/mod_vikbooking_horizontalsearch:VBJQCALTHU
 #: site/mod_vikbooking_channelrates:VBJQCALTHU
 msgid "Thursday"
 msgstr "Quinta-feira"
 
-#: admin/com_vikbooking:VBFRIDAY
-#: admin/com_vikbooking:VBWEEKDAYFIVE
-#: site/com_vikbooking:VBJQCALFRI
-#: site/com_vikbooking:VBWEEKDAYFIVE
+#: admin/com_vikbooking:VBFRIDAY admin/com_vikbooking:VBWEEKDAYFIVE
+#: site/com_vikbooking:VBJQCALFRI site/com_vikbooking:VBWEEKDAYFIVE
 #: site/mod_vikbooking_search:VBJQCALFRI
 #: site/mod_vikbooking_horizontalsearch:VBJQCALFRI
 #: site/mod_vikbooking_channelrates:VBJQCALFRI
 msgid "Friday"
 msgstr "Sexta-feira"
 
-#: admin/com_vikbooking:VBSATURDAY
-#: admin/com_vikbooking:VBWEEKDAYSIX
-#: site/com_vikbooking:VBJQCALSAT
-#: site/com_vikbooking:VBWEEKDAYSIX
+#: admin/com_vikbooking:VBSATURDAY admin/com_vikbooking:VBWEEKDAYSIX
+#: site/com_vikbooking:VBJQCALSAT site/com_vikbooking:VBWEEKDAYSIX
 #: site/mod_vikbooking_search:VBJQCALSAT
 #: site/mod_vikbooking_horizontalsearch:VBJQCALSAT
 #: site/mod_vikbooking_channelrates:VBJQCALSAT
@@ -1848,13 +1663,11 @@ msgstr "Temporada e dias da semana"
 msgid "Special Price Name"
 msgstr "Nome do Preço Especial"
 
-#: admin/com_vikbooking:VBPLACELAT
-#: admin/com_vikbooking:VBO_GEO_COORDS_LAT
+#: admin/com_vikbooking:VBPLACELAT admin/com_vikbooking:VBO_GEO_COORDS_LAT
 msgid "Latitude"
 msgstr "Latitude"
 
-#: admin/com_vikbooking:VBPLACELNG
-#: admin/com_vikbooking:VBO_GEO_COORDS_LNG
+#: admin/com_vikbooking:VBPLACELNG admin/com_vikbooking:VBO_GEO_COORDS_LNG
 msgid "Longitude"
 msgstr "Longitude"
 
@@ -1866,8 +1679,7 @@ msgstr "Preços por diária"
 msgid "Separator"
 msgstr "Separador"
 
-#: admin/com_vikbooking:VBSEPDRIVERD
-#: site/com_vikbooking:VBSEPDRIVERD
+#: admin/com_vikbooking:VBSEPDRIVERD site/com_vikbooking:VBSEPDRIVERD
 #: site/com_vikbooking:VBCCBILLINGINFO
 msgid "Billing Information"
 msgstr "Informações de Pagamento"
@@ -1880,8 +1692,7 @@ msgstr "Carregar Biblioteca jQuery"
 msgid "Calendar Type"
 msgstr "Tipo Calendário"
 
-#: admin/com_vikbooking:VBORDERNUMBER
-#: site/com_vikbooking:VBORDERNUMBER
+#: admin/com_vikbooking:VBORDERNUMBER site/com_vikbooking:VBORDERNUMBER
 msgid "Booking Number"
 msgstr "Número da Ordem"
 
@@ -2007,13 +1818,11 @@ msgstr "Erro, o código do cupom já existe"
 msgid "Coupon Successfully Saved"
 msgstr "Cupom Salvo com Sucesso"
 
-#: admin/com_vikbooking:VBMENUFARES
-#: admin/com_vikbooking:VBSPMAINSETTINGS
+#: admin/com_vikbooking:VBMENUFARES admin/com_vikbooking:VBSPMAINSETTINGS
 msgid "Pricing"
 msgstr "Preços"
 
-#: admin/com_vikbooking:VBMENUDASHBOARD
-#: site/com_vikbooking:VBMENUDASHBOARD
+#: admin/com_vikbooking:VBMENUDASHBOARD site/com_vikbooking:VBMENUDASHBOARD
 msgid "Dashboard"
 msgstr "Painel de controle"
 
@@ -2061,8 +1870,7 @@ msgstr "Reservas Confirmadas"
 msgid "Standby Reservations"
 msgstr "Reservas em Standby"
 
-#: admin/com_vikbooking:VBCOUPON
-#: site/com_vikbooking:VBCOUPON
+#: admin/com_vikbooking:VBCOUPON site/com_vikbooking:VBCOUPON
 msgid "Coupon"
 msgstr "Cupom"
 
@@ -2122,19 +1930,16 @@ msgstr "Erro, Impostos não encontrados"
 msgid "Short Description"
 msgstr "Curta Descrição"
 
-#: admin/com_vikbooking:VBMAILROOMNUM
-#: site/com_vikbooking:VBMAILROOMNUM
+#: admin/com_vikbooking:VBMAILROOMNUM site/com_vikbooking:VBMAILROOMNUM
 msgid "Room #"
 msgstr "Quarto #"
 
-#: admin/com_vikbooking:VBMAILADULT
-#: site/com_vikbooking:VBSEARCHRESADULT
+#: admin/com_vikbooking:VBMAILADULT site/com_vikbooking:VBSEARCHRESADULT
 #: site/com_vikbooking:VBMAILADULT
 msgid "Adult"
 msgstr "Adulto"
 
-#: admin/com_vikbooking:VBMAILCHILD
-#: site/com_vikbooking:VBSEARCHRESCHILD
+#: admin/com_vikbooking:VBMAILCHILD site/com_vikbooking:VBSEARCHRESCHILD
 #: site/com_vikbooking:VBMAILCHILD
 msgid "Child"
 msgstr "Criança"
@@ -2151,10 +1956,8 @@ msgstr "A ordem não pode ser definido como confirmado"
 msgid "No Rates found for these rooms and for this number of nights of stay. Unable to edit the reservation."
 msgstr "Não há taxas foram encontradas para estes quartos. Não é possível editar a reserva"
 
-#: admin/com_vikbooking:VBPEDITBUSYTOTPAID
-#: admin/com_vikbooking:VBCSVTOTPAID
-#: admin/com_vikbooking:VBOBOOKHISTORYLBLTPAID
-#: site/com_vikbooking:VBAMOUNTPAID
+#: admin/com_vikbooking:VBPEDITBUSYTOTPAID admin/com_vikbooking:VBCSVTOTPAID
+#: admin/com_vikbooking:VBOBOOKHISTORYLBLTPAID site/com_vikbooking:VBAMOUNTPAID
 msgid "Total Paid"
 msgstr "Total pago"
 
@@ -2206,8 +2009,7 @@ msgid "Month"
 msgstr "Mês"
 
 #: admin/com_vikbooking:VBPVIEWRESTRICTIONSTHREE
-#: admin/com_vikbooking:VBORESTRARRIVWDAY
-#: site/com_vikbooking:VBORESTRARRIVWDAY
+#: admin/com_vikbooking:VBORESTRARRIVWDAY site/com_vikbooking:VBORESTRARRIVWDAY
 msgid "Arrival Week Day"
 msgstr "Dia de chegada"
 
@@ -2261,8 +2063,7 @@ msgstr "Novo"
 msgid "Error, a restriction for the selected month already exists."
 msgstr "Erro, uma restrição para o mês selecionado já existe."
 
-#: admin/com_vikbooking:VBCONFIRMNUMB
-#: site/com_vikbooking:VBCONFIRMNUMB
+#: admin/com_vikbooking:VBCONFIRMNUMB site/com_vikbooking:VBCONFIRMNUMB
 msgid "Confirmation Number"
 msgstr "Número de Confirmação"
 
@@ -2304,8 +2105,7 @@ msgid "Number of Children"
 msgstr "Número de Crianças"
 
 #: admin/com_vikbooking:VBMAXTOTPEOPLE
-#: admin/com_vikbooking:VBPVIEWROOMTOTPEOPLE
-#: site/com_vikbooking:VBMAXTOTPEOPLE
+#: admin/com_vikbooking:VBPVIEWROOMTOTPEOPLE site/com_vikbooking:VBMAXTOTPEOPLE
 msgid "Total People"
 msgstr "Total Pessoas"
 
@@ -2330,10 +2130,8 @@ msgstr "Quarto Fechado"
 msgid "Close Room"
 msgstr "Fechar Quarto"
 
-#: admin/com_vikbooking:VBCANCELLED
-#: admin/com_vikbooking:VBCSVSTATUSCANCELLED
-#: site/com_vikbooking:VBORDERSTATUSCANCELLED
-#: site/com_vikbooking:VBCANCELLED
+#: admin/com_vikbooking:VBCANCELLED admin/com_vikbooking:VBCSVSTATUSCANCELLED
+#: site/com_vikbooking:VBORDERSTATUSCANCELLED site/com_vikbooking:VBCANCELLED
 msgid "Cancelled"
 msgstr "Cancelado"
 
@@ -2394,8 +2192,7 @@ msgstr "Número Mínimo de Diárias"
 msgid "Loading..."
 msgstr "Carregando..."
 
-#: admin/com_vikbooking:VBPAYMENTPARAMETERS
-#: admin/com_vikbooking:VBCRONPARAMS
+#: admin/com_vikbooking:VBPAYMENTPARAMETERS admin/com_vikbooking:VBCRONPARAMS
 msgid "Parameters"
 msgstr "Parâmetros"
 
@@ -2674,13 +2471,11 @@ msgstr "Essas duas configurações são necessários pelo sistema para saber se 
 msgid "Taxes (VAT)"
 msgstr "Taxas (VAT)"
 
-#: admin/com_vikbooking:VBTOTALCITYTAX
-#: admin/com_vikbooking:VBCALCRATESCITYTAX
+#: admin/com_vikbooking:VBTOTALCITYTAX admin/com_vikbooking:VBCALCRATESCITYTAX
 msgid "City Taxes"
 msgstr "Impostos municipais"
 
-#: admin/com_vikbooking:VBTOTALFEES
-#: admin/com_vikbooking:VBCALCRATESFEES
+#: admin/com_vikbooking:VBTOTALFEES admin/com_vikbooking:VBCALCRATESFEES
 msgid "Fees"
 msgstr "Taxas"
 
@@ -2773,8 +2568,7 @@ msgstr "(%s years old)"
 msgid "Traveler Details"
 msgstr "Detalhes do viajante"
 
-#: admin/com_vikbooking:VBTRAVELERNAME
-#: admin/com_vikbooking:VBCUSTOMERFIRSTNAME
+#: admin/com_vikbooking:VBTRAVELERNAME admin/com_vikbooking:VBCUSTOMERFIRSTNAME
 #: site/com_vikbooking:VBCCFIRSTNAME
 msgid "First Name"
 msgstr "Primeiro Nome"
@@ -2841,13 +2635,11 @@ msgstr "Detalhamento do imposto"
 msgid "The Tax Breakdown was saved successfully but the sum of the sub-taxes in not equal to the parent tax rate."
 msgstr "A Desagregação Fiscal foi salva com sucesso, mas a soma dos sub-impostos não é igual à taxa de imposto principal."
 
-#: admin/com_vikbooking:VBOSELECTALL
-#: admin/com_vikbooking:VBINVSELECTALL
+#: admin/com_vikbooking:VBOSELECTALL admin/com_vikbooking:VBINVSELECTALL
 msgid "Select All"
 msgstr "Selecionar Tudo"
 
-#: admin/com_vikbooking:VBOISPROMOTION
-#: admin/com_vikbooking:VBSPPROMOTIONLABEL
+#: admin/com_vikbooking:VBOISPROMOTION admin/com_vikbooking:VBSPPROMOTIONLABEL
 msgid "Promotion"
 msgstr "Promoção"
 
@@ -2940,13 +2732,11 @@ msgstr "%d Diárias"
 msgid "Off-Season Prices"
 msgstr "Preços de Baixa Temporada"
 
-#: admin/com_vikbooking:VBORESTRMINLOS
-#: site/com_vikbooking:VBORESTRMINLOS
+#: admin/com_vikbooking:VBORESTRMINLOS site/com_vikbooking:VBORESTRMINLOS
 msgid "Min. Nights"
 msgstr "Mín. Diárias"
 
-#: admin/com_vikbooking:VBORESTRMAXLOS
-#: site/com_vikbooking:VBORESTRMAXLOS
+#: admin/com_vikbooking:VBORESTRMAXLOS site/com_vikbooking:VBORESTRMAXLOS
 msgid "Max. Nights"
 msgstr "Máx. Diárias"
 
@@ -2955,10 +2745,8 @@ msgstr "Máx. Diárias"
 msgid "Arrival Week Days"
 msgstr "Dias de Chegada da Semana"
 
-#: admin/com_vikbooking:VBRATESOVWAPPLYLOS
-#: admin/com_vikbooking:VBAPPLY
-#: site/com_vikbooking:VBSUBMITCOUPON
-#: site/com_vikbooking:VBAPPLYPINCODE
+#: admin/com_vikbooking:VBRATESOVWAPPLYLOS admin/com_vikbooking:VBAPPLY
+#: site/com_vikbooking:VBSUBMITCOUPON site/com_vikbooking:VBAPPLYPINCODE
 msgid "Apply"
 msgstr "Aplicar"
 
@@ -2982,16 +2770,13 @@ msgstr "Calculando..."
 msgid "The room is not available from %s to %s or has no rates for this combination of adults/children."
 msgstr "O quarto não está disponível de %s a %s ou não possui tarifas para esta combinação de adultos/crianças."
 
-#: admin/com_vikbooking:VBCALCRATESNET
-#: admin/com_vikbooking:VBOINVCOLNETPRICE
+#: admin/com_vikbooking:VBCALCRATESNET admin/com_vikbooking:VBOINVCOLNETPRICE
 #: site/com_vikbooking:VBOINVCOLNETPRICE
 msgid "Net"
 msgstr "Líquido"
 
-#: admin/com_vikbooking:VBCALCRATESTAX
-#: admin/com_vikbooking:VBOINVCOLTAX
-#: admin/com_vikbooking:VBOREPORTOURISTTAXTOT
-#: site/com_vikbooking:VBOINVCOLTAX
+#: admin/com_vikbooking:VBCALCRATESTAX admin/com_vikbooking:VBOINVCOLTAX
+#: admin/com_vikbooking:VBOREPORTOURISTTAXTOT site/com_vikbooking:VBOINVCOLTAX
 #: site/mod_vikbooking_channelrates:VBOMODCMRDEFTAX
 msgid "Taxes"
 msgstr "Impostos"
@@ -3008,48 +2793,39 @@ msgstr "%d Ocupação de Adultos:"
 msgid "Any Room"
 msgstr "Qualquer Quarto"
 
-#: admin/com_vikbooking:VBSHORTMONTHONE
-#: site/com_vikbooking:VBSHORTMONTHONE
+#: admin/com_vikbooking:VBSHORTMONTHONE site/com_vikbooking:VBSHORTMONTHONE
 msgid "Jan"
 msgstr "Jan"
 
-#: admin/com_vikbooking:VBSHORTMONTHTWO
-#: site/com_vikbooking:VBSHORTMONTHTWO
+#: admin/com_vikbooking:VBSHORTMONTHTWO site/com_vikbooking:VBSHORTMONTHTWO
 msgid "Feb"
 msgstr "Fev"
 
-#: admin/com_vikbooking:VBSHORTMONTHTHREE
-#: site/com_vikbooking:VBSHORTMONTHTHREE
+#: admin/com_vikbooking:VBSHORTMONTHTHREE site/com_vikbooking:VBSHORTMONTHTHREE
 msgid "Mar"
 msgstr "Mar"
 
-#: admin/com_vikbooking:VBSHORTMONTHFOUR
-#: site/com_vikbooking:VBSHORTMONTHFOUR
+#: admin/com_vikbooking:VBSHORTMONTHFOUR site/com_vikbooking:VBSHORTMONTHFOUR
 msgid "Apr"
 msgstr "Abr"
 
-#: admin/com_vikbooking:VBSHORTMONTHSIX
-#: site/com_vikbooking:VBSHORTMONTHSIX
+#: admin/com_vikbooking:VBSHORTMONTHSIX site/com_vikbooking:VBSHORTMONTHSIX
 msgid "Jun"
 msgstr "Jun"
 
-#: admin/com_vikbooking:VBSHORTMONTHSEVEN
-#: site/com_vikbooking:VBSHORTMONTHSEVEN
+#: admin/com_vikbooking:VBSHORTMONTHSEVEN site/com_vikbooking:VBSHORTMONTHSEVEN
 msgid "Jul"
 msgstr "Jul"
 
-#: admin/com_vikbooking:VBSHORTMONTHEIGHT
-#: site/com_vikbooking:VBSHORTMONTHEIGHT
+#: admin/com_vikbooking:VBSHORTMONTHEIGHT site/com_vikbooking:VBSHORTMONTHEIGHT
 msgid "Aug"
 msgstr "Ago"
 
-#: admin/com_vikbooking:VBSHORTMONTHNINE
-#: site/com_vikbooking:VBSHORTMONTHNINE
+#: admin/com_vikbooking:VBSHORTMONTHNINE site/com_vikbooking:VBSHORTMONTHNINE
 msgid "Sep"
 msgstr "Set"
 
-#: admin/com_vikbooking:VBSHORTMONTHTEN
-#: site/com_vikbooking:VBSHORTMONTHTEN
+#: admin/com_vikbooking:VBSHORTMONTHTEN site/com_vikbooking:VBSHORTMONTHTEN
 msgid "Oct"
 msgstr "Out"
 
@@ -3063,23 +2839,19 @@ msgstr "Nov"
 msgid "Dec"
 msgstr "Dez"
 
-#: admin/com_vikbooking:VBMDAYFRIST
-#: site/com_vikbooking:VBMDAYFRIST
+#: admin/com_vikbooking:VBMDAYFRIST site/com_vikbooking:VBMDAYFRIST
 msgid "st"
 msgstr "º"
 
-#: admin/com_vikbooking:VBMDAYSECOND
-#: site/com_vikbooking:VBMDAYSECOND
+#: admin/com_vikbooking:VBMDAYSECOND site/com_vikbooking:VBMDAYSECOND
 msgid "nd"
 msgstr "º"
 
-#: admin/com_vikbooking:VBMDAYTHIRD
-#: site/com_vikbooking:VBMDAYTHIRD
+#: admin/com_vikbooking:VBMDAYTHIRD site/com_vikbooking:VBMDAYTHIRD
 msgid "rd"
 msgstr "º"
 
-#: admin/com_vikbooking:VBMDAYNUMGEN
-#: site/com_vikbooking:VBMDAYNUMGEN
+#: admin/com_vikbooking:VBMDAYNUMGEN site/com_vikbooking:VBMDAYNUMGEN
 msgid "th"
 msgstr "º"
 
@@ -3115,8 +2887,7 @@ msgstr "Tag Meta de Palavras-Chave"
 msgid "Description Meta Tag"
 msgstr "Tag Meta de Descrição"
 
-#: admin/com_vikbooking:VBROOMSEFALIAS
-#: admin/com_vikbooking:VBNEWPKGALIAS
+#: admin/com_vikbooking:VBROOMSEFALIAS admin/com_vikbooking:VBNEWPKGALIAS
 msgid "SEF Alias"
 msgstr "Alias SEF"
 
@@ -3132,8 +2903,7 @@ msgstr "Válido para Qualquer Ano"
 msgid "Based on Length of Stay"
 msgstr "Com Base na Duração da Estadia"
 
-#: admin/com_vikbooking:VBSEASONPERNIGHT
-#: site/com_vikbooking:VBLISTPERNIGHT
+#: admin/com_vikbooking:VBSEASONPERNIGHT site/com_vikbooking:VBLISTPERNIGHT
 msgid "per night"
 msgstr "por Diária"
 
@@ -3177,8 +2947,7 @@ msgstr "Imposto e Pagamentos"
 msgid "Appearance and Texts"
 msgstr "Aparência e Textos"
 
-#: admin/com_vikbooking:VBOCPARAMCOMPANY
-#: site/com_vikbooking:VBCCCOMPANY
+#: admin/com_vikbooking:VBOCPARAMCOMPANY site/com_vikbooking:VBCCCOMPANY
 msgid "Company"
 msgstr "Empresa"
 
@@ -3222,8 +2991,7 @@ msgstr "Erro: Tabela Inválida ou Vazia Definida para Tradução"
 msgid "Translations Saved!"
 msgstr "Traduções Salvas!"
 
-#: admin/com_vikbooking:ORDER_SPREQUESTS
-#: site/com_vikbooking:ORDER_SPREQUESTS
+#: admin/com_vikbooking:ORDER_SPREQUESTS site/com_vikbooking:ORDER_SPREQUESTS
 msgid "Special Requests"
 msgstr "Pedidos Especiais"
 
@@ -3277,10 +3045,8 @@ msgstr "Reservas Desta Semana"
 msgid "Next Refresh in"
 msgstr "Próxima Atualização em"
 
-#: admin/com_vikbooking:VBTODAY
-#: admin/com_vikbooking:VBJQCALTODAY
-#: site/com_vikbooking:VBJQCALTODAY
-#: site/com_vikbooking:VBTODAY
+#: admin/com_vikbooking:VBTODAY admin/com_vikbooking:VBJQCALTODAY
+#: site/com_vikbooking:VBJQCALTODAY site/com_vikbooking:VBTODAY
 #: site/mod_vikbooking_search:VBJQCALTODAY
 #: site/mod_vikbooking_horizontalsearch:VBJQCALTODAY
 #: site/mod_vikbooking_channelrates:VBJQCALTODAY
@@ -3320,8 +3086,7 @@ msgstr "Quartos Bloqueados - Aguardando Confirmação"
 msgid "Locked Until"
 msgstr "Bloqueado Até"
 
-#: admin/com_vikbooking:VBDASHBOOKINGID
-#: admin/com_vikbooking:VBOINVBOOKINGID
+#: admin/com_vikbooking:VBDASHBOOKINGID admin/com_vikbooking:VBOINVBOOKINGID
 msgid "Booking ID"
 msgstr "ID da Reserva"
 
@@ -3345,8 +3110,7 @@ msgstr "Clientes"
 msgid "No Customers found"
 msgstr "Nenhum Cliente encontrado"
 
-#: admin/com_vikbooking:VBCUSTOMEREMAIL
-#: site/com_vikbooking:VBCCEMAIL
+#: admin/com_vikbooking:VBCUSTOMEREMAIL site/com_vikbooking:VBCCEMAIL
 msgid "eMail"
 msgstr "E-mail"
 
@@ -3384,8 +3148,7 @@ msgstr "Ativar Código PIN de Clientes"
 msgid "Total Bookings"
 msgstr "Total de Reservas"
 
-#: admin/com_vikbooking:VBYOURPIN
-#: site/com_vikbooking:VBYOURPIN
+#: admin/com_vikbooking:VBYOURPIN site/com_vikbooking:VBYOURPIN
 msgid "PIN Code"
 msgstr "Código PIN"
 
@@ -3486,10 +3249,8 @@ msgstr "Categorias, Características e Opções"
 msgid "Select or Drag & Drop Files"
 msgstr "Selecione ou Arraste & Solte Arquivos"
 
-#: admin/com_vikbooking:VBOUPLOADFILEDONE
-#: admin/com_vikbooking:VBJQCALDONE
-#: site/com_vikbooking:VBJQCALDONE
-#: site/mod_vikbooking_search:VBJQCALDONE
+#: admin/com_vikbooking:VBOUPLOADFILEDONE admin/com_vikbooking:VBJQCALDONE
+#: site/com_vikbooking:VBJQCALDONE site/mod_vikbooking_search:VBJQCALDONE
 #: site/mod_vikbooking_horizontalsearch:VBJQCALDONE
 #: site/mod_vikbooking_channelrates:VBJQCALDONE
 msgid "Done"
@@ -3613,8 +3374,7 @@ msgstr "Pacotes & Ofertas"
 msgid "No Packages found"
 msgstr "Nenhum Pacote encontrado"
 
-#: admin/com_vikbooking:VBPACKAGESNAME
-#: admin/com_vikbooking:VBNEWPKGNAME
+#: admin/com_vikbooking:VBPACKAGESNAME admin/com_vikbooking:VBNEWPKGNAME
 msgid "Package Name"
 msgstr "Nome do Pacote"
 
@@ -3740,8 +3500,7 @@ msgid "Closing Dates"
 msgstr "Datas de Fechamento"
 
 #: admin/com_vikbooking:VBCONFIGCLOSINGDATEADD
-#: admin/com_vikbooking:VBPEDITBUSYADDEXTRAC
-#: site/com_vikbooking:VBOUPSELLADD
+#: admin/com_vikbooking:VBPEDITBUSYADDEXTRAC site/com_vikbooking:VBOUPSELLADD
 msgid "Add"
 msgstr "Adicionar"
 
@@ -3897,8 +3656,7 @@ msgstr "Tornar pagável a partir do site front-end"
 msgid "Cron Jobs Secret Key"
 msgstr "Chave Secreta de Cron Jobs"
 
-#: admin/com_vikbooking:VBMAILYOURBOOKING
-#: site/com_vikbooking:VBMAILYOURBOOKING
+#: admin/com_vikbooking:VBMAILYOURBOOKING site/com_vikbooking:VBMAILYOURBOOKING
 msgid "Your Booking"
 msgstr "Sua Reserva"
 
@@ -4114,13 +3872,11 @@ msgstr "Usar Data da Reserva"
 msgid "Company Information Header"
 msgstr "Cabeçalho de Informações da Empresa"
 
-#: admin/com_vikbooking:VBOINVNUM
-#: site/com_vikbooking:VBOINVNUM
+#: admin/com_vikbooking:VBOINVNUM site/com_vikbooking:VBOINVNUM
 msgid "Invoice Number"
 msgstr "Número da Fatura"
 
-#: admin/com_vikbooking:VBOINVTOTNIGHTS
-#: site/com_vikbooking:VBOINVTOTNIGHTS
+#: admin/com_vikbooking:VBOINVTOTNIGHTS site/com_vikbooking:VBOINVTOTNIGHTS
 msgid "Number of nights"
 msgstr "Número de Diárias"
 
@@ -4151,10 +3907,12 @@ msgid "Invoice for your reservation"
 msgstr "Fatura para sua reserva"
 
 #: admin/com_vikbooking:VBOEMAILINVOICEATTACHTXT
-msgid "Dear Customer, \n"
+msgid ""
+"Dear Customer, \n"
 "attached to this message you will find the invoice for your reservation. \n"
 "Thank you!"
-msgstr "Prezado Cliente, \n"
+msgstr ""
+"Prezado Cliente, \n"
 "anexamos a esta mensagem a fatura para sua reserva. \n"
 "Obrigado!"
 
@@ -4182,8 +3940,7 @@ msgstr "Enviar por e-mail"
 msgid "Re-Send via eMail"
 msgstr "Reenviar por e-mail"
 
-#: admin/com_vikbooking:VBOINVOPEN
-#: site/com_vikbooking:VBOOPERVIEWPG
+#: admin/com_vikbooking:VBOINVOPEN site/com_vikbooking:VBOOPERVIEWPG
 msgid "View"
 msgstr "Visualizar"
 
@@ -4191,8 +3948,7 @@ msgstr "Visualizar"
 msgid "Deselect All"
 msgstr "Desmarcar Tudo"
 
-#: admin/com_vikbooking:VBOINVAPPLYFILTER
-#: site/com_vikbooking:VBOINVAPPLYFILTER
+#: admin/com_vikbooking:VBOINVAPPLYFILTER site/com_vikbooking:VBOINVAPPLYFILTER
 msgid "Apply Filter"
 msgstr "Aplicar Filtro"
 
@@ -4220,8 +3976,7 @@ msgstr "Enviar Faturas Selecionadas por e-mail"
 msgid "Remove Selected Invoices"
 msgstr "Remover Faturas Selecionadas"
 
-#: admin/com_vikbooking:VBOPRINT
-#: site/com_vikbooking:VBOPRINT
+#: admin/com_vikbooking:VBOPRINT site/com_vikbooking:VBOPRINT
 msgid "Print"
 msgstr "Imprimir"
 
@@ -4269,19 +4024,16 @@ msgstr "Regra de Preço Especial #%d"
 msgid "Records Removed: %d"
 msgstr "Registros Removidos: %d"
 
-#: admin/com_vikbooking:VBCUSTOMERZIP
-#: admin/com_vikbooking:VBISZIP
+#: admin/com_vikbooking:VBCUSTOMERZIP admin/com_vikbooking:VBISZIP
 msgid "ZIP"
 msgstr "CEP"
 
-#: admin/com_vikbooking:VBCUSTOMERDOCTYPE
-#: admin/com_vikbooking:VBOCUSTDOCTYPE
+#: admin/com_vikbooking:VBCUSTOMERDOCTYPE admin/com_vikbooking:VBOCUSTDOCTYPE
 #: site/com_vikbooking:VBOCUSTDOCTYPE
 msgid "ID Type"
 msgstr "Tipo de ID"
 
-#: admin/com_vikbooking:VBCUSTOMERDOCNUM
-#: admin/com_vikbooking:VBOCUSTDOCNUM
+#: admin/com_vikbooking:VBCUSTOMERDOCNUM admin/com_vikbooking:VBOCUSTDOCNUM
 #: site/com_vikbooking:VBOCUSTDOCNUM
 msgid "ID Number"
 msgstr "Número de ID"
@@ -4480,13 +4232,11 @@ msgstr "Dias da Semana CTA"
 msgid "CTD Week Days"
 msgstr "Dias da Semana CTD"
 
-#: admin/com_vikbooking:VBORESTRWDAYSCTA
-#: site/com_vikbooking:VBORESTRWDAYSCTA
+#: admin/com_vikbooking:VBORESTRWDAYSCTA site/com_vikbooking:VBORESTRWDAYSCTA
 msgid "Week Days Closed to Arrival"
 msgstr "Dias da Semana Fechados para Chegada"
 
-#: admin/com_vikbooking:VBORESTRWDAYSCTD
-#: site/com_vikbooking:VBORESTRWDAYSCTD
+#: admin/com_vikbooking:VBORESTRWDAYSCTD site/com_vikbooking:VBORESTRWDAYSCTD
 msgid "Week Days Closed to Departure"
 msgstr "Dias da Semana Fechados para Partida"
 
@@ -4526,10 +4276,8 @@ msgstr "Se ativado, as solicitações de atualização de disponibilidade para t
 msgid "Vik Channel Manager is not installed."
 msgstr "Vik Channel Manager não está instalado."
 
-#: admin/com_vikbooking:VBWAITINGFORPAYMENT
-#: site/com_vikbooking:VBINATTESA
-#: site/com_vikbooking:VBWAITINGPAYM
-#: site/com_vikbooking:VBWAITINGFORPAYMENT
+#: admin/com_vikbooking:VBWAITINGFORPAYMENT site/com_vikbooking:VBINATTESA
+#: site/com_vikbooking:VBWAITINGPAYM site/com_vikbooking:VBWAITINGFORPAYMENT
 msgid "Waiting for the Payment"
 msgstr "Aguardando Pagamento"
 
@@ -4775,8 +4523,7 @@ msgstr "Ocupação Total"
 msgid "Total Units"
 msgstr "Total de Unidades"
 
-#: admin/com_vikbooking:VBCUSTOMERCOMPANYVAT
-#: admin/com_vikbooking:VBISVAT
+#: admin/com_vikbooking:VBCUSTOMERCOMPANYVAT admin/com_vikbooking:VBISVAT
 #: site/com_vikbooking:VBCUSTOMERCOMPANYVAT
 msgid "VAT ID"
 msgstr "ID do IVA"
@@ -4821,8 +4568,7 @@ msgstr "Minutos de Espera para Remoção Automática de Reservas Não Pagas"
 msgid "Customer Check-in/Check-Out Management"
 msgstr "Gerenciamento de Check-in/Check-out de Clientes"
 
-#: admin/com_vikbooking:VBOMANAGECHECKIN
-#: admin/com_vikbooking:VBOCHECKEDSTATUS
+#: admin/com_vikbooking:VBOMANAGECHECKIN admin/com_vikbooking:VBOCHECKEDSTATUS
 msgid "Registration"
 msgstr "Cadastro"
 
@@ -4830,8 +4576,7 @@ msgstr "Cadastro"
 msgid "Guest Details"
 msgstr "Detalhes do Hóspede"
 
-#: admin/com_vikbooking:VBOGUESTNUM
-#: site/com_vikbooking:VBOGUESTNUM
+#: admin/com_vikbooking:VBOGUESTNUM site/com_vikbooking:VBOGUESTNUM
 msgid "Guest #%d"
 msgstr "Hóspede #%d"
 
@@ -4906,8 +4651,7 @@ msgstr "Sem partidas para hoje."
 
 #: admin/com_vikbooking:VBODASHSEARCHKEYS
 #: site/com_vikbooking:VBSEARCHCONFIRMNUMBBTN
-#: site/com_vikbooking:VBSEARCHBUTTON
-#: site/mod_vikbooking_search:SEARCHD
+#: site/com_vikbooking:VBSEARCHBUTTON site/mod_vikbooking_search:SEARCHD
 #: site/mod_vikbooking_horizontalsearch:SEARCHD
 msgid "Search"
 msgstr "Pesquisar"
@@ -4933,8 +4677,7 @@ msgstr "Pular Assinatura"
 msgid "Sign above"
 msgstr "Assine acima"
 
-#: admin/com_vikbooking:VBOSIGNATURECLEAR
-#: site/com_vikbooking:VBOSIGNATURECLEAR
+#: admin/com_vikbooking:VBOSIGNATURECLEAR site/com_vikbooking:VBOSIGNATURECLEAR
 msgid "Clear"
 msgstr "Limpar"
 
@@ -4963,20 +4706,21 @@ msgstr "Enviar Link"
 msgid "Please enter a value"
 msgstr "Por favor, insira um valor"
 
-#: admin/com_vikbooking:VBOSIGNSHARESUBJECT
-#: site/com_vikbooking:VBOSIGNTITLE
+#: admin/com_vikbooking:VBOSIGNSHARESUBJECT site/com_vikbooking:VBOSIGNTITLE
 msgid "Check-in Signature"
 msgstr "Assinatura de Check-in"
 
 #: admin/com_vikbooking:VBOSIGNSHAREMESSAGE
-msgid "Dear %s,\n"
+msgid ""
+"Dear %s,\n"
 "\n"
 "Here is the link to sign the Check-in Document for your stay:\n"
 "%s\n"
 "\n"
 "Kind Regards,\n"
 "%s"
-msgstr "Caro %s,\n"
+msgstr ""
+"Caro %s,\n"
 "\n"
 "Aqui está o link para assinar o Documento de Check-in para sua estadia:\n"
 "%s\n"
@@ -4985,11 +4729,13 @@ msgstr "Caro %s,\n"
 "%s"
 
 #: admin/com_vikbooking:VBOSIGNSHAREMESSAGESMS
-msgid "Dear %s,\n"
+msgid ""
+"Dear %s,\n"
 "\n"
 "Link for Signature:\n"
 "%s"
-msgstr "Caro %s,\n"
+msgstr ""
+"Caro %s,\n"
 "\n"
 "Link para Assinatura:\n"
 "%s"
@@ -5008,13 +4754,11 @@ msgstr "Erro ao salvar a assinatura"
 msgid "Customer Signature Available"
 msgstr "Assinatura do Cliente Disponível"
 
-#: admin/com_vikbooking:VBOSIGNATUREAGAIN
-#: site/com_vikbooking:VBOSIGNATUREAGAIN
+#: admin/com_vikbooking:VBOSIGNATUREAGAIN site/com_vikbooking:VBOSIGNATUREAGAIN
 msgid "New Signature"
 msgstr "Nova Assinatura"
 
-#: admin/com_vikbooking:VBOTERMSCONDS
-#: site/com_vikbooking:VBOTERMSCONDS
+#: admin/com_vikbooking:VBOTERMSCONDS site/com_vikbooking:VBOTERMSCONDS
 msgid "Terms and Conditions"
 msgstr "Termos e Condições"
 
@@ -5028,20 +4772,21 @@ msgstr "Aceito os Termos e Condições"
 msgid "I have read and agree to the terms and conditions"
 msgstr "Eu li e concordo com os termos e condições"
 
-#: admin/com_vikbooking:VBOSIGNMUSTACCEPT
-#: site/com_vikbooking:VBOSIGNMUSTACCEPT
+#: admin/com_vikbooking:VBOSIGNMUSTACCEPT site/com_vikbooking:VBOSIGNMUSTACCEPT
 msgid "You must accept the Terms and Conditions."
 msgstr "Você deve aceitar os Termos e Condições."
 
 #: admin/com_vikbooking:VBOTERMSCONDSDEFTEXT
 #: site/com_vikbooking:VBOTERMSCONDSDEFTEXT
-msgid "1. Check-in time is from %s and check-out time is until %s.\n"
+msgid ""
+"1. Check-in time is from %s and check-out time is until %s.\n"
 "2. The guest acknowledge joint and several liability for all services rendered until full settlement of bills.\n"
 "3. Guests will be held responsible for any loss or damage to the rooms caused by themselves, their friends or any person for whom they are responsible.\n"
 "4. Hotel Management is not responsible for your personal belongings and valuables like money, jewellery or any other valuables left by guests in the rooms.\n"
 "5. Complimentary safe deposit boxes, subject to the terms and conditions for use are available in rooms.\n"
 "6. Regardless of charge instructions, I acknowledge that I am personally liable for the payment of all charges incurred by me during my stay."
-msgstr "1. O horário de check-in é a partir de %s e o horário de check-out é até %s.\n"
+msgstr ""
+"1. O horário de check-in é a partir de %s e o horário de check-out é até %s.\n"
 "2. O hóspede reconhece responsabilidade solidária por todos os serviços prestados até o pagamento total das contas.\n"
 "3. Os hóspedes serão responsabilizados por qualquer perda ou dano causado aos quartos por eles mesmos, seus amigos ou qualquer pessoa pela qual sejam responsáveis.\n"
 "4. A Gerência do Hotel não se responsabiliza pelos seus pertences pessoais e valores como dinheiro, joias ou quaisquer outros valores deixados pelos hóspedes nos quartos.\n"
@@ -5225,13 +4970,14 @@ msgstr "O texto da política de cancelamento será exibido para os clientes que 
 msgid "Rate Plan"
 msgstr "Plano Tarifário"
 
-#: admin/com_vikbooking:VBOBOOKMODLOGSTR
-#: site/com_vikbooking:VBOBOOKMODLOGSTR
-msgid "Booking modified on %s.\n"
+#: admin/com_vikbooking:VBOBOOKMODLOGSTR site/com_vikbooking:VBOBOOKMODLOGSTR
+msgid ""
+"Booking modified on %s.\n"
 "Previous dates booked: %s.\n"
 "Previous rooms booked: %s.\n"
 "Previous Total: %s."
-msgstr "Reserva modificada em %s.\n"
+msgstr ""
+"Reserva modificada em %s.\n"
 "Datas anteriores reservadas: %s.\n"
 "Quartos anteriores reservados: %s.\n"
 "Total anterior: %s."
@@ -5284,20 +5030,17 @@ msgstr "Notas Adicionais para o Recibo..."
 msgid "Receipt Issued"
 msgstr "Recibo Emitido"
 
-#: admin/com_vikbooking:VBCUSTOMERGENDER
-#: admin/com_vikbooking:VBOCUSTGENDER
+#: admin/com_vikbooking:VBCUSTOMERGENDER admin/com_vikbooking:VBOCUSTGENDER
 #: site/com_vikbooking:VBOCUSTGENDER
 msgid "Gender"
 msgstr "Gênero"
 
-#: admin/com_vikbooking:VBCUSTOMERGENDERM
-#: admin/com_vikbooking:VBOCUSTGENDERM
+#: admin/com_vikbooking:VBCUSTOMERGENDERM admin/com_vikbooking:VBOCUSTGENDERM
 #: site/com_vikbooking:VBOCUSTGENDERM
 msgid "Male"
 msgstr "Masculino"
 
-#: admin/com_vikbooking:VBCUSTOMERGENDERF
-#: admin/com_vikbooking:VBOCUSTGENDERF
+#: admin/com_vikbooking:VBCUSTOMERGENDERF admin/com_vikbooking:VBOCUSTGENDERF
 #: site/com_vikbooking:VBOCUSTGENDERF
 msgid "Female"
 msgstr "Feminino"
@@ -5564,8 +5307,7 @@ msgstr "Complete a configuração das seguintes tarefas para começar."
 msgid "Configure"
 msgstr "Configurar"
 
-#: admin/com_vikbooking:VBJQCALPREV
-#: site/com_vikbooking:VBJQCALPREV
+#: admin/com_vikbooking:VBJQCALPREV site/com_vikbooking:VBJQCALPREV
 #: site/mod_vikbooking_search:VBJQCALPREV
 #: site/mod_vikbooking_horizontalsearch:VBJQCALPREV
 #: site/mod_vikbooking_channelrates:VBJQCALPREV
@@ -5573,8 +5315,7 @@ msgstr "Configurar"
 msgid "Prev"
 msgstr "Anterior"
 
-#: admin/com_vikbooking:VBJQCALNEXT
-#: site/com_vikbooking:VBJQCALNEXT
+#: admin/com_vikbooking:VBJQCALNEXT site/com_vikbooking:VBJQCALNEXT
 #: site/mod_vikbooking_search:VBJQCALNEXT
 #: site/mod_vikbooking_horizontalsearch:VBJQCALNEXT
 #: site/mod_vikbooking_channelrates:VBJQCALNEXT
@@ -5582,8 +5323,7 @@ msgstr "Anterior"
 msgid "Next"
 msgstr "Próximo"
 
-#: admin/com_vikbooking:VBJQCALWKHEADER
-#: site/com_vikbooking:VBJQCALWKHEADER
+#: admin/com_vikbooking:VBJQCALWKHEADER site/com_vikbooking:VBJQCALWKHEADER
 #: site/mod_vikbooking_search:VBJQCALWKHEADER
 #: site/mod_vikbooking_horizontalsearch:VBJQCALWKHEADER
 #: site/mod_vikbooking_channelrates:VBJQCALWKHEADER
@@ -5768,8 +5508,7 @@ msgstr "Taxa Média de Conversão"
 msgid "This percentage value is calculated proportionally by taking into account the total number of visitors and the total numbers of bookings. It shows how many visitors completed the reservation process by generating a booking."
 msgstr "Este valor percentual é calculado proporcionalmente levando em consideração o número total de visitantes e o número total de reservas. Mostra quantos visitantes concluíram o processo de reserva gerando uma reserva."
 
-#: admin/com_vikbooking:VBTRKAVGLOS
-#: site/com_vikbooking:VBTRKAVGLOS
+#: admin/com_vikbooking:VBTRKAVGLOS site/com_vikbooking:VBTRKAVGLOS
 msgid "Average Nights of Stay"
 msgstr "Diárias Médias de Estadia"
 
@@ -5809,8 +5548,7 @@ msgstr "Ok, não lembrar novamente."
 msgid "Check Orphans"
 msgstr "Verificar Órfãos"
 
-#: admin/com_vikbooking:VBMENUTABLEAUX
-#: admin/com_vikbooking:VBOOPERPERMTABLEAUX
+#: admin/com_vikbooking:VBMENUTABLEAUX admin/com_vikbooking:VBOOPERPERMTABLEAUX
 #: site/com_vikbooking:VBOOPERPGTABLEAUX
 #: site/com_vikbooking:VBOOPERPERMTABLEAUX
 msgid "Tableaux"
@@ -5833,8 +5571,7 @@ msgstr "Vik Booking - Operadores"
 msgid "No Operators found"
 msgstr "Nenhum Operador Encontrado"
 
-#: admin/com_vikbooking:VBOCODEOPERATOR
-#: site/com_vikbooking:VBOOPERAUTHCODE
+#: admin/com_vikbooking:VBOCODEOPERATOR site/com_vikbooking:VBOOPERAUTHCODE
 msgid "Authentication Code"
 msgstr "Código de Autenticação"
 
@@ -6058,13 +5795,11 @@ msgstr "O chat está disponível após o check-out por # dias"
 msgid "Daily Room Report"
 msgstr "Relatório Diário de Quartos"
 
-#: admin/com_vikbooking:VBOTYPEARRIVAL
-#: site/com_vikbooking:VBDAL
+#: admin/com_vikbooking:VBOTYPEARRIVAL site/com_vikbooking:VBDAL
 msgid "Arrival"
 msgstr "Chegada"
 
-#: admin/com_vikbooking:VBOTYPEDEPARTURE
-#: site/com_vikbooking:VBAL
+#: admin/com_vikbooking:VBOTYPEDEPARTURE site/com_vikbooking:VBAL
 msgid "Departure"
 msgstr "Partida"
 
@@ -6124,8 +5859,7 @@ msgstr "Agrupar por"
 msgid "Week"
 msgstr "Semana"
 
-#: admin/com_vikbooking:VBODAY
-#: site/com_vikbooking:VBPRICEDETAILSDAY
+#: admin/com_vikbooking:VBODAY site/com_vikbooking:VBPRICEDETAILSDAY
 msgid "Day"
 msgstr "Dia"
 
@@ -6188,8 +5922,7 @@ msgstr "Detalhes"
 msgid "Settings"
 msgstr "Configurações"
 
-#: admin/com_vikbooking:VBOMAILSUBJECT
-#: site/com_vikbooking:VBOMAILSUBJECT
+#: admin/com_vikbooking:VBOMAILSUBJECT site/com_vikbooking:VBOMAILSUBJECT
 msgid "Your reservation at %s"
 msgstr "Sua reserva em %s"
 
@@ -6253,8 +5986,7 @@ msgstr "Qual é o custo inicial por Diária para o seu quarto?"
 msgid "Open Wizard"
 msgstr "Abrir Assistente"
 
-#: admin/com_vikbooking:VBOCHANNELS
-#: site/com_vikbooking:VBOCHANNELS
+#: admin/com_vikbooking:VBOCHANNELS site/com_vikbooking:VBOCHANNELS
 msgid "Channels"
 msgstr "Canais"
 
@@ -6298,8 +6030,7 @@ msgstr "Planos de tarifas sugeridos"
 msgid "Create Rate Plans"
 msgstr "Criar Planos de Tarifas"
 
-#: admin/com_vikbooking:VBOCLOSE
-#: admin/com_vikbooking:VBO_CLOSE
+#: admin/com_vikbooking:VBOCLOSE admin/com_vikbooking:VBO_CLOSE
 #: site/com_vikbooking:VBO_CLOSE
 msgid "Close"
 msgstr "Fechar"
@@ -6659,8 +6390,7 @@ msgstr "Excluir Impostos/Taxas"
 msgid "If enabled, any percent coupon code will not discount taxes or mandatory fees/services. If you disable it, the coupon code will be applied on the entire reservation amount."
 msgstr "Se habilitado, qualquer código de cupom percentual não descontará impostos ou taxas/serviços obrigatórios. Se você desabilitá-lo, o código do cupom será aplicado no valor total da reserva."
 
-#: admin/com_vikbooking:VBOUNTIL
-#: site/com_vikbooking:VBOUNTIL
+#: admin/com_vikbooking:VBOUNTIL site/com_vikbooking:VBOUNTIL
 msgid "Until"
 msgstr "Até"
 
@@ -7164,8 +6894,7 @@ msgstr "Esta função depende das APIs do Google Maps. Por favor, insira sua Cha
 msgid "Enable Geocoding"
 msgstr "Habilitar Geocodificação"
 
-#: admin/com_vikbooking:VBO_GEO_ADDRESS
-#: site/com_vikbooking:VBO_GEO_ADDRESS
+#: admin/com_vikbooking:VBO_GEO_ADDRESS site/com_vikbooking:VBO_GEO_ADDRESS
 msgid "Base Address"
 msgstr "Endereço Base"
 
@@ -7462,8 +7191,7 @@ msgstr "Quantia reembolsada alterada de %s para %s"
 msgid "Uploaded Documents"
 msgstr "Documentos enviados"
 
-#: admin/com_vikbooking:VBOCUSTPLACEBIRTH
-#: site/com_vikbooking:VBOCUSTPLACEBIRTH
+#: admin/com_vikbooking:VBOCUSTPLACEBIRTH site/com_vikbooking:VBOCUSTPLACEBIRTH
 msgid "Place of birth"
 msgstr "Local de nascimento"
 
@@ -7656,16 +7384,16 @@ msgstr "Verificar disponibilidade"
 msgid "Calculate the rates for the available rooms"
 msgstr "Calcule as tarifas para os quartos disponíveis"
 
-#: admin/com_vikbooking:VBO_BOOKNOW
-#: site/com_vikbooking:VBBOOKNOW
-#: site/com_vikbooking:VBBOOKTHISROOM
-#: site/com_vikbooking:VBAVAILBOOKNOW
+#: admin/com_vikbooking:VBO_BOOKNOW site/com_vikbooking:VBBOOKNOW
 #: site/mod_vikbooking_channelrates:SEARCHD
 msgid "Book Now"
-msgstr "Reserve agora"
+msgstr "Simular Reserva"
 
-#: admin/com_vikbooking:VBO_SELECT
-#: site/com_vikbooking:VBSELECTR
+#: site/com_vikbooking:VBBOOKTHISROOM site/com_vikbooking:VBAVAILBOOKNOW
+msgid "Confirm Book"
+msgstr "Confirmar Reserva"
+
+#: admin/com_vikbooking:VBO_SELECT site/com_vikbooking:VBSELECTR
 #: site/com_vikbooking:VBO_SELECT
 msgid "Select"
 msgstr "Selecionar"
@@ -7910,9 +7638,11 @@ msgid "Browser notifications are disabled"
 msgstr "Notificações do navegador estão desativadas"
 
 #: admin/com_vikbooking:VBO_BROWSER_NOTIFS_OFF_HELP
-msgid "Could not enable browser notifications.\n"
+msgid ""
+"Could not enable browser notifications.\n"
 "This feature is available only in secure contexts (HTTPS)."
-msgstr "Não foi possível ativar as notificações do navegador.\n"
+msgstr ""
+"Não foi possível ativar as notificações do navegador.\n"
 "Essa funcionalidade está disponível apenas em contextos seguros (HTTPS)."
 
 #: admin/com_vikbooking:VBO_BROWSER_NOTIFS_ON
@@ -8060,8 +7790,7 @@ msgstr "Não pago"
 msgid "Tax Summary"
 msgstr "Resumo de Impostos"
 
-#: admin/com_vikbooking:VBO_INV_VATGST
-#: site/com_vikbooking:VBO_INV_VATGST
+#: admin/com_vikbooking:VBO_INV_VATGST site/com_vikbooking:VBO_INV_VATGST
 msgid "VAT/GST"
 msgstr "IVA/ICMS"
 
@@ -8114,8 +7843,7 @@ msgid "It is possible to modify the stay dates of some rooms when multiple rooms
 msgstr "É possível modificar as datas de estadia de alguns quartos quando vários quartos são reservados com a mesma reserva. No entanto, as datas selecionáveis são limitadas pelas datas de check-in e check-out globais da reserva. Esta função é útil caso os hóspedes de um quarto cheguem alguns dias depois ou saiam alguns dias antes. É importante notar que o único objetivo desta função é liberar a disponibilidade de alguns quartos antes ou depois das datas de check-out ou check-in das reservas. Definir um número menor de Diárias de estadia para um quarto NÃO afetará o preço, que ainda será baseado no número total de Diárias de estadia da reserva principal. Se você deseja ajustar o preço quando um quarto precisa alterar as datas de estadia, então você deve remover este quarto da reserva principal e criar manualmente uma nova reserva para este quarto, para o mesmo cliente, selecionando as datas adequadas de check-in e check-out. Basicamente, você precisa mover o quarto de uma reserva para outra."
 
 #: admin/com_vikbooking:VBO_STATE_PROVINCE
-#: site/com_vikbooking:VBCCSTATEPROVINCE
-#: site/com_vikbooking:VBO_STATE_PROVINCE
+#: site/com_vikbooking:VBCCSTATEPROVINCE site/com_vikbooking:VBO_STATE_PROVINCE
 msgid "State/Province"
 msgstr "Estado/Província"
 
@@ -8185,8 +7913,7 @@ msgstr "Navegue por todas as suas mensagens de hóspedes."
 msgid "No reply needed"
 msgstr "Nenhuma resposta necessária"
 
-#: admin/com_vikbooking:VBO_WANT_PROCEED
-#: site/com_vikbooking:VBO_WANT_PROCEED
+#: admin/com_vikbooking:VBO_WANT_PROCEED site/com_vikbooking:VBO_WANT_PROCEED
 msgid "Do you want to proceed?"
 msgstr "Você quer prosseguir?"
 
@@ -8266,13 +7993,11 @@ msgstr "Se um cliente tiver um número de reservas confirmadas igual ou superior
 msgid "Pre-checkin information received"
 msgstr "Informações de pré-checkin recebidas"
 
-#: admin/com_vikbooking:VBO_CANC_FEE
-#: site/com_vikbooking:VBO_CANC_FEE
+#: admin/com_vikbooking:VBO_CANC_FEE site/com_vikbooking:VBO_CANC_FEE
 msgid "Cancellation fee"
 msgstr "Taxa de cancelamento"
 
-#: admin/com_vikbooking:VBO_ROOM_UPGRADE
-#: admin/com_vikbooking:VBOBOOKHISTORYTUR
+#: admin/com_vikbooking:VBO_ROOM_UPGRADE admin/com_vikbooking:VBOBOOKHISTORYTUR
 #: site/com_vikbooking:VBOBOOKHISTORYTUR
 msgid "Room Upgrade"
 msgstr "Upgrade de Quarto"
@@ -8411,18 +8136,15 @@ msgstr "Almoço"
 msgid "Dinner"
 msgstr "Jantar"
 
-#: admin/com_vikbooking:VBO_PET
-#: site/com_vikbooking:VBO_PET
+#: admin/com_vikbooking:VBO_PET site/com_vikbooking:VBO_PET
 msgid "Pet"
 msgstr "Pet"
 
-#: admin/com_vikbooking:VBO_PETS
-#: site/com_vikbooking:VBO_PETS
+#: admin/com_vikbooking:VBO_PETS site/com_vikbooking:VBO_PETS
 msgid "Pets"
 msgstr "Animais de Estimação"
 
-#: admin/com_vikbooking:VBO_MEAL_PLAN
-#: site/com_vikbooking:VBOMEALPLAN
+#: admin/com_vikbooking:VBO_MEAL_PLAN site/com_vikbooking:VBOMEALPLAN
 msgid "Meal Plan"
 msgstr "Plano de Refeições"
 
@@ -8510,8 +8232,7 @@ msgstr "Número do Cartão"
 msgid "Expiration Date"
 msgstr "Data de Expiração"
 
-#: admin/com_vikbooking:VBO_CC_CVV
-#: site/com_vikbooking:VBCCCVV
+#: admin/com_vikbooking:VBO_CC_CVV site/com_vikbooking:VBCCCVV
 msgid "CVV"
 msgstr "CVV"
 
@@ -8678,13 +8399,11 @@ msgstr "%s mudou"
 msgid "%s have changed"
 msgstr "%s mudaram"
 
-#: admin/com_vikbooking:VBO_MESSAGE_FROM
-#: site/com_vikbooking:VBO_MESSAGE_FROM
+#: admin/com_vikbooking:VBO_MESSAGE_FROM site/com_vikbooking:VBO_MESSAGE_FROM
 msgid "Message from %s"
 msgstr "Mensagem de %s"
 
-#: admin/com_vikbooking:VBO_REPLY
-#: site/com_vikbooking:VBO_REPLY
+#: admin/com_vikbooking:VBO_REPLY site/com_vikbooking:VBO_REPLY
 msgid "Reply"
 msgstr "Responder"
 
@@ -9318,13 +9037,11 @@ msgstr "Número de Suporte de ID"
 msgid "Child relation"
 msgstr "Relação infantil"
 
-#: admin/com_vikbooking:VBO_OTHER
-#: site/com_vikbooking:VBO_OTHER
+#: admin/com_vikbooking:VBO_OTHER site/com_vikbooking:VBO_OTHER
 msgid "Other"
 msgstr "Outro"
 
-#: admin/com_vikbooking:VBO_PASSPORT
-#: site/com_vikbooking:VBO_PASSPORT
+#: admin/com_vikbooking:VBO_PASSPORT site/com_vikbooking:VBO_PASSPORT
 msgid "Passport"
 msgstr "Passaporte"
 
@@ -9406,38 +9123,31 @@ msgstr "Mostrar anúncios ocupados nos resultados da busca"
 msgid "Link to listing details in search results"
 msgstr "Link para detalhes do anúncio nos resultados da busca"
 
-#: admin/com_vikbooking:VBO_GUEST_TYPE
-#: site/com_vikbooking:VBO_GUEST_TYPE
+#: admin/com_vikbooking:VBO_GUEST_TYPE site/com_vikbooking:VBO_GUEST_TYPE
 msgid "Guest type"
 msgstr "Tipo de hóspede"
 
-#: admin/com_vikbooking:VBO_SINGLE_GUEST
-#: site/com_vikbooking:VBO_SINGLE_GUEST
+#: admin/com_vikbooking:VBO_SINGLE_GUEST site/com_vikbooking:VBO_SINGLE_GUEST
 msgid "Single guest"
 msgstr "Hóspede individual"
 
-#: admin/com_vikbooking:VBO_FAMILY_HEAD
-#: site/com_vikbooking:VBO_FAMILY_HEAD
+#: admin/com_vikbooking:VBO_FAMILY_HEAD site/com_vikbooking:VBO_FAMILY_HEAD
 msgid "Head of family"
 msgstr "Chefe de família"
 
-#: admin/com_vikbooking:VBO_FAMILY_MEMBER
-#: site/com_vikbooking:VBO_FAMILY_MEMBER
+#: admin/com_vikbooking:VBO_FAMILY_MEMBER site/com_vikbooking:VBO_FAMILY_MEMBER
 msgid "Family member"
 msgstr "Membro da família"
 
-#: admin/com_vikbooking:VBO_GROUP_HEAD
-#: site/com_vikbooking:VBO_GROUP_HEAD
+#: admin/com_vikbooking:VBO_GROUP_HEAD site/com_vikbooking:VBO_GROUP_HEAD
 msgid "Group leader"
 msgstr "Líder de grupo"
 
-#: admin/com_vikbooking:VBO_GROUP_MEMBER
-#: site/com_vikbooking:VBO_GROUP_MEMBER
+#: admin/com_vikbooking:VBO_GROUP_MEMBER site/com_vikbooking:VBO_GROUP_MEMBER
 msgid "Group member"
 msgstr "Membro do grupo"
 
-#: admin/com_vikbooking:VBO_BIRTH_STATE
-#: site/com_vikbooking:VBO_BIRTH_STATE
+#: admin/com_vikbooking:VBO_BIRTH_STATE site/com_vikbooking:VBO_BIRTH_STATE
 msgid "Country of birth"
 msgstr "País de nascimento"
 
@@ -9446,8 +9156,7 @@ msgstr "País de nascimento"
 msgid "Municipality of birth"
 msgstr "Município de nascimento"
 
-#: admin/com_vikbooking:VBO_STAY_STATE
-#: site/com_vikbooking:VBO_STAY_STATE
+#: admin/com_vikbooking:VBO_STAY_STATE site/com_vikbooking:VBO_STAY_STATE
 msgid "Country of residence"
 msgstr "País de residência"
 
@@ -9466,8 +9175,7 @@ msgstr "Local de emissão do documento de identidade"
 msgid "Only if country = %s"
 msgstr "Apenas se país = %s"
 
-#: admin/com_vikbooking:VBO_OPTIONAL
-#: site/com_vikbooking:VBO_OPTIONAL
+#: admin/com_vikbooking:VBO_OPTIONAL site/com_vikbooking:VBO_OPTIONAL
 msgid "Optional"
 msgstr "Opcional"
 
@@ -9580,13 +9288,11 @@ msgstr "Use algumas das seguintes tags de espaço reservado, se necessário."
 msgid "Minimum stay: %d nights"
 msgstr "Estadia mínima: %d Diárias"
 
-#: admin/com_vikbooking:VBO_CLEAR_DATES
-#: site/com_vikbooking:VBO_CLEAR_DATES
+#: admin/com_vikbooking:VBO_CLEAR_DATES site/com_vikbooking:VBO_CLEAR_DATES
 msgid "Clear dates"
 msgstr "Limpar datas"
 
-#: admin/com_vikbooking:VBO_AMENITIES
-#: site/com_vikbooking:VBO_AMENITIES
+#: admin/com_vikbooking:VBO_AMENITIES site/com_vikbooking:VBO_AMENITIES
 msgid "Amenities"
 msgstr "Comodidades"
 
@@ -9635,8 +9341,7 @@ msgstr "Se as Diárias de reserva excederem o limite, o pagamento será solicita
 msgid "Use default"
 msgstr "Usar padrão"
 
-#: admin/com_vikbooking:VBO_NEW_MESSAGES
-#: site/com_vikbooking:VBO_NEW_MESSAGES
+#: admin/com_vikbooking:VBO_NEW_MESSAGES site/com_vikbooking:VBO_NEW_MESSAGES
 msgid "There are new messages."
 msgstr "Há novas mensagens."
 
@@ -9896,8 +9601,7 @@ msgstr "Datas de Chegada e Saída estão erradas"
 msgid "Error, booking total is wrong"
 msgstr "Erro, Pedido Total está errado"
 
-#: site/com_vikbooking:VBINCONGRDATAREC
-#: site/com_vikbooking:VBINCONGRDATA
+#: site/com_vikbooking:VBINCONGRDATAREC site/com_vikbooking:VBINCONGRDATA
 msgid "Error, Wrong data."
 msgstr "Erro, dados errados."
 
@@ -10029,14 +9733,12 @@ msgstr "Resposta do Servidor"
 msgid "Rooms Found"
 msgstr "Quartos Encontrados"
 
-#: site/com_vikbooking:VBPROSEGUI
-#: site/com_vikbooking:VBSEARCHCONTINUESUBM
+#: site/com_vikbooking:VBPROSEGUI site/com_vikbooking:VBSEARCHCONTINUESUBM
 #: site/com_vikbooking:VBDIALOGBTNCONTINUE
 msgid "Continue"
 msgstr "Continuar"
 
-#: site/com_vikbooking:VBSTARTFROM
-#: site/com_vikbooking:VBLISTSFROM
+#: site/com_vikbooking:VBSTARTFROM site/com_vikbooking:VBLISTSFROM
 msgid "Starting From"
 msgstr "Valor de"
 
@@ -10052,8 +9754,7 @@ msgstr "Resumo do Pedido"
 msgid "Taxable Income"
 msgstr "Rendimento Tributável"
 
-#: site/com_vikbooking:VBIVA
-#: site/com_vikbooking:ORDTAX
+#: site/com_vikbooking:VBIVA site/com_vikbooking:ORDTAX
 msgid "Tax"
 msgstr "Taxa"
 
@@ -10073,8 +9774,7 @@ msgstr "Detalhes do Comprador"
 msgid "State"
 msgstr "Estado"
 
-#: site/com_vikbooking:VBDOBIRTH
-#: site/com_vikbooking:ORDER_DBIRTH
+#: site/com_vikbooking:VBDOBIRTH site/com_vikbooking:ORDER_DBIRTH
 msgid "Date of birth"
 msgstr "Data de Nascimento"
 
@@ -10084,7 +9784,7 @@ msgstr "Código Fiscal"
 
 #: site/com_vikbooking:VBORDCONFIRM
 msgid "Confirm Reservation"
-msgstr "Confirmar Ordem"
+msgstr "Reserve agora"
 
 #: site/com_vikbooking:VBTHANKSONE
 msgid "Thanks, Booking Successfully Completed"
@@ -10138,8 +9838,7 @@ msgstr "Selecione datas de Chegada e Saída"
 msgid "%s is not available for %d nights or for the number of guests requested. Please try with different dates or guests."
 msgstr "%s não está disponível para %d Diárias. Por favor, tente com datas diferentes."
 
-#: site/com_vikbooking:VBREGSIGNUP
-#: site/com_vikbooking:VBREGSIGNUPBTN
+#: site/com_vikbooking:VBREGSIGNUP site/com_vikbooking:VBREGSIGNUPBTN
 msgid "Sign Up"
 msgstr "Inscreva-se"
 
@@ -10155,8 +9854,7 @@ msgstr "Senha"
 msgid "Confirm Password"
 msgstr "Confirmar Senha"
 
-#: site/com_vikbooking:VBREGSIGNIN
-#: site/com_vikbooking:VBREGSIGNINBTN
+#: site/com_vikbooking:VBREGSIGNIN site/com_vikbooking:VBREGSIGNINBTN
 msgid "Login"
 msgstr "Login"
 
@@ -10416,8 +10114,7 @@ msgstr "CEP"
 msgid "Process and Pay"
 msgstr "Processar e Pagar"
 
-#: site/com_vikbooking:VBCCPROCESSING
-#: site/com_vikbooking:VBOFFLINECCSENT
+#: site/com_vikbooking:VBCCPROCESSING site/com_vikbooking:VBOFFLINECCSENT
 msgid "Processing..."
 msgstr "Processando..."
 
@@ -10463,9 +10160,11 @@ msgid "Booking Cancellation-Modification Request"
 msgstr "Pedido de Cancelamento-Modificação Pedido"
 
 #: site/com_vikbooking:VBCANCREQUESTEMAILHEAD
-msgid "A Cancellation-Modification Request has been sent by the customer for the booking id %s.\n"
+msgid ""
+"A Cancellation-Modification Request has been sent by the customer for the booking id %s.\n"
 "Booking details: %s"
-msgstr "Uma solicitação de cancelamento-Modificação foi enviada pelo cliente, para do pedido id %s.\n"
+msgstr ""
+"Uma solicitação de cancelamento-Modificação foi enviada pelo cliente, para do pedido id %s.\n"
 "Detalhes pedido:%s"
 
 #: site/com_vikbooking:VBCANCREQUESTMAILSENT
@@ -10630,7 +10329,7 @@ msgstr "Válido até"
 
 #: site/com_vikbooking:VBOPROMOROOMBOOKNOW
 msgid "Book it Now"
-msgstr "Reserve Agora"
+msgstr "Garantir Reserva"
 
 #: site/com_vikbooking:VBOAVAILABILITYCALENDAR
 msgid "Availability Calendar"
@@ -10762,10 +10461,12 @@ msgid "Invoice for your stay"
 msgstr "Fatura para sua estadia"
 
 #: site/com_vikbooking:VBOEMAILINVOICEATTACHTXT
-msgid "Dear Customer, \n"
+msgid ""
+"Dear Customer, \n"
 "attached to this message you will find the invoice for your stay. \n"
 "Thank you!"
-msgstr "Caro Cliente, \n"
+msgstr ""
+"Caro Cliente, \n"
 "anexo a esta mensagem você encontrará a fatura para sua estadia. \n"
 "Obrigado!"
 
@@ -10878,9 +10579,11 @@ msgid "Booking Cancellation"
 msgstr "Cancelamento de Reserva"
 
 #: site/com_vikbooking:VBOBOOKCANCELLEDEMAILHEAD
-msgid "The booking ID %s has been cancelled on behalf of the customer. The rate plan selected, and the cancellation terms, allowed the customer to cancel this reservation.\n"
+msgid ""
+"The booking ID %s has been cancelled on behalf of the customer. The rate plan selected, and the cancellation terms, allowed the customer to cancel this reservation.\n"
 "Booking details: %s"
-msgstr "A ID da reserva %s foi cancelada em nome do cliente. O plano de tarifas selecionado e os termos de cancelamento permitiram que o cliente cancelasse esta reserva.\n"
+msgstr ""
+"A ID da reserva %s foi cancelada em nome do cliente. O plano de tarifas selecionado e os termos de cancelamento permitiram que o cliente cancelasse esta reserva.\n"
 "Detalhes da reserva: %s"
 
 #: site/com_vikbooking:VBOBOOKCANCELLEDRESP
@@ -11413,8 +11116,7 @@ msgid "Long"
 msgstr "Longo"
 
 #: site/mod_vikbooking_currencyconverter:PARAMLOADJQ
-#: site/mod_vikbooking_rooms:LOADJQ
-#: site/mod_vikbooking_rooms:LOADJQDESC
+#: site/mod_vikbooking_rooms:LOADJQ site/mod_vikbooking_rooms:LOADJQDESC
 msgid "Load jQuery"
 msgstr "Carregar jQuery"
 
@@ -11714,4 +11416,3 @@ msgstr "Reprodução automática em loop"
 #: site/mod_vikbooking_rooms:VBMODROOMSBED
 msgid "Bed"
 msgstr "Cama"
-

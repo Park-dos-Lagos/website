@@ -58,7 +58,11 @@ class NestedTabs extends Widget_Nested_Base {
 		return [
 			'elType' => 'container',
 			'settings' => [
-				'_title' => sprintf( __( 'Tab #%s', 'elementor' ), $index ),
+				'_title' => sprintf(
+					/* translators: %d: Tab index. */
+					__( 'Tab #%d', 'elementor' ),
+					$index
+				),
 				'content_width' => 'full',
 			],
 		];
@@ -77,6 +81,7 @@ class NestedTabs extends Widget_Nested_Base {
 	}
 
 	protected function get_default_children_title() {
+		/* translators: %d: Tab index. */
 		return esc_html__( 'Tab #%d', 'elementor' );
 	}
 
@@ -1280,18 +1285,24 @@ class NestedTabs extends Widget_Nested_Base {
 			'class': [ 'e-n-tab-title-text' ],
 			'data-binding-type': 'repeater-item',
 			'data-binding-repeater-name': 'tabs',
-			'data-binding-setting': [ 'tab_title' ],
+			'data-binding-setting': [ 'tab_title', 'element_id' ],
 			'data-binding-index': tabCount,
-			'data-binding-dynamic': 'true',
-			'data-binding-dynamic-css-id': 'element_id',
-			'data-binding-single-item-html-wrapper-tag': 'button',
+			'data-binding-config': JSON.stringify({
+				'element_id': {
+					attr: 'id',
+					selector: 'button',
+					editType: 'attribute',
+				},
+				'tab_title': {
+					editType: 'text',
+				},
+			}),
 		}, null, true );
 
 		view.addRenderAttribute( 'tab-icon', {
 			'class': [ 'e-n-tab-icon' ],
 			'data-binding-type': 'repeater-item',
 			'data-binding-repeater-name': 'tabs',
-			'data-binding-setting': [ 'tab_icon', 'tab_icon_active' ],
 			'data-binding-index': tabCount,
 		}, null, true );
 		#>

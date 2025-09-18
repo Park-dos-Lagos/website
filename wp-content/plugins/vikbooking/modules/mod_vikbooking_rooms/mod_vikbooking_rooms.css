@@ -5,6 +5,9 @@
 	position: relative;
 	margin: 0;
 }
+.vbmodroom-layout-scroll {
+	z-index: initial;
+}
 
 .vbmodroomsboxdiv .vbmodroomsname {
 	font-weight: bold;

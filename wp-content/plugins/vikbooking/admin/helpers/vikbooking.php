@@ -345,9 +345,9 @@ class VikBookingHelper
 									</div>
 								</li>
 							<?php endif; ?>
-							<?php if ($has_vcm && ($vbo_auth_availability || $vbo_auth_bookings)) : ?>
-								<li>
-									<div class="vmenulink">
+							<?php if (($has_vcm || VBOPlatformDetection::isWordPress()) && ($vbo_auth_availability || $vbo_auth_bookings)) : ?>
+								<li class="vbo-menu-vcm-only">
+									<div class="<?php echo ($highlight == 'vikchannelmanager' ? 'vmenulinkactive' : 'vmenulink'); ?>">
 										<a href="index.php?option=com_vikchannelmanager" class="vbo-menu-vcmlink">
 											<?php VikBookingIcons::e('cloud'); ?>
 											<span class="vbo-submenu-item">
@@ -460,6 +460,16 @@ class VikBookingHelper
 											<?php VikBookingIcons::e('laptop-code'); ?>
 											<span class="vbo-submenu-item">
 												<span class="vbo-submenu-item-txt"><?php echo JText::_('VBMENUEINVOICING'); ?></span>
+											</span>
+										</a>
+									</div>
+								</li>
+								<li class="vbo-menu-vcm-only">
+									<div class="<?php echo ($highlight == "taskmanager" ? "vmenulinkactive" : "vmenulink"); ?>">
+										<a href="index.php?option=com_vikbooking&amp;view=taskmanager">
+											<?php VikBookingIcons::e('tasks'); ?>
+											<span class="vbo-submenu-item">
+												<span class="vbo-submenu-item-txt"><?php echo JText::_('VBO_TASK_MANAGER'); ?></span>
 											</span>
 										</a>
 									</div>
@@ -665,10 +675,7 @@ class VikBookingHelper
 						'btn_trigger' => '.vbo-multitasking-apps',
 					];
 					// render the multitasking layout
-					echo JLayoutHelper::render('sidepanel.multitasking', $layout_data, null, [
-						'component' => 'com_vikbooking',
-						'client' 	=> 'administrator',
-					]);
+					echo JLayoutHelper::render('sidepanel.multitasking', $layout_data);
 					?>
 				<?php
 			}
@@ -705,10 +712,7 @@ class VikBookingHelper
 						'badge_count'  => $unreadNotifs,
 					];
 					// render the notificationscenter layout
-					echo JLayoutHelper::render('sidepanel.notificationscenter', $layout_data, null, [
-						'component' => 'com_vikbooking',
-						'client' 	=> 'administrator',
-					]);
+					echo JLayoutHelper::render('sidepanel.notificationscenter', $layout_data);
 					?>
 					</div>
 
@@ -1155,6 +1159,18 @@ class VikBookingHelper
 		</script>
 			<?php
 		}
+
+		$helpWizardAjaxUrl = VBOFactory::getPlatform()->getUri()->ajax('index.php?option=com_vikbooking');
+		JHtml::_('script', VBO_ADMIN_URI . 'resources/helpwizard.js', ['version' => VIKBOOKING_SOFTWARE_VERSION]);
+		JText::script('VBSAVE');
+		JText::script('VBDISMISS');
+		JFactory::getDocument()->addScriptDeclaration(
+<<<JAVASCRIPT
+(function(w) {
+	window.VBO_HELP_WIZARD_AJAX_URL = '{$helpWizardAjaxUrl}';
+})(window);
+JAVASCRIPT
+		);
 	}
 
 	public static function printFooter()

@@ -14,4 +14,8 @@ add_action( 'wp_enqueue_scripts', 'park_dos_lagos_style' );
 /**
  * Your code goes below.
  */
+function load_read_more_script() {
+    wp_enqueue_script('read-more', get_template_directory_uri() . '/js/read-more.js', array(), false, true);
+}
+add_action('wp_enqueue_scripts', 'load_read_more_script');
 

@@ -688,7 +688,7 @@ class Frontend extends Generator {
 		];
 		$this->_subscribers[ Config::CSS_SELECTOR_FORM_BUTTON ]['border-color']       = [
 			'key'      => 'neve_form_button_type',
-			'override' => 'var(--secondarybtnhovercolor)',
+			'override' => 'var(--secondarybtncolor)',
 		];
 		$this->_subscribers[ Config::CSS_SELECTOR_FORM_BUTTON_HOVER ]['border-color'] = [
 			'key'      => 'neve_form_button_type',
@@ -817,6 +817,19 @@ class Frontend extends Generator {
 		$this->_subscribers[] = [
 			'selectors' => '.nv-single-post-wrap',
 			'rules'     => $spacing_rules,
+		];
+		
+		$this->_subscribers['.nv-thumb-wrap img'] = [
+			'aspect-ratio' => [
+				'key'     => 'neve_post_thumbnail_aspect_ratio',
+				'default' => 'original',
+				'filter'  => function ( $css_prop, $value, $meta, $device ) {
+					if ( $value === 'original' ) {
+						return '';
+					}
+					return sprintf( '%s: %s; object-fit: cover;', $css_prop, str_replace( '-', '/', $value ) );
+				},
+			],
 		];
 	}
 

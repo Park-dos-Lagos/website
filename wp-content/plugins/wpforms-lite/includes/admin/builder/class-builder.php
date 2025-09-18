@@ -119,7 +119,7 @@ class WPForms_Builder {
 	 *
 	 * @since 1.0.0
 	 */
-	public function init() { // phpcs:ignore WPForms.PHP.HooksMethod.InvalidPlaceForAddingHooks, Generic.Metrics.CyclomaticComplexity.MaxExceeded
+	public function init() { // phpcs:ignore WPForms.PHP.HooksMethod.InvalidPlaceForAddingHooks, Generic.Metrics.CyclomaticComplexity.TooHigh
 
 		// Only load if we are actually on the builder.
 		if ( ! wpforms_is_admin_page( 'builder' ) ) {
@@ -304,7 +304,7 @@ class WPForms_Builder {
 	 * @param int    $form_id Form ID.
 	 * @param string $action  Action name.
 	 */
-	private function process_action( int $form_id, string $action ) { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.TooHigh
+	private function process_action( int $form_id, string $action ) {
 
 		$form_handler = wpforms()->obj( 'form' );
 
@@ -561,10 +561,10 @@ class WPForms_Builder {
 		);
 
 		wp_enqueue_script(
-			'conditionals',
-			WPFORMS_PLUGIN_URL . 'assets/lib/jquery.conditionals.min.js',
+			'conditions',
+			WPFORMS_PLUGIN_URL . 'assets/lib/conditions.min.js',
 			[ 'jquery' ],
-			'1.0.1',
+			'1.1.0',
 			false
 		);
 
@@ -588,7 +588,7 @@ class WPForms_Builder {
 			'dom-purify',
 			WPFORMS_PLUGIN_URL . 'assets/lib/purify.min.js',
 			[],
-			'3.2.5',
+			'3.2.6',
 			false
 		);
 
@@ -669,6 +669,22 @@ class WPForms_Builder {
 			true
 		);
 
+		wp_register_script(
+			'wpforms-builder-choices-list',
+			WPFORMS_PLUGIN_URL . "assets/js/admin/builder/choices-list{$min}.js",
+			[ 'jquery' ],
+			WPFORMS_VERSION,
+			true
+		);
+
+		wp_register_script(
+			'wpforms-builder-chocolate-choices',
+			WPFORMS_PLUGIN_URL . "assets/js/admin/builder/chocolate-choices{$min}.js",
+			[ 'jquery' ],
+			WPFORMS_VERSION,
+			true
+		);
+
 		wp_localize_script(
 			'wpforms-builder',
 			'wpforms_builder',
@@ -711,7 +727,7 @@ class WPForms_Builder {
 	 * @return array
 	 * @noinspection HtmlUnknownTarget
 	 */
-	private function get_localized_strings(): array { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.TooHigh
+	private function get_localized_strings(): array {
 
 		$image_extensions = wpforms_chain( get_allowed_mime_types() )
 			->map(
@@ -827,7 +843,11 @@ class WPForms_Builder {
 			'operator_greater_than'                   => esc_html__( 'greater than', 'wpforms-lite' ),
 			'operator_less_than'                      => esc_html__( 'less than', 'wpforms-lite' ),
 			'payments_entries_off'                    => esc_html__( 'Entry storage is currently disabled, but is required to accept payments. Please enable in your form settings.', 'wpforms-lite' ),
-			'payments_on_entries_off'                 => esc_html__( 'This form is currently accepting payments. Entry storage is required to accept payments. To disable entry storage, please first disable payments.', 'wpforms-lite' ),
+			'payments_on_entries_off'                 => sprintf( /* translators: %s - marketing or gateway integration name. */
+				esc_html__( 'Some third-party integrations require entry storage. If you’d like to continue, you’ll first need to disable %s.', 'wpforms-lite' ),
+				'{integration}'
+			),
+			'entry_storage_required'                  => esc_html__( 'Entry Storage Required', 'wpforms-lite' ),
 			'previous'                                => esc_html__( 'Previous', 'wpforms-lite' ),
 			'provider_required_flds'                  => sprintf( /* translators: %s - marketing integration name. */
 				esc_html__( 'In order to complete your form\'s %s integration, please check that all required (*) fields have been filled out.', 'wpforms-lite' ),
@@ -859,7 +879,7 @@ class WPForms_Builder {
 				'{number}'
 			),
 			'error_save_form'                         => esc_html__( 'Something went wrong while saving the form. Please reload the page and try again.', 'wpforms-lite' ),
-			'error_contact_support'                   => esc_html__( 'Please contact the plugin support team if this behavior persists.', 'wpforms-lite' ),
+			'error_contact_support'                   => esc_html__( 'Please contact support if this behavior persists.', 'wpforms-lite' ),
 			'error_select_template'                   => esc_html__( 'Something went wrong while applying the form template. Please try again. If the error persists, contact our support team.', 'wpforms-lite' ),
 			'error_load_templates'                    => esc_html__( "Couldn't load the Setup panel.", 'wpforms-lite' ),
 			'blank_form'                              => esc_html__( 'Blank Form', 'wpforms-lite' ),
@@ -885,6 +905,10 @@ class WPForms_Builder {
 			'scrollbars_css_url'                      => WPFORMS_PLUGIN_URL . 'assets/css/builder/builder-scrollbars.css',
 			'is_ai_disabled'                          => AIHelpers::is_disabled(),
 			'connection_label'                        => esc_html__( 'Connection', 'wpforms-lite' ),
+			'cl_reference'                            => sprintf( /* translators: %s - Integration name. */
+				esc_html__( '%s connection', 'wpforms-lite' ),
+				'{integration}'
+			),
 		];
 
 		$strings = $this->add_localized_currencies( $strings );
@@ -970,6 +994,20 @@ class WPForms_Builder {
 					'Akismet Documentation'
 				)
 			)
+		);
+
+		$strings['error_save_form_forbidden'] = sprintf(
+			wp_kses( /* translators: %1$s - Documentation page URL. */
+				__( 'The form cannot be saved due to a <a href="%1$s" target="_blank" rel="noopener noreferrer">403 error</a>.', 'wpforms-lite' ),
+				[
+					'a' => [
+						'href'   => [],
+						'target' => [],
+						'rel'    => [],
+					],
+				]
+			),
+			wpforms_utm_link( 'https://wpforms.com/docs/troubleshooting-403-forbidden-errors/', 'Builder - Settings', '403 Form Errors' )
 		);
 
 		/**
@@ -1073,7 +1111,7 @@ class WPForms_Builder {
 	 *
 	 * @since 1.0.0
 	 */
-	public function output() { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.MaxExceeded
+	public function output() { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.TooHigh
 
 		if ( $this->abort ) {
 			return;
@@ -1376,7 +1414,6 @@ class WPForms_Builder {
 			'form_id'          => $this->form->ID,
 			'is_form_template' => $this->form->post_type === 'wpforms-template',
 			'has_payments'     => wpforms()->obj( 'payment' )->get_by( 'form_id', $this->form->ID ) !== null,
-			'show_whats_new'   => wpforms()->obj( 'splash_screen' )->is_available_for_display(),
 		];
 
 		if ( wpforms()->is_pro() ) {

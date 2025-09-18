@@ -1,5 +1,64 @@
 # Changelog
 
+## 1.8.2
+
+*Release date - 28 July 2025*
+
+- Custom cancellation policies for custom rate plans.
+- Multi-calendar improvements in Availability Overview.
+- Availability Overview "Holding Area" row for hotel-inventory rooms.
+- Availability Overview "Unassigned units" row for hotel-inventory rooms.
+- Availability Overview drag & drop actions improved.
+- Main framework updated.
+- Introducing the Help Wizard to automatically configure country-related functions.
+- Booking.com Payments API for VCC reservations (E4jConnect channel manager required).
+- New Task Manager settings for sequential or balanced operators assignment strategy.
+- Task Manager new tasks scheduling frequency for pre-arrival.
+- Booking availability pre-flight during manual modifications.
+- Improved query execution timing for rooms with hotel-inventory.
+- New PMS reports (Trentino, Italy).
+- Minor fixes.
+
+## 1.8.1
+
+*Release date - 18 June 2025*
+
+- Minor fixes.
+- Minor CSS improvements.
+- Improved support for third-party page builder plugins with Operators Login shortcode.
+
+## 1.8.0
+
+*Release date - 10 June 2025*
+
+- Major framework update.
+- Various improvements to PMS reports.
+- PMS report auto-export functions with support for multiple account profiles.
+- Operators work days, exceptions and days off.
+- New operators tool for managing the work days.
+- Task Manager framework introduced.
+- Housekeeping and Maintenance automated tasks scheduling.
+- Task Manager projects for sprint board.
+- Private tasks for administrators.
+- New operator permissions for tasks management.
+- New admin widget "Operators Chat".
+- Various task manager layouts: board, list, calendar and bookings overview.
+- iCal calendar subscription for operator tasks with multiple formats.
+- Various history framework improvements.
+- New notifications center category for Operators.
+- New WebPush Notifications for operator activities.
+- Multi-calendar functionalities in availability overview for managing rates and restrictions.
+- Matrix selection of multiple dates and listings to handle multiple rate update queues.
+- Added support for off-session transactions through the Virtual Terminal (Stripe required).
+- New Channel Manager capabilities for Virtual Credit Cards received from OTA reservations.
+- Guest message reactions for OTA messaging (Channel Manager required).
+- Generative AI improvements (Channel Manager required).
+- Major improvements to electronic invoicing framework for an easier customization.
+- Various improvements to pre-check-in framework.
+- JS core major refactoring.
+- Improved support up to PHP 8.4
+- New back-end and front-end styling.
+
 ## 1.7.8
 
 *Release date - 12 March 2025*

@@ -7,7 +7,6 @@
 
 namespace Neve\Admin\Dashboard;
 
-use Neve\Core\Limited_Offers;
 use Neve\Core\Settings\Config;
 use Neve\Core\Theme_Info;
 use Neve\Core\Tracker;
@@ -101,6 +100,8 @@ class Main {
 				];
 			}
 		);
+
+		add_filter( 'themeisle_sdk_blackfriday_data', array( $this, 'add_black_friday_data' ) );
 	}
 
 	/**
@@ -270,19 +271,22 @@ class Main {
 
 		$build_path   = get_template_directory_uri() . '/assets/apps/dashboard/build/';
 		$dependencies = ( include get_template_directory() . '/assets/apps/dashboard/build/dashboard.asset.php' );
+		$dash_data    = apply_filters( 'neve_dashboard_page_data', $this->get_localization() );
+
+		$this->register_survey( $dash_data );
 
 		wp_register_style( 'neve-dash-style', $build_path . 'style-dashboard.css', [ 'wp-components', 'neve-components' ], $dependencies['version'] );
 		wp_style_add_data( 'neve-dash-style', 'rtl', 'replace' );
 		wp_enqueue_style( 'neve-dash-style' );
 		wp_register_script( 'neve-dash-script', $build_path . 'dashboard.js', array_merge( $dependencies['dependencies'], [ 'updates' ] ), $dependencies['version'], true );
-		wp_localize_script( 'neve-dash-script', 'neveDash', apply_filters( 'neve_dashboard_page_data', $this->get_localization() ) );
+		wp_localize_script( 'neve-dash-script', 'neveDash', $dash_data );
 		wp_enqueue_script( 'neve-dash-script' );
 
 		if ( function_exists( 'wp_set_script_translations' ) ) {
 			wp_set_script_translations( 'neve-dash-script', 'neve' );
 		}
 
-		do_action( 'themeisle_sdk_dependency_enqueue_script', 'survey' );
+		do_action( 'themeisle_internal_page', 'neve', 'dashboard' );
 	}
 
 	/**
@@ -291,8 +295,6 @@ class Main {
 	 * @return array
 	 */
 	private function get_localization() {
-
-		$offer = new Limited_Offers();
 
 		$old_about_config  = apply_filters( 'ti_about_config_filter', [ 'useful_plugins' => true ] );
 		$theme_name        = apply_filters( 'ti_wl_theme_name', $this->theme_args['name'] );
@@ -314,8 +316,9 @@ class Main {
 			'allfeaturesNeveProURL'   => tsdk_translate_link( tsdk_utmify( 'https://themeisle.com/themes/neve/upgrade/', 'seeallfeatures', 'freevspropage' ), 'query' ),
 			'startSitesgetNeveProURL' => tsdk_translate_link( tsdk_utmify( 'https://themeisle.com/themes/neve/upgrade/', 'welcomestartersitescard', 'nevedashboard' ), 'query' ),
 			'customLayoutsNeveProURL' => tsdk_translate_link( tsdk_utmify( 'https://themeisle.com/themes/neve/upgrade/', 'customlayoutscard', 'nevedashboard' ), 'query' ),
-			'upgradeURL'              => apply_filters( 'neve_upgrade_link_from_child_theme_filter', tsdk_translate_link( tsdk_utmify( 'https://themeisle.com/themes/neve/upgrade/', 'getpronow', 'freevspropage' ), 'query' ) ),
-			'upgradeURLModules'       => apply_filters( 'neve_upgrade_link_from_child_theme_filter', tsdk_translate_link( tsdk_utmify( 'https://themeisle.com/themes/neve/upgrade/', 'getpronow', 'welcomepage' ), 'query' ) ),
+			'upgradeURL'              => apply_filters( 'neve_upgrade_link_from_child_theme_filter', tsdk_translate_link( tsdk_utmify( 'https://themeisle.com/themes/neve/upgrade/', 'getpronow', 'freevspropage' ) ) ),
+			'upgradeURLModules'       => apply_filters( 'neve_upgrade_link_from_child_theme_filter', tsdk_translate_link( tsdk_utmify( 'https://themeisle.com/themes/neve/upgrade/', 'getpronow', 'welcomepage' ) ) ),
+			'upgradeWhiteLabelURL'    => apply_filters( 'neve_upgrade_link_from_child_theme_filter', tsdk_translate_link( tsdk_utmify( 'https://themeisle.com/themes/neve/upgrade/', 'whitelabel', 'settingspage' ) ) ),
 			'supportURL'              => esc_url( 'https://wordpress.org/support/theme/neve/' ),
 			'docsURL'                 => esc_url( 'https://docs.themeisle.com/article/946-neve-doc' ),
 			'codexURL'                => esc_url( 'https://codex.nevewp.com/' ),
@@ -359,10 +362,8 @@ class Main {
 			'getPluginStateBaseURL'   => esc_url( rest_url( '/nv/v1/dashboard/plugin-state/' ) ),
 			'canInstallPlugins'       => current_user_can( 'install_plugins' ),
 			'canActivatePlugins'      => current_user_can( 'activate_plugins' ),
-			'deal'                    => $offer->get_localized_data(),
 			'rootUrl'                 => get_site_url(),
-			'daysSinceInstall'        => round( ( time() - get_option( 'neve_install', 0 ) ) / DAY_IN_SECONDS ),
-			'proPluginVersion'        => defined( 'NEVE_PRO_VERSION' ) ? NEVE_PRO_VERSION : '',
+			'sparksActive'            => defined( 'SPARKS_WC_VERSION' ) ? 'yes' : 'no',
 		];
 
 		if ( defined( 'NEVE_PRO_PATH' ) ) {
@@ -1083,5 +1084,97 @@ class Main {
 			</div>
 		</div>
 		<?php
+	}
+
+	/**
+	 * Register the survey.
+	 * 
+	 * @param array $dash_data The dashboard data.
+	 * 
+	 * @return void
+	 */
+	public function register_survey( $dash_data ) {
+		add_filter(
+			'themeisle-sdk/survey/neve',
+			function( $data, $page_slug ) use ( $dash_data ) {
+				
+				$install_days_number = intval( ( time() - get_option( 'neve_install', time() ) ) / DAY_IN_SECONDS );
+			
+				$data = array(
+					'environmentId' => 'clr0ply35522h8up0bay2de4y',
+					'attributes'    => array(
+						'plan'                => isset( $dash_data['license'], $dash_data['license']['tier'] ) ? $dash_data['license']['tier'] : 0,
+						'license_status'      => isset( $dash_data['license'], $dash_data['license']['valid'] ) ? $dash_data['license']['valid'] : 'invalid',
+						'install_days_number' => $install_days_number,
+						'free_version'        => $dash_data['version'],
+					),
+				);
+
+				if ( isset( $dash_data['license'], $dash_data['license']['key'] ) ) {
+					$data['attributes']['license_key'] = apply_filters( 'themeisle_sdk_secret_masking', $dash_data['license']['key'] );
+				}
+
+				if ( defined( 'NEVE_PRO_VERSION' ) ) {
+					$data['attributes']['pro_version'] = NEVE_PRO_VERSION;
+				}
+
+				return $data;
+			},
+			10,
+			2 
+		);
+	}
+
+	/**
+	 * Get the Black Friday config settings.
+	 * 
+	 * @param array $default Optional. The default values.
+	 * 
+	 * @return array The data.
+	 */
+	public static function get_black_friday_data( $default = array() ) {
+		$config = $default;
+
+		// translators: %1$s - HTML tag, %2$s - discount, %3$s - HTML tag, %4$s - product name.
+		$message_template = __( 'Our biggest sale of the year: %1$sup to %2$s OFF%3$s on %4$s. Don\'t miss this limited-time offer.', 'neve' );
+		$product_label    = __( 'Neve', 'neve' );
+		$discount         = '70%';
+
+		$plan   = apply_filters( 'product_neve_license_plan', 0 );
+		$is_pro = 0 < $plan;
+
+		if ( $is_pro ) {
+			// translators: %1$s - HTML tag, %2$s - discount, %3$s - HTML tag, %4$s - product name.
+			$message_template = __( 'Get %1$sup to %2$s off%3$s when you upgrade your %4$s plan or renew early.', 'neve' );
+			$product_label    = __( 'Neve Pro', 'neve' );
+			$discount         = '30%';
+		}
+		
+		$product_label = sprintf( '<strong>%s</strong>', $product_label );
+		$url_params    = array(
+			'utm_term' => $is_pro ? 'plan-' . $plan : 'free',
+			'lkey'     => apply_filters( 'product_neve_license_key', false ),
+		);
+		
+		$config['message']  = sprintf( $message_template, '<strong>', $discount, '</strong>', $product_label );
+		$config['sale_url'] = add_query_arg(
+			$url_params,
+			tsdk_translate_link( tsdk_utmify( 'https://themeisle.link/neve-bf', 'bfcm', 'neve' ) )
+		);
+
+		return $config;
+	}
+
+	/**
+	 * Add the Black Friday data.
+	 * 
+	 * @param array $configs An array of configurations.
+	 * 
+	 * @return array The configurations.
+	 */
+	public function add_black_friday_data( $configs ) {
+		$configs['neve'] = self::get_black_friday_data( $configs['default'] );
+
+		return $configs;
 	}
 }

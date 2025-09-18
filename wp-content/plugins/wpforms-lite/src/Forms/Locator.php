@@ -217,32 +217,6 @@ class Locator {
 	}
 
 	/**
-	 * Add locations' column to the view.
-	 *
-	 * @since 1.7.4
-	 * @deprecated 1.8.6
-	 *
-	 * @param array $columns Columns.
-	 *
-	 * @return array
-	 */
-	public function add_column( $columns ) {
-
-		// Deprecate this method since the Locations column data should be added via the `wpforms_admin_forms_table_facades_columns_data` filter.
-		_deprecated_function( __METHOD__, '1.8.6 of the WPForms plugin', __CLASS__ . '::add_column_data()' );
-
-		$columns[ self::COLUMN_NAME ] =
-			sprintf(
-				'<span class="wpforms-locations-column-title">%1$s</span>' .
-				'<span class="wpforms-locations-column-icon" title="%2$s"></span>',
-				esc_html__( 'Locations', 'wpforms-lite' ),
-				esc_html__( 'Form locations', 'wpforms-lite' )
-			);
-
-		return $columns;
-	}
-
-	/**
 	 * Add locations' column to the table columns data.
 	 *
 	 * @since 1.8.6
@@ -323,7 +297,7 @@ class Locator {
 	 *
 	 * @return array
 	 */
-	public function row_actions_all( $row_actions, $form ) { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.TooHigh
+	public function row_actions_all( $row_actions, $form ) {
 
 		$form_locations = get_post_meta( $form->ID, self::LOCATIONS_META, true );
 
@@ -1264,7 +1238,7 @@ class Locator {
 	 *
 	 * @return bool
 	 */
-	private function is_post_visible( $location ) { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.TooHigh
+	private function is_post_visible( $location ) {
 
 		$edit_cap = 'edit_post';
 		$read_cap = 'read_post';

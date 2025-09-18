@@ -115,6 +115,7 @@ class Admin_Site_Enhancements {
         // Media Replacement
         if ( array_key_exists( 'enable_media_replacement', $options ) && $options['enable_media_replacement'] ) {
             $media_replacement = new ASENHA\Classes\Media_Replacement();
+            $disable_media_replacement_cache_busting = ( isset( $options['disable_media_replacement_cache_busting'] ) ? $options['disable_media_replacement_cache_busting'] : false );
             add_filter(
                 'media_row_actions',
                 [$media_replacement, 'modify_media_list_table_edit_link'],
@@ -129,31 +130,33 @@ class Admin_Site_Enhancements {
             );
             add_action( 'edit_attachment', [$media_replacement, 'replace_media'] );
             add_filter( 'post_updated_messages', [$media_replacement, 'attachment_updated_custom_message'] );
-            // Bust browser cache of old/replaced images
-            add_filter(
-                'wp_calculate_image_srcset',
-                [$media_replacement, 'append_cache_busting_param_to_image_srcset'],
-                10,
-                5
-            );
-            add_filter(
-                'wp_get_attachment_image_src',
-                [$media_replacement, 'append_cache_busting_param_to_attachment_image_src'],
-                10,
-                2
-            );
-            add_filter(
-                'wp_prepare_attachment_for_js',
-                [$media_replacement, 'append_cache_busting_param_to_attachment_for_js'],
-                10,
-                2
-            );
-            add_filter(
-                'wp_get_attachment_url',
-                [$media_replacement, 'append_cache_busting_param_to_attachment_url'],
-                20,
-                2
-            );
+            // Mayve bust browser cache of old/replaced images by appending a time stamp URL parameter
+            if ( !$disable_media_replacement_cache_busting ) {
+                add_filter(
+                    'wp_calculate_image_srcset',
+                    [$media_replacement, 'append_cache_busting_param_to_image_srcset'],
+                    10,
+                    5
+                );
+                add_filter(
+                    'wp_get_attachment_image_src',
+                    [$media_replacement, 'append_cache_busting_param_to_attachment_image_src'],
+                    10,
+                    2
+                );
+                add_filter(
+                    'wp_prepare_attachment_for_js',
+                    [$media_replacement, 'append_cache_busting_param_to_attachment_for_js'],
+                    10,
+                    2
+                );
+                add_filter(
+                    'wp_get_attachment_url',
+                    [$media_replacement, 'append_cache_busting_param_to_attachment_url'],
+                    20,
+                    2
+                );
+            }
         }
         // Media Library Infinite Scrolling
         if ( array_key_exists( 'media_library_infinite_scrolling', $options ) && $options['media_library_infinite_scrolling'] ) {
@@ -184,6 +187,12 @@ class Admin_Site_Enhancements {
             );
             add_filter( 'wp_handle_sideload_prefilter', [$svg_upload, 'sanitize_and_maybe_allow_svg_upload'] );
             add_filter( 'wp_handle_upload_prefilter', [$svg_upload, 'sanitize_and_maybe_allow_svg_upload'] );
+            add_filter(
+                'xmlrpc_prepare_media_item',
+                [$svg_upload, 'sanitize_xmlrpc_svg_upload'],
+                10,
+                2
+            );
             add_action(
                 'rest_insert_attachment',
                 [$svg_upload, 'sanitize_after_upload'],
@@ -355,21 +364,7 @@ class Admin_Site_Enhancements {
             }
             if ( array_key_exists( 'custom_menu_titles', $admin_menu_options ) ) {
                 add_action( 'admin_menu', [$admin_menu_organizer, 'apply_custom_menu_item_titles'], 9999999995 );
-                // For 'Posts' menu, if the title has been changed, try changing the labels for it everywhere
-                $custom_menu_titles = explode( ',', $admin_menu_options['custom_menu_titles'] );
-                foreach ( $custom_menu_titles as $custom_menu_title ) {
-                    if ( false !== strpos( $custom_menu_title, 'menu-posts__' ) ) {
-                        $custom_menu_title = explode( '__', $custom_menu_title );
-                        $posts_custom_title = $custom_menu_title[1];
-                        $posts_default_title = $wp_post_types['post']->label;
-                        if ( $posts_default_title != $posts_custom_title ) {
-                            add_filter( 'post_type_labels_post', [$admin_menu_organizer, 'change_post_labels'] );
-                            add_action( 'init', [$admin_menu_organizer, 'change_post_object_label'] );
-                            add_action( 'admin_menu', [$admin_menu_organizer, 'change_post_menu_label'], PHP_INT_MAX );
-                            add_action( 'admin_bar_menu', [$admin_menu_organizer, 'change_wp_admin_bar'], 80 );
-                        }
-                    }
-                }
+                add_action( 'init', [$admin_menu_organizer, 'apply_custom_title_for_posts_menu'] );
             }
             if ( array_key_exists( 'custom_menu_hidden', $admin_menu_options ) || array_key_exists( 'custom_menu_always_hidden', $admin_menu_options ) ) {
                 add_action( 'admin_menu', [$admin_menu_organizer, 'hide_menu_items'], 9999999996 );
@@ -668,7 +663,7 @@ class Admin_Site_Enhancements {
                 add_action( 'admin_init', [$disable_gutenberg, 'disable_gutenberg_for_post_types_admin'] );
                 add_action( 'admin_print_styles', [$disable_gutenberg, 'safari_18_fix'] );
                 if ( array_key_exists( 'disable_gutenberg_frontend_styles', $options ) && $options['disable_gutenberg_frontend_styles'] ) {
-                    add_action( 'wp_enqueue_scripts', [$disable_gutenberg, 'disable_gutenberg_for_post_types_frontend'], 100 );
+                    add_action( 'wp_enqueue_scripts', [$disable_gutenberg, 'disable_gutenberg_for_post_types_frontend'], 999999 );
                 }
             }
         }
@@ -819,6 +814,22 @@ class Admin_Site_Enhancements {
             // Remove Dashboard >> Updates menu
             add_action( 'admin_menu', [$disable_updates, 'remove_updates_menu'] );
         }
+        // Disable Author Archives
+        if ( array_key_exists( 'disable_author_archives', $options ) && $options['disable_author_archives'] ) {
+            $disable_author_archives = new ASENHA\Classes\Disable_Author_Archives();
+            add_action( 'template_redirect', [$disable_author_archives, 'redirect_to_404'], 1 );
+            add_filter( 'author_link', [$disable_author_archives, 'disable_frontend_author_link'], PHP_INT_MAX );
+            add_filter( 'user_row_actions', [$disable_author_archives, 'remove_user_view_action'], PHP_INT_MAX );
+            if ( class_exists( 'WP_Sitemaps' ) ) {
+                add_filter(
+                    'wp_sitemaps_add_provider',
+                    [$disable_author_archives, 'remove_users_from_sitemap'],
+                    PHP_INT_MAX,
+                    2
+                );
+            }
+            add_filter( 'author_rewrite_rules', [$disable_author_archives, 'disable_rewrite_rules_for_authors'], 10 );
+        }
         // Disable Smaller Components
         if ( array_key_exists( 'disable_smaller_components', $options ) && $options['disable_smaller_components'] ) {
             $disable_smaller_components = new ASENHA\Classes\Disable_Smaller_Components();
@@ -844,11 +855,13 @@ class Admin_Site_Enhancements {
                 remove_action( 'wp_head', 'rsd_link' );
             }
             if ( array_key_exists( 'disable_head_shortlink_tag', $options ) && $options['disable_head_shortlink_tag'] ) {
+                // https://github.com/WordPress/wordpress-develop/blob/646fd2308f87332b0db5218ee2071c0ff8db0d4c/src/wp-includes/default-filters.php#L358
                 remove_action( 'wp_head', 'wp_shortlink_wp_head' );
+                // https://github.com/WordPress/wordpress-develop/blob/646fd2308f87332b0db5218ee2071c0ff8db0d4c/src/wp-includes/default-filters.php#L363
                 remove_action(
                     'template_redirect',
                     'wp_shortlink_header',
-                    100,
+                    11,
                     0
                 );
             }

@@ -390,7 +390,7 @@ endif;
 	<?php echo JHtml::_('form.token'); ?>
 </form>
 <script type="text/javascript">
-jQuery(document).ready(function() {
+jQuery(function() {
 	jQuery('#dfrom').val('<?php echo $dfromval; ?>').attr('data-alt-value', '<?php echo $dfromval; ?>');
 	jQuery('#dto').val('<?php echo $dtoval; ?>').attr('data-alt-value', '<?php echo $dtoval; ?>');
 	jQuery('#restr-idrooms, #restr-ctad, #restr-ctdd').select2();

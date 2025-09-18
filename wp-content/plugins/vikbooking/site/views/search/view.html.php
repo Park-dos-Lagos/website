@@ -277,8 +277,11 @@ class VikbookingViewSearch extends JViewVikBooking
 									 * will be already set to the time 23:59:59.
 									 * 
 									 * @since 	1.13 (J) - 1.3.0 (WP)
+									 * @since 	1.18.3 (J) - 1.8.3 (WP) timestamps ending with 9 for a range greater than 1 day indicate that the restriction end time
+									 * 			is already set to 23:59:59 (VCM Connector may be responsible), so no seconds should be added or the restriction end date
+									 *  		will be the day after, and if after the check-in time, it may be included.
 									 */
-									$end_operator = date('Y-m-d', $restr['dfrom']) != date('Y-m-d', $restr['dto']) ? 82799 : 0;
+									$end_operator = date('Y-m-d', $restr['dfrom']) != date('Y-m-d', $restr['dto']) && substr((string) $restr['dto'], -1, 1) != 9 ? 82799 : 0;
 									//
 									if ($restr['dfrom'] <= $restrcheckin[0] && ($restr['dto'] + $end_operator) >= $restrcheckin[0]) {
 										// restriction found for this date range based on arrival date, check if compliant

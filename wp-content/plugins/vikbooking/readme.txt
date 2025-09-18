@@ -2,9 +2,9 @@
 Contributors: e4jvikwp
 Tags: hotel booking, booking engine, channel manager, hotel, reservations
 Requires at least: 4.7
-Tested up to: 6.7
-Stable tag: 1.7.8
-Requires PHP: 7.0.0
+Tested up to: 6.8
+Stable tag: 1.8.2
+Requires PHP: 7.1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -16,7 +16,7 @@ Famous Booking Engine, PMS and Hotel Reservations plugin for single properties. 
 
 The famous Booking Engine and PMS online software for accommodations is now available also for WordPress as a native Plugin!
 
-If you are looking for a reliable reservation system for a Hotel, B&B, Villa, Apartments, Hostel or any similar accommodation, then you have found the right plugin. In fact, Vik Booking is a **PCI-DSS** and **OpenTravel** compliant hotel Booking Engine used by thousands of properties every day.
+If you are looking for a reliable reservation system for a Hotel, B&B, Villa, Apartments, Hostel or any similar accommodation, then you have found the right plugin. In fact, Vik Booking is a **PCI-DSS** and **OpenTravel** compliant hotel & vacation rental Booking Engine used by thousands of properties every day.
 
 This is the **free** version of the plugin, but you can upgrade to the **Pro** version at any time from your *wp-admin* section. Experience the power of a true and internal Booking Engine that competes with the best ones of the world!
 
@@ -129,6 +129,62 @@ Vik Booking is the Booking Engine and PMS plugin, it can work alone on any exist
 
 == Changelog ==
 
+= 1.8.2 =
+*Release date - 28 July 2025*
+
+* Custom cancellation policies for custom rate plans.
+* Multi-calendar improvements in Availability Overview.
+* Availability Overview "Holding Area" row for hotel-inventory rooms.
+* Availability Overview "Unassigned units" row for hotel-inventory rooms.
+* Availability Overview drag & drop actions improved.
+* Main framework updated.
+* Introducing the Help Wizard to automatically configure country-related functions.
+* Booking.com Payments API for VCC reservations (E4jConnect channel manager required).
+* New Task Manager settings for sequential or balanced operators assignment strategy.
+* Task Manager new tasks scheduling frequency for pre-arrival.
+* Booking availability pre-flight during manual modifications.
+* Improved query execution timing for rooms with hotel-inventory.
+* New PMS reports (Trentino, Italy).
+* Minor fixes.
+
+= 1.8.1 =
+*Release date - 18 June 2025*
+
+* Minor fixes.
+* Minor CSS improvements.
+* Improved support for third-party page builder plugins with Operators Login shortcode.
+
+= 1.8.0 =
+*Release date - 10 June 2025*
+
+* Major framework update.
+* Various improvements to PMS reports.
+* PMS report auto-export functions with support for multiple account profiles.
+* Operators work days, exceptions and days off.
+* New operators tool for managing the work days.
+* Task Manager framework introduced.
+* Housekeeping and Maintenance automated tasks scheduling.
+* Task Manager projects for sprint board.
+* Private tasks for administrators.
+* New operator permissions for tasks management.
+* New admin widget "Operators Chat".
+* Various task manager layouts: board, list, calendar and bookings overview.
+* iCal calendar subscription for operator tasks with multiple formats.
+* Various history framework improvements.
+* New notifications center category for Operators.
+* New WebPush Notifications for operator activities.
+* Multi-calendar functionalities in availability overview for managing rates and restrictions.
+* Matrix selection of multiple dates and listings to handle multiple rate update queues.
+* Added support for off-session transactions through the Virtual Terminal (Stripe required).
+* New Channel Manager capabilities for Virtual Credit Cards received from OTA reservations.
+* Guest message reactions for OTA messaging (Channel Manager required).
+* Generative AI improvements (Channel Manager required).
+* Major improvements to electronic invoicing framework for an easier customization.
+* Various improvements to pre-check-in framework.
+* JS core major refactoring.
+* Improved support up to PHP 8.4
+* New back-end and front-end styling.
+
 = 1.7.8 =
 *Release date - 12 March 2025*
 
@@ -160,31 +216,6 @@ Vik Booking is the Booking Engine and PMS plugin, it can work alone on any exist
 * Introducing the new operator tool "Guest Messaging" (E4jConnect CM required).
 * Various improvements to the listing-style layout of the front-end page "Room Details".
 * Visual editor improvements for Cron Jobs to preview the message for a specific booking ID.
-
-= 1.7.5 =
-*Release date - 29 January 2025*
-
-* JavaScript improvements with new dates-range picker calendars.
-* Styling and responsiveness improvements with new dates-range picker calendars.
-* Introduced listings automatic mini-thumbnail for drop down menus.
-* Storing the pre-checkin guests registration data will invoke the pax driver callback.
-
-= 1.7.4 =
-*Release date - 22 January 2025*
-
-* JavaScript bug fixing with new dates-range picker calendars.
-* Introduced new guest registration field type signature.
-
-= 1.7.3 =
-*Release date - 21 January 2025*
-
-* New dates-range picker calendars.
-* New listing layout parameter for room-details shortcode.
-* Gen AI functions for listing contents (E4jConnect CM required).
-* Gen AI Assistant in Visual Editor (E4jConnect CM required).
-* Various Visual Editor improvements.
-* Maintenance controller for performance optimization (large datasets).
-* Multiple security improvements.
 
 = Earlier versions =
 

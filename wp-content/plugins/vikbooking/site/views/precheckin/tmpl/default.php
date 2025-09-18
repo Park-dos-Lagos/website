@@ -284,7 +284,7 @@ JText::script('VBO_PLEASE_WAIT');
 								<input type="hidden" id="vbo-paxfield-curfiles-<?php echo $ind . '-' . $g . '-' . $paxk; ?>" name="guests[<?php echo $ind; ?>][<?php echo $g; ?>][<?php echo $paxk; ?>]" value="<?php echo (isset($current_guest[$paxk]) ? $this->escape($current_guest[$paxk]) : ''); ?>" />
 
 								<div class="vbo-paxfield-upload-container">
-									<button type="button" class="btn  vbo-precheckin-uploadfile" data-roomi="<?php echo $ind; ?>" data-guesti="<?php echo $g; ?>" data-paxk="<?php echo $paxk; ?>"><?php VikBookingIcons::e('camera'); ?> <?php echo JText::_('VBOUPSELLADD'); ?></button>
+									<button type="button" class="btn vbo-pref-color-btn-secondary vbo-precheckin-uploadfile" data-roomi="<?php echo $ind; ?>" data-guesti="<?php echo $g; ?>" data-paxk="<?php echo $paxk; ?>"><?php VikBookingIcons::e('camera'); ?> <?php echo JText::_('VBOUPSELLADD'); ?></button>
 									<div class="vbo-paxfield-upload-progress-wrap" id="vbo-paxfield-upload-progress-<?php echo $ind . '-' . $g . '-' . $paxk; ?>" style="display: none;">
 										<div class="vbo-paxfield-upload-progress">&nbsp;</div>
 									</div>
@@ -648,7 +648,8 @@ JText::script('VBO_PLEASE_WAIT');
 			dateFormat: "<?php echo $juidf; ?>",
 			changeMonth: true,
 			changeYear: true,
-			yearRange: "<?php echo (date('Y') - 100) . ':' . date('Y'); ?>"
+			yearRange: "<?php echo (date('Y') - 100) . ':' . date('Y'); ?>",
+			maxDate: "0d",
 		});
 
 		/**

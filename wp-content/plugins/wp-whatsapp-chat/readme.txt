@@ -5,7 +5,7 @@ Tags: whatsapp, whatsapp business, whatsapp chat, woocommerce whatsapp, click to
 Requires at least: 4.7
 Requires PHP: 5.6
 Tested up to: 6.8
-Stable tag: 7.7.0
+Stable tag: 7.8.7
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -136,6 +136,59 @@ Don't use: +001-(555)1234567
 * Brazilian Portuguese (thanks to [Dionizio Bach](@djio))
 
 == Changelog ==
+
+= 7.8.7 =
+* Feat custom image support
+
+= 7.8.6 =
+* Fix php 7.2 errors
+
+= 7.8.5 =
+* Feat add desktop option for WhatsApp api or web link
+
+= 7.8.4 =
+* Feat add outside click box close option
+
+= 7.8.3 =
+* Fix contacts js error
+
+= 7.8.2 =
+* Feat add desktop/mobile switch in preview
+
+= 7.8.1 =
+* Fix contacts php error
+
+= 7.8.0 =
+* Update packages
+* Fix contacts order save
+
+= 7.7.9 =
+* Fix demo and documentation links
+
+= 7.7.8 =
+* Fix improve get_terms to reduce term load time
+
+= 7.7.7 =
+* Update readme.txt
+
+= 7.7.5 =
+* Move switch box button
+
+= 7.7.4 =
+* Fix box footer link
+* Fix box autoload
+* Feat add box max height
+
+= 7.7.3 =
+* Load scripts only when necessary
+
+= 7.7.2 =
+* Responsive tabs sidebar
+* Fix double scrollbar issue
+
+= 7.7.1 =
+* Display WooCommerce tab conditionally
+* Add WhatsApp phone or group link test 
 
 = 7.7.0 =
 * Refactor WhatsApp frontend UI

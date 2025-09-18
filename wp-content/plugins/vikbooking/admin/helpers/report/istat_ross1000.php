@@ -26,8 +26,9 @@ defined('ABSPATH') or die('No script kiddies please!');
  * @link 	Lombardia https://www.flussituristici.servizirl.it/Turismo5/app/ws/checkinV2?wsdl
  * @link 	Calabria https://sirdat.regione.calabria.it/ws/checkinV2?wsdl
  * @link 	Sardegna https://sardegnaturismo.ross1000.it/ws/checkinV2?wsdl
+ * @link    Lazio https://lazioturismo.ross1000.it/ws/checkinV2?wsdl
  * 
- * @see 	Tracciato_XML-WEBSERVICE-2.4-_-2.pdf
+ * @link 	https://web.gies.sm/cc_allegati/ross1000/Tracciato_XML-WEBSERVICE-2.4.pdf
  * 
  * @since 	1.15.4 (J) - 1.5.10 (WP) report introduced.
  * @since 	1.17.2 (J) - 1.7.2 (WP)  report refactoring with settings and custom scoped actions.
@@ -164,6 +165,17 @@ class VikBookingReportIstatRoss1000 extends VikBookingReport
 	/**
 	 * @inheritDoc
 	 * 
+	 * @since 	1.18.0 (J) - 1.8.0 (WP)
+	 */
+	public function allowsProfileSettings()
+	{
+		// allow multiple report profile settings
+		return true;
+	}
+
+	/**
+	 * @inheritDoc
+	 * 
 	 * @since 	1.17.2 (J) - 1.7.2 (WP)
 	 */
 	public function getSettingFields()
@@ -217,6 +229,10 @@ class VikBookingReportIstatRoss1000 extends VikBookingReport
 				'name' => 'Liguria',
 				'url' => 'https://turismows.regione.liguria.it/ws/checkinV2?wsdl',
 			],
+			[
+				'name' => 'Lazio',
+				'url' => 'https://lazioturismo.ross1000.it/ws/checkinV2?wsdl',
+			],
 		];
 
 		$example_urls_str = '';
@@ -231,7 +247,7 @@ class VikBookingReportIstatRoss1000 extends VikBookingReport
 			'title' => [
 				'type'  => 'custom',
 				'label' => '',
-				'html'  => '<p class="info">Configura le impostazioni per la generazione dei tracciati record XML e per la trasmissione delle informazioni verso il WebService della tua regione o procinvia.</p>',
+				'html'  => '<p class="info">Configura le impostazioni per la generazione dei tracciati record XML e per la trasmissione delle informazioni verso il WebService della tua regione o provincia.</p>',
 			],
 			'codstru' => [
 				'type'  => 'text',
@@ -265,12 +281,12 @@ class VikBookingReportIstatRoss1000 extends VikBookingReport
 			'endpoint' => [
 				'type'  => 'text',
 				'label' => 'WS Endpoint URL',
-				'help'  => 'Indirizzo URL web-service del sito web dell\'ente al quale trasmettere i dati.',
+				'help'  => 'Indirizzo URL web-service del sito web dell\'ente al quale trasmettere i dati. È suggerito consultare anche la lista di endpoint sottostante.',
 			],
 			'exampleurls' => [
 				'type'  => 'custom',
 				'label' => '',
-				'html'  => '<p class="info">Lista Endpoint web-service:<br/><ul>' . $example_urls_str . '</ul></p>',
+				'html'  => '<p class="info">Lista Endpoint web-service:</p><ul>' . $example_urls_str . '</ul><p class="warn">È consigliato verificare tramite il proprio portale ISTAT regionale l\'effettivo URL del Web-Service da utilizzare per la trasmissione dei flussi turistici. In alcuni casi l\'indirizzo URL potrebbe non necessitare della parte finale <code>?wsdl</code>.</p>',
 			],
 		];
 	}
@@ -330,6 +346,8 @@ class VikBookingReportIstatRoss1000 extends VikBookingReport
 			//do not run this method twice, as it could load JS and CSS files.
 			return $this->reportFilters;
 		}
+
+		$app = JFactory::getApplication();
 
 		//get VBO Application Object
 		$vbo_app = VikBooking::getVboApplication();
@@ -466,6 +484,26 @@ class VikBookingReportIstatRoss1000 extends VikBookingReport
 			'html' => '<input type="text" id="todate" name="todate" value="" class="vbo-report-datepicker vbo-report-datepicker-to" />',
 			'type' => 'calendar',
 			'name' => 'todate'
+		);
+		array_push($this->reportFilters, $filter_opt);
+
+		// Listings Filter
+		$filter_opt = array(
+			'label' => '<label for="listingsfilt">' . JText::_('VBO_LISTINGS') . '</label>',
+			'html' => '<span class="vbo-toolbar-multiselect-wrap">' . $vbo_app->renderElementsDropDown([
+				'id'              => 'listingsfilt',
+				'elements'        => 'listings',
+				'placeholder'     => JText::_('VBO_LISTINGS'),
+				'allow_clear'     => 1,
+				'attributes'      => [
+					'name' => 'listings[]',
+					'multiple' => 'multiple',
+				],
+				'selected_values' => (array) $app->input->get('listings', [], 'array'),
+			]) . '</span>',
+			'type' => 'select',
+			'multiple' => true,
+			'name' => 'listings',
 		);
 		array_push($this->reportFilters, $filter_opt);
 
@@ -873,6 +911,8 @@ class VikBookingReportIstatRoss1000 extends VikBookingReport
 		$pkrorder = VikRequest::getString('krorder', $this->defaultKeyOrder, 'request');
 		$pkrorder = empty($pkrorder) ? $this->defaultKeyOrder : $pkrorder;
 		$pkrorder = $pkrorder == 'DESC' ? 'DESC' : 'ASC';
+		$plistings = ((array) VikRequest::getVar('listings', array())) ?: ((array) $options->get('listings', []));
+		$plistings = array_filter(array_map('intval', $plistings));
 
 		$currency_symb = VikBooking::getCurrencySymb();
 		$df = $this->getDateFormat();
@@ -957,6 +997,10 @@ class VikBookingReportIstatRoss1000 extends VikBookingReport
 			->order($this->dbo->qn('o.checkin') . ' ASC')
 			->order($this->dbo->qn('o.id') . ' ASC')
 			->order($this->dbo->qn('or.id') . ' ASC');
+
+		if ($plistings) {
+			$q->where($this->dbo->qn('or.idroom') . ' IN (' . implode(', ', $plistings) . ')');
+		}
 
 		$this->dbo->setQuery($q);
 		$records = $this->dbo->loadAssocList();
@@ -1271,6 +1315,9 @@ class VikBookingReportIstatRoss1000 extends VikBookingReport
 				$dbirth = !empty($guests['bdate']) && $guest_ind < 2 ? VikBooking::getDateTimestamp($guests['bdate'], 0, 0) : '';
 				$pax_dbirth = $this->getGuestPaxDataValue($pax_data, $room_guests, $guest_ind, 'date_birth');
 				$dbirth = !empty($pax_dbirth) ? $pax_dbirth : $dbirth;
+				if (!empty($dbirth)) {
+					$dbirth = str_replace(['/', '-', '.'], VikBooking::getDateSeparator(), (string) $dbirth);
+				}
 				$dbirth = (strpos($dbirth, '/') === false && strpos($dbirth, VikBooking::getDateSeparator()) === false) ? $dbirth : VikBooking::getDateTimestamp($dbirth, 0, 0);
 				array_push($insert_row, array(
 					'key' => 'dbirth',
@@ -1278,13 +1325,22 @@ class VikBookingReportIstatRoss1000 extends VikBookingReport
 						'class="center'.(empty($dbirth) ? ' vbo-report-load-dbirth' : '').'"'
 					),
 					'callback' => function($val) {
-						if (!empty($val) && strpos($val, '/') === false && strpos($val, VikBooking::getDateSeparator()) === false) {
+						if (!empty($val) && strpos($val, VikBooking::getDateSeparator()) === false) {
 							return date('d/m/Y', $val);
 						}
-						if (!empty($val) && strpos($val, '/') !== false) {
+						if (!empty($val) && strpos($val, VikBooking::getDateSeparator()) !== false) {
 							return $val;
 						}
 						return '?';
+					},
+					'callback_export' => function($val) {
+						if (!empty($val) && is_numeric($val)) {
+							return date('Ymd', $val);
+						}
+						if (!empty($val) && strlen($val) > 8) {
+							return date('Ymd', VikBooking::getDateTimestamp($val));
+						}
+						return $val ?: '?';
 					},
 					'value' => $dbirth
 				));
@@ -1692,8 +1748,12 @@ JS
 				continue;
 			}
 
+			// check if some listings were filtered
+			$filtered_listings = ((array) VikRequest::getVar('listings', array())) ?: ((array) $options->get('listings', []));
+			$filtered_listings = array_filter(array_map('intval', $filtered_listings));
+
 			// property is open today
-			$property->addChild('camereoccupate', $this->countDayRoomsOccupied($date_info[0]));
+			$property->addChild('camereoccupate', $this->countDayRoomsOccupied($date_info[0], $filtered_listings));
 			$property->addChild('cameredisponibili', $total_rooms);
 			$property->addChild('lettidisponibili', $total_beds);
 
@@ -1917,27 +1977,45 @@ JS
 	 * Counts the number of occupied rooms on the given day.
 	 * 
 	 * @param 	int 	$day_ts 	The day timestamp (at midnight).
+	 * @param 	array 	$listings 	Optional list of filtered listing IDs.
 	 * 
 	 * @return 	int 	Number of occupied rooms found.
 	 * 
 	 * @since 	1.17.2 (J) - 1.7.2 (WP)
+	 * @since 	1.18.0 (J) - 1.8.0 (WP) added support for $listings argument.
 	 */
-	protected function countDayRoomsOccupied($day_ts)
+	protected function countDayRoomsOccupied($day_ts, array $listings = [])
 	{
 		// get the timestamp at the last second of the day
 		$day_ts = strtotime('23:59:59', $day_ts);
 
 		$dbo = JFactory::getDbo();
 
-		$dbo->setQuery(
-			$dbo->getQuery(true)
-				->select('SUM(' . $dbo->qn('roomsnum') . ')')
-				->from($dbo->qn('#__vikbooking_orders'))
-				->where($dbo->qn('status') . ' = ' . $dbo->q('confirmed'))
-				->where($dbo->qn('closure') . ' = 0')
-				->where($dbo->qn('checkin') . ' < ' . (int) $day_ts)
-				->where($dbo->qn('checkout') . ' > ' . (int) $day_ts)
-		);
+		if ($listings) {
+			// perform a more accurate query over the listings specified
+			$dbo->setQuery(
+				$dbo->getQuery(true)
+					->select('COUNT(*)')
+					->from($dbo->qn('#__vikbooking_orders', 'o'))
+					->leftJoin($dbo->qn('#__vikbooking_ordersrooms', 'or') . ' ON ' . $dbo->qn('o.id') . ' = ' . $dbo->qn('or.idorder'))
+					->where($dbo->qn('o.status') . ' = ' . $dbo->q('confirmed'))
+					->where($dbo->qn('o.closure') . ' = 0')
+					->where($dbo->qn('o.checkin') . ' < ' . (int) $day_ts)
+					->where($dbo->qn('o.checkout') . ' > ' . (int) $day_ts)
+					->where($dbo->qn('or.idroom') . ' IN (' . implode(', ', array_map('intval', $listings)) . ')')
+			);
+		} else {
+			// quick query to fetch the total number of occupied rooms
+			$dbo->setQuery(
+				$dbo->getQuery(true)
+					->select('SUM(' . $dbo->qn('roomsnum') . ')')
+					->from($dbo->qn('#__vikbooking_orders'))
+					->where($dbo->qn('status') . ' = ' . $dbo->q('confirmed'))
+					->where($dbo->qn('closure') . ' = 0')
+					->where($dbo->qn('checkin') . ' < ' . (int) $day_ts)
+					->where($dbo->qn('checkout') . ' > ' . (int) $day_ts)
+			);
+		}
 
 		return (int) $dbo->loadResult();
 	}
@@ -2017,7 +2095,7 @@ JS
 				// 'User-Agent'     => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 14.7; rv:133.0) Gecko/20100101 Firefox/133.0',
 				'Connection'     => 'keep-alive',
 				'Content-Length' => strlen($soap_xml),
-			]);
+			], 20);
 
 			// response text
 			$response_txt = strip_tags((string) $response->body);
@@ -2037,6 +2115,45 @@ JS
 			throw new Exception(sprintf('[%s] error: %s', __METHOD__, $e->getMessage()), $e->getCode() ?: 500);
 		}
 
+		// get the currently active profile ID, if any
+		$activeProfileId = $this->getActiveProfile();
+
+		/**
+		 * When the report is executed through a cron-job, the transmission of the guest details
+		 * will also dump the data transmitted onto a resource file, useful for sending it via email.
+		 * 
+		 * @since 	1.18.0 (J) - 1.8.0 (WP)
+		 */
+		if ($scope === 'cron') {
+			// prepare the XML resource file information
+			$xml_name = implode('_', array_filter([$this->getFileName(), 'trasmissione', 'flussi', time(), $activeProfileId, rand(100, 999)])) . '.xml';
+			$xml_dest = $this->getDataMediaPath() . DIRECTORY_SEPARATOR . $xml_name;
+			$xml_url  = $this->getDataMediaUrl() . $xml_name;
+
+			// store the XML bytes into a local file on disk
+			$stored = JFile::write($xml_dest, $soap_xml);
+
+			if ($stored && VBOPlatformDetection::isWordPress()) {
+				/**
+				 * Trigger files mirroring operation
+				 */
+				VikBookingLoader::import('update.manager');
+				VikBookingUpdateManager::triggerUploadBackup($xml_dest);
+			}
+
+			if ($stored) {
+				// define a new report resource for the generated file
+				$this->defineResourceFile([
+					'summary' => sprintf(
+						'%sFlussi turistici generati e trasmessi con successo.',
+						($activeProfileId ? '(' . ucwords($activeProfileId) . ') ' : '')
+					),
+					'url'  => $xml_url,
+					'path' => $xml_dest,
+				]);
+			}
+		}
+
 		// when executed through a cron, store an event in the Notifications Center
 		if ($scope === 'cron') {
 			// build the notification record
@@ -2045,7 +2162,8 @@ JS
 				'type'    => 'pmsreport.sendxml.ok',
 				'title'   => 'Ross1000 - Trasmissione flussi turistici',
 				'summary' => sprintf(
-					'I flussi turistici sono stati trasmessi con successo per le date dal %s al %s.',
+					'%sI flussi turistici sono stati trasmessi con successo per le date dal %s al %s.',
+					($activeProfileId ? '(' . ucwords($activeProfileId) . ') ' : ''),
 					$this->exported_checkin_dates[0] ?? '',
 					$this->exported_checkin_dates[1] ?? ''
 				),
@@ -2237,7 +2355,7 @@ JS
 			$v[2] = trim($v[2]);
 			
 			$nazioni[$v[0]]['name'] = $v[1];
-			$nazioni[$v[0]]['three_code'] = $v[2];		
+			$nazioni[$v[0]]['three_code'] = $v[2];
 
 		}
 

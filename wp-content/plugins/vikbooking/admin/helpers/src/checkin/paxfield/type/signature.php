@@ -133,7 +133,7 @@ final class VBOCheckinPaxfieldTypeSignature extends VBOCheckinPaxfieldType
 		$field_html = <<<HTML
 <div class="vbo-pax-field-signature-container">
 	<div class="vbo-pax-field-signature-commands">
-		<button type="button" class="btn  vbo-pax-field-signature-cmd-view" data-id="$field_id">{$viewdoc_icon} {$viewdoc_lbl}</button>
+		<button type="button" class="btn vbo-pref-color-btn-secondary vbo-pax-field-signature-cmd-view" data-id="$field_id">{$viewdoc_icon} {$viewdoc_lbl}</button>
 		<button type="button" class="btn vbo-pref-color-btn vbo-pax-field-signature-cmd-sign" data-id="$field_id">{$signdoc_icon} {$signdoc_lbl}</button>
 	</div>
 	<div class="vbo-pax-field-signature-checkindoc-helper" data-id="$field_id" style="display: none;">
@@ -153,7 +153,7 @@ final class VBOCheckinPaxfieldTypeSignature extends VBOCheckinPaxfieldType
 						</div>
 						<div class="vbo-signature-cmds">
 							<div class="vbo-signature-cmd">
-								<button type="button" class="btn btn-large  vbo-pax-field-signature-cmd-clearpad" data-id="$field_id">{$clearpad_icon} {$signclear_lbl}</button>
+								<button type="button" class="btn btn-large vbo-pref-color-btn-secondary vbo-pax-field-signature-cmd-clearpad" data-id="$field_id">{$clearpad_icon} {$signclear_lbl}</button>
 							</div>
 							<div class="vbo-signature-cmd">
 								<button type="button" class="btn btn-large vbo-pref-color-btn vbo-pax-field-signature-cmd-savesign" data-id="$field_id">{$savepad_icon} {$signsave_lbl}</button>
@@ -324,5 +324,35 @@ HTML;
 
 		// return the necessary HTML string to display the field
 		return $field_html;
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function validateGuestRegistrationData()
+	{
+		if ($this->field->getGuestNumber() != 1 || VikBooking::isAdmin()) {
+			// no validation needed
+			return;
+		}
+
+		// get the booking record involved
+		$booking = $this->field->getBooking();
+
+		// get the customer record
+		$customer = VikBooking::getCPinInstance()->getCustomerFromBooking($booking['id'] ?? 0);
+
+		if (!$booking || !$customer) {
+			// do not raise an error when data is missing
+			return;
+		}
+
+		if (empty($customer['signature'])) {
+			// the contract was not signed, raise an error
+			throw new Exception(JText::_('VBO_PRECHECKIN_SIGN_DOCUMENT'), 400);
+		}
+
+		// all good
+		return;
 	}
 }

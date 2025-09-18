@@ -32,9 +32,9 @@ class JFormFieldChannelaccounts extends JFormFieldList
 		if (class_exists('VCMFactory'))
 		{
 			// load pairs of channel-property from the reviews downloaded
-			$q = "SELECT * FROM `#__vikchannelmanager_otareviews` ORDER BY `channel` ASC, `prop_name` ASC;";
+			$q = "SELECT DISTINCT `channel`, `prop_name` FROM `#__vikchannelmanager_otareviews` ORDER BY `channel` ASC, `prop_name` ASC;";
 			$dbo->setQuery($q);
-			
+
 			foreach ($dbo->loadAssocList() as $v) {
 				if (!empty($v['channel'])) {
 					// OTA review
@@ -57,9 +57,9 @@ class JFormFieldChannelaccounts extends JFormFieldList
 			}
 
 			// load pairs of channel-property from the scores downloaded
-			$q = "SELECT * FROM `#__vikchannelmanager_otascores` ORDER BY `channel` ASC, `prop_name` ASC;";
+			$q = "SELECT DISTINCT `channel`, `prop_name` FROM `#__vikchannelmanager_otascores` ORDER BY `channel` ASC, `prop_name` ASC;";
 			$dbo->setQuery($q);
-			
+
 			foreach ($dbo->loadAssocList() as $v) {
 				$chidentifier = $v['channel'] . '_' . $v['prop_name'];
 				if (!isset($channelaccounts[$chidentifier])) {

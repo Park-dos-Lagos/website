@@ -27,6 +27,11 @@ class VikBookingControllerPricing extends JControllerAdmin
 		$dbo = JFactory::getDbo();
 		$session = JFactory::getSession();
 
+		if (!JSession::checkToken()) {
+			// missing CSRF-proof token
+			VBOHttpDocument::getInstance($app)->close(403, JText::_('JINVALID_TOKEN'));
+		}
+
 		$updforvcm = $session->get('vbVcmRatesUpd', '');
 		$updforvcm = empty($updforvcm) || !is_array($updforvcm) ? [] : $updforvcm;
 
@@ -132,6 +137,11 @@ class VikBookingControllerPricing extends JControllerAdmin
 	{
 		$app = JFactory::getApplication();
 
+		if (!JSession::checkToken()) {
+			// missing CSRF-proof token
+			VBOHttpDocument::getInstance($app)->close(403, JText::_('JINVALID_TOKEN'));
+		}
+
 		$room_id = $app->input->getUInt('room_id', 0);
 		$rate_id = $app->input->getUInt('rate_id', 0);
 
@@ -195,5 +205,51 @@ class VikBookingControllerPricing extends JControllerAdmin
 		}
 
 		VBOHttpDocument::getInstance($app)->json($room_rate_cache);
+	}
+
+	/**
+	 * AJAX endpoint for for loading the rates for a given range of dates and room(s).
+	 * 
+	 * @since 	1.18.0 (J) - 1.8.0 (WP)
+	 */
+	public function loadRoomRates()
+	{
+		$app = JFactory::getApplication();
+
+		if (!JSession::checkToken()) {
+			// missing CSRF-proof token
+			VBOHttpDocument::getInstance($app)->close(403, JText::_('JINVALID_TOKEN'));
+		}
+
+		$room_id = $app->input->getUInt('room_id', 0);
+		$room_ids = (array) $app->input->getUInt('room_ids', []);
+		$from_date = $app->input->getString('from_date', date('Y-m-01'));
+		$to_date = $app->input->getString('to_date', date('Y-m-t'));
+		$restrictions = $app->input->getBool('restrictions', true);
+
+		if ((!$room_id && !$room_ids) || empty($from_date) || empty($to_date)) {
+			VBOHttpDocument::getInstance($app)->close(400, 'Missing required parameters.');
+		}
+
+		if (!class_exists('VikChannelManager')) {
+			VBOHttpDocument::getInstance($app)->close(500, 'Channel Manager not available.');
+		}
+
+		try {
+			// fetch room rates and restrictions
+			$room_rates = VBOModelPricing::getInstance()->getRoomRates([
+				'id_room'      => $room_id,
+				'id_rooms'     => $room_ids,
+				'from_date'    => $from_date,
+				'to_date'      => $to_date,
+				'restrictions' => $restrictions,
+			]);
+		} catch (Exception $e) {
+			// propagate the error
+			VBOHttpDocument::getInstance($app)->close($e->getCode(), $e->getMessage());
+		}
+
+		// send response to output
+		VBOHttpDocument::getInstance($app)->json($room_rates);
 	}
 }

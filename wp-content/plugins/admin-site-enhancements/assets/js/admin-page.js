@@ -239,6 +239,7 @@
       
       
       $('.enable-media-replacement').appendTo('.fields-content-management > table > tbody');
+      $('.disable-media-replacement-cache-busting').appendTo('.fields-content-management .enable-media-replacement .asenha-subfields');
       $('.enable-svg-upload').appendTo('.fields-content-management > table > tbody');
       $('.enable-svg-upload-for').appendTo('.fields-content-management .enable-svg-upload .asenha-subfields');
       $('.enable-avif-upload').appendTo('.fields-content-management > table > tbody');
@@ -269,6 +270,7 @@
       $('.hide-admin-bar').appendTo('.fields-admin-interface > table > tbody');
       
       $('.hide-admin-bar-for').appendTo('.fields-admin-interface .hide-admin-bar .asenha-subfields');
+      $('.hide-admin-bar-always-show-for-admins').appendTo('.fields-admin-interface .hide-admin-bar .asenha-subfields');
       
       $('.hide-admin-bar-description').appendTo('.fields-admin-interface .hide-admin-bar .asenha-subfields');
       
@@ -301,6 +303,7 @@
       // Place fields into "Log In | Log Out" tab
       $('.change-login-url').appendTo('.fields-login-logout > table > tbody');
       $('.custom-login-slug').appendTo('.fields-login-logout .change-login-url .asenha-subfields');
+      $('.custom-login-whitelist').appendTo('.fields-login-logout .change-login-url .asenha-subfields');
       $('.default-login-redirect-slug').appendTo('.fields-login-logout .change-login-url .asenha-subfields');
       $('.change-login-url-description').appendTo('.fields-login-logout .change-login-url .asenha-subfields');
       $('.login-id-type-restriction').appendTo('.fields-login-logout > table > tbody');
@@ -308,6 +311,7 @@
       
       $('.site-identity-on-login').appendTo('.fields-login-logout > table > tbody');
       $('.enable-login-logout-menu').appendTo('.fields-login-logout > table > tbody');
+      
       $('.enable-last-login-column').appendTo('.fields-login-logout > table > tbody');
       $('.registration-date-column').appendTo('.fields-login-logout > table > tbody');
       $('.redirect-after-login').appendTo('.fields-login-logout > table > tbody');
@@ -329,6 +333,7 @@
       
       $('.custom-frontend-css').appendTo('.fields-custom-code .enable-custom-frontend-css .asenha-subfields');
       $('.insert-head-body-footer-code').appendTo('.fields-custom-code > table > tbody');
+      $('.disable-code-unslash').appendTo('.fields-custom-code .insert-head-body-footer-code .asenha-subfields');
       $('.head-code-priority').appendTo('.fields-custom-code .insert-head-body-footer-code .asenha-subfields');
       $('.head-code').appendTo('.fields-custom-code .insert-head-body-footer-code .asenha-subfields');
       $('.body-code-priority').appendTo('.fields-custom-code .insert-head-body-footer-code .asenha-subfields');
@@ -355,6 +360,7 @@
       
       $('.disable-feeds').appendTo('.fields-disable-components > table > tbody');
       $('.disable-all-updates').appendTo('.fields-disable-components > table > tbody');
+      $('.disable-author-archives').appendTo('.fields-disable-components > table > tbody');
       $('.disable-smaller-components').appendTo('.fields-disable-components > table > tbody');
       $('.disable-head-generator-tag').appendTo('.fields-disable-components .disable-smaller-components .asenha-subfields');
       $('.disable-feed-generator-tag').appendTo('.fields-disable-components .disable-smaller-components .asenha-subfields');
@@ -686,6 +692,7 @@
       subfieldsToggler( 'enable_duplication', 'enable-duplication' );
       subfieldsToggler( 'content_order', 'content-order' );
       
+      subfieldsToggler( 'enable_media_replacement', 'enable-media-replacement' );
       subfieldsToggler( 'enable_svg_upload', 'enable-svg-upload' );
       subfieldsToggler( 'enable_avif_upload', 'enable-avif-upload' );
       
@@ -889,6 +896,16 @@
          });
       }
 
+      // Form Builder - Empty out stored/hidden attachment ID when "Email header image" field is emptied
+      var emailHeaderImage = $('#form-builder-email-header-image');
+      var emailHeaderImageAttachmentId = $('.form-builder-email-header-image-attachment-id input');
+      
+      $(emailHeaderImage).keyup(delay(function (e) {
+         if ($(this).val().length === 0) {
+            emailHeaderImageAttachmentId.val("");
+         }
+      }, 200));
+
       // =============== Image Ratio Calculator / Preservation for Login Page Customizer >> Logo Image =================
 
       // Code modified from: https://codepen.io/tobiasdev/pen/XNjxdZ by Tobias Bogliolo
@@ -940,57 +957,64 @@
             
       // =============== ASE PRO =================
 
-      // Upgrade nudge to Pro
-      if ( asenhaStats.hideUpgradeNudge ) {
-         $('.asenha-upgrade-nudge').hide();
-         $('#bottom-upgrade-nudge').show();
-      } else {
-         $('.asenha-upgrade-nudge').show();
-         $('#bottom-upgrade-nudge').hide();
-      }
+      if ( asenhaStats.isYearEndPromoPeriod ) {
 
-      $('#dismiss-upgrade-nudge').click(function(e) {
-         e.preventDefault();
-         $.ajax({
-            url: ajaxurl,
-            data: {
-               'action':'dismiss_upgrade_nudge'
-            },
-            success:function(data) {
-               $('.asenha-upgrade-nudge').hide();
-               // $('#bottom-upgrade-nudge').show();
-            },
-            error:function(errorThrown) {
-               console.log(errorThrown);
-            }
+         // Promo nudge
+         if ( asenhaStats.hidePromoNudge ) {
+            $('.asenha-promo-nudge').hide();
+            $('#bottom-upgrade-nudge').show();
+         } else {
+            $('.asenha-promo-nudge').show();
+            $('#bottom-upgrade-nudge').hide();
+         }
+         
+         $('#dismiss-promo-nudge').click(function(e) {
+            e.preventDefault();
+            $.ajax({
+               url: ajaxurl,
+               data: {
+                  'action':'dismiss_promo_nudge',
+                  'nonce': adminPageVars.nonce
+               },
+               success:function(data) {
+                  $('.asenha-promo-nudge').hide();
+               },
+               error:function(errorThrown) {
+                  console.log(errorThrown);
+               }
+            });
          });
-      });
-      
-      // Promo nudge
-
-      if ( asenhaStats.hidePromoNudge ) {
-         $('.asenha-promo-nudge').hide();
-         $('#bottom-upgrade-nudge').show();
+         
       } else {
-         $('.asenha-promo-nudge').show();
-         $('#bottom-upgrade-nudge').hide();
-      }
-      
-      $('#dismiss-promo-nudge').click(function(e) {
-         e.preventDefault();
-         $.ajax({
-            url: ajaxurl,
-            data: {
-               'action':'dismiss_promo_nudge'
-            },
-            success:function(data) {
-               $('.asenha-promo-nudge').hide();
-            },
-            error:function(errorThrown) {
-               console.log(errorThrown);
-            }
+
+         // Upgrade nudge to Pro
+         if ( asenhaStats.hideUpgradeNudge ) {
+            $('.asenha-upgrade-nudge').hide();
+            $('#bottom-upgrade-nudge').show();
+         } else {
+            $('.asenha-upgrade-nudge').show();
+            $('#bottom-upgrade-nudge').hide();
+         }
+
+         $('#dismiss-upgrade-nudge').click(function(e) {
+            e.preventDefault();
+            $.ajax({
+               url: ajaxurl,
+               data: {
+                  'action':'dismiss_upgrade_nudge',
+                  'nonce': adminPageVars.nonce
+               },
+               success:function(data) {
+                  $('.asenha-upgrade-nudge').hide();
+                  // $('#bottom-upgrade-nudge').show();
+               },
+               error:function(errorThrown) {
+                  console.log(errorThrown);
+               }
+            });
          });
-      });
+
+      }
       
       // =============== SPONSORSHIP =================
 
@@ -1005,16 +1029,17 @@
 
       $('#have-shared,#have-reviewed').click(function(e) {
          e.preventDefault();
-         $.ajax({
-            url: 'https://bowo.io/asenha-sp-ndg',
-            method: 'GET',
-            dataType: 'jsonp',
-            crossDomain: true
-         });
+         // $.ajax({
+         //    url: 'https://bowo.io/asenha-sp-ndg',
+         //    method: 'GET',
+         //    dataType: 'jsonp',
+         //    crossDomain: true
+         // });
          $.ajax({
             url: ajaxurl,
             data: {
-               'action':'have_supported'
+               'action':'have_supported',
+               'nonce': adminPageVars.nonce
             },
             success:function(data) {
                $('.asenha-support-nudge').hide();
@@ -1027,16 +1052,17 @@
       
       $('#support-nudge-dismiss').click(function(e) {
          e.preventDefault();
-         $.ajax({
-            url: 'https://bowo.io/asenha-sp-ndg',
-            method: 'GET',
-            dataType: 'jsonp',
-            crossDomain: true
-         });
+         // $.ajax({
+         //    url: 'https://bowo.io/asenha-sp-ndg',
+         //    method: 'GET',
+         //    dataType: 'jsonp',
+         //    crossDomain: true
+         // });
          $.ajax({
             url: ajaxurl,
             data: {
-               'action':'dismiss_support_nudge'
+               'action':'dismiss_support_nudge',
+               'nonce': adminPageVars.nonce
             },
             success:function(data) {
                $('.asenha-support-nudge').hide();

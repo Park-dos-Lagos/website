@@ -83,10 +83,10 @@ class Settings_Sections_Fields {
         // sort by value, ascending
         // Get array of slugs and plural labels for non-public post types, e.g. array( 'post' => 'Posts', 'page' => 'Pages' )
         $asenha_nonpublic_post_types = array();
-        $public_post_type_names = get_post_types( array(
+        $nonpublic_post_type_names = get_post_types( array(
             'public' => false,
         ), 'names' );
-        foreach ( $public_post_type_names as $post_type_name ) {
+        foreach ( $nonpublic_post_type_names as $post_type_name ) {
             $post_type_object = get_post_type_object( $post_type_name );
             $asenha_nonpublic_post_types[$post_type_name] = $post_type_object->label;
         }
@@ -106,10 +106,39 @@ class Settings_Sections_Fields {
             'wp_template',
             'wp_template_part',
             'wp_global_styles',
-            'wp_navigation'
+            'wp_navigation',
+            'wp_font_family',
+            'wp_font_face',
+            // ACF
+            'acf-post-type',
+            'acf-taxonomy',
+            'acf-field-group',
+            'acf-ui-options-page',
+            // Elementor
+            'e-landing-page',
+            'elementor_library',
+            'elementor_snippet',
+            'elementor_font',
+            'elementor_icons',
+            // Oxygen Classic
+            'ct_template',
+            'scheduled-action',
+            // Breakdance
+            'breakdance_template',
+            'breakdance_header',
+            'breakdance_footer',
+            'breakdance_popup',
+            'breakdance_block',
+            'breakdance_acf_block',
+            'breakdance_form_res',
+            // Bricks
+            'bricks_template',
+            'bricks_fonts',
         );
-        $all_post_types = get_post_types( array(), 'objects' );
-        foreach ( $all_post_types as $post_type_slug => $post_type_info ) {
+        $rest_api_enabled_post_type_names = get_post_types( array(
+            'show_in_rest' => true,
+        ), 'objects' );
+        foreach ( $rest_api_enabled_post_type_names as $post_type_slug => $post_type_info ) {
             $asenha_gutenberg_post_types[$post_type_slug] = $post_type_info->label;
             if ( in_array( $post_type_slug, $gutenberg_not_applicable_types ) ) {
                 unset($asenha_gutenberg_post_types[$post_type_slug]);
@@ -237,13 +266,31 @@ class Settings_Sections_Fields {
             ASENHA_SLUG,
             'main-section',
             array(
-                'option_name'       => ASENHA_SLUG_U,
-                'field_id'          => $field_id,
-                'field_slug'        => $field_slug,
-                'field_title'       => $field_title,
-                'field_name'        => ASENHA_SLUG_U . '[' . $field_id . ']',
-                'field_description' => __( 'Easily replace any type of media file with a new one while retaining the existing media ID, publish date and file name. So, no existing links will break.', 'admin-site-enhancements' ),
-                'class'             => 'asenha-toggle content-management ' . $field_slug,
+                'option_name'            => ASENHA_SLUG_U,
+                'field_id'               => $field_id,
+                'field_slug'             => $field_slug,
+                'field_title'            => $field_title,
+                'field_name'             => ASENHA_SLUG_U . '[' . $field_id . ']',
+                'field_description'      => __( 'Easily replace any type of media file with a new one while retaining the existing media ID, publish date and file name. So, no existing links will break.', 'admin-site-enhancements' ),
+                'field_options_wrapper'  => true,
+                'field_options_moreless' => true,
+                'class'                  => 'asenha-toggle content-management ' . $field_slug,
+            )
+        );
+        $field_id = 'disable_media_replacement_cache_busting';
+        $field_slug = 'disable-media-replacement-cache-busting';
+        add_settings_field(
+            $field_id,
+            '',
+            [$render_field, 'render_checkbox_plain'],
+            ASENHA_SLUG,
+            'main-section',
+            array(
+                'option_name' => ASENHA_SLUG_U,
+                'field_id'    => $field_id,
+                'field_name'  => ASENHA_SLUG_U . '[' . $field_id . ']',
+                'field_label' => __( 'Disable adding timestamp URL parameter on newly replaced images for busting the browser cache.', 'admin-site-enhancements' ),
+                'class'       => 'asenha-checkbox asenha-hide-th content-management ' . $field_slug,
             )
         );
         // Enable SVG Upload
@@ -719,6 +766,23 @@ class Settings_Sections_Fields {
                 );
             }
         }
+        $field_id = 'hide_admin_bar_always_show_for_admins';
+        $field_slug = 'hide-admin-bar-always-show-for-admins';
+        add_settings_field(
+            $field_id,
+            '',
+            // Field title
+            [$render_field, 'render_checkbox_plain'],
+            ASENHA_SLUG,
+            'main-section',
+            array(
+                'option_name' => ASENHA_SLUG_U,
+                'field_id'    => $field_id,
+                'field_name'  => ASENHA_SLUG_U . '[' . $field_id . ']',
+                'field_label' => __( 'Always show the admin bar for administrators on the frontend. Useful for when an administrator has multiple user roles, and the admin bar is set to be hidden for the other user role(s).', 'admin-site-enhancements' ),
+                'class'       => 'asenha-checkbox asenha-hide-th asenha-th-border-top admin-interface ' . $field_slug,
+            )
+        );
         $field_id = 'hide_admin_bar_description';
         $field_slug = 'hide-admin-bar-description';
         add_settings_field(
@@ -1216,6 +1280,27 @@ class Settings_Sections_Fields {
                 'class'             => 'asenha-text with-prefix-suffix login-logout ' . $field_slug,
             )
         );
+        $field_id = 'custom_login_whitelist';
+        $field_slug = 'custom-login-whitelist';
+        add_settings_field(
+            $field_id,
+            '<strong>' . __( 'Allow login from:', 'admin-site-enhancements' ) . '</strong> <span class="weight-normal">' . site_url() . '/</span>',
+            [$render_field, 'render_textarea_subfield'],
+            ASENHA_SLUG,
+            'main-section',
+            array(
+                'option_name'       => ASENHA_SLUG_U,
+                'field_id'          => $field_id,
+                'field_slug'        => $field_slug,
+                'field_name'        => ASENHA_SLUG_U . '[' . $field_id . ']',
+                'field_type'        => 'textarea',
+                'field_rows'        => 3,
+                'field_intro'       => '',
+                'field_description' => __( 'Enter one path per line', 'admin-site-enhancements' ),
+                'field_placeholder' => __( 'e.g. dashboard', 'admin-site-enhancements' ),
+                'class'             => 'asenha-textarea margin-top-16 login-logout ' . $field_slug,
+            )
+        );
         $field_id = 'change_login_url_description';
         $field_slug = 'change-login-url-description';
         add_settings_field(
@@ -1226,7 +1311,7 @@ class Settings_Sections_Fields {
             'main-section',
             array(
                 'option_name'       => ASENHA_SLUG_U,
-                'field_description' => __( '<div class="asenha-warning">This feature <strong>only works for/with the default WordPress login page</strong>. It does not support using custom login page you manually created with a page builder or with another plugin.<br /><br />It\'s also <strong>not yet compatible with two-factor authentication (2FA) methods</strong>. If you use a 2FA plugin, please use the change login URL feature bundled in that plugin, or use another plugin that is compatible with it.<br /><br />And obviously, to improve security, please <strong>use something other than \'login\'</strong> for the custom login slug.</div>', 'admin-site-enhancements' ),
+                'field_description' => __( '<div class="asenha-warning">"New login URL" <strong>only works for/with the default WordPress login page</strong>. If you have a login page you manually created with a page builder or with another plugin, please add them to the "Allow login from" section.<br /><br />This module is <strong>not yet compatible with two-factor authentication (2FA) methods</strong>. If you use a 2FA plugin, please use the change login URL feature bundled in that plugin, or use another plugin that is compatible with it.<br /><br />And obviously, to improve security, please <strong>use something other than \'login\'</strong> for the custom login slug.</div>', 'admin-site-enhancements' ),
                 'class'             => 'asenha-description login-logout ' . $field_slug,
             )
         );
@@ -1595,6 +1680,22 @@ class Settings_Sections_Fields {
                 'field_options_wrapper'  => true,
                 'field_options_moreless' => true,
                 'class'                  => 'asenha-toggle custom-code ' . $field_slug,
+            )
+        );
+        $field_id = 'disable_code_unslash';
+        $field_slug = 'disable-code-unslash';
+        add_settings_field(
+            $field_id,
+            '',
+            [$render_field, 'render_checkbox_plain'],
+            ASENHA_SLUG,
+            'main-section',
+            array(
+                'option_name' => ASENHA_SLUG_U,
+                'field_id'    => $field_id,
+                'field_name'  => ASENHA_SLUG_U . '[' . $field_id . ']',
+                'field_label' => __( 'Do not remove backslashes from the code output on the frontend', 'admin-site-enhancements' ),
+                'class'       => 'asenha-checkbox asenha-hide-th asenha-th-border-bottom custom-code ' . $field_slug,
             )
         );
         $field_id = 'head_code_priority';
@@ -2049,6 +2150,28 @@ class Settings_Sections_Fields {
                 'field_title'            => $field_title,
                 'field_name'             => ASENHA_SLUG_U . '[' . $field_id . ']',
                 'field_description'      => __( 'Completely disable core, theme and plugin updates and auto-updates. Will also disable update checks, notices and emails.', 'admin-site-enhancements' ),
+                'field_options_wrapper'  => true,
+                'field_options_moreless' => true,
+                'class'                  => 'asenha-toggle disable-components ' . $field_slug,
+            )
+        );
+        // Disable Author Archives
+        $field_id = 'disable_author_archives';
+        $field_slug = 'disable-author-archives';
+        $field_title = __( 'Disable Author Archives', 'admin-site-enhancements' );
+        add_settings_field(
+            $field_id,
+            $field_title,
+            [$render_field, 'render_checkbox_toggle'],
+            ASENHA_SLUG,
+            'main-section',
+            array(
+                'option_name'            => ASENHA_SLUG_U,
+                'field_id'               => $field_id,
+                'field_slug'             => $field_slug,
+                'field_title'            => $field_title,
+                'field_name'             => ASENHA_SLUG_U . '[' . $field_id . ']',
+                'field_description'      => __( 'Return 404 (Not Found) error when trying to load author archives. Remove or disable links to author archives. Remove authors archives from the sitemap.', 'admin-site-enhancements' ),
                 'field_options_wrapper'  => true,
                 'field_options_moreless' => true,
                 'class'                  => 'asenha-toggle disable-components ' . $field_slug,

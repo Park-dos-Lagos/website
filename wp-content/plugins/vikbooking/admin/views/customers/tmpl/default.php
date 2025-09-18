@@ -179,7 +179,7 @@ if (empty($rows)) {
 <script type="text/javascript">
 var vbo_overlay_on = false;
 
-if (jQuery.isFunction(jQuery.fn.tooltip)) {
+if (typeof jQuery.fn.tooltip === 'function') {
 	jQuery(".hasTooltip").tooltip();
 }
 
