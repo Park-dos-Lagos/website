@@ -1,7 +1,0 @@
-wp-config.php
-.htaccess*
-.codacy
-.codacy/logs/codacy-cli.log
-
-#Ignore vscode AI rules
-.github\instructions\codacy.instructions.md
