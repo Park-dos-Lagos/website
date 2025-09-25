@@ -74,3 +74,13 @@
 2025-09-25T10:02:35-03:00 [INFO] (codacy-cli-v2/cli-v2.go:27) Starting Codacy CLI version=1.0.0-main.358.sha.7cb05d0 (7cb05d0) built at 2025-09-19T09:27:42Z
 2025-09-25T10:02:35-03:00 [INFO] (codacy-cli-v2/cmd/root.go:34) Executing CLI command full_command=[/root/.cache/codacy/codacy-cli-v2/1.0.0-main.358.sha.7cb05d0/codacy-cli-v2 analyze /mnt/d/Rede/Github/Park-dos-Lagos/website/.codacy/codacy.yaml --format sarif] args=[/mnt/d/Rede/Github/Park-dos-Lagos/website/.codacy/codacy.yaml] command=analyze
 2025-09-25T10:02:36-03:00 [INFO] (codacy-cli-v2/cmd/analyze.go:341) Config file found for tool tool=semgrep toolConfigPath=.codacy/tools-configs/semgrep.yaml
+2025-09-25T10:03:19-03:00 [DEBUG] (codacy-cli-v2/config/tools-installer.go:114) Installing download-based tool downloadURL=https://github.com/aquasecurity/trivy/releases/download/v0.66.0/trivy_0.66.0_Linux-64bit.tar.gz tool=trivy version=0.66.0
+2025-09-25T10:03:19-03:00 [DEBUG] (codacy-cli-v2/config/tools-installer.go:267) Downloading tool tool=trivy version=0.66.0 downloadURL=https://github.com/aquasecurity/trivy/releases/download/v0.66.0/trivy_0.66.0_Linux-64bit.tar.gz downloadPath=/root/.cache/codacy/tools/trivy_0.66.0_Linux-64bit.tar.gz
+2025-09-25T10:03:19-03:00 [DEBUG] (codacy-cli-v2/utils/download.go:15) Attempting to download from URL url=https://github.com/aquasecurity/trivy/releases/download/v0.66.0/trivy_0.66.0_Linux-64bit.tar.gz
+2025-09-25T10:03:19-03:00 [DEBUG] (codacy-cli-v2/utils/download.go:21) Target filename determined fileName=trivy_0.66.0_Linux-64bit.tar.gz
+2025-09-25T10:03:19-03:00 [DEBUG] (codacy-cli-v2/utils/download.go:27) Destination path set destPath=/root/.cache/codacy/tools/trivy_0.66.0_Linux-64bit.tar.gz
+2025-09-25T10:03:19-03:00 [DEBUG] (codacy-cli-v2/utils/download.go:47) Making HTTP GET request url=https://github.com/aquasecurity/trivy/releases/download/v0.66.0/trivy_0.66.0_Linux-64bit.tar.gz
+2025-09-25T10:03:19-03:00 [DEBUG] (codacy-cli-v2/utils/download.go:69) Downloading file content
+2025-09-25T10:03:21-03:00 [DEBUG] (codacy-cli-v2/utils/download.go:74) Downloaded file successfully bytes=45982203
+2025-09-25T10:03:21-03:00 [DEBUG] (codacy-cli-v2/config/tools-installer.go:301) Extracting tool version=0.66.0 fileName=trivy_0.66.0_Linux-64bit.tar.gz extractDirectory=/root/.cache/codacy/tools/trivy@0.66.0 tool=trivy
+2025-09-25T10:03:24-03:00 [DEBUG] (codacy-cli-v2/config/tools-installer.go:326) Tool extraction completed tool=trivy version=0.66.0
