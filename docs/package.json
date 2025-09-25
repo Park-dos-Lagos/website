@@ -1,0 +1,15 @@
+{
+  "name": "park-dos-lagos-docs",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Documentação do WordPress e VikBooking — Park dos Lagos",
+  "scripts": {
+    "docs:dev": "vitepress dev",
+    "docs:build": "vitepress build",
+    "docs:preview": "vitepress preview"
+  },
+  "devDependencies": {
+    "vitepress": "^1.6.4"
+  }
+}
