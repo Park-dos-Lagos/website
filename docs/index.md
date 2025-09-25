@@ -5,6 +5,9 @@ hero:
   name: Park dos Lagos
   text: Guia completo do WordPress e do VikBooking
   tagline: Operação, reservas e pagamentos — tudo o que usuários e administradores precisam saber.
+  image:
+    src: /logo.png
+    alt: RecoveryDex Logo
   actions:
     - theme: brand
       text: Começar — Guia do Usuário

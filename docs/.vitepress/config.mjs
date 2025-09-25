@@ -1,11 +1,13 @@
 export default {
   lang: 'pt-BR',
-  title: 'Documentação – Park dos Lagos',
+  title: 'Park dos Lagos DOCS',
   description: 'Guia completo do WordPress e do plugin VikBooking para usuários e administradores',
   lastUpdated: true,
   cleanUrls: true,
   themeConfig: {
     search: { provider: 'local' },
+    logo: '/logoIcon.png',
+    siteTitle: 'Park dos Lagos',
     nav: [
       { text: 'Início', link: '/' },
       { text: 'Usuários', link: '/usuario/visao-geral' },
