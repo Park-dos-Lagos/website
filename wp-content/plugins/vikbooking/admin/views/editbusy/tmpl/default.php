@@ -142,7 +142,7 @@ if ($ord['status'] == "confirmed") {
 	$saystaus = '<span class="label label-error">' . $status_type . JText::_('VBCANCELLED') . '</span>';
 }
 
-//Package or custom rate
+// package or custom rate
 $is_package = !empty($ord['pkg']) ? true : false;
 $is_cust_cost = false;
 foreach ($ordersrooms as $kor => $or) {
@@ -151,20 +151,36 @@ foreach ($ordersrooms as $kor => $or) {
 		break;
 	}
 }
-$ivas = array();
+
+// tax rates list
 $wiva = "";
 $jstaxopts = '<option value=\"\">'.JText::_('VBNEWOPTFOUR').'</option>';
 $q = "SELECT * FROM `#__vikbooking_iva`;";
 $dbo->setQuery($q);
-$dbo->execute();
-if ($dbo->getNumRows() > 0) {
-	$ivas = $dbo->loadAssocList();
-	$wiva = "<select name=\"aliq%s\"><option value=\"\">".JText::_('VBNEWOPTFOUR')."</option>\n";
+$ivas = $dbo->loadAssocList();
+if ($ivas) {
+	$wiva = "<select class=\"vbo-editbusy-custom-rate-element vbo-editbusy-custom-rate-element-vat\" name=\"aliq%s\"><option value=\"\">".JText::_('VBNEWOPTFOUR')."</option>\n";
 	foreach ($ivas as $kiva => $iv) {
 		$wiva .= "<option value=\"".$iv['id']."\" data-aliqid=\"".$iv['id']."\"" . ($kiva == 0 ? ' selected="selected"' : '') . ">".(empty($iv['name']) ? $iv['aliq']."%" : $iv['name']." - ".$iv['aliq']."%")."</option>\n";
 		$jstaxopts .= '<option value=\"'.$iv['id'].'\">'.(empty($iv['name']) ? $iv['aliq']."%" : addslashes($iv['name'])." - ".$iv['aliq']."%").'</option>';
 	}
 	$wiva .= "</select>\n";
+}
+
+/**
+ * Rate plans list for cancellation policy ID (rate plan ID) within room custom rates.
+ * 
+ * @since 	1.18.2 (J) - 1.8.2 (WP)
+ */
+$wcancpolicyid = '';
+$all_rate_plans = $av_helper->loadRatePlans($no_cache = true);
+if ($all_rate_plans) {
+	$wcancpolicyid .= '<select class="vbo-editbusy-custom-rate-element vbo-editbusy-custom-rate-element-cancpolicy" name="cust_cpolicy_id%s">' . "\n";
+	$wcancpolicyid .= '<option value="">- ' . JText::_('VBNEWPRICECANCPOLICY') . ' -</option>' . "\n";
+	foreach ($all_rate_plans as $rplan_id => $rplan_data) {
+		$wcancpolicyid .= '<option value="' . $rplan_id . '" data-rplanid="' . $rplan_id . '">' . $rplan_data['name'] . '</option>' . "\n";
+	}
+	$wcancpolicyid .= '</select>' . "\n";
 }
 
 // room switching
@@ -221,6 +237,48 @@ function vbIsSwitchable(toid, fromid, orid) {
 		return false;
 	}
 	return true;
+}
+
+function vboCheckBookingModifiable() {
+	let checkin_date = document.querySelector('input[type="text"][name="checkindate"]').value;
+	let checkout_date = document.querySelector('input[type="text"][name="checkoutdate"]').value;
+
+	if (!checkin_date || !checkout_date) {
+		// abort
+		return false;
+	}
+
+	// make the request
+	VBOCore.doAjax(
+		"<?php echo VikBooking::ajaxUrl('index.php?option=com_vikbooking&task=bookings.is_booking_modifiable'); ?>",
+		{
+			bid: <?php echo $ord['id']; ?>,
+			checkin: checkin_date,
+			checkout: checkout_date,
+		},
+		(response) => {
+			response = typeof response === 'string' ? JSON.parse(response) : response;
+			if (!response.modifiable) {
+				// the new dates are not available, show the force booking element
+				document.querySelector('.vbo-editbook-force-av').style.display = '';
+				// show the "no availability" label(s)
+				document.querySelectorAll('[data-alert="force-no-availability"]').forEach((elem) => {
+					elem.style.display = '';
+				});
+			} else {
+				// the new dates are available, hide the force booking element
+				document.querySelector('.vbo-editbook-force-av').style.display = 'none';
+				// hide the "no availability" label(s)
+				document.querySelectorAll('[data-alert="force-no-availability"]').forEach((elem) => {
+					elem.style.display = 'none';
+				});
+			}
+		},
+		(error) => {
+			// silently log the response error in case of exceptions thrown
+			console.error(error.responseText);
+		}
+	);
 }
 
 var vboMessages = {
@@ -308,7 +366,7 @@ function vboAddRoomId(rid) {
 				tdate: tdate
 			}
 		}).done(function(res) {
-			var obj_res = JSON.parse(res);
+			var obj_res = typeof res === 'string' ? JSON.parse(res) : res;
 			if (obj_res['status'] != 1) {
 				vbo_can_add_room = false;
 				alert(obj_res['err']);
@@ -820,25 +878,23 @@ function vboSearchExtraCost(elem) {
 						</div>
 					</div>
 					<div class="vbo-bookingdet-detcont">
-					<?php
-					$canforce = VikRequest::getInt('canforce', 0, 'request');
-					if ($canforce) {
+						<?php
+						// always display the toggle button for forcing the availability
+						$canforce = VikRequest::getInt('canforce', 0, 'request');
 						?>
-						<div class="vbo-bookingdet-checkdt">
+						<div class="vbo-bookingdet-checkdt vbo-editbook-force-av" style="<?php echo !$canforce ? 'display: none;' : ''; ?>">
 							<label for="forcebooking-on">
 								<?php echo $vbo_app->createPopover(array('title' => JText::_('VBO_FORCE_BOOKDATES'), 'content' => JText::_('VBO_FORCE_BOOKDATES_HELP'))); ?>
 								<?php echo JText::_('VBO_FORCE_BOOKDATES'); ?>
+								<span class="label label-danger" data-alert="force-no-availability" style="display: none;"><?php echo JText::_('VBOVERVIEWLEGRED'); ?></span>
 							</label>
 							<div>
 								<?php echo $vbo_app->printYesNoButtons('forcebooking', JText::_('VBYES'), JText::_('VBNO'), 0, 1, 0); ?>
 							</div>
 						</div>
-						<?php
-					}
-					?>
 						<div class="vbo-bookingdet-checkdt">
 							<label for="checkindate"><?php echo JText::_('VBPEDITBUSYFOUR'); ?></label>
-							<?php echo $vbo_app->getCalendar($rit, 'checkindate', 'checkindate', $nowdf, array('class'=>'', 'size'=>'10', 'maxlength'=>'19', 'todayBtn' => 'true')); ?>
+							<?php echo $vbo_app->getCalendar($rit, 'checkindate', 'checkindate', $nowdf, array('class'=>'', 'size'=>'10', 'maxlength'=>'19', 'todayBtn' => 'true', 'onchange' => 'vboCheckBookingModifiable();')); ?>
 							<span class="vbo-time-selects">
 								<select name="checkinh"><?php echo $ritho; ?></select>
 								<span class="vbo-time-selects-divider">:</span>
@@ -847,7 +903,7 @@ function vboSearchExtraCost(elem) {
 						</div>
 						<div class="vbo-bookingdet-checkdt">
 							<label for="checkoutdate"><?php echo JText::_('VBPEDITBUSYSIX'); ?></label>
-							<?php echo $vbo_app->getCalendar($con, 'checkoutdate', 'checkoutdate', $nowdf, array('class'=>'', 'size'=>'10', 'maxlength'=>'19', 'todayBtn' => 'true')); ?>
+							<?php echo $vbo_app->getCalendar($con, 'checkoutdate', 'checkoutdate', $nowdf, array('class'=>'', 'size'=>'10', 'maxlength'=>'19', 'todayBtn' => 'true', 'onchange' => 'vboCheckBookingModifiable();')); ?>
 							<span class="vbo-time-selects">
 								<select name="checkouth"><?php echo $conho; ?></select>
 								<span class="vbo-time-selects-divider">:</span>
@@ -1042,6 +1098,7 @@ function vboSearchExtraCost(elem) {
 								$room_now_checkout = $room_stay_records[$kor]['checkout'];
 								$room_now_nights   = $av_helper->countNightsOfStay($room_now_checkin, $room_now_checkout);
 							}
+							$room_mod_dates_state = (int) ($ord['checkin'] != $room_now_checkin || $ord['checkout'] != $room_now_checkout);
 							?>
 							<div class="vbo-editbooking-room-nights-info">
 								<div class="vbo-editbooking-room-nights-info-top">
@@ -1050,7 +1107,7 @@ function vboSearchExtraCost(elem) {
 									</h4>
 									<div class="vbo-editbooking-room-nights-modify">
 										<label for="room_modify_dates<?php echo $kor; ?>-on"><?php echo JText::_('VBO_MODIFY_DATES'); ?></label>
-										<span><?php echo $vbo_app->printYesNoButtons('room_modify_dates' . $kor, JText::_('VBYES'), JText::_('VBNO'), 0, 1, 0, 'vboEditbusyModifyRoomDates(this.checked, ' . $kor . ')'); ?></span>
+										<span><?php echo $vbo_app->printYesNoButtons('room_modify_dates' . $kor, JText::_('VBYES'), JText::_('VBNO'), $room_mod_dates_state, 1, 0, 'vboEditbusyModifyRoomDates(this.checked, ' . $kor . ')'); ?></span>
 									</div>
 								</div>
 								<div class="vbo-editbooking-room-traveler-guestsinfo vbo-editbooking-room-nights-modify-details" data-roomind="<?php echo $kor; ?>" style="display: none;">
@@ -1092,6 +1149,15 @@ function vboSearchExtraCost(elem) {
 								</div>
 							</div>
 							<?php
+							if ($room_mod_dates_state) {
+								?>
+							<script type="text/javascript">
+								VBOCore.DOMLoaded(() => {
+									vboEditbusyModifyRoomDates(true, <?php echo $kor; ?>);
+								});
+							</script>
+								<?php
+							}
 						}
 
 						$from_a = $or['fromadult'];
@@ -1174,6 +1240,7 @@ function vboSearchExtraCost(elem) {
 												<?php echo $currencysymb; ?> <input type="number" step="any" name="cust_cost<?php echo $num; ?>" value="<?php echo $or['cust_cost']; ?>" size="4" onchange="if (this.value.length) {document.getElementById('pid<?php echo $num.$or['id']; ?>').checked = true; jQuery('#pid<?php echo $num.$or['id']; ?>').trigger('change');}"/>
 												<div class="vbo-editbooking-room-pricetype-seltax" id="tax<?php echo $num; ?>" style="display: block;">
 													<?php echo (!empty($wiva) ? str_replace('%s', $num, str_replace('data-aliqid="'.(int)$or['cust_idiva'].'"', 'selected="selected"', $wiva)) : ''); ?>
+													<?php echo (!empty($wcancpolicyid) ? str_replace('%s', $num, str_replace('data-rplanid="'.(int) $or['cust_cpolicy_id'].'"', 'selected="selected"', $wcancpolicyid)) : ''); ?>
 												</div>
 											</div>
 										</div>
@@ -1253,6 +1320,7 @@ function vboSearchExtraCost(elem) {
 												<?php echo $currencysymb; ?> <input type="number" step="any" name="cust_cost<?php echo $num; ?>" id="cust_cost<?php echo $num; ?>" value="" placeholder="<?php echo VikBooking::numberFormat(($sel_rate_changed !== false ? $sel_rate_changed : 0)); ?>" size="4" onchange="if (this.value.length) {document.getElementById('priceid<?php echo $num; ?>').checked = true; jQuery('#priceid<?php echo $num; ?>').trigger('change');document.getElementById('tax<?php echo $num; ?>').style.display = 'block';}" />
 												<div class="vbo-editbooking-room-pricetype-seltax" id="tax<?php echo $num; ?>" style="display: none;">
 													<?php echo (!empty($wiva) ? str_replace('%s', $num, $wiva) : ''); ?>
+													<?php echo (!empty($wcancpolicyid) ? str_replace('%s', $num, $wcancpolicyid) : ''); ?>
 												</div>
 											</div>
 										</div>
@@ -1649,7 +1717,10 @@ function vboSearchExtraCost(elem) {
 											<label for="cust_cost<?php echo $num; ?>" class="vbo-custrate-lbl-add"><?php echo JText::_('VBOROOMCUSTRATEPLANADD'); ?></label>
 											<div class="vbo-editbooking-room-pricetype-cost">
 												<?php echo $currencysymb; ?> <input type="number" step="any" name="cust_cost<?php echo $num; ?>" id="cust_cost<?php echo $num; ?>" value="" placeholder="<?php echo VikBooking::numberFormat((!empty($ord['idorderota']) && !empty($ord['total']) ? $ord['total'] : 0)); ?>" size="4" onchange="if (this.value.length) {document.getElementById('priceid<?php echo $num; ?>').checked = true; jQuery('#priceid<?php echo $num; ?>').trigger('change'); document.getElementById('tax<?php echo $num; ?>').style.display = 'block';}" />
-												<div class="vbo-editbooking-room-pricetype-seltax" id="tax<?php echo $num; ?>" style="display: none;"><?php echo (!empty($wiva) ? str_replace('%s', $num, $wiva) : ''); ?></div>
+												<div class="vbo-editbooking-room-pricetype-seltax" id="tax<?php echo $num; ?>" style="display: none;">
+													<?php echo (!empty($wiva) ? str_replace('%s', $num, $wiva) : ''); ?>
+													<?php echo (!empty($wcancpolicyid) ? str_replace('%s', $num, $wcancpolicyid) : ''); ?>
+												</div>
 											</div>
 										</div>
 										<div class="vbo-editbooking-room-pricetype-check">
@@ -1912,7 +1983,7 @@ foreach ($js_cal_def_vals as $js_cal_def_val) {
 		jQuery(this).closest('.vbo-editbooking-room-pricetype').addClass('vbo-editbooking-room-pricetype-active');
 	});
 });
-if (jQuery.isFunction(jQuery.fn.tooltip)) {
+if (typeof jQuery.fn.tooltip === 'function') {
 	jQuery(".hasTooltip").tooltip();
 }
 </script>

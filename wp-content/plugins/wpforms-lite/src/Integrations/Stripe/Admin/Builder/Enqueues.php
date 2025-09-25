@@ -70,10 +70,19 @@ class Enqueues {
 
 		$min = wpforms_get_min_suffix();
 
+		if ( Helpers::has_stripe_keys() ) {
+			wp_enqueue_style(
+				'wpforms-builder-stripe-common',
+				WPFORMS_PLUGIN_URL . "assets/css/integrations/stripe/builder-stripe-common{$min}.css",
+				[],
+				WPFORMS_VERSION
+			);
+		}
+
 		wp_enqueue_script(
 			'wpforms-builder-stripe',
 			WPFORMS_PLUGIN_URL . "assets/js/integrations/stripe/admin-builder-stripe{$min}.js",
-			[ 'conditionals' ],
+			[ 'conditions' ],
 			WPFORMS_VERSION,
 			false
 		);
@@ -100,6 +109,10 @@ class Enqueues {
 				'field_slug'  => Helpers::get_field_slug(),
 				'field_slugs' => [ 'stripe-credit-card' ],
 				'is_pro'      => Helpers::is_pro(),
+				'cycles_max'  => Helpers::recurring_plan_cycles_max(),
+				'i18n'        => [
+					'cycles_default' => esc_html__( 'Unlimited', 'wpforms-lite' ),
+				],
 			]
 		);
 

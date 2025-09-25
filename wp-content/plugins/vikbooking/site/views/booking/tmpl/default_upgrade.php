@@ -22,11 +22,6 @@ $upgrade_options = VBORoomHelper::getInstance([
 ], true)->getUpgradeOptions($this->vbo_tn);
 
 if ($upgrade_options) {
-	/**
-	 * Include the VBOCore JS class.
-	 */
-	VikBooking::getVboApplication()->loadCoreJS();
-
 	// load JS lang strings
 	JText::script('VBO_UPGRADE_ROOMS');
 	JText::script('VBO_DOUPGRADE_CONFIRM');
@@ -91,7 +86,7 @@ if ($upgrade_options) {
 						</div>
 					</div>
 					<div class="vbo-roomupgrade-current-keep">
-						<button type="button" class="btn " onclick="vboUpgradeNavigate();"><?php echo JText::_('VBO_KEEP_ROOM'); ?></button>
+						<button type="button" class="btn vbo-pref-color-btn-secondary" onclick="vboUpgradeNavigate();"><?php echo JText::_('VBO_KEEP_ROOM'); ?></button>
 					</div>
 				</div>
 				<div class="vbo-roomupgrade-solutions-wrap">

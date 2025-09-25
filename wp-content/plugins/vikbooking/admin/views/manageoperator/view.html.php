@@ -13,34 +13,43 @@ defined('ABSPATH') or die('No script kiddies please!');
 // import Joomla view library
 jimport('joomla.application.component.view');
 
-class VikBookingViewManageoperator extends JViewVikBooking {
-	
-	function display($tpl = null) {
+class VikBookingViewManageoperator extends JViewVikBooking
+{
+	public function display($tpl = null)
+	{
 		// Set the toolbar
 		$this->addToolBar();
 
-		$cid = VikRequest::getVar('cid', array(0));
+		$cid = VikRequest::getVar('cid', [0]);
 		if (!empty($cid[0])) {
 			$idoper = $cid[0];
 		}
 
-		$operator = array();
+		$operator = [];
 		$dbo = JFactory::getDBO();
 		if (!empty($cid[0])) {
-			$q = "SELECT * FROM `#__vikbooking_operators` WHERE `id`=".(int)$idoper.";";
+			$q = "SELECT * FROM `#__vikbooking_operators` WHERE `id`=" . (int) $idoper . ";";
 			$dbo->setQuery($q);
-			$dbo->execute();
-			if ($dbo->getNumRows() == 1) {
-				$operator = $dbo->loadAssoc();
-			} else {
+			$operator = $dbo->loadAssoc();
+			if (!$operator) {
 				$mainframe = JFactory::getApplication();
 				$mainframe->redirect("index.php?option=com_vikbooking&task=operators");
 				exit;
 			}
+
+			// decode JSON-encoded strings
+			if (!empty($operator['work_days_week'])) {
+				$operator['work_days_week'] = json_decode($operator['work_days_week'], true);
+			}
+			if (!empty($operator['work_days_exceptions'])) {
+				$operator['work_days_exceptions'] = json_decode($operator['work_days_exceptions'], true);
+			}
+			$operator['work_days_week'] = (array) ($operator['work_days_week'] ?? []);
+			$operator['work_days_exceptions'] = (array) ($operator['work_days_exceptions'] ?? []);
 		}
-		
+
 		$this->operator = $operator;
-		
+
 		// Display the template
 		parent::display($tpl);
 	}
@@ -48,11 +57,12 @@ class VikBookingViewManageoperator extends JViewVikBooking {
 	/**
 	 * Sets the toolbar
 	 */
-	protected function addToolBar() {
-		$cid = VikRequest::getVar('cid', array(0));
-		
+	protected function addToolBar()
+	{
+		$cid = VikRequest::getVar('cid', [0]);
+
 		if (!empty($cid[0])) {
-			//edit
+			// edit
 			JToolBarHelper::title(JText::_('VBMAINMANAGEOPERATORTITLE'), 'vikbooking');
 			if (JFactory::getUser()->authorise('core.edit', 'com_vikbooking')) {
 				JToolBarHelper::apply( 'updateoperatorstay', JText::_('VBSAVE'));
@@ -63,7 +73,7 @@ class VikBookingViewManageoperator extends JViewVikBooking {
 			JToolBarHelper::cancel( 'canceloperator', JText::_('VBBACK'));
 			JToolBarHelper::spacer();
 		} else {
-			//new
+			// new
 			JToolBarHelper::title(JText::_('VBMAINMANAGEOPERATORTITLE'), 'vikbooking');
 			if (JFactory::getUser()->authorise('core.create', 'com_vikbooking')) {
 				JToolBarHelper::save('saveoperator', JText::_('VBSAVE'));
@@ -73,5 +83,4 @@ class VikBookingViewManageoperator extends JViewVikBooking {
 			JToolBarHelper::spacer();
 		}
 	}
-
 }

@@ -2,6 +2,11 @@
 
 namespace WPForms\Frontend;
 
+use WPForms\Integrations\Gutenberg\ThemesData;
+use WPForms\Lite\Integrations\Gutenberg\ThemesData as LiteThemesData;
+use WPForms\Pro\Integrations\Gutenberg\ThemesData as ProThemesData;
+use WPForms\Pro\Integrations\Gutenberg\StockPhotos;
+
 /**
  * CSS variables class.
  *
@@ -10,22 +15,13 @@ namespace WPForms\Frontend;
 class CSSVars {
 
 	/**
-	 * White color.
-	 *
-	 * @since 1.8.8
-	 *
-	 * @var string
-	 */
-	const WHITE = '#ffffff';
-
-	/**
 	 * Root vars and values.
 	 *
 	 * @since 1.8.1
 	 *
 	 * @var array
 	 */
-	const ROOT_VARS = [
+	public const ROOT_VARS = [
 		'field-border-radius'     => '3px',
 		'field-border-style'      => 'solid',
 		'field-border-size'       => '1px',
@@ -70,7 +66,7 @@ class CSSVars {
 	 *
 	 * @var array
 	 */
-	const CONTAINER_SHADOW_SIZE = [
+	public const CONTAINER_SHADOW_SIZE = [
 		'none'   => [
 			'box-shadow' => 'none',
 		],
@@ -92,7 +88,7 @@ class CSSVars {
 	 *
 	 * @var array
 	 */
-	const FIELD_SIZE = [
+	public const FIELD_SIZE = [
 		'small'  => [
 			'input-height'     => '31px',
 			'input-spacing'    => '10px',
@@ -132,7 +128,7 @@ class CSSVars {
 	 *
 	 * @var array
 	 */
-	const LABEL_SIZE = [
+	public const LABEL_SIZE = [
 		'small'  => [
 			'font-size'            => '14px',
 			'line-height'          => '17px',
@@ -160,7 +156,7 @@ class CSSVars {
 	 *
 	 * @var array
 	 */
-	const BUTTON_SIZE = [
+	public const BUTTON_SIZE = [
 		'small'  => [
 			'font-size'  => '14px',
 			'height'     => '37px',
@@ -188,7 +184,16 @@ class CSSVars {
 	 *
 	 * @var array
 	 */
-	const SPARE_VARS = [ 'field-border-color' ];
+	private const SPARE_VARS = [ 'field-border-color' ];
+
+	/**
+	 * White color.
+	 *
+	 * @since 1.8.8
+	 *
+	 * @var string
+	 */
+	private const WHITE = '#ffffff';
 
 	/**
 	 * Render engine.
@@ -222,7 +227,7 @@ class CSSVars {
 	 *
 	 * @since 1.8.1
 	 */
-	public function init() {
+	public function init(): void {
 
 		$this->init_vars();
 	}
@@ -232,7 +237,7 @@ class CSSVars {
 	 *
 	 * @since 1.8.1
 	 */
-	private function init_vars() {
+	private function init_vars(): void {
 
 		$vars = [];
 
@@ -250,7 +255,7 @@ class CSSVars {
 		 * @since 1.8.1
 		 *
 		 * @param array $vars CSS variables two-dimensional array.
-		 *                    First level keys is the CSS selector.
+		 *                    The first level keys is the CSS selector.
 		 *                    Second level keys is the variable name without the `--wpforms-` prefix.
 		 */
 		$this->css_vars = apply_filters( 'wpforms_frontend_css_vars_init_vars', $vars );
@@ -264,7 +269,7 @@ class CSSVars {
 	 * @param string $prefix CSS variable prefix.
 	 * @param array  $values Values.
 	 */
-	public function get_complex_vars( $prefix, $values ): array {
+	public function get_complex_vars( string $prefix, array $values ): array {
 
 		$vars = [];
 
@@ -284,11 +289,7 @@ class CSSVars {
 	 *
 	 * @return array
 	 */
-	public function get_vars( $selector ): array {
-
-		if ( empty( $selector ) ) {
-			$selector = ':root';
-		}
+	public function get_vars( string $selector = ':root' ): array {
 
 		if ( empty( $this->css_vars[ $selector ] ) ) {
 			return [];
@@ -305,8 +306,10 @@ class CSSVars {
 	 * @deprecated 1.9.3
 	 *
 	 * @param bool $force Force output root variables.
+	 *
+	 * @noinspection PhpMissingParamTypeInspection
 	 */
-	public function output_root( $force = false ) {
+	public function output_root( $force = false ): void {
 
 		_deprecated_function( __METHOD__, '1.9.3 of the WPForms plugin' );
 
@@ -338,16 +341,21 @@ class CSSVars {
 	 *
 	 * @param string     $selector Selector.
 	 * @param array      $vars     Variables data.
-	 * @param string     $style_id Style tag ID attribute. Optional. Default is empty string.
-	 * @param string|int $form_id  Form ID. Optional. Default is empty string.
+	 * @param string     $style_id Style tag ID attribute. Optional. Default is an empty string.
+	 * @param string|int $form_id  Form ID. Optional. Default is an empty string.
 	 */
-	public function output_selector_vars( $selector, $vars, $style_id = '', $form_id = '' ) {
+	public function output_selector_vars( string $selector, array $vars, string $style_id = '', $form_id = '' ): void {
 
 		if ( empty( $this->render_engine ) ) {
 			$this->render_engine = wpforms_get_render_engine();
 		}
 
 		if ( $this->render_engine === 'classic' ) {
+			return;
+		}
+
+		// If this is not full "Base and Form Theme Styling", skip.
+		if ( (int) wpforms_setting( 'disable-css', '1' ) !== 1 ) {
 			return;
 		}
 
@@ -363,13 +371,184 @@ class CSSVars {
 	}
 
 	/**
+	 * Output CSS vars for the form added as a shortcode.
+	 *
+	 * @since 1.9.7
+	 *
+	 * @param array $atts Shortcode attributes.
+	 */
+	public function output_css_vars_for_shortcode( array $atts ): void {
+
+		if ( empty( $atts['id'] ) ) {
+			return;
+		}
+
+		$form_handler = wpforms()->obj( 'form' );
+
+		if ( ! $form_handler ) {
+			return;
+		}
+
+		$form_id   = (int) $atts['id'];
+		$form_data = $form_handler->get( $form_id, [ 'content_only' => true ] );
+
+		if ( empty( $form_data ) ) {
+			return;
+		}
+
+		$attr = isset( $form_data['settings']['themes'] ) ? (array) $form_data['settings']['themes'] : [];
+		$attr = $this->maybe_override_attributes( $attr );
+
+		$css_vars = $this->get_customized_css_vars( $attr );
+		$css_vars = $this->add_css_vars_units( $css_vars );
+
+		$selector = "#wpforms-{$form_id}";
+		$style_id = "wpforms-css-vars-{$form_id}";
+
+		$this->output_selector_vars( $selector, $css_vars, $style_id, $form_id );
+		$this->output_custom_css( $attr, $selector, $style_id );
+	}
+
+	/**
+	 * Output custom CSS.
+	 *
+	 * @since 1.9.7
+	 *
+	 * @param array  $attr     Attributes.
+	 * @param string $selector Selector.
+	 * @param string $style_id Style ID.
+	 *
+	 * @noinspection PhpMissingParamTypeInspection
+	 */
+	private function output_custom_css( array $attr, string $selector, string $style_id ): void {
+
+		if ( wpforms_get_render_engine() === 'classic' ) {
+			return;
+		}
+
+		$custom_css = trim( $attr['customCss'] ?? '' );
+
+		if ( empty( $custom_css ) ) {
+			return;
+		}
+
+		printf(
+			'<style id="%1$s-custom-css">
+				%2$s {
+					%3$s
+				}
+			</style>',
+			sanitize_key( $style_id ),
+			$selector, // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			wp_strip_all_tags( $custom_css ) // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		);
+	}
+
+	/**
+	 * Maybe override attributes with themes.json settings.
+	 *
+	 * @since 1.9.7
+	 *
+	 * @param array $attr Attributes.
+	 *
+	 * @return array
+	 */
+	private function maybe_override_attributes( array $attr ): array {
+
+		$theme_slug = (string) ( $attr['wpformsTheme'] ?? '' );
+
+		if ( empty( $theme_slug ) ) {
+			return $attr;
+		}
+
+		$attr = $this->normalize_background_url( $attr );
+
+		$theme_data = $this->get_themes_data_object()->get_theme( $theme_slug );
+		$settings   = $theme_data['settings'] ?? [];
+
+		return array_merge( $attr, $settings );
+	}
+
+	/**
+	 * Normalize background URL.
+	 *
+	 * Check if the background URL is not wrapped in url() and add it if needed.
+	 *
+	 * @since 1.9.7
+	 *
+	 * @param array $attr Attributes.
+	 */
+	private function normalize_background_url( array $attr ): array {
+
+		if ( ! isset( $attr['backgroundUrl'] ) ) {
+			return $attr;
+		}
+
+		if ( strpos( $attr['backgroundUrl'], 'url(' ) === 0 ) {
+			return $attr;
+		}
+
+		$attr['backgroundUrl'] = 'url(' . $attr['backgroundUrl'] . ')';
+
+		return $attr;
+	}
+
+	/**
+	 * Get themes data object.
+	 *
+	 * @since 1.9.7
+	 *
+	 * @return ThemesData
+	 */
+	private function get_themes_data_object(): ThemesData {
+
+		if ( wpforms()->is_pro() ) {
+			return new ProThemesData( new StockPhotos() );
+		}
+
+		return new LiteThemesData();
+	}
+
+	/**
+	 * Add CSS vars units.
+	 *
+	 * Form builder saves values without pixels, we need to add them before outputting as CSS vars.
+	 *
+	 * @since 1.9.7
+	 *
+	 * @param array $css_vars CSS vars.
+	 *
+	 * @return array
+	 */
+	private function add_css_vars_units( array $css_vars ): array {
+
+		$has_pixels = [
+			'field-border-size',
+			'field-border-radius',
+			'button-border-size',
+			'button-border-radius',
+			'container-padding',
+			'container-border-width',
+			'container-border-radius',
+		];
+
+		foreach ( $has_pixels as $key ) {
+			if ( isset( $css_vars[ $key ] ) && is_numeric( $css_vars[ $key ] ) && $css_vars[ $key ] > 0 ) {
+				$css_vars[ $key ] .= 'px';
+			}
+		}
+
+		return $css_vars;
+	}
+
+	/**
 	 * Get selector variables CSS.
 	 *
 	 * @since 1.9.3
 	 *
 	 * @param string     $selector Selector.
 	 * @param array      $vars     Variables data.
-	 * @param string|int $form_id  Form ID. Optional. Default is empty string.
+	 * @param string|int $form_id  Form ID. Optional. Default is an empty string.
 	 *
 	 * @return string
 	 */
@@ -380,7 +559,7 @@ class CSSVars {
 				%2$s
 			}',
 			$selector, // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-			esc_html( $this->get_vars_css( $vars, $form_id ) )
+			wp_strip_all_tags( $this->get_vars_css( $vars, $form_id ) )
 		);
 	}
 
@@ -390,7 +569,7 @@ class CSSVars {
 	 * @since 1.8.8
 	 *
 	 * @param array      $vars    Variables data.
-	 * @param string|int $form_id Form ID. Optional. Default is empty string.
+	 * @param string|int $form_id Form ID. Optional. Default is an empty string.
 	 *
 	 * @return array
 	 */
@@ -407,7 +586,7 @@ class CSSVars {
 		 * @since 1.8.8
 		 *
 		 * @param array $vars    CSS variables.
-		 * @param int   $form_id Form ID. Optional. Default is empty string.
+		 * @param int   $form_id Form ID. Optional. Default is an empty string.
 		 */
 		return (array) apply_filters( 'wpforms_frontend_css_vars_pre_print_filter', $vars, $form_id );
 	}
@@ -418,14 +597,18 @@ class CSSVars {
 	 * @since 1.8.1
 	 *
 	 * @param array      $vars    Variables data.
-	 * @param string|int $form_id Form ID. Optional. Default is empty string.
+	 * @param string|int $form_id Form ID. Optional. Default is an empty string.
 	 */
-	private function get_vars_css( $vars, $form_id = '' ): string {
+	private function get_vars_css( array $vars, $form_id = '' ): string {
 
-		$vars   = $this->get_pre_print_vars( (array) $vars, $form_id );
+		$vars   = $this->get_pre_print_vars( $vars, $form_id );
 		$result = '';
 
 		foreach ( $vars as $name => $value ) {
+			if ( ! is_string( $value ) ) {
+				continue;
+			}
+
 			if ( $value === '0' ) {
 				$value = '0px';
 			}
@@ -449,16 +632,16 @@ class CSSVars {
 	 *
 	 * @return array
 	 */
-	public function get_customized_css_vars( $attr ): array { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.MaxExceeded
+	public function get_customized_css_vars( array $attr ): array { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.TooHigh
 
-		$root_css_vars = $this->get_vars( ':root' );
+		$root_css_vars = $this->get_vars();
 		$css_vars      = [];
 
 		foreach ( $attr as $key => $value ) {
 
 			$var_name = strtolower( preg_replace( '/[A-Z]/', '-$0', $key ) );
 
-			// Skip attribute that is not the CSS var or has the default value.
+			// Skip an attribute that is not the CSS var or has the default value.
 			if ( empty( $root_css_vars[ $var_name ] ) || $root_css_vars[ $var_name ] === $value ) {
 				continue;
 			}
@@ -467,13 +650,8 @@ class CSSVars {
 		}
 
 		// Reset border size in case of border style is `none`.
-		if ( isset( $css_vars['field-border-style'] ) && $css_vars['field-border-style'] === 'none' ) {
-			$css_vars['field-border-size'] = '0px';
-		}
-
-		if ( isset( $css_vars['button-border-style'] ) && $css_vars['button-border-style'] === 'none' ) {
-			$css_vars['button-border-size'] = '0px';
-		}
+		$css_vars = $this->maybe_reset_border( $css_vars, 'field-border' );
+		$css_vars = $this->maybe_reset_border( $css_vars, 'button-border' );
 
 		// Set the button alternative background color and use border color for accent in case of transparent color.
 		$button_bg_color = $css_vars['button-background-color'] ?? $root_css_vars['button-background-color'];
@@ -502,6 +680,28 @@ class CSSVars {
 	}
 
 	/**
+	 * Reset border size in case of border style is `none`.
+	 *
+	 * @since 1.9.7
+	 *
+	 * @param array  $css_vars CSS vars.
+	 * @param string $key      Key.
+	 *
+	 * @return array
+	 */
+	private function maybe_reset_border( array $css_vars, string $key ): array {
+
+		$style_key = $key . '-style';
+		$size_key  = $key . '-size';
+
+		if ( isset( $css_vars[ $style_key ] ) && $css_vars[ $style_key ] === 'none' ) {
+			$css_vars[ $size_key ] = '0px';
+		}
+
+		return $css_vars;
+	}
+
+	/**
 	 * Checks if the provided color has transparency.
 	 *
 	 * @since 1.8.8
@@ -510,7 +710,7 @@ class CSSVars {
 	 *
 	 * @return bool
 	 */
-	private function is_transparent_color( $color ): bool {
+	private function is_transparent_color( string $color ): bool {
 
 		$rgba = $this->get_color_as_rgb_array( $color );
 
@@ -521,7 +721,7 @@ class CSSVars {
 	}
 
 	/**
-	 * Get contrast color relative to given color.
+	 * Get contrast color relative to a given color.
 	 *
 	 * @since 1.8.8
 	 *
@@ -587,11 +787,11 @@ class CSSVars {
 	 *
 	 * @return array|bool Color as an array of RGBA values. False on error.
 	 */
-	private function get_color_as_rgb_array( $color ) {
+	private function get_color_as_rgb_array( string $color ) {
 
 		// Remove # from the beginning of the string and remove whitespaces.
 		$color = preg_replace( '/^#/', '', strtolower( trim( $color ) ) );
-		$color = str_replace( ' ', '', $color );
+		$color = str_replace( ' ', '', (string) $color );
 
 		if ( $color === 'transparent' ) {
 			$color = 'rgba(0,0,0,0)';
@@ -604,7 +804,7 @@ class CSSVars {
 		$is_hex = preg_match( '/[0-9a-f]{6,8}$/', $rgba );
 
 		if ( $is_hex ) {
-			// Search and split HEX(A) color into an array of couples of chars.
+			// Search and split HEX(A) color into an array of char couples.
 			preg_match_all( '/\w\w/', $rgba, $rgb_array );
 
 			$rgb_array    = array_map(

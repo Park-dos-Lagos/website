@@ -39,7 +39,7 @@ JText::script('VBO_CONDTEXT_RULE_RMCONF');
 						<div class="vbo-param-container">
 							<div class="vbo-param-label"><?php echo JText::_('VBO_CONDTEXT_NAME'); ?></div>
 							<div class="vbo-param-setting">
-								<input type="text" id="condtextname" name="condtextname" value="<?php echo count($this->condtext) ? JHtml::_('esc_attr', $this->condtext['name']) : ''; ?>" size="30" onkeyup="vboComposeToken(this.value);" required />
+								<input type="text" id="condtextname" name="condtextname" value="<?php echo count($this->condtext) ? JHtml::_('esc_attr', $this->condtext['name']) : ''; ?>" size="30" onkeyup="vboComposeToken(this.value);" autocomplete="off" required />
 							</div>
 						</div>
 					</div>
@@ -383,7 +383,7 @@ if (count($this->condtext)) {
 	/**
 	 * Declares document ready event processes.
 	 */
-	jQuery(document).ready(function() {
+	jQuery(function() {
 		
 		/**
 		 * Dismiss modal window with Esc.

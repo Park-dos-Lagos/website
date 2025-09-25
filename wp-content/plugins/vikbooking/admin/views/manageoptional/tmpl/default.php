@@ -155,7 +155,7 @@ function addAgeInterval() {
 function removeAgeInterval(el) {
 	return (elem=document.getElementById(el)).parentNode.removeChild(elem);
 }
-jQuery(document).ready(function() {
+jQuery(function() {
 	jQuery(".vbo-manageoptional-datepicker:input").datepicker({
 		dateFormat: "<?php echo $juidf; ?>",
 		onSelect: vboCheckDates

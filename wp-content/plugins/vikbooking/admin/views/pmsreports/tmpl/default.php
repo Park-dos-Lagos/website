@@ -214,6 +214,9 @@ if ($pexportreport && $execreport) {
 								text: Joomla.JText._('VBOPRINT'),
 								separator: false,
 								action: (root, config) => {
+									// attempt to detect the user agent
+									const ua = navigator.userAgent;
+
 									// get the element we want to print (report output)
 									let print_element = document.getElementsByClassName('vbo-reports-output')[0];
 									print_element.classList.add('vbo-report-output-printing');
@@ -238,7 +241,10 @@ if ($pexportreport && $execreport) {
 									setTimeout(() => {
 										print_window.focus();
 										print_window.print();
-										print_window.close();
+										if (!/^((?!chrome|android).)*safari/i.test(ua)) {
+											// do not close the new window when the browser is Safari to avoid issues
+											print_window.close();
+										}
 									}, 500);
 								},
 							},
@@ -345,6 +351,12 @@ if ($pexportreport && $execreport) {
 
 														// display action output
 														modal_body.find('.vbo-report-custom-action-params-response').html(resp['html']);
+
+														// animate the modal to the visible point of the response
+														document.querySelector('.vbo-report-custom-action-params-response').scrollIntoView({
+															behavior: 'smooth',
+															block: 'start',
+														});
 													} else {
 														// dismiss the modal on success
 														VBOCore.emitEvent('vbo-report-custom-scopedactions-dismiss');
@@ -526,6 +538,25 @@ if ($pexportreport && $execreport) {
 
 									// dismiss the modal on success
 									VBOCore.emitEvent('vbo-report-custom-settings-dismiss');
+
+									// dispatch an event when settings have been saved
+									VBOCore.emitEvent('vbo-report-settings-saved', {
+										report: reportFile,
+										settings: formValues,
+									});
+
+									// attempt to register quick menu action
+									try {
+										let menu_link_name = <?php echo json_encode(($report_obj ? addslashes($report_obj->getName()) : '')); ?>;
+										if (menu_link_name) {
+											VBOCore.registerAdminMenuAction({
+												name: menu_link_name,
+												href: (window.location.href + '&report=<?php echo $preport; ?>').replace('&tmpl=component', ''),
+											}, 'pms');
+										}
+									} catch(e) {
+										console.error(e);
+									}
 								},
 								(error) => {
 									// stop loading
@@ -702,6 +733,16 @@ if ($pexportreport && $execreport) {
 					 */
 					if (jQuery('.vbo-context-menu-report-profile-settings').length) {
 						vboBuildProfileSettingButtons(false);
+					}
+
+					if (window.location.hash == '#settings') {
+						if (jQuery('.vbo-context-menu-report-profile-settings').length) {
+							// open settings modal from context menu (Edit)
+							jQuery('.vbo-context-menu-report-profile-settings').vboContextMenu('buttons')[0].action();
+						} else {
+							// open settings modal from button
+							jQuery('.vbo-report-render-settings').trigger('click');
+						}
 					}
 
 					/**

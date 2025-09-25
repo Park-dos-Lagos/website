@@ -1,5 +1,72 @@
 == Changelog ==
 
+= 1.9.8.1 =
+- Added: Ability to disconnect Stripe accounts through the Settings > Payments admin page.
+- Added: Ability to set how many times a Stripe recurring payment will be repeated.
+- Added: Back To Previous Page option for Confirmation Page Redirect.
+- Changed: Improved accessibility for the Modern Dropdown field by adding ARIA attributes to support VoiceOver navigation.
+- Changed: Notification email fields in the Form Builder now only display email-compatible Smart Tags.
+- Fixed: PHP warnings might be generated for new forms created from a template by non-admin users.
+- Fixed: Disabled fields (read-only) didn't look disabled.
+- Fixed: Smart Tag fields in the sidebar had incorrect height.
+- Fixed: The last step of the WPForms Challenge wasn't shown up for users in some cases.
+- Fixed: Header Menu Links position has been adjusted to be on the same level on every screen.
+- Fixed: Duplicated Square field button existed in the Form Builder.
+- Fixed: Form authors with no capabilities to install addons did not get information about missing privileges.
+- Fixed: HTMLPurifier threw a deprecated API call notice.
+- Fixed: Users with no sufficient access permissions were able to display a broken Themes settings panel.
+- Fixed: Custom CSS with quotes in selectors now displays correctly instead of showing broken HTML entities.
+- Fixed: Pinned AI Chat layout in the Form Builder.
+- Fixed: Log titles having apostrophes in them were not displayed correctly in the Log Viewer.
+- Fixed: There might be errors when processing Stripe payments with customer metadata containing empty keys.
+
+= 1.9.7.2 =
+- Fixed: JS errors might affect the form submission on some environments with installed plugins for caching.
+
+= 1.9.7.1 =
+- Added: Ability to apply Styles and Themes directly within the WPForms Form Builder.
+- Added: Ability to copy whole Smart Tags input content if it contains smart tags.
+- Added: Number field validation messages control on the Settings > Validation page.
+- Added: The Choices Limit option for the Payment Checkbox Items field.
+- Added: Warning message in case corrupted form data is detected in the form builder.
+- Changed: Optimized the calculation process of the total amount on payment forms.
+- Changed: Improved compatibility with PHP 8.4.
+- Changed: Improved error message in case 403 error occurred while saving a form.
+- Changed: Improved compatibility with the Paid Memberships Pro plugin.
+- Fixed: The spacing between the template badge and the form name was too small.
+- Fixed: Square Credit Card field error was still displayed after entering valid details.
+- Fixed: Various RTL problems on the form builder screen.
+
+= 1.9.6.2 =
+- Fixed: "Please enable JavaScript" message was displayed over a form even when JavaScript was enabled.
+
+= 1.9.6.1 =
+- Added: Smart Tags support in the Default Value setting for Name field subfields.
+- Fixed: WPForms updates did not work consistently with the WP Umbrella plugin.
+- Fixed: The layout of the Order Summary table was broken on Windows operating systems.
+- Fixed: The layout of the Stripe custom fields mapping table was broken in the form builder.
+
+= 1.9.6 =
+- Added: Form Themes for Elementor.
+- Added: Customer phone, Payment, and Customer metadata can now be configured on the Form Builder > Payments > Stripe screen.
+- Changed: Improved styles on Tools > Scheduled Actions page with reset search filter.
+- Changed: Improved Form Builder loading.
+- Changed: Required select fields have default placeholder text to prevent the submission of default values.
+- Changed: Improved message about missing PHP extensions.
+- Changed: Updated DOMPurify library to 3.2.6.
+- Fixed: Captcha verification was skipped for payment forms.
+- Fixed: Email notification was malformed when a form had a Total field with the "Order Summary" enabled.
+- Fixed: The marketing provider's name was not specified in the warning popup when a field with conditional logic was removed.
+- Fixed: An error occurred when installing a plugin through the Gutenberg block.
+- Fixed: Addon fields were not rendered on the front-end on multisite if addons were not activated site-wide.
+- Fixed: Missing popup about unsaved changes when closing the form from the Marketing tab.
+- Fixed: Compatibility with Elementor editor.
+- Fixed: The "Plugin is in the Latest Version" error occurred when updating several addons using bulk update on the Plugins page.
+- Fixed: There was no popup about unsaved changes displayed after typing into the MCE editor.
+- Fixed: Layout issues of the Square credit card field.
+- Fixed: JavaScript error occurred when a form was added in the Elementor popup.
+- Fixed: Fields were added to the form in the wrong order under some conditions.
+
 = 1.9.5.2 =
 - Fixed: Issue sending form notifications using email fields that had ID=0.
 

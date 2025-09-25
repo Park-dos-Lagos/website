@@ -656,9 +656,11 @@ class VikBookingCronJobPrecheckinReminder extends VBOCronJob
 	 * 
 	 * @return  string
 	 * 
+	 * @see 	visibility should be public to allow external usage.
+	 * 
 	 * @since   1.5.10
 	 */
-	private function getDefaultTemplate()
+	public function getDefaultTemplate()
 	{	
 		static $tmpl = '';
 
@@ -683,7 +685,9 @@ class VikBookingCronJobPrecheckinReminder extends VBOCronJob
 <h4>Dear {customer_name},</h4>
 <p><br></p>
 <p>Thanks for your reservation. This is an automated message to remind you that you still need to fill in the pre check-in form for your stay.</p>
-<p>Your arrival is scheduled for {checkin_date}. We kindly ask you to fill the pre check-in form in before that date.</p>
+<p>Your arrival is scheduled for {checkin_date}. We kindly ask you to fill the pre check-in form at the link below before that date.</p>
+<p><br></p>
+<p><a href="{booking_link}">{booking_link}</a></p>
 <p><br></p>
 <p><br></p>
 <p>Thank you.</p>

@@ -180,9 +180,23 @@ class VikBooking
 		return count($feature) ? $feature : false;
 	}
 
-	public static function getRoomUnitNumsUnavailable($order, $idroom) {
+	/**
+	 * Returns an associative list of booking room records and occupied sub-unit indexes.
+	 * 
+	 * @param 	array 	$order 		The current booking record for which the list is needed.
+	 * @param 	int 	$idroom 	The booked room ID involved for the associative list.
+	 * 
+	 * @return 	array
+	 * 
+	 * @since 	1.18.2 (J) - 1.8.2 (WP) refactoring to improve speed and efficiency for large datasets.
+	 */
+	public static function getRoomUnitNumsUnavailable(array $order, $idroom)
+	{
 		$dbo = JFactory::getDbo();
-		$unavailable_indexes = array();
+
+		// list of data to build
+		$unavailable_indexes = [];
+
 		$first = $order['checkin'];
 		$second = $order['checkout'];
 		$secdiff = $second - $first;
@@ -205,27 +219,106 @@ class VikBooking
 				}
 			}
 		}
+
+		// the busy records information pool
+		$busyMap = [];
+
+		// query just the busy records
+		$dbo->setQuery(
+			$dbo->getQuery(true)
+				->select($dbo->qn([
+					'b.idroom',
+					'b.checkin',
+					'b.checkout',
+					'b.realback',
+					'ob.idorder',
+				]))
+				->from($dbo->qn('#__vikbooking_busy', 'b'))
+				->innerJoin($dbo->qn('#__vikbooking_ordersbusy', 'ob') . ' ON ' . $dbo->qn('ob.idbusy') . ' = ' . $dbo->qn('b.id'))
+				->where($dbo->qn('b.idroom') . ' = ' . (int) $idroom)
+				->where($dbo->qn('b.checkin') . ' < ' . $second)
+				->where($dbo->qn('b.checkout') . ' > ' . $first)
+				->where($dbo->qn('ob.idorder') . ' != ' . (int) $order['id'])
+				->order($dbo->qn('b.id') . ' ASC')
+		);
+		$busyRecords = $dbo->loadAssocList();
+
+		if (!$busyRecords) {
+			// useless to proceed
+			return [];
+		}
+
+		// query bookings and rooms based on the busy records obtained
+		$dbo->setQuery(
+			$dbo->getQuery(true)
+				->select([
+					$dbo->qn('or.id', 'or_id'),
+					$dbo->qn('or.idorder'),
+					$dbo->qn('or.idroom'),
+					$dbo->qn('or.roomindex'),
+				])
+				->from($dbo->qn('#__vikbooking_ordersrooms', 'or'))
+				->where($dbo->qn('or.idroom') . ' = ' . (int) $idroom)
+				->where($dbo->qn('or.idorder') . ' IN (' . implode(', ', array_map('intval', array_column($busyRecords, 'idorder'))) . ')')
+				->order($dbo->qn('or.id') . ' ASC')
+		);
+		$busyRooms = $dbo->loadAssocList();
+
+		// build the final map by merging values
+		foreach ($busyRecords as $busyRecord) {
+			// busy signature
+			$signature = sprintf('%d-%d', $busyRecord['idorder'], $busyRecord['idroom']);
+			// push initial record values
+			$busyMap[$signature][] = $busyRecord;
+		}
+
+		// list of booking-id/booking-room-id signatures
+		$roomSignaturesCounter = [];
+
+		foreach ($busyRooms as $busyRoom) {
+			// busy signature
+			$signature = sprintf('%d-%d', $busyRoom['idorder'], $busyRoom['idroom']);
+
+			// determine booking room signature index
+			$roomSignaturesCounter[$signature] = ($roomSignaturesCounter[$signature] ?? -1) + 1;
+
+			if (!isset($busyMap[$signature][$roomSignaturesCounter[$signature]])) {
+				// unmatched signature
+				continue;
+			}
+
+			// merge booking room values with existing busy record values
+			$busyMap[$signature][$roomSignaturesCounter[$signature]] = array_merge($busyMap[$signature][$roomSignaturesCounter[$signature]], $busyRoom);
+		}
+
+		// simulate a list of associative busy and booking room records
+		$busy = [];
+		foreach ($busyMap as $mapList) {
+			foreach ($mapList as $record) {
+				// push record
+				$busy[] = $record;
+			}
+		}
+
+		if (!$busy) {
+			// useless to proceed
+			return [];
+		}
+
+		// get a list of affected timestamps
 		$groupdays = self::getGroupDays($first, $second, $daysdiff);
-		$q = "SELECT `b`.`id`,`b`.`checkin`,`b`.`checkout`,`b`.`realback`,`ob`.`idorder`,`ob`.`idbusy`,`or`.`id` AS `or_id`,`or`.`idroom`,`or`.`roomindex`,`o`.`status` ".
-			"FROM `#__vikbooking_busy` AS `b` ".
-			"LEFT JOIN `#__vikbooking_ordersbusy` `ob` ON `ob`.`idbusy`=`b`.`id` ".
-			"LEFT JOIN `#__vikbooking_ordersrooms` `or` ON `or`.`idorder`=`ob`.`idorder` AND `or`.`idorder`!=".(int)$order['id']." ".
-			"LEFT JOIN `#__vikbooking_orders` `o` ON `o`.`id`=`or`.`idorder` AND `o`.`id`=`ob`.`idorder` AND `o`.`id`!=".(int)$order['id']." ".
-			"WHERE `or`.`idroom`=".(int)$idroom." AND `b`.`checkout` > ".time()." AND `o`.`status`='confirmed' AND `ob`.`idorder`!=".(int)$order['id']." AND `ob`.`idorder` > 0;";
-		$dbo->setQuery($q);
-		$busy = $dbo->loadAssocList();
-		if ($busy) {
-			foreach ($groupdays as $gday) {
-				foreach ($busy as $bu) {
-					if (empty($bu['roomindex']) || empty($bu['idorder'])) {
-						continue;
-					}
-					if ($gday >= $bu['checkin'] && $gday <= $bu['realback']) {
+
+		// scan the affected stay timestamps to build the sub-unit matches
+		foreach ($groupdays as $gday) {
+			foreach ($busy as $bu) {
+				if (empty($bu['roomindex']) || empty($bu['idorder'])) {
+					continue;
+				}
+				if ($gday >= $bu['checkin'] && $gday <= $bu['realback']) {
+					$unavailable_indexes[$bu['or_id']] = $bu['roomindex'];
+				} elseif (count($groupdays) == 2 && $gday == $groupdays[0]) {
+					if ($groupdays[0] < $bu['checkin'] && $groupdays[0] < $bu['realback'] && $groupdays[1] > $bu['checkin'] && $groupdays[1] > $bu['realback']) {
 						$unavailable_indexes[$bu['or_id']] = $bu['roomindex'];
-					} elseif (count($groupdays) == 2 && $gday == $groupdays[0]) {
-						if ($groupdays[0] < $bu['checkin'] && $groupdays[0] < $bu['realback'] && $groupdays[1] > $bu['checkin'] && $groupdays[1] > $bu['realback']) {
-							$unavailable_indexes[$bu['or_id']] = $bu['roomindex'];
-						}
 					}
 				}
 			}
@@ -234,72 +327,39 @@ class VikBooking
 		return $unavailable_indexes;
 	}
 
-	public static function getRoomUnitNumsAvailable($order, $idroom) {
-		$dbo = JFactory::getDbo();
-		$unavailable_indexes = array();
-		$available_indexes = array();
-		$first = $order['checkin'];
-		$second = $order['checkout'];
-		$secdiff = $second - $first;
-		$daysdiff = $secdiff / 86400;
-		if (is_int($daysdiff)) {
-			if ($daysdiff < 1) {
-				$daysdiff = 1;
-			}
-		} else {
-			if ($daysdiff < 1) {
-				$daysdiff = 1;
-			} else {
-				$sum = floor($daysdiff) * 86400;
-				$newdiff = $secdiff - $sum;
-				$maxhmore = self::getHoursMoreRb() * 3600;
-				if ($maxhmore >= $newdiff) {
-					$daysdiff = floor($daysdiff);
-				} else {
-					$daysdiff = ceil($daysdiff);
+	/**
+	 * Returns an associative list of booking room records and available sub-unit indexes.
+	 * 
+	 * @param 	array 	$order 		The current booking record for which the list is needed.
+	 * @param 	int 	$idroom 	The booked room ID involved for the associative list.
+	 * 
+	 * @return 	array
+	 * 
+	 * @since 	1.18.2 (J) - 1.8.2 (WP) refactoring to improve speed and efficiency for large datasets.
+	 */
+	public static function getRoomUnitNumsAvailable(array $order, $idroom)
+	{
+		// build available indexes
+		$available_indexes = [];
+
+		// get the unavailable room indexes
+		$unavailable_indexes = self::getRoomUnitNumsUnavailable($order, $idroom);
+
+		// load room params
+		$room_data = self::getRoomInfo($idroom, ['params'], $no_cache = false);
+		$room_params_arr = (array) json_decode($room_data['params'] ?? '[]', true);
+
+		if (is_array($room_params_arr['features'] ?? null) && $room_params_arr['features']) {
+			foreach ($room_params_arr['features'] as $rind => $rfeatures) {
+				if (in_array($rind, $unavailable_indexes)) {
+					continue;
 				}
-			}
-		}
-		$groupdays = self::getGroupDays($first, $second, $daysdiff);
-		$q = "SELECT `b`.`id`,`b`.`checkin`,`b`.`checkout`,`b`.`realback`,`ob`.`idorder`,`ob`.`idbusy`,`or`.`id` AS `or_id`,`or`.`idroom`,`or`.`roomindex`,`o`.`status` ".
-			"FROM `#__vikbooking_busy` AS `b` ".
-			"LEFT JOIN `#__vikbooking_ordersbusy` `ob` ON `ob`.`idbusy`=`b`.`id` ".
-			"LEFT JOIN `#__vikbooking_ordersrooms` `or` ON `or`.`idorder`=`ob`.`idorder` AND `or`.`idorder`!=".(int)$order['id']." ".
-			"LEFT JOIN `#__vikbooking_orders` `o` ON `o`.`id`=`or`.`idorder` AND `o`.`id`=`ob`.`idorder` AND `o`.`id`!=".(int)$order['id']." ".
-			"WHERE `or`.`idroom`=".(int)$idroom." AND `b`.`checkout` > ".time()." AND `o`.`status`='confirmed' AND `ob`.`idorder`!=".(int)$order['id']." AND `ob`.`idorder` > 0;";
-		$dbo->setQuery($q);
-		$busy = $dbo->loadAssocList();
-		if ($busy) {
-			foreach ($groupdays as $gday) {
-				foreach ($busy as $bu) {
-					if (empty($bu['roomindex']) || empty($bu['idorder'])) {
-						continue;
-					}
-					if ($gday >= $bu['checkin'] && $gday <= $bu['realback']) {
-						$unavailable_indexes[$bu['or_id']] = $bu['roomindex'];
-					} elseif (count($groupdays) == 2 && $gday == $groupdays[0]) {
-						if ($groupdays[0] < $bu['checkin'] && $groupdays[0] < $bu['realback'] && $groupdays[1] > $bu['checkin'] && $groupdays[1] > $bu['realback']) {
-							$unavailable_indexes[$bu['or_id']] = $bu['roomindex'];
-						}
-					}
-				}
-			}
-		}
-		$q = "SELECT `params` FROM `#__vikbooking_rooms` WHERE `id`=".(int)$idroom.";";
-		$dbo->setQuery($q);
-		$room_params = $dbo->loadResult();
-		if ($room_params) {
-			$room_params_arr = json_decode($room_params, true);
-			if (array_key_exists('features', $room_params_arr) && is_array($room_params_arr['features']) && count($room_params_arr['features'])) {
-				foreach ($room_params_arr['features'] as $rind => $rfeatures) {
-					if (in_array($rind, $unavailable_indexes)) {
-						continue;
-					}
-					$available_indexes[] = $rind;
-				}
+				// push available room index
+				$available_indexes[] = $rind;
 			}
 		}
 
+		// return the available indexes
 		return $available_indexes;
 	}
 	
@@ -359,23 +419,95 @@ class VikBooking
 		return $restrictions;
 	}
 
-	public static function globalRestrictions($restrictions = [])
+	/**
+	 * Given a list of restriction records split into range or months, filters
+	 * the list by including the "global" restrictions applied to all rooms.
+	 * 
+	 * @param 	array 	$restrictions 	List of restriction records loaded.
+	 * 
+	 * @return 	array 	Associative list of filtered restriction records.
+	 */
+	public static function globalRestrictions(array $restrictions)
 	{
-		$ret = [];
+		$list = [];
+
+		// iterate all records
 		foreach ($restrictions as $kr => $rr) {
 			if ($kr == 'range') {
+				// scan all date-range restriction records
 				foreach ($rr as $kd => $dr) {
 					if ($dr['allrooms'] == 1) {
-						$ret['range'][$kd] = $restrictions[$kr][$kd];
+						$list['range'][$kd] = $restrictions[$kr][$kd];
 					}
 				}
+				// go next
 				continue;
 			}
+
+			// month restriction record
 			if ($rr['allrooms'] == 1) {
-				$ret[$kr] = $restrictions[$kr];
+				$list[$kr] = $restrictions[$kr];
 			}
 		}
-		return $ret;
+
+		return $list;
+	}
+
+	/**
+	 * Given a list of restriction records split into range or months, filters the list
+	 * by including the "listing-level" or "global" restrictions affecting to given rooms.
+	 * 
+	 * @param 	array 	$restrictions 	List of restriction records loaded.
+	 * @param 	array 	$room_ids 		List of involved and eligible room IDs.
+	 * 
+	 * @return 	array 	Associative list of filtered restriction records.
+	 * 
+	 * @since 	1.18.2 (J) - 1.8.2 (WP)
+	 */
+	public static function listingRestrictions(array $restrictions, array $room_ids)
+	{
+		$list = [];
+
+		// iterate all records
+		foreach ($restrictions as $kr => $rr) {
+			if ($kr == 'range') {
+				// scan all date-range restriction records
+				foreach ($rr as $kd => $dr) {
+					if ($dr['allrooms'] == 1) {
+						// push global restriction
+						$list['range'][$kd] = $restrictions[$kr][$kd];
+					} elseif (!empty($dr['idrooms'])) {
+						// scan the list of room IDs to match against
+						foreach ($room_ids as $room_id) {
+							if (strpos($dr['idrooms'], '-' . $room_id . '-') !== false) {
+								// push listing-level restriction
+								$list['range'][$kd] = $restrictions[$kr][$kd];
+								break;
+							}
+						}
+					}
+				}
+				// go next
+				continue;
+			}
+
+			// month restriction record
+			if ($rr['allrooms'] == 1) {
+				// push global restriction
+				$list[$kr] = $restrictions[$kr];
+			} elseif (!empty($rr['idrooms'])) {
+				// scan the list of room IDs to match against
+				foreach ($room_ids as $room_id) {
+					if (strpos($rr['idrooms'], '-' . $room_id . '-') !== false) {
+						// push listing-level restriction
+						$list[$kr] = $restrictions[$kr];
+						break;
+					}
+				}
+			}
+		}
+
+		return $list;
 	}
 
 	/**
@@ -688,8 +820,11 @@ class VikBooking
 				 * will be already set to the time 23:59:59.
 				 * 
 				 * @since 	1.13 (J) - 1.2.18 (WP)
+				 * @since 	1.18.3 (J) - 1.8.3 (WP) timestamps ending with 9 for a range greater than 1 day indicate that the restriction end time
+				 * 			is already set to 23:59:59 (VCM Connector may be responsible), so no seconds should be added or the restriction end date
+				 *  		will be the day after, and if after the check-in time, it may be included.
 				 */
-				$end_operator = date('Y-m-d', $restr['dfrom']) != date('Y-m-d', $restr['dto']) ? 82799 : 0;
+				$end_operator = date('Y-m-d', $restr['dfrom']) != date('Y-m-d', $restr['dto']) && substr((string) $restr['dto'], -1, 1) != 9 ? 82799 : 0;
 
 				if ($restr['dfrom'] <= $restrcheckin[0] && ($restr['dto'] + $end_operator) >= $restrcheckin[0]) {
 					// restriction found for this date range based on arrival date, check if compliant
@@ -2731,7 +2866,17 @@ class VikBooking
 		return VBOFactory::getConfig()->get('fronttitletagclass', '');
 	}
 
-	public static function getCurrencyName()
+	/**
+	 * Returns the configured currency name. Often used to apply currency
+	 * conversions, and so it should match the currency ISO 4217 (Alpha-3) code.
+	 * 
+	 * @param 	bool 	$iso 	True to ensure we fetch a 3-char currency code.
+	 * 
+	 * @return 	string
+	 * 
+	 * @since 	1.18.0 (J) - 1.8.0 (WP)  added argument $iso.
+	 */
+	public static function getCurrencyName($iso = false)
 	{
 		static $currencyName = null;
 
@@ -2740,6 +2885,11 @@ class VikBooking
 		}
 
 		$currencyName = VBOFactory::getConfig()->get('currencyname', '');
+
+		if ($iso && strlen((string) $currencyName) != 3) {
+			// attempt to fetch the currency code configuration setting
+			$currencyName = self::getCurrencyCodePp();
+		}
 
 		return $currencyName;
 	}
@@ -2757,7 +2907,20 @@ class VikBooking
 
 		return $getCurrencySymb;
 	}
-	
+
+	public static function getCurrencyCodePp()
+	{
+		static $currencyCode = null;
+
+		if ($currencyCode !== null) {
+			return $currencyCode;
+		}
+
+		$currencyCode = VBOFactory::getConfig()->get('currencycodepp', '');
+
+		return $currencyCode;
+	}
+
 	public static function getNumberFormatData()
 	{
 		// cache value in static var
@@ -2981,15 +3144,6 @@ class VikBooking
 
 		// return the language tag with the highest score
 		return key($langtags_score);
-	}
-
-	public static function getCurrencyCodePp() {
-		$dbo = JFactory::getDbo();
-		$q = "SELECT `setting` FROM `#__vikbooking_config` WHERE `param`='currencycodepp';";
-		$dbo->setQuery($q);
-		$dbo->execute();
-		$ft = $dbo->loadAssocList();
-		return $ft[0]['setting'];
 	}
 
 	public static function getIntroMain($vbo_tn = null) {
@@ -3575,21 +3729,29 @@ class VikBooking
 		return self::loadBusyRecords($roomids, $from_ts, $max_ts, false);
 	}
 
-	public static function loadBookingBusyIds($idorder) {
-		$busy = array();
+	/**
+	 * Loads the occupied record IDs for a given booking ID.
+	 * 
+	 * @param 	int 	$idorder 	The booking record ID.
+	 * 
+	 * @return 	array 				List of busy IDs, if any.
+	 */
+	public static function loadBookingBusyIds($idorder)
+	{
 		if (empty($idorder)) {
-			return $busy;
+			return [];
 		}
+
 		$dbo = JFactory::getDbo();
-		$q = "SELECT * FROM `#__vikbooking_ordersbusy` WHERE `idorder`=".(int)$idorder.";";
-		$dbo->setQuery($q);
-		$allbusy = $dbo->loadAssocList();
-		if ($allbusy) {
-			foreach ($allbusy as $b) {
-				array_push($busy, $b['idbusy']);
-			}
-		}
-		return $busy;
+
+		$dbo->setQuery(
+			$dbo->getQuery(true)
+				->select($dbo->qn('idbusy'))
+				->from($dbo->qn('#__vikbooking_ordersbusy'))
+				->where($dbo->qn('idorder') . ' = ' . (int) $idorder)
+		);
+
+		return array_map('intval', array_column($dbo->loadAssocList(), 'idbusy'));
 	}
 
 	public static function loadLockedRecords($roomids, $ts = 0) {
@@ -4119,6 +4281,7 @@ class VikBooking
 		$q = $dbo->getQuery(true)
 			->select($dbo->qn('or') . '.*')
 			->select($dbo->qn('r.name', 'room_name'))
+			->select($dbo->qn('r.units', 'tot_units'))
 			->select($dbo->qn('r.params'))
 			->from($dbo->qn('#__vikbooking_ordersrooms', 'or'))
 			->leftJoin($dbo->qn('#__vikbooking_rooms', 'r') . ' ON ' . $dbo->qn('or.idroom') . ' = ' . $dbo->qn('r.id'))
@@ -5526,6 +5689,7 @@ class VikBooking
 		$parsed = str_replace("{rooms_info}", $roomstr, $parsed);
 		$parsed = str_replace("{checkin_date}", $checkin_date, $parsed);
 		$parsed = str_replace("{checkout_date}", $checkout_date, $parsed);
+		$parsed = str_replace("{num_nights}", ($order_info['days'] ?? 1), $parsed);
 
 		// order details
 		$orderdetails = "";
@@ -5937,27 +6101,30 @@ class VikBooking
 							$agestept = explode('-', $stept[1]);
 							$stept[1] = $agestept[0];
 							$chvar = $agestept[1];
-							if (array_key_exists(($chvar - 1), $optagepcent) && $optagepcent[($chvar - 1)] == 1) {
-								// percentage value of the adults tariff
-								if ($is_package === true || (!empty($or['cust_cost']) && $or['cust_cost'] > 0.00)) {
-									$optagecosts[($chvar - 1)] = $or['cust_cost'] * $optagecosts[($chvar - 1)] / 100;
-								} else {
-									$display_rate = !empty($or['room_cost']) ? $or['room_cost'] : $tars[$num]['cost'];
-									$optagecosts[($chvar - 1)] = $display_rate * $optagecosts[($chvar - 1)] / 100;
+							$realcost = 0;
+							if (!empty($chvar)) {
+								if (array_key_exists(($chvar - 1), $optagepcent) && $optagepcent[($chvar - 1)] == 1) {
+									// percentage value of the adults tariff
+									if ($is_package === true || (!empty($or['cust_cost']) && $or['cust_cost'] > 0.00)) {
+										$optagecosts[($chvar - 1)] = $or['cust_cost'] * $optagecosts[($chvar - 1)] / 100;
+									} else {
+										$display_rate = !empty($or['room_cost']) ? $or['room_cost'] : $tars[$num]['cost'];
+										$optagecosts[($chvar - 1)] = $display_rate * $optagecosts[($chvar - 1)] / 100;
+									}
+								} elseif (array_key_exists(($chvar - 1), $optagepcent) && $optagepcent[($chvar - 1)] == 2) {
+									// VBO 1.10 - percentage value of room base cost
+									if ($is_package === true || (!empty($or['cust_cost']) && $or['cust_cost'] > 0.00)) {
+										$optagecosts[($chvar - 1)] = $or['cust_cost'] * $optagecosts[($chvar - 1)] / 100;
+									} else {
+										$display_rate = isset($tars[$num]['room_base_cost']) ? $tars[$num]['room_base_cost'] : (!empty($or['room_cost']) ? $or['room_cost'] : $tars[$num]['cost']);
+										$optagecosts[($chvar - 1)] = $display_rate * $optagecosts[($chvar - 1)] / 100;
+									}
 								}
-							} elseif (array_key_exists(($chvar - 1), $optagepcent) && $optagepcent[($chvar - 1)] == 2) {
-								// VBO 1.10 - percentage value of room base cost
-								if ($is_package === true || (!empty($or['cust_cost']) && $or['cust_cost'] > 0.00)) {
-									$optagecosts[($chvar - 1)] = $or['cust_cost'] * $optagecosts[($chvar - 1)] / 100;
-								} else {
-									$display_rate = isset($tars[$num]['room_base_cost']) ? $tars[$num]['room_base_cost'] : (!empty($or['room_cost']) ? $or['room_cost'] : $tars[$num]['cost']);
-									$optagecosts[($chvar - 1)] = $display_rate * $optagecosts[($chvar - 1)] / 100;
-								}
+								$actopt[0]['chageintv'] = $chvar;
+								$actopt[0]['name'] .= ' ('.$optagenames[($chvar - 1)].')';
+								$actopt[0]['quan'] = $stept[1];
+								$realcost = (intval($actopt[0]['perday']) == 1 ? (floatval($optagecosts[($chvar - 1)]) * $room_nights * $stept[1]) : (floatval($optagecosts[($chvar - 1)]) * $stept[1]));
 							}
-							$actopt[0]['chageintv'] = $chvar;
-							$actopt[0]['name'] .= ' ('.$optagenames[($chvar - 1)].')';
-							$actopt[0]['quan'] = $stept[1];
-							$realcost = (intval($actopt[0]['perday']) == 1 ? (floatval($optagecosts[($chvar - 1)]) * $room_nights * $stept[1]) : (floatval($optagecosts[($chvar - 1)]) * $stept[1]));
 						} else {
 							$actopt[0]['quan'] = $stept[1];
 							// VBO 1.11 - options percentage cost of the room total fee
@@ -6659,7 +6826,7 @@ class VikBooking
 	 * 
 	 * @since 	1.16.4 (J) - 1.6.4 (WP)
 	 */
-	public static function registerPromotionIds(array $promos = null)
+	public static function registerPromotionIds(array $promos = [])
 	{
 		static $flagged_promos = [];
 
@@ -6824,10 +6991,10 @@ class VikBooking
 		 	($sto > $sfrom ? "(`from` <= " . $sfrom . " AND `to` >= " . $sto . ") " : "") .
 		 	($sto > $sfrom ? "OR (`from` <= " . $sfrom . " AND `to` >= " . $sfrom . ") " : "(`from` <= " . $sfrom . " AND `to` <= " . $sfrom . " AND `from` > `to`) ") .
 		 	($sto > $sfrom ? "OR (`from` <= " . $sto . " AND `to` >= " . $sto . ") " : "OR (`from` >= " . $sto . " AND `to` >= " . $sto . " AND `from` > `to`) ") .
-		 	($sto > $sfrom ? "OR (`from` >= " . $sfrom . " AND `from` <= " . $sto . " AND `to` >= " . $sfrom . " AND `to` <= " . $sto . ")" : "OR (`from` >= " . $sfrom . " AND `from`>" . $sto . " AND `to`<" . $sfrom . " AND `to` <= " . $sto . " AND `from` > `to`)") .
-		 	($sto > $sfrom ? " OR (`from` <= " . $sfrom . " AND `from` <= " . $sto . " AND `to`<" . $sfrom . " AND `to`<" . $sto . " AND `from` > `to`) OR (`from`>" . $sfrom . " AND `from`>" . $sto . " AND `to` >= " . $sfrom . " AND `to` >= " . $sto . " AND `from` > `to`)" : " OR (`from` <= " . $sfrom . " AND `to` >=" . $sfrom . " AND `from` >= " . $sto . " AND `to` > " . $sto . " AND `from` < `to`)") .
-		 	($sto > $sfrom ? " OR (`from` >= " . $sfrom . " AND `from` < " . $sto . " AND `to` < " . $sfrom . " AND `to` < " . $sto . " AND `from` > `to`)" : " OR (`from` < " . $sfrom . " AND `to` >=" . $sto . " AND `from` <= " . $sto . " AND `to` < " . $sfrom . " AND `from` < `to`)") .
-		 	($sto > $sfrom ? " OR (`from` > " . $sfrom . " AND `from` > " . $sto . " AND `to` >=" . $sfrom . " AND `to` < " . $sto . " AND `from` > `to`)" : " OR (`from` >= " . $sfrom . " AND `from` > " . $sto . " AND `to` > " . $sfrom . " AND `to` > " . $sto . " AND `from` < `to`) OR (`from` < " . $sfrom . " AND `from` < " . $sto . " AND `to` < " . $sfrom . " AND `to` <= " . $sto . " AND `from` < `to`)") . 
+		 	($sto > $sfrom ? "OR (`from` >= " . $sfrom . " AND `from` <= " . $sto . " AND `to` >= " . $sfrom . " AND `to` <= " . $sto . ")" : "OR (`from` >= " . $sfrom . " AND `from` > " . $sto . " AND `to` < " . $sfrom . " AND `to` <= " . $sto . " AND `from` > `to`)") .
+		 	($sto > $sfrom ? " OR (`from` <= " . $sfrom . " AND `from` <= " . $sto . " AND `to` < " . $sfrom . " AND `to` < " . $sto . " AND `from` > `to`) OR (`from` > " . $sfrom . " AND `from` > " . $sto . " AND `to` >= " . $sfrom . " AND `to` >= " . $sto . " AND `from` > `to`)" : " OR (`from` <= " . $sfrom . " AND `to` >= " . $sfrom . " AND `from` >= " . $sto . " AND `to` > " . $sto . " AND `from` < `to`)") .
+		 	($sto > $sfrom ? " OR (`from` >= " . $sfrom . " AND `from` < " . $sto . " AND `to` < " . $sfrom . " AND `to` < " . $sto . " AND `from` > `to`)" : " OR (`from` < " . $sfrom . " AND `to` >= " . $sto . " AND `from` <= " . $sto . " AND `to` < " . $sfrom . " AND `from` < `to`)") .
+		 	($sto > $sfrom ? " OR (`from` > " . $sfrom . " AND `from` > " . $sto . " AND `to` >= " . $sfrom . " AND `to` < " . $sto . " AND `from` > `to`)" : " OR (`from` >= " . $sfrom . " AND `from` > " . $sto . " AND `to` > " . $sfrom . " AND `to` > " . $sto . " AND `from` < `to`) OR (`from` < " . $sfrom . " AND `from` < " . $sto . " AND `to` < " . $sfrom . " AND `to` <= " . $sto . " AND `from` < `to`)") . 
 		 	($sto < $sfrom ? " OR (`from` = 0 AND `to` >= " . $sto . " AND `to` >= " . $sfrom . ")" : '') .
 			") ORDER BY `#__vikbooking_seasons`.`promo` ASC;";
 
@@ -6870,14 +7037,26 @@ class VikBooking
 	/**
 	 * Applies the seasonal rates over a list of room rate records.
 	 * 
-	 * @param 	array 	$arr 	list of room rate records.
-	 * @param 	int 	$from 	unix timestamp for start date.
-	 * @param 	int 	$to 	unix timestamp for end date.
+	 * @param 	array 	$arr 	        list of room rate records.
+	 * @param 	int 	$from 	        unix timestamp for start date.
+	 * @param 	int 	$to 	        unix timestamp for end date.
+	 * @param 	array  	$seasons_dates 	array of seasons with dates filter taken from the DB to avoid multiple queries (VCM)
+	 * @param 	array  	$seasons_wdays 	array of seasons with weekdays filter (only) taken from the DB to avoid multiple queries (VCM)
 	 * 
-	 * @return 	array 			list of manipulated room rate records.
+	 * @return 	array 			        list of manipulated room rate records.
+	 * 
+	 * @since 	1.18.0 (J) - 1.8.0 (WP) added support to records caching and preloading with args $seasons_dates and $seasons_wdays.
 	 */
-	public static function applySeasonalPrices(array $arr, $from, $to)
+	public static function applySeasonalPrices(array $arr, $from, $to, array $seasons_dates = [], array $seasons_wdays = [])
 	{
+		static $cached_seasons = [];
+
+		$cache_signature_wdays = '';
+		if (self::setSeasonsCache() !== false && !$seasons_wdays) {
+			// enable week-day season records caching
+			$cache_signature_wdays = "wdays";
+		}
+
 		$dbo = JFactory::getDbo();
 		$vbo_tn = self::getTranslator();
 
@@ -6930,7 +7109,7 @@ class VikBooking
 				}
 			}
 		}
-		
+
 		// count nights requested
 		$booking_nights = 1;
 		foreach ($arr as $k => $a) {
@@ -6955,27 +7134,40 @@ class VikBooking
 		 */
 		$skip_promo_ids = self::registerPromotionIds();
 
-		$q = "SELECT * FROM `#__vikbooking_seasons` WHERE (" .
-		 ($sto > $sfrom ? "(`from` <= " . $sfrom . " AND `to` >= " . $sto . ") " : "") .
-		 ($sto > $sfrom ? "OR (`from` <= " . $sfrom . " AND `to` >= " . $sfrom . ") " : "(`from` <= " . $sfrom . " AND `to` <= " . $sfrom . " AND `from` > `to`) ") .
-		 ($sto > $sfrom ? "OR (`from` <= " . $sto . " AND `to` >= " . $sto . ") " : "OR (`from` >= " . $sto . " AND `to` >= " . $sto . " AND `from` > `to`) ") .
-		 ($sto > $sfrom ? "OR (`from` >= " . $sfrom . " AND `from` <= " . $sto . " AND `to` >= " . $sfrom . " AND `to` <= " . $sto . ")" : "OR (`from` >= " . $sfrom . " AND `from` > " . $sto . " AND `to` < " . $sfrom . " AND `to` <= " . $sto . " AND `from` > `to`)") .
-		 ($sto > $sfrom ? " OR (`from` <= " . $sfrom . " AND `from` <= " . $sto . " AND `to` < " . $sfrom . " AND `to` < " . $sto . " AND `from` > `to`) OR (`from` > " . $sfrom . " AND `from` > " . $sto . " AND `to` >= " . $sfrom . " AND `to` >= " . $sto . " AND `from` > `to`)" : " OR (`from` <= " . $sfrom . " AND `to` >= " . $sfrom . " AND `from` >= " . $sto . " AND `to` > " . $sto . " AND `from` < `to`)") .
-		 ($sto > $sfrom ? " OR (`from` >= " . $sfrom . " AND `from` < " . $sto . " AND `to` < " . $sfrom . " AND `to` < " . $sto . " AND `from` > `to`)" : " OR (`from` < " . $sfrom . " AND `to` >= " . $sto . " AND `from` <= " . $sto . " AND `to` < " . $sfrom . " AND `from` < `to`)") .
-		 ($sto > $sfrom ? " OR (`from` > " . $sfrom . " AND `from` > " . $sto . " AND `to` >= " . $sfrom . " AND `to` < " . $sto . " AND `from` > `to`)" : " OR (`from` >= " . $sfrom . " AND `from` > " . $sto . " AND `to` > " . $sfrom . " AND `to` > " . $sto . " AND `from` < `to`) OR (`from` < " . $sfrom . " AND `from` < " . $sto . " AND `to` < " . $sfrom . " AND `to` <= " . $sto . " AND `from` < `to`)") .
-		 ($sto < $sfrom ? " OR (`from` = 0 AND `to` >= " . $sto . " AND `to` >= " . $sfrom . ")" : '') .
-		") ORDER BY `#__vikbooking_seasons`.`promo` ASC;";
+		$totseasons = 0;
+		if (!$seasons_dates) {
+			$q = "SELECT * FROM `#__vikbooking_seasons` WHERE (" .
+		 	($sto > $sfrom ? "(`from` <= " . $sfrom . " AND `to` >= " . $sto . ") " : "") .
+		 	($sto > $sfrom ? "OR (`from` <= " . $sfrom . " AND `to` >= " . $sfrom . ") " : "(`from` <= " . $sfrom . " AND `to` <= " . $sfrom . " AND `from` > `to`) ") .
+		 	($sto > $sfrom ? "OR (`from` <= " . $sto . " AND `to` >= " . $sto . ") " : "OR (`from` >= " . $sto . " AND `to` >= " . $sto . " AND `from` > `to`) ") .
+		 	($sto > $sfrom ? "OR (`from` >= " . $sfrom . " AND `from` <= " . $sto . " AND `to` >= " . $sfrom . " AND `to` <= " . $sto . ")" : "OR (`from` >= " . $sfrom . " AND `from` > " . $sto . " AND `to` < " . $sfrom . " AND `to` <= " . $sto . " AND `from` > `to`)") .
+		 	($sto > $sfrom ? " OR (`from` <= " . $sfrom . " AND `from` <= " . $sto . " AND `to` < " . $sfrom . " AND `to` < " . $sto . " AND `from` > `to`) OR (`from` > " . $sfrom . " AND `from` > " . $sto . " AND `to` >= " . $sfrom . " AND `to` >= " . $sto . " AND `from` > `to`)" : " OR (`from` <= " . $sfrom . " AND `to` >= " . $sfrom . " AND `from` >= " . $sto . " AND `to` > " . $sto . " AND `from` < `to`)") .
+		 	($sto > $sfrom ? " OR (`from` >= " . $sfrom . " AND `from` < " . $sto . " AND `to` < " . $sfrom . " AND `to` < " . $sto . " AND `from` > `to`)" : " OR (`from` < " . $sfrom . " AND `to` >= " . $sto . " AND `from` <= " . $sto . " AND `to` < " . $sfrom . " AND `from` < `to`)") .
+		 	($sto > $sfrom ? " OR (`from` > " . $sfrom . " AND `from` > " . $sto . " AND `to` >= " . $sfrom . " AND `to` < " . $sto . " AND `from` > `to`)" : " OR (`from` >= " . $sfrom . " AND `from` > " . $sto . " AND `to` > " . $sfrom . " AND `to` > " . $sto . " AND `from` < `to`) OR (`from` < " . $sfrom . " AND `from` < " . $sto . " AND `to` < " . $sfrom . " AND `to` <= " . $sto . " AND `from` < `to`)") . 
+		 	($sto < $sfrom ? " OR (`from` = 0 AND `to` >= " . $sto . " AND `to` >= " . $sfrom . ")" : '') .
+			") ORDER BY `#__vikbooking_seasons`.`promo` ASC;";
 
-		$dbo->setQuery($q);
-		$seasons = $dbo->loadAssocList();
+			// get the season records by running the query
+			$dbo->setQuery($q);
+			$seasons = $dbo->loadAssocList();
 
-		if ($seasons) {
+			// count total seasons
+			$totseasons = $seasons ? count($seasons) : 0;
+		}
+
+		if ($totseasons > 0 || $seasons_dates) {
+			if ($totseasons > 0) {
+				$seasons = $seasons;
+			} else {
+				$seasons = $seasons_dates;
+			}
 			$vbo_tn->translateContents($seasons, '#__vikbooking_seasons');
 			$applyseasons = false;
 			$mem = [];
 			foreach ($arr as $k => $a) {
 				$mem[$k]['daysused'] = 0;
 				$mem[$k]['sum'] = [];
+				$mem[$k]['spids'] = [];
 				/**
 				 * The keys below are all needed to apply the promotions on the room's final cost.
 				 * 
@@ -7041,7 +7233,7 @@ class VikBooking
 					}
 				}
 				//
-				$allrooms = explode(",", $s['idrooms']);
+				$allrooms = !empty($s['idrooms']) ? explode(",", $s['idrooms']) : [];
 				$allprices = !empty($s['idprices']) ? explode(",", $s['idprices']) : [];
 				$inits = $baseone + $s['from'];
 				if ($s['from'] < $s['to']) {
@@ -7091,7 +7283,6 @@ class VikBooking
 						}
 					}
 				}
-				
 				// leap years
 				if ($isleap == true) {
 					$infoseason = getdate($inits);
@@ -7111,7 +7302,7 @@ class VikBooking
 						}
 					}
 				}
-				
+
 				// promotions
 				$promotion = [];
 				if (($s['promo'] ?? 0) == 1) {
@@ -7138,13 +7329,13 @@ class VikBooking
 					$promotion['promodaysadv'] = $s['promodaysadv'];
 					$promotion['promotxt'] = $s['promotxt'];
 				}
-				
+
 				// occupancy override
 				$occupancy_ovr = !empty($s['occupancy_ovr']) ? json_decode($s['occupancy_ovr'], true) : [];
-				
+
 				// week days
 				$filterwdays = !empty($s['wdays']) ? true : false;
-				$wdays = $filterwdays ? explode(';', $s['wdays']) : '';
+				$wdays = $filterwdays == true ? explode(';', $s['wdays']) : '';
 				if (is_array($wdays) && $wdays) {
 					foreach ($wdays as $kw => $wd) {
 						if (strlen($wd) == 0) {
@@ -7152,7 +7343,7 @@ class VikBooking
 						}
 					}
 				}
-				
+
 				// checkin must be after the beginning of the season
 				$checkininclok = true;
 				if ($s['checkinincl'] == 1) {
@@ -7173,13 +7364,13 @@ class VikBooking
 
 				foreach ($arr as $k => $a) {
 					// applied only to some types of price
-					if ($allprices && !empty($allprices[0])) {
+					if ($allprices && !empty($allprices[0]) && !empty($a[0]['idprice'])) {
 						if (!in_array("-" . $a[0]['idprice'] . "-", $allprices)) {
 							continue;
 						}
 					}
 					// applied only to some room types
-					if (!in_array("-" . $a[0]['idroom'] . "-", $allrooms)) {
+					if (!in_array("-" . ($a[0]['idroom'] ?? 0) . "-", $allrooms)) {
 						continue;
 					}
 					
@@ -7214,6 +7405,7 @@ class VikBooking
 							//
 						}
 					}
+
 					if (!($affdays > 0)) {
 						// no nights affected
 						continue;
@@ -7305,7 +7497,7 @@ class VikBooking
 					} else {
 						$newprice = round($newprice, 2);
 					}
-					
+
 					// define the promotion (only if no value overrides set the amount to 0)
 					if ($promotion && (($absval ?? 0) > 0 || ($pctval ?? 0) > 0)) {
 						/**
@@ -7323,10 +7515,15 @@ class VikBooking
 						//
 						$mem[$k]['promotion'] = $promotion;
 					}
-					
+
 					// define the occupancy override
 					if (array_key_exists($a[0]['idroom'], $occupancy_ovr) && $occupancy_ovr[$a[0]['idroom']]) {
 						$mem[$k]['occupancy_ovr'] = $occupancy_ovr[$a[0]['idroom']];
+					}
+
+					// push special price ID
+					if (!in_array($s['id'], $mem[$k]['spids'])) {
+						array_push($mem[$k]['spids'], $s['id']);
 					}
 
 					// push difference generated only if to be applied progressively
@@ -7424,15 +7621,18 @@ class VikBooking
 						if (isset($v['promotion'])) {
 							$arr[$k][0]['promotion'] = $v['promotion'];
 						}
-						
+
 						// set occupancy overrides (if any)
 						if (isset($v['occupancy_ovr'])) {
 							$arr[$k][0]['occupancy_ovr'] = $v['occupancy_ovr'];
 						}
-						
+
 						// set new final cost and update nights affected
 						$arr[$k][0]['cost'] = $newprice;
 						$arr[$k][0]['affdays'] = $v['daysused'];
+						if (array_key_exists('spids', $v) && $v['spids']) {
+							$arr[$k][0]['spids'] = $v['spids'];
+						}
 					}
 				}
 			}
@@ -7440,18 +7640,52 @@ class VikBooking
 		
 		// week days with no season
 		$roomschange = array_unique($roomschange);
-		$q = "SELECT * FROM `#__vikbooking_seasons` WHERE ((`from` = 0 AND `to` = 0) OR (`from` IS NULL AND `to` IS NULL));";
-		$dbo->setQuery($q);
-		$specials = $dbo->loadAssocList();
-		if ($specials) {
+		$totspecials = 0;
+		if (!$seasons_wdays) {
+			$q = "SELECT * FROM `#__vikbooking_seasons` WHERE ((`from` = 0 AND `to` = 0) OR (`from` IS NULL AND `to` IS NULL));";
+
+			if ($cache_signature_wdays && isset($cached_seasons[$cache_signature_wdays])) {
+				// avoid making a query
+				$specials = $cached_seasons[$cache_signature_wdays];
+			} else {
+				// get the week-days-with-no-season records by running the query
+				$dbo->setQuery($q);
+				$specials = $dbo->loadAssocList();
+			}
+
+			// count records
+			$totspecials = $specials ? count($specials) : 0;
+
+			if ($cache_signature_wdays) {
+				// cache week-days-with-no-season records
+				$cached_seasons[$cache_signature_wdays] = $specials;
+			}
+		}
+		if ($totspecials > 0 || $seasons_wdays) {
+			$specials = $totspecials > 0 ? $specials : $seasons_wdays;
 			$vbo_tn->translateContents($specials, '#__vikbooking_seasons');
 			$applyseasons = false;
-			unset($mem);
-			$mem = [];
-			foreach ($arr as $k => $a) {
-				$mem[$k]['daysused'] = 0;
-				$mem[$k]['sum'] = [];
+			/**
+			 * We no longer unset the previous memory of the seasons with dates filters
+			 * because we need the responses to be merged. We do it only if not set.
+			 * We only keep the property 'spids' but the others should be unset.
+			 * 
+			 * @since 	1.11
+			 */
+			if (!isset($mem)) {
+				$mem = [];
+				foreach ($arr as $k => $a) {
+					$mem[$k]['daysused'] = 0;
+					$mem[$k]['sum'] = [];
+					$mem[$k]['spids'] = [];
+				}
+			} else {
+				foreach ($arr as $k => $a) {
+					$mem[$k]['daysused'] = 0;
+					$mem[$k]['sum'] = [];
+				}
 			}
+			//
 			foreach ($specials as $s) {
 				// check if this is a promotion registered for skipping
 				if (isset($s['promo']) && $s['promo'] && in_array($s['id'], $skip_promo_ids)) {
@@ -7465,7 +7699,7 @@ class VikBooking
 					}
 				}
 
-				$allrooms = explode(",", $s['idrooms']);
+				$allrooms = !empty($s['idrooms']) ? explode(",", $s['idrooms']) : [];
 				$allprices = !empty($s['idprices']) ? explode(",", $s['idprices']) : [];
 				// week days
 				$filterwdays = !empty($s['wdays']) ? true : false;
@@ -7482,7 +7716,7 @@ class VikBooking
 					// only rooms with no price modifications from seasons
 					
 					// applied only to some types of price
-					if ($allprices && !empty($allprices[0])) {
+					if ($allprices && !empty($allprices[0]) && !empty($a[0]['idprice'])) {
 						if (!in_array("-" . $a[0]['idprice'] . "-", $allprices)) {
 							continue;
 						}
@@ -7495,7 +7729,7 @@ class VikBooking
 					 * 
 					 * @since 	1.11
 					 */
-					if (!in_array("-" . $a[0]['idroom'] . "-", $allrooms)) {
+					if (!in_array("-" . ($a[0]['idroom'] ?? 0) . "-", $allrooms)) {
 						continue;
 					}
 
@@ -7604,7 +7838,10 @@ class VikBooking
 					}
 
 					// push values in memory array
-					array_push($mem[$k]['sum'], $newprice);
+					if (!in_array($s['id'], $mem[$k]['spids'])) {
+						$mem[$k]['spids'][] = $s['id'];
+					}
+					$mem[$k]['sum'][] = $newprice;
 					$mem[$k]['daysused'] += $affdays;
 				}
 			}
@@ -7621,6 +7858,9 @@ class VikBooking
 						}
 						$arr[$k][0]['cost'] = $newprice;
 						$arr[$k][0]['affdays'] = $v['daysused'];
+						if (array_key_exists('spids', $v) && $v['spids']) {
+							$arr[$k][0]['spids'] = $v['spids'];
+						}
 					}
 				}
 			}
@@ -7738,10 +7978,10 @@ class VikBooking
 		 	($sto > $sfrom ? "(`from` <= " . $sfrom . " AND `to` >= " . $sto . ") " : "") .
 		 	($sto > $sfrom ? "OR (`from` <= " . $sfrom . " AND `to` >= " . $sfrom . ") " : "(`from` <= " . $sfrom . " AND `to` <= " . $sfrom . " AND `from` > `to`) ") .
 		 	($sto > $sfrom ? "OR (`from` <= " . $sto . " AND `to` >= " . $sto . ") " : "OR (`from` >= " . $sto . " AND `to` >= " . $sto . " AND `from` > `to`) ") .
-		 	($sto > $sfrom ? "OR (`from` >= " . $sfrom . " AND `from` <= " . $sto . " AND `to` >= " . $sfrom . " AND `to` <= " . $sto . ")" : "OR (`from` >= " . $sfrom . " AND `from`>" . $sto . " AND `to`<" . $sfrom . " AND `to` <= " . $sto . " AND `from` > `to`)") .
-		 	($sto > $sfrom ? " OR (`from` <= " . $sfrom . " AND `from` <= " . $sto . " AND `to`<" . $sfrom . " AND `to`<" . $sto . " AND `from` > `to`) OR (`from`>" . $sfrom . " AND `from`>" . $sto . " AND `to` >= " . $sfrom . " AND `to` >= " . $sto . " AND `from` > `to`)" : " OR (`from` <= " . $sfrom . " AND `to` >=" . $sfrom . " AND `from` >= " . $sto . " AND `to` > " . $sto . " AND `from` < `to`)") .
-		 	($sto > $sfrom ? " OR (`from` >= " . $sfrom . " AND `from` < " . $sto . " AND `to` < " . $sfrom . " AND `to` < " . $sto . " AND `from` > `to`)" : " OR (`from` < " . $sfrom . " AND `to` >=" . $sto . " AND `from` <= " . $sto . " AND `to` < " . $sfrom . " AND `from` < `to`)") .
-		 	($sto > $sfrom ? " OR (`from` > " . $sfrom . " AND `from` > " . $sto . " AND `to` >=" . $sfrom . " AND `to` < " . $sto . " AND `from` > `to`)" : " OR (`from` >= " . $sfrom . " AND `from` > " . $sto . " AND `to` > " . $sfrom . " AND `to` > " . $sto . " AND `from` < `to`) OR (`from` < " . $sfrom . " AND `from` < " . $sto . " AND `to` < " . $sfrom . " AND `to` <= " . $sto . " AND `from` < `to`)") . 
+		 	($sto > $sfrom ? "OR (`from` >= " . $sfrom . " AND `from` <= " . $sto . " AND `to` >= " . $sfrom . " AND `to` <= " . $sto . ")" : "OR (`from` >= " . $sfrom . " AND `from` > " . $sto . " AND `to` < " . $sfrom . " AND `to` <= " . $sto . " AND `from` > `to`)") .
+		 	($sto > $sfrom ? " OR (`from` <= " . $sfrom . " AND `from` <= " . $sto . " AND `to` < " . $sfrom . " AND `to` < " . $sto . " AND `from` > `to`) OR (`from` > " . $sfrom . " AND `from` > " . $sto . " AND `to` >= " . $sfrom . " AND `to` >= " . $sto . " AND `from` > `to`)" : " OR (`from` <= " . $sfrom . " AND `to` >= " . $sfrom . " AND `from` >= " . $sto . " AND `to` > " . $sto . " AND `from` < `to`)") .
+		 	($sto > $sfrom ? " OR (`from` >= " . $sfrom . " AND `from` < " . $sto . " AND `to` < " . $sfrom . " AND `to` < " . $sto . " AND `from` > `to`)" : " OR (`from` < " . $sfrom . " AND `to` >= " . $sto . " AND `from` <= " . $sto . " AND `to` < " . $sfrom . " AND `from` < `to`)") .
+		 	($sto > $sfrom ? " OR (`from` > " . $sfrom . " AND `from` > " . $sto . " AND `to` >= " . $sfrom . " AND `to` < " . $sto . " AND `from` > `to`)" : " OR (`from` >= " . $sfrom . " AND `from` > " . $sto . " AND `to` > " . $sfrom . " AND `to` > " . $sto . " AND `from` < `to`) OR (`from` < " . $sfrom . " AND `from` < " . $sto . " AND `to` < " . $sfrom . " AND `to` <= " . $sto . " AND `from` < `to`)") . 
 		 	($sto < $sfrom ? " OR (`from` = 0 AND `to` >= " . $sto . " AND `to` >= " . $sfrom . ")" : '') .
 			") ORDER BY `#__vikbooking_seasons`.`promo` ASC;";
 
@@ -7960,7 +8200,7 @@ class VikBooking
 				// occupancy override
 				$occupancy_ovr = !empty($s['occupancy_ovr']) ? json_decode($s['occupancy_ovr'], true) : [];
 
-				//week days
+				// week days
 				$filterwdays = !empty($s['wdays']) ? true : false;
 				$wdays = $filterwdays == true ? explode(';', $s['wdays']) : '';
 				if (is_array($wdays) && $wdays) {
@@ -7971,7 +8211,7 @@ class VikBooking
 					}
 				}
 
-				// checkin must be after the begin of the season
+				// checkin must be after the beginning of the season
 				$checkininclok = true;
 				if ($s['checkinincl'] == 1) {
 					$checkininclok = false;
@@ -7991,7 +8231,7 @@ class VikBooking
 
 				foreach ($arr as $k => $a) {
 					// applied only to some types of price
-					if ($allprices && !empty($allprices[0])) {
+					if ($allprices && !empty($allprices[0]) && !empty($a['idprice'])) {
 						// VikBooking 1.6: Price Calendar sets the idprice to -1
 						if (!in_array("-" . $a['idprice'] . "-", $allprices) && $a['idprice'] > 0) {
 							continue;
@@ -8377,7 +8617,7 @@ class VikBooking
 					// only rooms with no price modifications from seasons
 					
 					// applied only to some types of price
-					if ($allprices && !empty($allprices[0])) {
+					if ($allprices && !empty($allprices[0]) && !empty($a['idprice'])) {
 						// VikBooking 1.6: Price Calendar sets the idprice to -1
 						if (!in_array("-" . $a['idprice'] . "-", $allprices) && $a['idprice'] > 0) {
 							continue;
@@ -8827,16 +9067,17 @@ class VikBooking
 	public static function loadColorTagsRules()
 	{
 		$color_tag_rules = [
-			0 		=> 'VBOCOLORTAGRULECUSTOMCOLOR',
-			'pend1' => 'VBWAITINGFORPAYMENT',
-			'conf1' => 'VBDBTEXTROOMCLOSED',
-			'conf2' => 'VBOCOLORTAGRULECONFTWO',
-			'conf3' => 'VBOCOLORTAGRULECONFTHREE',
-			'inv1' 	=> 'VBOCOLORTAGRULEINVONE',
-			'rcp1' 	=> 'VBOCOLORTAGRULERCPONE',
-			'conf4' => 'VBOCOLORTAGRULECONFFOUR',
-			'conf5' => 'VBOCOLORTAGRULECONFFIVE',
-			'inv2' 	=> 'VBOCOLORTAGRULEINVTWO',
+			0 		 => 'VBOCOLORTAGRULECUSTOMCOLOR',
+			'pend1'  => 'VBWAITINGFORPAYMENT',
+			'conf1'  => 'VBDBTEXTROOMCLOSED',
+			'ovbook' => 'VBO_BTYPE_OVERBOOKING',
+			'conf2'  => 'VBOCOLORTAGRULECONFTWO',
+			'conf3'  => 'VBOCOLORTAGRULECONFTHREE',
+			'inv1' 	 => 'VBOCOLORTAGRULEINVONE',
+			'rcp1' 	 => 'VBOCOLORTAGRULERCPONE',
+			'conf4'  => 'VBOCOLORTAGRULECONFFOUR',
+			'conf5'  => 'VBOCOLORTAGRULECONFFIVE',
+			'inv2' 	 => 'VBOCOLORTAGRULEINVTWO',
 		];
 
 		/**
@@ -8855,47 +9096,52 @@ class VikBooking
 			[
 				'color' => '#9b9b9b',
 				'name' => 'VBWAITINGFORPAYMENT',
-				'rule' => 'pend1'
+				'rule' => 'pend1',
 			],
 			[
 				'color' => '#333333',
 				'name' => 'VBDBTEXTROOMCLOSED',
-				'rule' => 'conf1'
+				'rule' => 'conf1',
+			],
+			[
+				'color' => '#f04848',
+				'name' => 'VBO_BTYPE_OVERBOOKING',
+				'rule' => 'ovbook',
 			],
 			[
 				'color' => '#ff8606',
 				'name' => 'VBOCOLORTAGRULECONFTWO',
-				'rule' => 'conf2'
+				'rule' => 'conf2',
 			],
 			[
 				'color' => '#0418c9',
 				'name' => 'VBOCOLORTAGRULECONFTHREE',
-				'rule' => 'conf3'
+				'rule' => 'conf3',
 			],
 			[
 				'color' => '#bed953',
 				'name' => 'VBOCOLORTAGRULEINVONE',
-				'rule' => 'inv1'
+				'rule' => 'inv1',
 			],
 			[
 				'color' => '#67f5b5',
 				'name' => 'VBOCOLORTAGRULERCPONE',
-				'rule' => 'rcp1'
+				'rule' => 'rcp1',
 			],
 			[
 				'color' => '#04d2c2',
 				'name' => 'VBOCOLORTAGRULECONFFOUR',
-				'rule' => 'conf4'
+				'rule' => 'conf4',
 			],
 			[
 				'color' => '#00b316',
 				'name' => 'VBOCOLORTAGRULECONFFIVE',
-				'rule' => 'conf5'
+				'rule' => 'conf5',
 			],
 			[
 				'color' => '#00f323',
 				'name' => 'VBOCOLORTAGRULEINVTWO',
-				'rule' => 'inv2'
+				'rule' => 'inv2',
 			],
 		];
 
@@ -8956,7 +9202,7 @@ class VikBooking
 		$invoice_numb = false;
 		$receipt_numb = false;
 
-		if ($booking['status'] == 'confirmed') {
+		if ($booking['status'] == 'confirmed' && ($booking['checkin'] ?? 0) > time()) {
 			$q = "SELECT `b`.`id` AS `o_id`, `i`.`id` AS `inv_id`, `i`.`number` AS `inv_number`, `i`.`file_name` AS `inv_file_name`, `r`.`id` AS `rcp_id`, `r`.`number` AS `rcp_number`
 				FROM `#__vikbooking_orders` AS `b`
 				LEFT JOIN `#__vikbooking_invoices` AS `i` ON `b`.`id`=`i`.`idorder`
@@ -9051,7 +9297,14 @@ class VikBooking
 					break;
 				case 'conf1':
 					// Confirmed (Room Closed)
-					if ($booking['status'] == 'confirmed' && $booking['custdata'] == JText::_('VBDBTEXTROOMCLOSED')) {
+					if ($booking['status'] == 'confirmed' && (!empty($booking['closure']) || $booking['custdata'] == JText::_('VBDBTEXTROOMCLOSED'))) {
+						$tval['fontcolor'] = self::getBestColorContrast($tval['color']);
+						return $tval;
+					}
+					break;
+				case 'ovbook':
+					// Confirmed (Overbooking)
+					if ($booking['status'] == 'confirmed' && !empty($booking['type']) && $booking['type'] == 'overbooking') {
 						$tval['fontcolor'] = self::getBestColorContrast($tval['color']);
 						return $tval;
 					}
@@ -9131,21 +9384,33 @@ class VikBooking
 	/**
 	 * Load booking details for a given list of IDs.
 	 * 
-	 * @param 	int 	$roomid 			the room integer number.
-	 * @param 	array 	$room_bids_pool 	list of booking IDs involved.
+	 * @param 	int 	$roomid 			The room integer number.
+	 * @param 	array 	$room_bids_pool 	List of booking IDs involved.
+	 * @param 	bool 	$unassigned 		Whether to return also the unassigned bookings.
 	 * 
-	 * @return 	array
+	 * @return 	array 	Associative list of sub-unit bookings, or list containing also the unassigned bookings.
+	 * 
+	 * @since 	1.18.2 (J) - 1.8.2 (WP) added argument $unassigned.
 	 */
-	public static function loadRoomIndexesBookings($roomid, array $room_bids_pool)
+	public static function loadRoomIndexesBookings(int $roomid, array $room_bids_pool, $unassigned = false)
 	{
 		$dbo = JFactory::getDbo();
 
+		$pool_values = [];
+		if ($unassigned) {
+			// prepare the default return value
+			$pool_values = [
+				[],
+				[],
+			];
+		}
+
 		if (empty($roomid) || !$room_bids_pool) {
-			return [];
+			return $pool_values;
 		}
 
 		$room_features_bookings = [];
-		$roomid = (int)$roomid;
+		$unassigned_bookings = [];
 
 		$all_bids = [];
 		foreach ($room_bids_pool as $day => $bids) {
@@ -9158,11 +9423,16 @@ class VikBooking
 		$dbo->setQuery($q);
 		$rbookings = $dbo->loadAssocList();
 		if (!$rbookings) {
-			return [];
+			return $pool_values;
 		}
 
 		foreach ($rbookings as $k => $v) {
 			if (empty($v['roomindex'])) {
+				if ($unassigned) {
+					// push this booking to the list of unassigned reservations
+					$unassigned_bookings[] = $v['idorder'];
+				}
+				// do not proceed further
 				continue;
 			}
 			if (!isset($room_features_bookings[$v['roomindex']])) {
@@ -9171,6 +9441,15 @@ class VikBooking
 			$room_features_bookings[$v['roomindex']][] = $v['idorder'];
 		}
 
+		if ($unassigned) {
+			// return a list of information
+			return [
+				$room_features_bookings,
+				$unassigned_bookings,
+			];
+		}
+
+		// return just the list of room sub-unit bookings
 		return $room_features_bookings;
 	}
 
@@ -9941,27 +10220,30 @@ class VikBooking
 								$agestept = explode('-', $stept[1]);
 								$stept[1] = $agestept[0];
 								$chvar = $agestept[1];
-								if (array_key_exists(($chvar - 1), $optagepcent) && $optagepcent[($chvar - 1)] == 1) {
-									//percentage value of the adults tariff
-									if ($is_package === true || (!empty($or['cust_cost']) && $or['cust_cost'] > 0.00)) {
-										$optagecosts[($chvar - 1)] = $or['cust_cost'] * $optagecosts[($chvar - 1)] / 100;
-									} else {
-										$display_rate = !empty($or['room_cost']) ? $or['room_cost'] : $tars[$num]['cost'];
-										$optagecosts[($chvar - 1)] = $display_rate * $optagecosts[($chvar - 1)] / 100;
+								$realcost = 0;
+								if (!empty($chvar)) {
+									if (array_key_exists(($chvar - 1), $optagepcent) && $optagepcent[($chvar - 1)] == 1) {
+										//percentage value of the adults tariff
+										if ($is_package === true || (!empty($or['cust_cost']) && $or['cust_cost'] > 0.00)) {
+											$optagecosts[($chvar - 1)] = $or['cust_cost'] * $optagecosts[($chvar - 1)] / 100;
+										} else {
+											$display_rate = !empty($or['room_cost']) ? $or['room_cost'] : $tars[$num]['cost'];
+											$optagecosts[($chvar - 1)] = $display_rate * $optagecosts[($chvar - 1)] / 100;
+										}
+									} elseif (array_key_exists(($chvar - 1), $optagepcent) && $optagepcent[($chvar - 1)] == 2) {
+										//VBO 1.10 - percentage value of room base cost
+										if ($is_package === true || (!empty($or['cust_cost']) && $or['cust_cost'] > 0.00)) {
+											$optagecosts[($chvar - 1)] = $or['cust_cost'] * $optagecosts[($chvar - 1)] / 100;
+										} else {
+											$display_rate = isset($tars[$num]['room_base_cost']) ? $tars[$num]['room_base_cost'] : (!empty($or['room_cost']) ? $or['room_cost'] : $tars[$num]['cost']);
+											$optagecosts[($chvar - 1)] = $display_rate * $optagecosts[($chvar - 1)] / 100;
+										}
 									}
-								} elseif (array_key_exists(($chvar - 1), $optagepcent) && $optagepcent[($chvar - 1)] == 2) {
-									//VBO 1.10 - percentage value of room base cost
-									if ($is_package === true || (!empty($or['cust_cost']) && $or['cust_cost'] > 0.00)) {
-										$optagecosts[($chvar - 1)] = $or['cust_cost'] * $optagecosts[($chvar - 1)] / 100;
-									} else {
-										$display_rate = isset($tars[$num]['room_base_cost']) ? $tars[$num]['room_base_cost'] : (!empty($or['room_cost']) ? $or['room_cost'] : $tars[$num]['cost']);
-										$optagecosts[($chvar - 1)] = $display_rate * $optagecosts[($chvar - 1)] / 100;
-									}
+									$actopt[0]['chageintv'] = $chvar;
+									$actopt[0]['name'] .= ' ('.$optagenames[($chvar - 1)].')';
+									$actopt[0]['quan'] = $stept[1];
+									$realcost = (intval($actopt[0]['perday']) == 1 ? (floatval($optagecosts[($chvar - 1)]) * $room_nights * $stept[1]) : (floatval($optagecosts[($chvar - 1)]) * $stept[1]));
 								}
-								$actopt[0]['chageintv'] = $chvar;
-								$actopt[0]['name'] .= ' ('.$optagenames[($chvar - 1)].')';
-								$actopt[0]['quan'] = $stept[1];
-								$realcost = (intval($actopt[0]['perday']) == 1 ? (floatval($optagecosts[($chvar - 1)]) * $room_nights * $stept[1]) : (floatval($optagecosts[($chvar - 1)]) * $stept[1]));
 							} else {
 								$actopt[0]['quan'] = $stept[1];
 								// VBO 1.11 - options percentage cost of the room total fee
@@ -12791,74 +13073,74 @@ class VikBooking
 		
 		if (!empty($pref_colors['textcolor'])) {
 			// titles and headings
-			array_push($css_classes, '.vbo-pref-color-text { color: ' . $pref_colors['textcolor'] . '  }');
+			array_push($css_classes, '.vbo-pref-color-text { color: ' . $pref_colors['textcolor'] . ' !important; }');
 			// stepbar, oconfirm
-			array_push($css_classes, 'ol.vbo-stepbar li.vbo-step-complete, ol.vbo-stepbar li.vbo-step-current, ol.vbo-stepbar li.vbo-step-current:before, .vbo-coupon-outer, .vbo-enterpin-block {   }');
+			array_push($css_classes, 'ol.vbo-stepbar li.vbo-step-complete, ol.vbo-stepbar li.vbo-step-current, ol.vbo-stepbar li.vbo-step-current:before, .vbo-coupon-outer, .vbo-enterpin-block { border-color: ' . $pref_colors['textcolor'] . ' !important; }');
 			// buttons secondary color
-			array_push($css_classes, '. { border: 2px solid ' . $pref_colors['textcolor'] . '  color: ' . $pref_colors['textcolor'] . '  background: transparent  }');
+			array_push($css_classes, '.vbo-pref-color-btn-secondary { border: 2px solid ' . $pref_colors['textcolor'] . ' !important; color: ' . $pref_colors['textcolor'] . ' !important; background: transparent !important; }');
 			if (!empty($pref_colors['fontcolor'])) {
-				array_push($css_classes, '.:hover { color: ' . $pref_colors['fontcolor'] . '  background: ' . $pref_colors['textcolor'] . '  }');
+				array_push($css_classes, '.vbo-pref-color-btn-secondary:hover { color: ' . $pref_colors['fontcolor'] . ' !important; background: ' . $pref_colors['textcolor'] . ' !important; }');
 			}
 			// datepicker
 			array_push($css_classes, '.ui-datepicker .ui-datepicker-today {
-				border-color: ' . $pref_colors['textcolor'] . ' 
-				color: ' . $pref_colors['textcolor'] . ' 
+				border-color: ' . $pref_colors['textcolor'] . ' !important;
+				color: ' . $pref_colors['textcolor'] . ' !important;
 			}');
 			// operators tableaux
 			if ($view == 'tableaux') {
-				array_push($css_classes, '.vbo-roomdaynote-empty .vbo-roomdaynote-trigger i { color: ' . $pref_colors['textcolor'] . '  }');
+				array_push($css_classes, '.vbo-roomdaynote-empty .vbo-roomdaynote-trigger i { color: ' . $pref_colors['textcolor'] . ' !important; }');
 			}
 		}
 
 		if (!empty($pref_colors['bgcolor']) && !empty($pref_colors['fontcolor'])) {
 			// elements with backgrounds
-			array_push($css_classes, '.vbo-pref-color-element { background-color: ' . $pref_colors['bgcolor'] . '  color: ' . $pref_colors['fontcolor'] . '  }');
-			array_push($css_classes, '.vbo-pref-bordercolor { border-color: ' . $pref_colors['bgcolor'] . '  }');
-			array_push($css_classes, '.vbo-pref-bordertext { color: ' . $pref_colors['bgcolor'] . '  border-color: ' . $pref_colors['bgcolor'] . '  }');
+			array_push($css_classes, '.vbo-pref-color-element { background-color: ' . $pref_colors['bgcolor'] . ' !important; color: ' . $pref_colors['fontcolor'] . ' !important; }');
+			array_push($css_classes, '.vbo-pref-bordercolor { border-color: ' . $pref_colors['bgcolor'] . ' !important; }');
+			array_push($css_classes, '.vbo-pref-bordertext { color: ' . $pref_colors['bgcolor'] . ' !important; border-color: ' . $pref_colors['bgcolor'] . ' !important; }');
 			// buttons with backgrounds
-			array_push($css_classes, '.vbo-pref-color-btn { background-color: ' . $pref_colors['bgcolor'] . '  color: ' . $pref_colors['fontcolor'] . '  }');
+			array_push($css_classes, '.vbo-pref-color-btn { background-color: ' . $pref_colors['bgcolor'] . ' !important; color: ' . $pref_colors['fontcolor'] . ' !important; }');
 			// stepbar
-			array_push($css_classes, 'ol.vbo-stepbar li.vbo-step-complete:before { background-color: ' . $pref_colors['bgcolor'] . '  }');
+			array_push($css_classes, 'ol.vbo-stepbar li.vbo-step-complete:before { background-color: ' . $pref_colors['bgcolor'] . ' !important; }');
 			// datepicker
 			array_push($css_classes, '.ui-datepicker-calendar td.checkin-date > *, .ui-datepicker-calendar td.checkout-date > *, .ui-datepicker-calendar td.ui-state-highlight > *, .ui-datepicker-calendar td.ui-datepicker-current-day > * {
-				background: ' . $pref_colors['bgcolor'] . ' 
-				border-color: ' . $pref_colors['bgcolor'] . ' 
-				color: ' . $pref_colors['fontcolor'] . ' 
+				background: ' . $pref_colors['bgcolor'] . ' !important;
+				border-color: ' . $pref_colors['bgcolor'] . ' !important;
+				color: ' . $pref_colors['fontcolor'] . ' !important;
 			}');
 			array_push($css_classes, '.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active {
-				border-color: ' . $pref_colors['bgcolor'] . ' 
+				border-color: ' . $pref_colors['bgcolor'] . ' !important;
 			}');
 			array_push($css_classes, '.ui-datepicker-header .ui-corner-all.ui-state-hover {
-				border-color: ' . $pref_colors['bgcolor'] . ' 
-				color: ' . $pref_colors['bgcolor'] . ' 
+				border-color: ' . $pref_colors['bgcolor'] . ' !important;
+				color: ' . $pref_colors['bgcolor'] . ' !important;
 			}');
 			array_push($css_classes, '.ui-datepicker .ui-datepicker-current-day a {
-				color: ' . $pref_colors['fontcolor'] . ' 
+				color: ' . $pref_colors['fontcolor'] . ' !important;
 			}');
 			array_push($css_classes, '.ui-datepicker td:not(.ui-state-highlight):not(.ui-datepicker-unselectable):not(.date-will):not(.ui-datepicker-current-day) > *:hover {
-				border-color: ' . $pref_colors['bgcolor'] . ' 
-				color: ' . $pref_colors['bgcolor'] . ' 
+				border-color: ' . $pref_colors['bgcolor'] . ' !important;
+				color: ' . $pref_colors['bgcolor'] . ' !important;
 			}');
 			array_push($css_classes, '.ui-datepicker td.checkin-date a:hover, .ui-datepicker td.checkout-date a:hover, .ui-datepicker-calendar td.ui-datepicker-current-day > *:hover {
-				color: ' . $pref_colors['fontcolor'] . ' 
+				color: ' . $pref_colors['fontcolor'] . ' !important;
 			}');
 			// operators tableaux
 			if ($view == 'tableaux') {
-				array_push($css_classes, '.vbo-tableaux-roombooks > div:not(.vbo-tableaux-booking-empty), .vbo-tableaux-togglefullscreen { background-color: ' . $pref_colors['bgcolor'] . '  color: ' . $pref_colors['fontcolor'] . '  }');
+				array_push($css_classes, '.vbo-tableaux-roombooks > div:not(.vbo-tableaux-booking-empty), .vbo-tableaux-togglefullscreen { background-color: ' . $pref_colors['bgcolor'] . ' !important; color: ' . $pref_colors['fontcolor'] . ' !important; }');
 			}
 			// listing capacity room-details
 			array_push($css_classes, '.vbo-rdetails-capacity-icn i {
-				background: ' . $pref_colors['bgcolor'] . ' 
-				color: ' . $pref_colors['fontcolor'] . ' 
+				background: ' . $pref_colors['bgcolor'] . ' !important;
+				color: ' . $pref_colors['fontcolor'] . ' !important;
 			}');
 		}
 
 		if (!empty($pref_colors['bgcolorhov']) && !empty($pref_colors['fontcolorhov'])) {
 			// buttons with backgrounds during hover state
-			array_push($css_classes, '.vbo-pref-color-btn:hover { background-color: ' . $pref_colors['bgcolorhov'] . '  color: ' . $pref_colors['fontcolorhov'] . '  }');
+			array_push($css_classes, '.vbo-pref-color-btn:hover { background-color: ' . $pref_colors['bgcolorhov'] . ' !important; color: ' . $pref_colors['fontcolorhov'] . ' !important; }');
 			// operators tableaux
 			if ($view == 'tableaux') {
-				array_push($css_classes, '.vbo-tableaux-togglefullscreen:hover { background-color: ' . $pref_colors['bgcolorhov'] . '  color: ' . $pref_colors['fontcolorhov'] . '  }');
+				array_push($css_classes, '.vbo-tableaux-togglefullscreen:hover { background-color: ' . $pref_colors['bgcolorhov'] . ' !important; color: ' . $pref_colors['fontcolorhov'] . ' !important; }');
 			}
 		}
 
@@ -12916,7 +13198,15 @@ class VikBooking
 	 */
 	public static function isBookingTypeSupported()
 	{
-		return is_file(VCM_SITE_PATH . DIRECTORY_SEPARATOR . 'helpers' . DIRECTORY_SEPARATOR . 'lib.vikchannelmanager.php');
+		static $isBookingTypeSupported = null;
+
+		if (is_bool($isBookingTypeSupported)) {
+			return $isBookingTypeSupported;
+		}
+
+		$isBookingTypeSupported = is_file(VCM_SITE_PATH . DIRECTORY_SEPARATOR . 'helpers' . DIRECTORY_SEPARATOR . 'lib.vikchannelmanager.php');
+
+		return $isBookingTypeSupported;
 	}
 
 	/**

@@ -20,7 +20,6 @@ class Frontend {
 		add_action(
 			'qlwapp_load',
 			function () {
-				add_action( 'wp_enqueue_scripts', array( __CLASS__, 'add_assets' ) );
 				add_action( 'wp_footer', array( __CLASS__, 'add_app' ) );
 				add_shortcode( 'whatsapp', array( __CLASS__, 'do_shortcode' ) );
 			},
@@ -64,12 +63,8 @@ class Frontend {
 		);
 	}
 
-	public static function add_assets() {
-		wp_enqueue_script( 'qlwapp-frontend' );
-		wp_enqueue_style( 'qlwapp-frontend' );
-	}
-
 	public static function add_app() {
+
 		$button  = Models_Button::instance()->get();
 		$display = Models_Display::instance()->get();
 		$box     = Models_Box::instance()->get();
@@ -81,10 +76,13 @@ class Frontend {
 			return;
 		}
 
+		wp_enqueue_script( 'qlwapp-frontend' );
+		wp_enqueue_style( 'qlwapp-frontend' );
+
 		// Filter the contacts based on the display settings.
 		$contacts = array_values(
 			array_filter(
-				Models_Contacts::instance()->get_contacts_reorder(),
+				Models_Contacts::instance()->get_all(),
 				function ( $contact ) {
 					if ( ! isset( $contact['display'] ) ) {
 						return true;
@@ -114,7 +112,7 @@ class Frontend {
 			data-box="<?php echo esc_attr( $box_json ); ?>"
 			data-scheme="<?php echo esc_attr( $scheme_json ); ?>"
 		>
-			<?php if ( ! empty( $box['footer'] ) ) : ?>
+			<?php if ( isset( $button['box'], $box['footer'] ) && 'yes' === $button['box'] && ! empty( $box['footer'] ) ) : ?>
 				<div class="qlwapp-footer">
 					<?php echo wpautop( wp_kses_post( $box['footer'] ) ); ?>
 				</div>
@@ -153,6 +151,10 @@ class Frontend {
 	}
 
 	public static function do_shortcode( $atts, $content = null ) {
+
+		wp_enqueue_script( 'qlwapp-frontend' );
+		wp_enqueue_style( 'qlwapp-frontend' );
+
 		$button             = Models_Button::instance()->get();
 		$button['text']     = $content;
 		$button['position'] = '';

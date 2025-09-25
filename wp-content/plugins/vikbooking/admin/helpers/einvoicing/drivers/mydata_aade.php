@@ -1142,7 +1142,7 @@ class VikBookingEInvoicingMydataAade extends VikBookingEInvoicing
 						if (empty($val)) {
 							if (count($customer) && !empty($customer['id'])) {
 								// just an empty City, edit the customer
-								$cont = '<a class="btn btn-danger" href="index.php?option=com_vikbooking&task=editcustomer&cid[]='.$customer['id'].'&goto='.$goto.'">' . JText::_('VBCONFIGCLOSINGDATEADD') . '</a>';
+								$cont = '<a class="btn" href="index.php?option=com_vikbooking&task=editcustomer&cid[]='.$customer['id'].'&goto='.$goto.'">' . JText::_('VBCONFIGCLOSINGDATEADD') . '</a>';
 							} else {
 								$cont = '-----';
 							}
@@ -1150,7 +1150,7 @@ class VikBookingEInvoicingMydataAade extends VikBookingEInvoicing
 						}
 						if (count($customer) && empty($customer['zip'])) {
 							// postal code is mandatory
-							return '<a class="btn btn-danger" href="index.php?option=com_vikbooking&task=editcustomer&cid[]='.$customer['id'].'&goto='.$goto.'">No Postal Code</a>';
+							return '<a class="btn" href="index.php?option=com_vikbooking&task=editcustomer&cid[]='.$customer['id'].'&goto='.$goto.'">No Postal Code</a>';
 						}
 						if (count($customer) && empty($customer['address'])) {
 							// address is mandatory
@@ -1171,8 +1171,8 @@ class VikBookingEInvoicingMydataAade extends VikBookingEInvoicing
 						} else {
 							$goto = base64_encode('index.php?option=com_vikbooking&task=einvoicing');
 							if (count($customer) && !empty($customer['id'])) {
-								// empty VAT Number, which is mandatory for both issuer and counterpart
-								$cont = '<a class="btn btn-danger" href="index.php?option=com_vikbooking&task=editcustomer&cid[]='.$customer['id'].'&goto='.$goto.'">' . JText::_('VBCONFIGCLOSINGDATEADD') . '</a>';
+								// empty VAT Number, which may be mandatory for both issuer and counterpart
+								$cont = '<a class="btn" href="index.php?option=com_vikbooking&task=editcustomer&cid[]='.$customer['id'].'&goto='.$goto.'">' . JText::_('VBCONFIGCLOSINGDATEADD') . '</a>';
 							} else {
 								// if empty customer ($val) print danger button to assign a customer to this booking ID
 								$cont = '<a class="btn btn-danger" href="index.php?option=com_vikbooking&task=newcustomer&bid='.$bid.'&goto='.$goto.'">' . JText::_('VBCONFIGCLOSINGDATEADD') . '</a>';
@@ -1328,21 +1328,49 @@ class VikBookingEInvoicingMydataAade extends VikBookingEInvoicing
 	 */
 	protected function canBookingBeInvoiced($booking)
 	{
-		if (empty($booking[0]['customer']) || empty($booking[0]['customer']['vat'])) {
-			// the VAT number is a mandatory field for both issuer and counterpart
-			return array(0, 'Missing VAT Number');
+		// load driver settings
+		$settings = $this->loadSettings();
+
+		/**
+		 * For certain types of invoice, the customer (counterpart) node is forbidden,
+		 * hence no customer information is actually required.
+		 * 
+		 * @since 	1.18.2 (J) - 1.8.2 (WP)
+		 */
+		$inv_types_forbid_counterpart = [
+			'11.1',
+			'11.2',
+		];
+
+		// access the configured invoice type
+		$invtype = $settings && !empty($settings['params']['einvtypecode']) ? $settings['params']['einvtypecode'] : VikBookingMydataAadeConstants::DEFAULT_INVOICE_TYPE;
+
+		// check whether the counterpart is mandatory
+		$mandatory_counterpart = !in_array($invtype, $inv_types_forbid_counterpart);
+
+		if (empty($booking[0]['customer'])) {
+			// customer record is mandatory to identify a reservation with complete details
+			return array(0, 'Missing customer record');
 		}
 
-		if (empty($booking[0]['customer']) || empty($booking[0]['customer']['country']) || empty($booking[0]['customer']['country_2_code'])) {
-			return array(0, 'Missing country');
-		}
+		// validate booking customer information required
+		if ($mandatory_counterpart) {
+			if (empty($booking[0]['customer']['vat'])) {
+				// the VAT number is a mandatory field for both issuer and counterpart
+				return array(0, 'Missing VAT Number');
+			}
 
-		if (empty($booking[0]['customer']) || empty($booking[0]['customer']['city'])) {
-			return array(0, 'Missing City');
-		}
+			if (empty($booking[0]['customer']['country']) || empty($booking[0]['customer']['country_2_code'])) {
+				return array(0, 'Missing country');
+			}
 
-		if (empty($booking[0]['customer']) || empty($booking[0]['customer']['zip'])) {
-			return array(0, 'Missing Postal Code');
+			if (empty($booking[0]['customer']['city'])) {
+				return array(0, 'Missing City');
+			}
+
+			if (empty($booking[0]['customer']['zip'])) {
+				return array(0, 'Missing Postal Code');
+			}
 		}
 
 		// check if an electronic invoice was already issued for this booking ID by this driver
@@ -1877,6 +1905,7 @@ class VikBookingEInvoicingMydataAade extends VikBookingEInvoicing
 		$aa_serial_number = $correlated && $correlated_invnum ? $correlated_invnum : $invnum;
 		// invoice type
 		$invtype = !empty($settings['params']['einvtypecode']) ? $settings['params']['einvtypecode'] : VikBookingMydataAadeConstants::DEFAULT_INVOICE_TYPE;
+		$orig_invtype = $invtype;
 		$invtype = $correlated ? '8.2' : $invtype;
 
 		// invoice total paid amount
@@ -2104,27 +2133,30 @@ class VikBookingEInvoicingMydataAade extends VikBookingEInvoicing
 							$agestept = explode('-', $stept[1]);
 							$stept[1] = $agestept[0];
 							$chvar = $agestept[1];
-							if (array_key_exists(($chvar - 1), $optagepcent) && $optagepcent[($chvar - 1)] == 1) {
-								// percentage value of the adults tariff
-								if ($is_package || (!empty($or['cust_cost']) && $or['cust_cost'] > 0.00)) {
-									$optagecosts[($chvar - 1)] = $or['cust_cost'] * $optagecosts[($chvar - 1)] / 100;
-								} else {
-									$display_rate = !empty($or['room_cost']) ? $or['room_cost'] : $tars[$num]['cost'];
-									$optagecosts[($chvar - 1)] = $display_rate * $optagecosts[($chvar - 1)] / 100;
+							$realcost = 0;
+							if (!empty($chvar)) {
+								if (array_key_exists(($chvar - 1), $optagepcent) && $optagepcent[($chvar - 1)] == 1) {
+									// percentage value of the adults tariff
+									if ($is_package || (!empty($or['cust_cost']) && $or['cust_cost'] > 0.00)) {
+										$optagecosts[($chvar - 1)] = $or['cust_cost'] * $optagecosts[($chvar - 1)] / 100;
+									} else {
+										$display_rate = !empty($or['room_cost']) ? $or['room_cost'] : $tars[$num]['cost'];
+										$optagecosts[($chvar - 1)] = $display_rate * $optagecosts[($chvar - 1)] / 100;
+									}
+								} elseif (array_key_exists(($chvar - 1), $optagepcent) && $optagepcent[($chvar - 1)] == 2) {
+									// percentage value of room base cost
+									if ($is_package || (!empty($or['cust_cost']) && $or['cust_cost'] > 0.00)) {
+										$optagecosts[($chvar - 1)] = $or['cust_cost'] * $optagecosts[($chvar - 1)] / 100;
+									} else {
+										$display_rate = isset($tars[$num]['room_base_cost']) ? $tars[$num]['room_base_cost'] : (!empty($or['room_cost']) ? $or['room_cost'] : $tars[$num]['cost']);
+										$optagecosts[($chvar - 1)] = $display_rate * $optagecosts[($chvar - 1)] / 100;
+									}
 								}
-							} elseif (array_key_exists(($chvar - 1), $optagepcent) && $optagepcent[($chvar - 1)] == 2) {
-								// percentage value of room base cost
-								if ($is_package || (!empty($or['cust_cost']) && $or['cust_cost'] > 0.00)) {
-									$optagecosts[($chvar - 1)] = $or['cust_cost'] * $optagecosts[($chvar - 1)] / 100;
-								} else {
-									$display_rate = isset($tars[$num]['room_base_cost']) ? $tars[$num]['room_base_cost'] : (!empty($or['room_cost']) ? $or['room_cost'] : $tars[$num]['cost']);
-									$optagecosts[($chvar - 1)] = $display_rate * $optagecosts[($chvar - 1)] / 100;
-								}
+								$actopt[0]['chageintv'] = $chvar;
+								$actopt[0]['name'] .= ' ('.$optagenames[($chvar - 1)].')';
+								$actopt[0]['quan'] = $stept[1];
+								$realcost = (intval($actopt[0]['perday']) == 1 ? (floatval($optagecosts[($chvar - 1)]) * $or['days'] * $stept[1]) : (floatval($optagecosts[($chvar - 1)]) * $stept[1]));
 							}
-							$actopt[0]['chageintv'] = $chvar;
-							$actopt[0]['name'] .= ' ('.$optagenames[($chvar - 1)].')';
-							$actopt[0]['quan'] = $stept[1];
-							$realcost = (intval($actopt[0]['perday']) == 1 ? (floatval($optagecosts[($chvar - 1)]) * $or['days'] * $stept[1]) : (floatval($optagecosts[($chvar - 1)]) * $stept[1]));
 						} else {
 							$actopt[0]['quan'] = $stept[1];
 							// VBO 1.11 - options percentage cost of the room total fee
@@ -2350,6 +2382,33 @@ class VikBookingEInvoicingMydataAade extends VikBookingEInvoicing
 			}
 		}
 
+		/**
+		 * The "Counterpart" node is forbidden for certain invoice types.
+		 * 
+		 * @since 	1.18.2 (J) - 1.8.2 (WP)
+		 */
+		$inv_types_forbid_counterpart = [
+			'11.1',
+			'11.2',
+		];
+
+		// build counterpart node with the customer information
+		$counterpartNode = '';
+		if (!in_array($orig_invtype, $inv_types_forbid_counterpart)) {
+			$counterpartNode = '<counterpart>
+				<vatNumber>' . $this->convertSpecials($data[0]['customer']['vat'] ?: '') . '</vatNumber>
+				' . (!empty($data[0]['customer']['country_2_code']) ? '<country>' . $this->convertSpecials($data[0]['customer']['country_2_code']) . '</country>' : '') . '
+				<branch>' . $branch . '</branch>
+				' . (!empty($client_name) ? '<name>' . $this->convertSpecials($client_name) . '</name>' : '') . '
+				<address>
+					<street>' . $this->convertSpecials(preg_replace("/[0-9]/", '', $data[0]['customer']['address'])) . '</street>
+					<number>' . preg_replace("/[^0-9]/", '', $data[0]['customer']['address']) . '</number>
+					<postalCode>' . $this->convertSpecials($data[0]['customer']['zip']) . '</postalCode>
+					<city>' . $this->convertSpecials($data[0]['customer']['city']) . '</city>
+				</address>
+			</counterpart>';
+		}
+
 		// build XML
 		$root_namespaces = VikBookingMydataAadeConstants::getInvoiceNamespaceAttributes();
 		$xml = '<?xml version="1.0" encoding="utf-8" standalone="yes"?>
@@ -2364,18 +2423,7 @@ class VikBookingEInvoicingMydataAade extends VikBookingEInvoicing
 			' . (strcasecmp($settings['params']['country'], 'GR') ? '<name>' . $this->convertSpecials($settings['params']['companyname']) . '</name>' : '') . '
 			' . (!empty($issuer_address_nodes) ? $issuer_address_nodes : '') . '
 		</issuer>
-		<counterpart>
-			' . (!empty($data[0]['customer']['vat']) ? '<vatNumber>' . $this->convertSpecials($data[0]['customer']['vat']) . '</vatNumber>' : '') . '
-			' . (!empty($data[0]['customer']['country_2_code']) ? '<country>' . $this->convertSpecials($data[0]['customer']['country_2_code']) . '</country>' : '') . '
-			<branch>' . $branch . '</branch>
-			' . (!empty($client_name) ? '<name>' . $this->convertSpecials($client_name) . '</name>' : '') . '
-			<address>
-				<street>' . $this->convertSpecials(preg_replace("/[0-9]/", '', $data[0]['customer']['address'])) . '</street>
-				<number>' . preg_replace("/[^0-9]/", '', $data[0]['customer']['address']) . '</number>
-				<postalCode>' . $this->convertSpecials($data[0]['customer']['zip']) . '</postalCode>
-				<city>' . $this->convertSpecials($data[0]['customer']['city']) . '</city>
-			</address>
-		</counterpart>
+		' . $counterpartNode . '
 		<invoiceHeader>
 			<series>' . $series . '</series>
 			<aa>' . $aa_serial_number . '</aa>

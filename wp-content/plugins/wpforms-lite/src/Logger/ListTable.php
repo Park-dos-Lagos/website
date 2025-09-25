@@ -475,7 +475,7 @@ class ListTable extends WP_List_Table {
 			<div class="wpforms-log-popup">
 				<div class="wpforms-log-popup-block">
 					<div class="wpforms-log-popup-label"><?php esc_html_e( 'Log Title', 'wpforms-lite' ); ?></div>
-					<div class="wpforms-log-popup-title">{{ data.title }}</div>
+					<div class="wpforms-log-popup-title">{{{ data.title }}}</div>
 				</div>
 				<div class="wpforms-log-popup-block">
 					<div class="wpforms-log-popup-label"><?php esc_html_e( 'Message', 'wpforms-lite' ); ?></div>
@@ -557,24 +557,6 @@ class ListTable extends WP_List_Table {
 				$this->display();
 			echo '</form>';
 		echo '</div>';
-	}
-
-	/**
-	 * Check if the database table exists.
-	 *
-	 * @since 1.6.4
-	 * @deprecated 1.8.7
-	 *
-	 * @return bool
-	 * @noinspection PhpMissingReturnTypeInspection
-	 * @noinspection ReturnTypeCanBeDeclaredInspection
-	 */
-	public function table_exists() {
-
-		// Deprecated as unused.
-		_deprecated_function( __METHOD__, '1.8.7 of the WPForms plugin' );
-
-		return $this->repository->table_exists();
 	}
 
 	/**

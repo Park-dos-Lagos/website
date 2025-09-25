@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - WP Ghost (Hide My WP Ghost) &#8211; Security &amp; Firewall - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2025-05-09 06:18:42+0000\n"
+"PO-Revision-Date: 2025-07-18 23:04:28+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -11,17 +11,21 @@ msgstr ""
 "Language: pt_BR\n"
 "Project-Id-Version: Plugins - WP Ghost (Hide My WP Ghost) &#8211; Security &amp; Firewall - Stable (latest release)\n"
 
+#: models/Rewrite.php:790
+msgid "Copy Bulk Rules"
+msgstr "Copiar regras em massa"
+
 #: view/Connect.php:40
 msgid "Receive regular emails with essential security updates and practical lessons to enhance your online safety."
 msgstr "Receba e-mails periódicos com atualizações essenciais de segurança e instruções práticas para melhorar sua segurança on-line."
 
-#: models/Rewrite.php:787
+#: models/Rewrite.php:791
 msgid "Learn How To Add the Rules"
 msgstr "Saiba como adicionar as regras"
 
-#: models/Rewrite.php:787
-msgid "WPEngine detected. Add the redirects in the Web Rules Engine %s."
-msgstr "Detectado o WPEngine. Adicione os redirecionamentos no mecanismo de regras da web %s."
+#: models/Rewrite.php:791
+msgid "WPEngine detected. Add the redirects in the Web Rules Engine %s"
+msgstr "Detectado o WPEngine. Adicione os redirecionamentos no mecanismo de regras da web %s"
 
 #: view/Permalinks.php:873
 msgid "Hide both active and inactive themes."
@@ -83,7 +87,7 @@ msgstr "Alterne entre o “Google reCAPTCHA Classic” e o “Google reCAPTCHA E
 msgid "Google reCaptcha Enterprise"
 msgstr "Google reCAPTCHA Enterprise"
 
-#: models/bruteforce/GoogleV2.php:46 models/bruteforce/GoogleV3.php:50
+#: models/bruteforce/GoogleV2.php:46 models/bruteforce/GoogleV3.php:56
 msgid "Invalid ReCaptcha. Please complete reCaptcha."
 msgstr "ReCAPTCHA inválido. Conclua o reCAPTCHA."
 
@@ -186,7 +190,7 @@ msgstr "Proteção do formulário de comentários"
 msgid "Activate the Brute Force protection on sign up form."
 msgstr "Ative a proteção contra força bruta no formulário de cadastro."
 
-#: models/bruteforce/Comments.php:45
+#: models/bruteforce/Comments.php:59
 msgid "&laquo; Back"
 msgstr "&laquo; Voltar"
 
@@ -259,7 +263,7 @@ msgstr "Acesso 2FA"
 msgid "Temporary Login"
 msgstr "Acesso temporário"
 
-#: controllers/Settings.php:887
+#: controllers/Settings.php:888
 msgid "Can't download the plugin."
 msgstr "Não foi possível baixar o plugin."
 
@@ -343,7 +347,7 @@ msgstr "Bloqueie imediatamente os nomes de usuário incorretos no formulário de
 msgid "Wrong Username Protection"
 msgstr "Proteção contra nome de usuário incorreto"
 
-#: controllers/Settings.php:321
+#: controllers/Settings.php:322
 msgid "New Plugin/Theme detected! Update %s settings to hide it. %sClick here%s"
 msgstr "Novo plugin/tema detectado! Atualize as configurações do %s para ocultá-lo. %sClique aqui%s"
 
@@ -351,11 +355,11 @@ msgstr "Novo plugin/tema detectado! Atualize as configurações do %s para ocult
 msgid "You can now turn off '%s' option."
 msgstr "Agora você pode desativar a opção \"%s\"."
 
-#: controllers/Firewall.php:732
+#: controllers/Firewall.php:945
 msgid "Blocked by "
 msgstr "Bloqueado por "
 
-#: controllers/Firewall.php:732
+#: controllers/Firewall.php:945
 msgid "The process was blocked by the website’s firewall."
 msgstr "O processo foi bloqueado pelo firewall do site."
 
@@ -667,7 +671,7 @@ msgstr "Conectar à nuvem"
 msgid "Server Type"
 msgstr "Tipo de servidor"
 
-#: controllers/Settings.php:843
+#: controllers/Settings.php:844
 msgid "Error! No backup to restore."
 msgstr "Erro! Não há backup para restaurar."
 
@@ -848,7 +852,7 @@ msgstr "Carregamento prioritário"
 msgid "Prevent Broken Website Layout"
 msgstr "Evite a quebra do layout do site"
 
-#: models/Rewrite.php:813
+#: models/Rewrite.php:817
 msgid "Flywheel detected. Add the redirects in the Flywheel Redirect rules panel %s."
 msgstr "Flywheel detectado. Adicione os redirecionamentos no painel de regras de redirecionamento do Flywheel %s."
 
@@ -1809,37 +1813,37 @@ msgstr "O arquivo de configuração não é gravável. Crie o arquivo se não ex
 msgid "Plugin Install Process"
 msgstr "Processo de instalação do plugin"
 
-#: models/Rewrite.php:1461
+#: models/Rewrite.php:1459
 msgctxt "password mismatch"
 msgid "Mismatch"
 msgstr "Não corresponde"
 
-#: models/Rewrite.php:1460
+#: models/Rewrite.php:1458
 msgctxt "password strength"
 msgid "Strong"
 msgstr "Forte"
 
-#: models/Rewrite.php:1459
+#: models/Rewrite.php:1457
 msgctxt "password strength"
 msgid "Medium"
 msgstr "Média"
 
-#: models/Rewrite.php:1458
+#: models/Rewrite.php:1456
 msgctxt "password strength"
 msgid "Weak"
 msgstr "Fraca"
 
-#: models/Rewrite.php:1457
+#: models/Rewrite.php:1455
 msgctxt "password strength"
 msgid "Very weak"
 msgstr "Muito fraca"
 
-#: models/Rewrite.php:1456
+#: models/Rewrite.php:1454
 msgctxt "password strength"
 msgid "Password strength unknown"
 msgstr "Força da senha desconhecida"
 
-#: models/Rewrite.php:886
+#: models/Rewrite.php:890
 msgid "Config file is not writable. Create the file if not exists or copy to %s file the following lines: %s"
 msgstr "O arquivo de configuração não é gravável. Crie o arquivo se não existir ou copie para o arquivo %s as seguintes linhas: %s"
 
@@ -2004,41 +2008,41 @@ msgstr "Detecção de CDN ativada. Inclua os caminhos %s e %s nas configuraçõe
 msgid "First, you need to activate the %sLite Mode%s in %s"
 msgstr "Primeiro, você precisa ativar o %sModo Lite%s em %s"
 
-#: models/bruteforce/Google.php:59 models/bruteforce/GoogleV2.php:66
-#: models/bruteforce/GoogleV3.php:71
+#: models/bruteforce/Google.php:63 models/bruteforce/GoogleV2.php:66
+#: models/bruteforce/GoogleV3.php:77
 msgid "%sIncorrect ReCaptcha%s. Please try again."
 msgstr "%sReCaptcha incorreto%s. Tente novamente."
 
-#: models/bruteforce/GoogleV2.php:44 models/bruteforce/GoogleV3.php:48
-#: models/bruteforce/GoogleV3.php:51
+#: models/bruteforce/GoogleV2.php:44 models/bruteforce/GoogleV3.php:54
+#: models/bruteforce/GoogleV3.php:57
 msgid "The response parameter is invalid or malformed."
 msgstr "O parâmetro de resposta é inválido ou está malformado."
 
-#: models/bruteforce/GoogleV2.php:45 models/bruteforce/GoogleV3.php:49
+#: models/bruteforce/GoogleV2.php:45 models/bruteforce/GoogleV3.php:55
 msgid "Empty ReCaptcha. Please complete reCaptcha."
 msgstr "ReCaptcha vazio. Conclua o reCaptcha."
 
-#: models/bruteforce/GoogleV2.php:43 models/bruteforce/GoogleV3.php:47
+#: models/bruteforce/GoogleV2.php:43 models/bruteforce/GoogleV3.php:53
 msgid "The secret parameter is invalid or malformed."
 msgstr "O parâmetro secreto é inválido ou está malformado."
 
-#: models/bruteforce/GoogleV2.php:42 models/bruteforce/GoogleV3.php:46
+#: models/bruteforce/GoogleV2.php:42 models/bruteforce/GoogleV3.php:52
 msgid "The secret parameter is missing."
 msgstr "Está faltando o parâmetro secreto."
 
-#: controllers/Settings.php:802
+#: controllers/Settings.php:803
 msgid "Rollback to Previous Version"
 msgstr "Reverter para a versão anterior"
 
-#: controllers/Settings.php:785
+#: controllers/Settings.php:786
 msgid "Great! The initial values are restored."
 msgstr "Fantástico! Os valores iniciais foram restaurados."
 
-#: controllers/Settings.php:751
+#: controllers/Settings.php:752
 msgid "Paths changed in the existing cache files"
 msgstr "Caminhos alterados nos arquivos de cache existentes"
 
-#: controllers/Settings.php:602
+#: controllers/Settings.php:603
 msgid "Path not allowed. Avoid paths like plugins and themes."
 msgstr "Caminho não permitido. Evite caminhos como plugins e temas."
 
@@ -2046,11 +2050,11 @@ msgstr "Caminho não permitido. Evite caminhos como plugins e temas."
 msgid "Error: You entered the same URL twice in the URL Mapping. We removed the duplicates to prevent any redirect errors."
 msgstr "Erro: Você inseriu o mesmo URL duas vezes no \"Mapeamento de URL\". Removemos os duplicados para evitar quaisquer erros de redirecionamento."
 
-#: controllers/Settings.php:343
+#: controllers/Settings.php:344
 msgid "Your %s %s license expired on %s %s. To keep your website security up to date please make sure you have a valid subscription on %saccount.hidemywpghost.com%s"
 msgstr "Sua licença do %s %s expirou em %s %s. Para manter a segurança do seu site atualizada, certifique-se de ter uma assinatura válida em %saccount.hidemywpghost.com%s"
 
-#: controllers/Settings.php:168
+#: controllers/Settings.php:169
 msgid "There is a configuration error in the plugin. Please Save the settings again and follow the instruction."
 msgstr "Há um erro de configuração no plugin. Salve as configurações novamente e siga as instruções."
 
@@ -2405,40 +2409,40 @@ msgid "Secure WP Paths"
 msgstr "Caminhos seguros do WP"
 
 #: controllers/Overview.php:59 controllers/SecurityCheck.php:92
-#: controllers/Settings.php:182
+#: controllers/Settings.php:183
 msgid "Javascript is disabled on your browser! You need to activate the javascript in order to use %s plugin."
 msgstr "O JavaScript está desativado no seu navegador! Você precisa ativar o JavaScript para usar o plugin %s."
 
-#: classes/Tools.php:2140
+#: classes/Tools.php:2189
 msgid "From: %s <%s>"
 msgstr "De: %s <%s>"
 
-#: classes/Tools.php:2136 controllers/Settings.php:869
+#: classes/Tools.php:2185 controllers/Settings.php:870
 msgid "Best regards"
 msgstr "Atenciosamente"
 
-#: classes/Tools.php:2133 controllers/Settings.php:866
+#: classes/Tools.php:2182 controllers/Settings.php:867
 msgid "Note: If you can`t login to your site, just access this URL"
 msgstr "Observação: Se você não conseguir acessar seu site, basta acessar este URL"
 
-#: classes/Tools.php:2131 controllers/Settings.php:864 view/Permalinks.php:148
+#: classes/Tools.php:2180 controllers/Settings.php:865 view/Permalinks.php:148
 #: view/Permalinks.php:153
 msgid "Login URL"
 msgstr "URL de acesso"
 
-#: classes/Tools.php:2130 controllers/Settings.php:863
+#: classes/Tools.php:2179 controllers/Settings.php:864
 msgid "Admin URL"
 msgstr "URL do administrador"
 
-#: classes/Tools.php:2129 controllers/Settings.php:862
+#: classes/Tools.php:2178 controllers/Settings.php:863
 msgid "Your new site URLs are"
 msgstr "Seus novos URLs do site são"
 
-#: classes/Tools.php:2127 controllers/Settings.php:860
+#: classes/Tools.php:2176 controllers/Settings.php:861
 msgid "Thank you for using %s!"
 msgstr "Agradecemos por estar usando %s!"
 
-#: classes/Tools.php:2126
+#: classes/Tools.php:2175
 msgid "New Login Data"
 msgstr "Novos dados de acesso"
 
@@ -3254,19 +3258,19 @@ msgstr "Força bruta"
 msgid "Permalinks"
 msgstr "Links permanentes"
 
-#: models/Rewrite.php:3222
+#: models/Rewrite.php:3220
 msgid "There has been a critical error on your website."
 msgstr "Ocorreu um erro crítico no seu site."
 
-#: models/Rewrite.php:3220
+#: models/Rewrite.php:3218
 msgid "There has been a critical error on your website. Please check your site admin email inbox for instructions."
 msgstr "Ocorreu um erro crítico no seu site. Verifique a caixa de entrada de e-mail do administrador do seu site para obter instruções."
 
-#: models/Rewrite.php:948
+#: models/Rewrite.php:952
 msgid "Config file is not writable. You have to added it manually at the beginning of the %s file: %s"
 msgstr "O arquivo de configuração não é gravável. Você precisa adicioná-lo manualmente no início do arquivo %s: %s"
 
-#: models/Rewrite.php:813
+#: models/Rewrite.php:817
 msgid "Learn How To Add the Code"
 msgstr "Aprenda como adicionar o código"
 
@@ -3318,15 +3322,15 @@ msgstr "Demonstre sua humanidade:"
 msgid "%sYou failed to correctly answer the math problem.%s Please try again."
 msgstr "%sVocê não conseguiu responder corretamente ao problema de matemática.%s Tente novamente."
 
-#: controllers/Settings.php:837 controllers/Settings.php:840
+#: controllers/Settings.php:838 controllers/Settings.php:841
 msgid "Error! The backup is not valid."
 msgstr "Erro! O backup não é válido."
 
-#: controllers/Settings.php:833
+#: controllers/Settings.php:834
 msgid "Great! The backup is restored."
 msgstr "Ótimo! O backup foi restaurado."
 
-#: controllers/Settings.php:701
+#: controllers/Settings.php:702
 msgid "The list of plugins and themes was updated with success!"
 msgstr "A lista de plugins e temas foi atualizada!"
 
@@ -3851,43 +3855,43 @@ msgstr "Mapeamento"
 msgid "Change Paths"
 msgstr "Alterar caminhos"
 
-#: controllers/Brute.php:193
+#: controllers/Brute.php:191
 msgid "No blacklisted ips"
 msgstr "Nenhum IP na lista de bloqueios"
 
-#: controllers/Brute.php:172
+#: controllers/Brute.php:170
 msgid "Options"
 msgstr "Opções"
 
-#: controllers/Brute.php:171
+#: controllers/Brute.php:169
 msgid "Fail Attempts"
 msgstr "Tentativas com falha"
 
-#: controllers/Brute.php:170 models/ListTable.php:195
+#: controllers/Brute.php:168 models/ListTable.php:195
 msgid "IP"
 msgstr "IP"
 
-#: controllers/Brute.php:169
+#: controllers/Brute.php:167
 msgid "Cnt"
 msgstr "Cnt"
 
-#: controllers/Brute.php:124 controllers/Log.php:46
-#: controllers/Overview.php:659 controllers/Settings.php:412
-#: controllers/Settings.php:434 controllers/Settings.php:478
-#: controllers/Settings.php:532 controllers/Settings.php:566
-#: controllers/Settings.php:609
+#: controllers/Brute.php:122 controllers/Log.php:46
+#: controllers/Overview.php:659 controllers/Settings.php:413
+#: controllers/Settings.php:435 controllers/Settings.php:479
+#: controllers/Settings.php:533 controllers/Settings.php:567
+#: controllers/Settings.php:610
 msgid "Saved"
 msgstr "Salvo"
 
-#: controllers/Brute.php:107
+#: controllers/Brute.php:105
 msgid "You need to set a positive waiting time."
 msgstr "Você precisa definir um tempo de espera positivo."
 
-#: controllers/Brute.php:100
+#: controllers/Brute.php:98
 msgid "You need to set a positive number of attempts."
 msgstr "Você precisa definir um número positivo de tentativas."
 
-#: classes/Tools.php:2073
+#: classes/Tools.php:2122
 msgid "CONNECTION ERROR! Make sure your website can access: %s"
 msgstr "ERRO DE CONEXÃO! Certifique-se de que seu site possa acessar: %s"
 

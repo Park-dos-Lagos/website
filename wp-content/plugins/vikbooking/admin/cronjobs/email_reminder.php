@@ -346,9 +346,11 @@ class VikBookingCronJobEmailReminder extends VBOCronJob
 		{
 			$query->where([
 				$db->qn('o.status') . ' != ' . $db->q('cancelled'),
-				$db->qn('o.total') . ' > 0', 
-				$db->qn('o.totpaid') . ' > 0', 
-				$db->qn('o.totpaid') . ' < ' . $db->qn('o.total'),
+				$db->qn('o.total') . ' > 0',
+				$db->qn('o.totpaid') . ' > 0',
+				// sum the amount paid to the damage deposit amount collected, by using the first non-null value through COALESCE, hence 0 if null
+				'(' . $db->qn('o.totpaid') . ' + COALESCE(' . $db->qn('o.tot_damage_dep') . ', 0)) < ' . $db->qn('o.total'),
+				// exclude OTA bookings due to service fees or occupancy/pass-through taxes that may not be available
 				$db->qn('o.idorderota') . ' IS NULL',
 			]);
 		}
@@ -726,6 +728,7 @@ class VikBookingCronJobEmailReminder extends VBOCronJob
 		$tpl = str_replace('{tot_adults}', $tot_adults, $tpl);
 		$tpl = str_replace('{tot_children}', $tot_children, $tpl);
 		$tpl = str_replace('{tot_guests}', $tot_guests, $tpl);
+		$tpl = str_replace('{customer_pin}', $booking['customer_pin'], $tpl);
 		$rooms_booked_quant = [];
 		foreach ($rooms_booked as $rname => $quant) {
 			$rooms_booked_quant[] = ($quant > 1 ? $quant.' ' : '').$rname;
@@ -733,9 +736,14 @@ class VikBookingCronJobEmailReminder extends VBOCronJob
 		$tpl = str_replace('{rooms_booked}', implode(', ', $rooms_booked_quant), $tpl);
 		$tpl = str_replace('{total}', VikBooking::numberFormat($booking['total']), $tpl);
 		$tpl = str_replace('{total_paid}', VikBooking::numberFormat($booking['totpaid']), $tpl);
+
+		// calculate the outstanding balance
 		$remaining_bal = $booking['total'] - $booking['totpaid'];
+		$damage_deposit_payment = VBORoomHelper::getInstance()->getDamageDepositSplitPayment($booking, $booking_rooms);
+		if ($damage_deposit_payment && !empty($booking['tot_damage_dep'])) {
+			$remaining_bal -= $booking['tot_damage_dep'];
+		}
 		$tpl = str_replace('{remaining_balance}', VikBooking::numberFormat($remaining_bal), $tpl);
-		$tpl = str_replace('{customer_pin}', $booking['customer_pin'], $tpl);
 
 		$use_sid = empty($booking['sid']) && !empty($booking['idorderota']) ? $booking['idorderota'] : $booking['sid'];
 
@@ -834,9 +842,11 @@ class VikBookingCronJobEmailReminder extends VBOCronJob
 	 * 
 	 * @return  string
 	 * 
+	 * @see 	visibility should be public to allow external usage.
+	 * 
 	 * @since   1.5.10
 	 */
-	private function getDefaultTemplate()
+	public function getDefaultTemplate()
 	{	
 		static $tmpl = '';
 
@@ -862,6 +872,8 @@ class VikBookingCronJobEmailReminder extends VBOCronJob
 <p><br></p>
 <p>This is an automated message to remind you the check-in time for your stay: {checkin_date} at 14:00.</p>
 <p>You can always drop your luggage at the Hotel, should you arrive earlier.</p>
+<p><br></p>
+<p><a href="{booking_link}">{booking_link}</a></p>
 <p><br></p>
 <p><br></p>
 <p>Thank you.</p>

@@ -22,7 +22,7 @@ abstract class FormBuilder implements FormBuilderInterface {
 	protected $core;
 
 	/**
-	 * Most Marketing providers will have 'connection' type.
+	 * Most Marketing providers will have a 'connection' type.
 	 * Payment providers may have (or not) something different.
 	 *
 	 * @since 1.4.7
@@ -51,13 +51,18 @@ abstract class FormBuilder implements FormBuilderInterface {
 
 		$this->core = $core;
 
-		if ( ! empty( $_GET['form_id'] ) ) { // phpcs:ignore
-			$this->form_data = wpforms()->obj( 'form' )->get(
-				absint( $_GET['form_id'] ), // phpcs:ignore
-				[
-					'content_only' => true,
-				]
-			);
+		$form_obj = wpforms()->obj( 'form' );
+
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$form_id = isset( $_GET['form_id'] ) ? absint( $_GET['form_id'] ) : 0;
+
+		if ( $form_obj && $form_id ) {
+			$this->form_data = $form_obj->get( $form_id, [ 'content_only' => true ] );
+
+			// Form ID isn't defined for newly created forms.
+			if ( empty( $this->form_data['id'] ) && is_array( $this->form_data ) ) {
+				$this->form_data['id'] = $form_id;
+			}
 		}
 
 		$this->init_hooks();
@@ -97,7 +102,7 @@ abstract class FormBuilder implements FormBuilderInterface {
 	 * @since 1.4.7
 	 * @since 1.6.2 Added sub-templates for conditional logic based on provider.
 	 */
-	public function builder_templates() {
+	public function builder_templates(): void {
 
 		$cl_builder_block =
 			wpforms()->is_pro() ?
@@ -108,7 +113,6 @@ abstract class FormBuilder implements FormBuilderInterface {
 						'parent'     => 'providers',
 						'panel'      => esc_attr( $this->core->slug ),
 						'subsection' => '%connection_id%',
-						'reference'  => esc_html__( 'Marketing provider connection', 'wpforms-lite' ),
 					],
 					false
 				) :
@@ -126,40 +130,6 @@ abstract class FormBuilder implements FormBuilderInterface {
 							<th colspan="3"><?php esc_html_e( 'Form Field Value', 'wpforms-lite' ); ?></th>
 						</tr>
 					</thead>
-					<# if ( data.isSupportSubfields ) {
-						const extendedFieldsList = {};
-						let counter = 0;
-						_.each( data.fields, function( field, key ) {
-
-							if ( _.isEmpty( field ) || ! _.has( field, 'id' ) || ! _.has( field, 'type' ) ) {
-								return;
-							}
-
-							if ( 'name' !== field.type || ! _.has( field, 'format' ) ) {
-								extendedFieldsList[counter++] = field;
-
-								return;
-							}
-
-							field.id = field.id.toString();
-
-							const fieldLabel = ! _.isUndefined( field.label ) && field.label.toString().trim() !== '' ?
-								field.label.toString().trim() :
-								wpforms_builder.field + ' #' + key;
-
-							// Add data for Name field in "extended" format (Full, First, Middle and Last).
-							_.each( wpforms_builder.name_field_formats, function( formatLabel, valueSlug ) {
-								if ( -1 !== field.format.indexOf( valueSlug ) || valueSlug === 'full' ) {
-									extendedFieldsList[counter++] = {
-										id: field.id + '.' + valueSlug,
-										label: fieldLabel + ' (' + formatLabel + ')',
-										format: field.format,
-									};
-								}
-							} );
-						} );
-						data.fields = extendedFieldsList;
-					} #>
 					<tbody>
 						<# if ( ! _.isEmpty( data.connection.fields_meta ) ) { #>
 							<# _.each( data.connection.fields_meta, function( item, meta_id ) { #>
@@ -193,14 +163,18 @@ abstract class FormBuilder implements FormBuilderInterface {
 											<option value=""><?php esc_html_e( '--- Select Form Field ---', 'wpforms-lite' ); ?></option>
 
 											<# _.each( data.fields, function( field, key ) { #>
-												<option value="{{ field.id }}"
-														<# if ( field.id.toString() === item.field_id.toString() ) { #>selected="selected"<# } #>
-												>
-												<# if ( ! _.isUndefined( field.label ) && field.label.toString().trim() !== '' ) { #>
-													{{ field.label.toString().trim() }}
-												<# } else { #>
-													{{ wpforms_builder.field + ' #' + key }}
-												<# } #>
+												<# item.field_id = item.field_id.toString();
+												field.id = field.id.toString();
+												isSelected = field.id === item.field_id
+													<?php // BC: Previously saved name fields don't have the `.full` suffix in DB. ?>
+													|| ( ! item.field_id.includes('.') && field.id === item.field_id + '.full' );
+												#>
+												<option value="{{ field.id }}"<# if ( isSelected ) { #> selected="selected"<# } #>>
+													<# if ( ! _.isUndefined( field.label ) && field.label.toString().trim() !== '' ) { #>
+														{{ field.label.toString().trim() }}
+													<# } else { #>
+														{{ wpforms_builder.field + ' #' + key }}
+													<# } #>
 												</option>
 											<# } ); #>
 										</select>
@@ -287,7 +261,7 @@ abstract class FormBuilder implements FormBuilderInterface {
 			<?php echo $cl_builder_block; // phpcs:ignore ?>
 		</script>
 
-		<!-- DEPRECATED: Should be removed when we will make changes in our addons. -->
+		<!-- DEPRECATED: Should be removed when we make changes in our addons. -->
 		<script type="text/html" id="tmpl-wpforms-providers-builder-content-connection-conditionals">
 			<?php echo $cl_builder_block; // phpcs:ignore ?>
 		</script>
@@ -328,7 +302,7 @@ abstract class FormBuilder implements FormBuilderInterface {
 	 *
 	 * @since 1.4.7
 	 */
-	public function process_ajax() { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.TooHigh
+	public function process_ajax(): void {
 
 		// Run a security check.
 		check_ajax_referer( 'wpforms-builder', 'nonce' );
@@ -359,10 +333,10 @@ abstract class FormBuilder implements FormBuilderInterface {
 		$revision  = $revisions ? $revisions->get_revision() : null;
 
 		if ( $revision ) {
-			// Setup form data based on the revision_id, that we got from AJAX request.
+			// Set up form data based on the revision_id that we got from AJAX request.
 			$this->form_data = wpforms_decode( $revision->post_content );
 		} else {
-			// Setup form data based on the ID, that we got from AJAX request.
+			// Set up form data based on the ID that we got from AJAX request.
 			$form_handler    = wpforms()->obj( 'form' );
 			$this->form_data = $form_handler ? $form_handler->get( $form_id, [ 'content_only' => true ] ) : [];
 		}
@@ -475,10 +449,11 @@ abstract class FormBuilder implements FormBuilderInterface {
 	 * @param string $name         Provider name.
 	 * @param string $icon         Provider icon.
 	 */
-	public static function display_content_default_screen( $is_connected, $slug, $name, $icon ) {
+	public static function display_content_default_screen( $is_connected, $slug, $name, $icon ): void {
 
-		// Hide provider default settings screen when it's already connected.
+		// Hide the provider default settings screen when it's already connected.
 		$class = $is_connected ? ' wpforms-hidden' : '';
+
 		?>
 		<div class="wpforms-builder-provider-connections-default<?php echo esc_attr( $class ); ?>">
 			<img src="<?php echo esc_url( $icon ); ?>" alt="">
@@ -509,13 +484,16 @@ abstract class FormBuilder implements FormBuilderInterface {
 	 *
 	 * @since 1.8.9
 	 */
-	protected function display_lock_field() {
+	protected function display_lock_field(): void {
 
 		if ( ! $this->is_lock_field_required( $this->core->slug ) ) {
 			return;
 		}
+
 		?>
-		<input type="hidden" class="wpforms-builder-provider-connections-save-lock" value="1" name="providers[<?php echo esc_attr( $this->core->slug ); ?>][__lock__]">
+		<input
+				type="hidden" class="wpforms-builder-provider-connections-save-lock" value="1"
+				name="providers[<?php echo esc_attr( $this->core->slug ); ?>][__lock__]">
 		<?php
 	}
 
@@ -574,7 +552,7 @@ abstract class FormBuilder implements FormBuilderInterface {
 	protected function is_lock_field_required( string $provider ): bool {
 
 		// Compatibility with the legacy Drip addon versions where the lock field was unnecessary.
-		// Uncanny Automator do not have a lock field.
+		// Uncanny Automator does not have a lock field.
 		if ( in_array( $provider, [ 'uncanny-automator', 'drip' ], true ) ) {
 			return false;
 		}
@@ -584,19 +562,21 @@ abstract class FormBuilder implements FormBuilderInterface {
 
 	/**
 	 * Temporary fix to remove __lock__ field with value 1 from the form post_content.
-	 * In the future, it will be handled in save_form() method in the core for all providers.
+	 * In the future, it will be handled in the save_form () method in the core for all providers.
 	 *
 	 * @since 1.8.9
 	 *
-	 * @param array $form Form array, usable with wp_update_post.
-	 * @param array $data Data retrieved from $_POST and processed.
-	 * @param array $args Update form arguments.
+	 * @param array|mixed $form Form array, usable with wp_update_post.
+	 * @param array       $data Data retrieved from $_POST and processed.
+	 * @param array       $args Update form arguments.
 	 *
 	 * @return array
 	 * @noinspection PhpMissingParamTypeInspection
 	 * @noinspection PhpUnusedParameterInspection
 	 */
-	public function remove_connection_locks( $form, $data, $args ) {
+	public function remove_connection_locks( $form, $data, $args ): array {
+
+		$form = (array) $form;
 
 		$form_data = json_decode( stripslashes( $form['post_content'] ), true );
 
@@ -617,13 +597,54 @@ abstract class FormBuilder implements FormBuilderInterface {
 	}
 
 	/**
+	 * Received field values for fields with multiple choices, e.g., multi-select.
+	 * Connection Data has only the last saved field option.
+	 * So, we should receive data from super global $_POST and receive all submitted options instead.
+	 * WARNING: Sanitization of these values is required.
+	 *
+	 * @since 1.9.7
+	 *
+	 * @param string $name            Field name.
+	 * @param array  $connection_data Connection data.
+	 *
+	 * @return array
+	 */
+	protected function get_multiple_option_field( string $name, array $connection_data ): array {
+
+		// The nonce checked in the `wpforms_save_form` function.
+		// phpcs:disable WordPress.Security.NonceVerification
+		// When we duplicate a form the `$_POST['data']` is empty,
+		// we shouldn't update the field and use copied data.
+		if ( empty( $_POST['data'] ) || empty( $connection_data['id'] ) ) {
+			return isset( $connection_data[ $name ] ) ? (array) $connection_data[ $name ] : [];
+		}
+
+		$connection_id = $connection_data['id'];
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		$form_post = json_decode( wp_unslash( $_POST['data'] ), true ) ?? [];
+		$full_name = "providers[{$this->core->slug}][$connection_id][$name][]";
+		$values    = [];
+		// phpcs:enable WordPress.Security.NonceVerification
+
+		foreach ( $form_post as $post_pair ) {
+			if ( empty( $post_pair['name'] ) || $post_pair['name'] !== $full_name ) {
+				continue;
+			}
+
+			$values[] = $post_pair['value'];
+		}
+
+		return $values;
+	}
+
+	/**
 	 * Sanitize custom fields.
 	 *
 	 * @since 1.9.3
 	 *
 	 * @param array $connection Connection data.
 	 */
-	protected function sanitize_connection_fields_meta( array &$connection ) {
+	protected function sanitize_connection_fields_meta( array &$connection ): void {
 
 		if ( ! isset( $connection['fields_meta'] ) ) {
 			return;
@@ -642,7 +663,7 @@ abstract class FormBuilder implements FormBuilderInterface {
 				continue;
 			}
 
-			// Field ID can contain subfield, e.g. `1.first`.
+			// Field ID can contain a subfield, e.g. `1.first`.
 			$field_id = sanitize_text_field( $field['field_id'] );
 			$name     = sanitize_text_field( $field['name'] );
 
@@ -657,6 +678,8 @@ abstract class FormBuilder implements FormBuilderInterface {
 				'field_id' => $field_id,
 			];
 		}
+
+		$connection['fields_meta'] = array_values( $connection['fields_meta'] );
 	}
 
 	/**
@@ -666,7 +689,7 @@ abstract class FormBuilder implements FormBuilderInterface {
 	 *
 	 * @param array $connection Connection data.
 	 */
-	protected function sanitize_connection_conditionals( array &$connection ) {
+	protected function sanitize_connection_conditionals( array &$connection ): void {
 
 		if ( ! isset( $connection['conditionals'] ) ) {
 			return;
@@ -702,7 +725,7 @@ abstract class FormBuilder implements FormBuilderInterface {
 	 *
 	 * @param array $rule Conditional logic rule.
 	 */
-	private function sanitize_connection_conditional_rule( array &$rule ) {
+	private function sanitize_connection_conditional_rule( array &$rule ): void {
 
 		if ( ! isset( $rule['field'], $rule['operator'] ) ) {
 			$rule = [];
@@ -738,6 +761,8 @@ abstract class FormBuilder implements FormBuilderInterface {
 	 * a link to the connection settings page for troubleshooting.
 	 *
 	 * @since 1.9.5
+	 *
+	 * @noinspection HtmlUnknownTarget
 	 */
 	protected function builder_error_template(): void {
 
@@ -752,7 +777,7 @@ abstract class FormBuilder implements FormBuilderInterface {
 					printf(
 						wp_kses( /* translators: %1$s - Documentation URL. */
 							__(
-								'Something went wrong and we can’t connect to the provider. Please check your <a href="%s" target="_blank" rel="noopener noreferrer">connection settings</a>.',
+								'Something went wrong, and we can’t connect to the provider. Please check your <a href="%s" target="_blank" rel="noopener noreferrer">connection settings</a>.',
 								'wpforms-lite'
 							),
 							[

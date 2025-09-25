@@ -69,7 +69,7 @@ $days_diff = (int)ceil(($tots - $fromts) / 86400);
 </form>
 
 <script type="text/javascript">
-jQuery(document).ready(function() {
+jQuery(function() {
 	jQuery('#dfrom').val('<?php echo date($usedf, $fromts); ?>').attr('data-alt-value', '<?php echo date($usedf, $fromts); ?>');
 	jQuery('#dto').val('<?php echo date($usedf, $tots); ?>').attr('data-alt-value', '<?php echo date($usedf, $tots); ?>');
 });
@@ -450,118 +450,118 @@ foreach ($nights_donut_datasets as $k => $v) {
 //
 ?>
 <script type="text/javascript">
-var data = {
-	labels: <?php echo json_encode($months_labels); ?>,
-	datasets: <?php echo json_encode($datasets); ?>,
-};
-var donut_data = {
-	labels: <?php echo json_encode($donut_labels); ?>,
-	datasets: <?php echo json_encode(array($new_donut_datasets)); ?>,
-};
-var nights_data = {
-	labels: <?php echo json_encode($months_labels); ?>,
-	datasets: <?php echo json_encode($nights_datasets); ?>
-};
-var nights_donut_data = {
-	labels: <?php echo json_encode($nights_donut_labels); ?>,
-	datasets: <?php echo json_encode(array($new_nights_donut_datasets)); ?>,
-};
-
-var options = {
-	responsive: true,
-	legend: {
-		display: false,
-	},
-	legendCallback: function (chart) {
-		// Return the HTML string here.
-		var text = [];
-		text.push("<ul class=\"chart-line-legend\">");
-		for (var i = 0; i < chart.data.datasets.length; i++) {
-			text.push("<li>");
-			text.push("<span class=\"legend-entry\" style=\"background-color: " + chart.data.datasets[i].backgroundColor + "\"></span>");
-			text.push("<span class=\"legend-label\">" + chart.data.datasets[i].label + "</span>");
-			text.push("</li>");
-		}
-		text.push("</ul>");
-		return text.join("");
-	},
-	// tooltip handling
-	tooltips: {
-		// tooltip callbacks are used to customize default texts
-		callbacks: {
-			// format the tooltip text displayed when hovering a point
-			label: function(tooltipItem, data) {
-				// format value as currency with channel name
-				var chname = data.datasets[tooltipItem.datasetIndex].label;
-				var label = chname + ': <?php echo $currencysymb; ?> ' + tooltipItem.value;
-				return ' ' + label;
-			},
-			// change label colors because, by default, the legend background is blank
-			labelColor: function(tooltipItem, chart) {
-				// get tooltip item meta data
-				var meta = chart.data.datasets[tooltipItem.datasetIndex];
-				return {
-					// use white border
-					borderColor: 'rgb(0,0,0)',
-					// use same item background color
-					backgroundColor: meta.borderColor,
-				};
-			},
-		},
-	},
-};
-
-var pie_options = {
-	responsive: true,
-	legend: {
-		display: false,
-	},
-	legendCallback: function (chart) {
-		// Return the HTML string here.
-		var text = [];
-		text.push("<ul class=\"chart-line-legend chart-pie-legend\">");
-		for (var i = 0; i < chart.data.labels.length; i++) {
-			text.push("<li>");
-			text.push("<span class=\"legend-entry\" style=\"background-color: " + chart.data.datasets[0].backgroundColor[i] + "\"></span>");
-			text.push("<span class=\"legend-label\">" + chart.data.labels[i] + "</span>");
-			text.push("</li>");
-		}
-		text.push("</ul>");
-		return text.join("");
-	},
-	// tooltip handling
-	tooltips: {
-		// tooltip callbacks are used to customize default texts
-		callbacks: {
-			// format the tooltip text displayed when hovering a point
-			label: function(tooltipItem, data) {
-				// keep default label
-				var label = data.labels[tooltipItem.index] || '';
-				if (label) {
-					label += ': ';
-				}
-				label += ' <?php echo $currencysymb; ?> ' + data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
-				return ' ' + label;
-			},
-			// change label colors because, by default, the legend background is blank
-			labelColor: function(tooltipItem, chart) {
-				// get tooltip item meta data
-				var meta = chart.data.datasets[tooltipItem.datasetIndex];
-				return {
-					// use white border
-					borderColor: 'rgb(0,0,0)',
-					// use same item background color
-					backgroundColor: meta.backgroundColor[tooltipItem.index],
-				};
-			},
-		},
-	},
-	animation: {
-		duration: 1000,
-	},
-};
-
 jQuery(function() {
+	var data = {
+		labels: <?php echo json_encode($months_labels); ?>,
+		datasets: <?php echo json_encode($datasets); ?>,
+	};
+	var donut_data = {
+		labels: <?php echo json_encode($donut_labels); ?>,
+		datasets: <?php echo json_encode(array($new_donut_datasets)); ?>,
+	};
+	var nights_data = {
+		labels: <?php echo json_encode($months_labels); ?>,
+		datasets: <?php echo json_encode($nights_datasets); ?>
+	};
+	var nights_donut_data = {
+		labels: <?php echo json_encode($nights_donut_labels); ?>,
+		datasets: <?php echo json_encode(array($new_nights_donut_datasets)); ?>,
+	};
+
+	var options = {
+		responsive: true,
+		legend: {
+			display: false,
+		},
+		legendCallback: function (chart) {
+			// Return the HTML string here.
+			var text = [];
+			text.push("<ul class=\"chart-line-legend\">");
+			for (var i = 0; i < chart.data.datasets.length; i++) {
+				text.push("<li>");
+				text.push("<span class=\"legend-entry\" style=\"background-color: " + chart.data.datasets[i].backgroundColor + "\"></span>");
+				text.push("<span class=\"legend-label\">" + chart.data.datasets[i].label + "</span>");
+				text.push("</li>");
+			}
+			text.push("</ul>");
+			return text.join("");
+		},
+		// tooltip handling
+		tooltips: {
+			// tooltip callbacks are used to customize default texts
+			callbacks: {
+				// format the tooltip text displayed when hovering a point
+				label: function(tooltipItem, data) {
+					// format value as currency with channel name
+					var chname = data.datasets[tooltipItem.datasetIndex].label;
+					var label = chname + ': <?php echo $currencysymb; ?> ' + tooltipItem.value;
+					return ' ' + label;
+				},
+				// change label colors because, by default, the legend background is blank
+				labelColor: function(tooltipItem, chart) {
+					// get tooltip item meta data
+					var meta = chart.data.datasets[tooltipItem.datasetIndex];
+					return {
+						// use white border
+						borderColor: 'rgb(0,0,0)',
+						// use same item background color
+						backgroundColor: meta.borderColor,
+					};
+				},
+			},
+		},
+	};
+
+	var pie_options = {
+		responsive: true,
+		legend: {
+			display: false,
+		},
+		legendCallback: function (chart) {
+			// Return the HTML string here.
+			var text = [];
+			text.push("<ul class=\"chart-line-legend chart-pie-legend\">");
+			for (var i = 0; i < chart.data.labels.length; i++) {
+				text.push("<li>");
+				text.push("<span class=\"legend-entry\" style=\"background-color: " + chart.data.datasets[0].backgroundColor[i] + "\"></span>");
+				text.push("<span class=\"legend-label\">" + chart.data.labels[i] + "</span>");
+				text.push("</li>");
+			}
+			text.push("</ul>");
+			return text.join("");
+		},
+		// tooltip handling
+		tooltips: {
+			// tooltip callbacks are used to customize default texts
+			callbacks: {
+				// format the tooltip text displayed when hovering a point
+				label: function(tooltipItem, data) {
+					// keep default label
+					var label = data.labels[tooltipItem.index] || '';
+					if (label) {
+						label += ': ';
+					}
+					label += ' <?php echo $currencysymb; ?> ' + data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+					return ' ' + label;
+				},
+				// change label colors because, by default, the legend background is blank
+				labelColor: function(tooltipItem, chart) {
+					// get tooltip item meta data
+					var meta = chart.data.datasets[tooltipItem.datasetIndex];
+					return {
+						// use white border
+						borderColor: 'rgb(0,0,0)',
+						// use same item background color
+						backgroundColor: meta.backgroundColor[tooltipItem.index],
+					};
+				},
+			},
+		},
+		animation: {
+			duration: 1000,
+		},
+	};
+
 	var ctx = document.getElementById("vbo-graphstats-left-canv").getContext("2d");
 	var vboLineChart = new Chart(ctx, {
 		type: 'line',

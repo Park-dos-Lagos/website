@@ -1404,7 +1404,7 @@ if (!empty($payments) && !count($this->mod_booking)) {
 		<div class="vboconfirmbottom">
 			<input type="submit" name="saveorder" value="<?php echo count($this->mod_booking) ? JText::_('VBOMODBOOKCONFIRMBTN') : JText::_('VBORDCONFIRM'); ?>" class="btn booknow vbo-pref-color-btn"/>
 			<div class="goback">
-				<a class="vbo-goback-link " href="<?php echo JRoute::_('index.php?option=com_vikbooking&task=showprc&checkin='.$first.'&checkout='.$second.'&roomsnum='.$roomsnum.'&days='.$days.($is_package === true ? '&pkg_id='.$pkg['id'] : '').$peopleforlink.$roomoptforlink.(!empty($pitemid) ? '&Itemid='.$pitemid : ''), false); ?>"><?php echo JText::_('VBBACK'); ?></a>
+				<a class="vbo-goback-link vbo-pref-color-btn-secondary" href="<?php echo JRoute::_('index.php?option=com_vikbooking&task=showprc&checkin='.$first.'&checkout='.$second.'&roomsnum='.$roomsnum.'&days='.$days.($is_package === true ? '&pkg_id='.$pkg['id'] : '').$peopleforlink.$roomoptforlink.(!empty($pitemid) ? '&Itemid='.$pitemid : ''), false); ?>"><?php echo JText::_('VBBACK'); ?></a>
 			</div>
 		</div>
 		

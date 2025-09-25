@@ -36,7 +36,7 @@ function wpforms_show_fields_options_setting(): bool {
  *
  * @return false|array
  */
-function wpforms_get_field_dynamic_choices( $field, $form_id, $form_data = [] ) { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.TooHigh
+function wpforms_get_field_dynamic_choices( $field, $form_id, $form_data = [] ) {
 
 	if ( empty( $field['dynamic_choices'] ) ) {
 		return false;
@@ -114,7 +114,7 @@ function wpforms_get_field_dynamic_choices( $field, $form_id, $form_data = [] ) 
  *
  * @return array
  */
-function wpforms_get_hierarchical_object( $args = [], $flat = false ): array { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.MaxExceeded, Generic.Metrics.NestingLevel.MaxExceeded
+function wpforms_get_hierarchical_object( $args = [], $flat = false ): array { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.TooHigh, Generic.Metrics.NestingLevel.MaxExceeded
 
 	if ( empty( $args['taxonomy'] ) && empty( $args['post_type'] ) ) {
 		return [];
@@ -379,7 +379,7 @@ function wpforms_get_term_name( WP_Term $term ): string {
  *
  * @return false|array Page Break details or false.
  */
-function wpforms_get_pagebreak_details( $form = false ) { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.MaxExceeded
+function wpforms_get_pagebreak_details( $form = false ) { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.TooHigh
 
 	if ( ! wpforms()->is_pro() ) {
 		return false;
@@ -586,17 +586,17 @@ function wpforms_get_choices_value( array $field, array $form_data ): string {
 
 	$show_values = ! empty( $form_data['fields'][ $field['id'] ]['show_values'] );
 	$is_dynamic  = ! empty( $field['dynamic'] );
-	$value       = $field['value'];
+	$value       = $field['value'] ?? '';
 
 	if ( $show_values && ! $is_dynamic && ! wpforms_is_empty_string( $field['value_raw'] ?? '' ) ) {
 		$value = $field['value_raw'];
 	}
 
 	if ( $is_dynamic ) {
-		$value = $field['value_raw'] ?? ( $field['value'] ?? '' );
+		$value = $field['value_raw'] ?? $value;
 	}
 
-	return $value;
+	return (string) $value;
 }
 
 /**
@@ -664,4 +664,25 @@ function wpforms_get_column_width( array $column ): float {
 	}
 
 	return (float) $preset_width;
+}
+
+/**
+ * Parse a field ID into its components.
+ *
+ * @since 1.9.6
+ *
+ * @param string|int $field_id Field ID to parse.
+ *
+ * @return array Parsed field components.
+ */
+function wpforms_parse_field_id( $field_id ): array {
+
+	$field_parts = (array) explode( '.', (string) $field_id );
+	$field_id    = (int) $field_parts[0];
+	$field_key   = isset( $field_parts[1] ) && $field_parts[1] !== 'full' ? $field_parts[1] : 'value';
+
+	return [
+		'id'  => $field_id,
+		'key' => $field_key,
+	];
 }

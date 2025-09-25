@@ -295,6 +295,7 @@ h5,
 h6 {
   margin-bottom: 30px;
   font-family: var(--headingsfontfamily), var(--nv-fallback-ff);
+  color: var(--headingcolor, inherit);
 }
 
 p {
@@ -490,17 +491,19 @@ td {
 
 blockquote {
   margin: 40px 0;
-  border-color: var(--nv-text-color);
-  border-style: solid;
+  border: solid var(--nv-text-color);
   border-width: 0 4px 0 0;
   padding: 0 20px 0 0;
 }
 blockquote p {
   margin-bottom: 10px;
+  font-size: 1.25em;
+  font-style: italic;
 }
 blockquote cite {
   font-style: normal;
   font-size: 0.9em !important;
+  font-weight: 600;
 }
 blockquote.has-text-align-center {
   border: 0;
@@ -510,30 +513,23 @@ blockquote.has-text-align-right {
   border-width: 0 0 0 4px;
   padding: 0 0 0 20px;
 }
-blockquote.is-style-large {
+blockquote.is-style-plain {
   border: 0;
   padding: 0;
 }
-blockquote.is-style-large.wp-block-quote > p {
-  margin-bottom: 20px;
-  font-style: normal;
-  font-size: 1.25em;
-}
 
 .wp-block-pullquote {
-  margin-top: 30px;
-  margin-bottom: 30px;
-  border-top: 4px solid var(--nv-text-color);
-  border-bottom: 4px solid var(--nv-text-color);
+  margin: 30px 0;
+  border: solid var(--nv-text-color);
+  border-width: 4px 0;
   padding: 30px 20px;
 }
 .wp-block-pullquote p {
   font-size: 1.5em !important;
 }
 .wp-block-pullquote blockquote {
-  padding-right: 0;
-  border-right: 0;
-  margin: 0;
+  padding: 0;
+  border: 0;
 }
 .wp-block-pullquote.alignleft {
   text-align: right;
@@ -553,6 +549,11 @@ blockquote.is-style-large.wp-block-quote > p {
   background-color: inherit;
   font-size: 1.25em;
   border: 0;
+}
+
+.wp-block-loginout form p {
+  display: grid;
+  gap: 5px;
 }
 
 .has-neve-link-color-color {
@@ -654,6 +655,7 @@ blockquote.is-style-large.wp-block-quote > p {
   line-height: var(--bodylineheight);
   letter-spacing: var(--bodyletterspacing);
   text-transform: var(--texttransform, var(--bodytexttransform));
+  color: inherit;
   margin: 0;
 }
 .site-logo small {
@@ -757,8 +759,8 @@ blockquote.is-style-large.wp-block-quote > p {
   white-space: normal;
 }
 .header-menu-sidebar .nav-ul .caret svg {
-  width: 1em;
-  height: 1em;
+  width: var(--smiconsize, 1em);
+  height: var(--smiconsize, 1em);
 }
 .header-menu-sidebar .nav-ul .caret-wrap {
   margin: -15px 0;
@@ -1665,38 +1667,37 @@ body .layout-grid > .article-content-col,
 ul.page-numbers {
   display: flex;
   flex-wrap: wrap;
+  gap: 20px;
 }
-ul.page-numbers li {
-  margin-bottom: 15px;
-}
-ul.page-numbers input[type=submit] {
+
+.page-numbers [type=submit] {
   all: unset;
   cursor: pointer;
 }
-ul.page-numbers form {
+.page-numbers form {
   display: flex;
+  gap: 10px;
 }
-ul.page-numbers .page-input {
+.page-numbers .page-input {
   line-height: 1;
-  margin-left: 10px;
   padding: 8px 15px;
   font-size: var(--bodyfontsize);
+  width: 75px;
 }
-ul.page-numbers a,
-ul.page-numbers span,
-ul.page-numbers input[type=submit] {
+.page-numbers a,
+.page-numbers span,
+.page-numbers input[type=submit] {
   line-height: 1;
-  margin-left: 20px;
   background: var(--nv-light-bg);
   border-radius: 3px;
   padding: 12px 15px;
-  color: var(--nv-text-color);
+  color: inherit;
   display: block;
 }
-ul.page-numbers .dots {
+.page-numbers .dots {
   background: 100%;
 }
-ul.page-numbers .current {
+.page-numbers .current {
   background: var(--nv-primary-accent);
   color: var(--nv-text-dark-bg);
 }

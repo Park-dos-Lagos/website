@@ -184,7 +184,7 @@ if (!empty($this->ord['channel'])) {
 						<button type="button" class="btn btn-large vbo-pref-color-btn" onclick="vboConfirmGenerate(1);"><i class="vboicn-checkmark"></i> <?php echo JText::_('VBOSIGNATURESAVE'); ?></button>
 					</div>
 					<div class="vbo-signature-cmd">
-						<button type="button" class="btn btn-large " onclick="vboClearSignPad();"><i class="vboicn-bin"></i> <?php echo JText::_('VBOSIGNATURECLEAR'); ?></button>
+						<button type="button" class="btn btn-large vbo-pref-color-btn-secondary" onclick="vboClearSignPad();"><i class="vboicn-bin"></i> <?php echo JText::_('VBOSIGNATURECLEAR'); ?></button>
 					</div>
 				</div>
 			</div>

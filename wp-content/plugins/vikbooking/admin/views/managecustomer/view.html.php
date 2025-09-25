@@ -15,25 +15,26 @@ jimport('joomla.application.component.view');
 
 class VikBookingViewManagecustomer extends JViewVikBooking
 {
-	function display($tpl = null)
+	public function display($tpl = null)
 	{
 		// Set the toolbar
 		$this->addToolBar();
+
+		$dbo = JFactory::getDbo();
+
+		$customer = [];
 
 		$cid = VikRequest::getVar('cid', array(0));
 		if (!empty($cid[0])) {
 			$idcust = $cid[0];
 		}
 
-		$customer = array();
-		$dbo = JFactory::getDbo();
 		if (!empty($cid[0])) {
-			$q = "SELECT *, (SELECT COUNT(*) FROM `#__vikbooking_customers_orders` WHERE `#__vikbooking_customers_orders`.`idcustomer`=`#__vikbooking_customers`.`id`) AS `tot_bookings` FROM `#__vikbooking_customers` WHERE `id`=".(int)$idcust.";";
+			$q = "SELECT *, (SELECT COUNT(*) FROM `#__vikbooking_customers_orders` WHERE `#__vikbooking_customers_orders`.`idcustomer`=`#__vikbooking_customers`.`id`) AS `tot_bookings` FROM `#__vikbooking_customers` WHERE `id`=" . (int) $idcust . ";";
 			$dbo->setQuery($q);
-			$dbo->execute();
-			if ($dbo->getNumRows() == 1) {
-				$customer = $dbo->loadAssoc();
-			} else {
+			$customer = (array) $dbo->loadAssoc();
+
+			if (!$customer) {
 				$mainframe = JFactory::getApplication();
 				$mainframe->redirect("index.php?option=com_vikbooking&task=customers");
 				exit;
@@ -41,12 +42,11 @@ class VikBookingViewManagecustomer extends JViewVikBooking
 		}
 		$q = "SELECT * FROM `#__vikbooking_countries` ORDER BY `#__vikbooking_countries`.`country_name` ASC;";
 		$dbo->setQuery($q);
-		$dbo->execute();
-		$countries = $dbo->getNumRows() ? $dbo->loadAssocList() : array();
-		
+		$countries = $dbo->loadAssocList();
+
 		$this->customer = $customer;
 		$this->countries = $countries;
-		
+
 		// Display the template
 		parent::display($tpl);
 	}

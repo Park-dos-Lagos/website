@@ -685,7 +685,7 @@ if ($geo->isSupported() && $geo_info_complete === true && count($rooms_geo_param
 		}
 	}
 
-	jQuery(document).ready(function() {
+	jQuery(function() {
 
 		// init interactive geo map with markers
 		vboInitInteractiveGeoMap();

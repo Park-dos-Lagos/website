@@ -2,3 +2,6 @@ wp-config.php
 .htaccess*
 .codacy
 .codacy/logs/codacy-cli.log
+SQL
+*.pem 
+*.key

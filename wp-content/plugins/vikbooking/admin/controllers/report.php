@@ -49,10 +49,7 @@ class VikBookingControllerReport extends JControllerAdmin
             'instance' => $report_obj,
         ];
 
-        $form_html = JLayoutHelper::render('reports.report.settings', $layout_data, null, [
-            'component' => 'com_vikbooking',
-            'client'    => 'administrator',
-        ]);
+        $form_html = JLayoutHelper::render('reports.report.settings', $layout_data);
 
         // send the response to output
         VBOHttpDocument::getInstance($app)->json([
@@ -107,7 +104,7 @@ class VikBookingControllerReport extends JControllerAdmin
         }
 
         // save report settings
-        $report_obj->saveSettings($data, $merge = true, $use_profile_id);
+        $report_obj->saveSettings($data, $merge = true, (string) $use_profile_id);
 
         // send the response to output
         VBOHttpDocument::getInstance($app)->json([

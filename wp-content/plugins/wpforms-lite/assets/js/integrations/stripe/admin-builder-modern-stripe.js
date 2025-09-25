@@ -41,6 +41,8 @@ var WPFormsStripeModernBuilder = window.WPFormsStripeModernBuilder || ( function
 		 * @since 1.8.4
 		 */
 		ready() {
+			app.customMetadataActions();
+
 			if ( app.isLegacySettings() ) {
 				return;
 			}
@@ -73,6 +75,50 @@ var WPFormsStripeModernBuilder = window.WPFormsStripeModernBuilder || ( function
 		},
 
 		/**
+		 * Process custom metadata actions.
+		 *
+		 * @since 1.9.6
+		 */
+		customMetadataActions() {
+			$( '#wpforms-panel-payments' )
+				.on( 'focusout', '.wpforms-panel-field-stripe-custom-metadata-meta-key', function() {
+					// Remove invalid characters for meta key.
+					$( this ).val( $( this ).val().replace( /[^\p{L}\p{N}_-]/gu, '' ) );
+				} )
+				// Add metadata row.
+				.on( 'click', '.wpforms-panel-content-section-stripe-custom-metadata-add', function( e ) {
+					e.preventDefault();
+
+					const $table = $( this ).parents( '.wpforms-panel-content-section-stripe-custom-metadata-table' ),
+						$lastRow = $table.find( 'tr' ).last(),
+						$clone = $lastRow.clone( true ),
+						lastID = $lastRow.data( 'key' ),
+						nextID = lastID + 1;
+
+					// Update row key ID.
+					$clone.attr( 'data-key', nextID );
+
+					// Increment the counter.
+					$clone.html( $clone.html().replaceAll( '[' + lastID + ']', '[' + nextID + ']' ).replaceAll( '-' + lastID + '-', '-' + nextID + '-' ) );
+
+					// Clear values.
+					$clone.find( 'select, input' ).val( '' );
+
+					// Re-enable "delete" button.
+					$clone.find( '.wpforms-panel-content-section-stripe-custom-metadata-delete' ).removeClass( 'hidden' );
+
+					// Put it back to the table.
+					$table.find( 'tbody' ).append( $clone.get( 0 ) );
+				} )
+				// Delete metadata row.
+				.on( 'click', '.wpforms-panel-content-section-stripe-custom-metadata-delete', function( e ) {
+					e.preventDefault();
+
+					$( this ).parents( '.wpforms-panel-content-section-stripe-custom-metadata-table tr' ).remove();
+				} );
+		},
+
+		/**
 		 * Process various events as a response to UI interactions.
 		 *
 		 * @since 1.8.4
@@ -96,6 +142,7 @@ var WPFormsStripeModernBuilder = window.WPFormsStripeModernBuilder || ( function
 		 */
 		bindPlanUIActions() {
 			el.$panelContent.find( '.wpforms-panel-content-section-payment-plan-body .wpforms-panel-field-select select[name*="email"]' ).on( 'change', app.resetEmailAlertErrorClass );
+			el.$panelContent.find( '.wpforms-panel-content-section-payment-plan-period select' ).on( 'change', app.resetCyclesValues );
 		},
 
 		/**
@@ -386,6 +433,52 @@ var WPFormsStripeModernBuilder = window.WPFormsStripeModernBuilder || ( function
 			const toggleInput = $( '#wpforms-panel-field-stripe-enable_one_time, #wpforms-panel-field-stripe-enable_recurring' );
 
 			toggleInput.prop( 'checked', false ).trigger( 'change' ).each( WPFormsBuilderPaymentsUtils.toggleContent );
+		},
+
+		/**
+		 * Reset cycles dropdown values based on the period selection.
+		 *
+		 * @since 1.9.8
+		 */
+		resetCyclesValues() {
+			const $el = $( this ),
+				$select = $el.closest( '.wpforms-panel-content-section-payment-plan-body' ).find( '.wpforms-panel-content-section-payment-plan-cycles select' ),
+				selectedValue = $select.val(); // Save current selected value
+
+			let max;
+
+			// Determine the maximum number of cycles based on the selected period.
+			// It has intentionally not been passed from PHP to avoid unnecessary complexity or unexpected behavior.
+			switch ( $el.val() ) {
+				case 'yearly':
+					max = 20;
+					break;
+				case 'semiyearly':
+					max = 40;
+					break;
+				case 'quarterly':
+					max = 80;
+					break;
+
+				default:
+					max = wpforms_builder_stripe.cycles_max;
+			}
+
+			const options = [
+				$( '<option>', { value: 'unlimited', text: wpforms_builder_stripe.i18n.cycles_default } ),
+			];
+
+			for ( let i = 1; i <= max; i++ ) {
+				options.push( $( '<option>', { value: i, text: i } ) );
+			}
+
+			// Populate select and re-apply selected value if still valid
+			$select.empty().append( options ).val( selectedValue );
+
+			// If selected value is no longer valid, default to 'unlimited'
+			if ( $select.val() !== selectedValue ) {
+				$select.val( 'unlimited' );
+			}
 		},
 	};
 
