@@ -5,3 +5,7 @@ wp-config.php
 SQL
 *.pem 
 *.key
+
+
+#Ignore vscode AI rules
+.github\instructions\codacy.instructions.md
