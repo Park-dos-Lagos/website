@@ -1,4 +1,6 @@
 wp-config.php
 .htaccess*
 .codacy
-.codacy/logs/codacy-cli.log
+.codacy/logs/codacy-cli.logi
+SQL
+*.sql
