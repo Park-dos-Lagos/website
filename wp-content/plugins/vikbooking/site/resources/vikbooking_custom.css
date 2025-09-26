@@ -3,39 +3,62 @@
     box-sizing: border-box;
     background-color: var(--nv-light-bg);
 }
+
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+    -webkit-appearance: none;
+    margin: 0;
 }
-.vblistroomnamediv, .vbclistheadt {display: none;}
+
+.vblistroomnamediv,
+.vbclistheadt {
+    display: none;
+}
+
 .vbdivsearch {
     padding: 25px;
     background: var(--nv-light-bg);
     width: 100%;
 }
 
-.vbo-listing-details-costroomdet-inner, 
+.vbo-listing-details-costroomdet-inner,
 .vbo-rdet-descprice-block .vbo-rdet-desc-cont,
-.room_result-inner, .vbvordpaybutton, .vbo-paycontainer-pos .vbo-paycontainer-pos-top, .vbo-booking-details-bookinfos, .vbo-booking-details-udets, .vbvordroominfo, .vbo-booking-costs-list
-{ 
-	background-color: var(--nv-light-bg);
-	border-radius: 30px;
+.room_result-inner,
+.vbvordpaybutton,
+.vbo-paycontainer-pos .vbo-paycontainer-pos-top,
+.vbo-booking-details-bookinfos,
+.vbo-booking-details-udets,
+.vbvordroominfo,
+.vbo-booking-costs-list {
+    background-color: var(--nv-light-bg);
+    border-radius: 30px;
 }
 
-.vbstepsbarcont{padding: 0 15%;}
+.vbstepsbarcont {
+    padding: 0 15%;
+}
+
 .vbo-pref-color-text,
 .vbo-listing-details-costroomdet .vblistroomnamedivprice .vbliststartfromrdet,
-.vbo-listing-details-wrap .vbo-listing-details-costroomdet .room_cost, .vbpaymentnamediff, .vborddiffpayment
-{
+.vbo-listing-details-wrap .vbo-listing-details-costroomdet .room_cost,
+.vbpaymentnamediff,
+.vborddiffpayment {
     color: var(--nv-text-color);
 }
-.vbcalsblock{background-color: var(--nv-site-bg);}
-.room_result{ border: none; }
+
+.vbcalsblock {
+    background-color: var(--nv-site-bg);
+}
+
+.room_result {
+    border: none;
+}
+
 .vblistcontainer-grid .vblistroomblock .vbimglistdiv img {
     margin-right: 0;
     border-radius: 25px 24px 0 0;
 }
+
 .vbo-listing-details-wrap .vbo-listing-details-desc-cont {
     padding: 0;
     font-size: .9em;
@@ -45,18 +68,33 @@ input[type=number]::-webkit-outer-spin-button {
     flex: 1;
     padding: 10px 20px;
 }
+
 .vbo-listing-details-costroomdet-inner {
-    padding: 0 20px 30px; }
-
-.vbcalsblock { border: 1px solid #f6f6f66e }
-.img.vblistimg { border-radius: 10px 0 0 10px;}
-.vbo-listing-details-costroomdet .vblistroomnamedivprice .roomcustcostlabel { color: var(--nv-text-color);}
-.vbo-listing-details-wrap .vbo-listing-details-descprice-block { column-gap: 30px;}
-
-.vbo-pref-color-text, .vbo-showprc-pricetable .vbo-showprc-price-entry > div,
-.vbpricedetails > span:last-child{
-	color: var(--nv-text-color) !important;
+    padding: 0 20px 30px;
 }
+
+.vbcalsblock {
+    border: 1px solid #f6f6f66e
+}
+
+.img.vblistimg {
+    border-radius: 10px 0 0 10px;
+}
+
+.vbo-listing-details-costroomdet .vblistroomnamedivprice .roomcustcostlabel {
+    color: var(--nv-text-color);
+}
+
+.vbo-listing-details-wrap .vbo-listing-details-descprice-block {
+    column-gap: 30px;
+}
+
+.vbo-pref-color-text,
+.vbo-showprc-pricetable .vbo-showprc-price-entry>div,
+.vbpricedetails>span:last-child {
+    color: var(--nv-text-color) !important;
+}
+
 .vbo-listing-details-wrap .vbo-roomdet-calscontainer-inner .vbo-availcalendars-cont .vbcalsblock {
     display: grid;
     /* grid-template-columns: repeat(2, 1fr); */
@@ -65,85 +103,151 @@ input[type=number]::-webkit-outer-spin-button {
     border-radius: 24px;
     padding: 20px 6px;
 }
+
 @media only screen and (max-width: 390px) {
-.vbo-listing-details-wrap .vbo-roomdet-calscontainer-inner .vbo-availcalendars-cont .vbcalsblock {	
-		margin: 0 -25px 0 -25px;
-		min-width: -webkit-fill-available;}
-	}
-.vblist li .vbliststartfrom {color: var(--nv-text-color);}
+    .vbo-listing-details-wrap .vbo-roomdet-calscontainer-inner .vbo-availcalendars-cont .vbcalsblock {
+        margin: 0 -25px 0 -25px;
+        min-width: -webkit-fill-available;
+    }
+
+}
+
+@media screen and (max-width: 768px) {
+    .comprovante {
+        margin: 5px 5% !important;
+    }
+}
+
+.vblist li .vbliststartfrom {
+    color: var(--nv-text-color);
+}
+
 .vblistroomblock,
-.room_resultdiffusage .vblistroomblock, .room_item room_result{
+.room_resultdiffusage .vblistroomblock,
+.room_item room_result {
     border-right: 1px outset var(--nv-secondary-accent);
 }
-.room_resultdiffusage, .room_item room_result
-.vbo-results-head {
+
+.room_resultdiffusage,
+.room_item room_result .vbo-results-head {
     border: none;
     background-color: var(--nv-light-bg);
     border-radius: 10px;
-	align-itens: center;
+    align-itens: center;
 }
-.vblistroomblock .vbimglistdiv{
-	align-content: center;
+
+.vblistroomblock .vbimglistdiv {
+    align-content: center;
 }
+
 .vbmodalrdetails {
     top: 20%;
     right: 5px;
     position: absolute;
     display: inline-block;
 }
-.vbo-showprc-pricetable .vbo-showprc-price-entry, .vbageintervals {
+
+.vbo-showprc-pricetable .vbo-showprc-price-entry,
+.vbageintervals {
     border: none;
     border-radius: 10px;
 }
 
-#.vbdivsearch .vb-search-inner .vbo-search-num-rooms{display: none;}
+#.vbdivsearch .vb-search-inner .vbo-search-num-rooms {
+    display: none;
+}
+
 .vbo-room-result-inner .vbo-room-result-body {
-    background-color: var(--nv-light-bg);}
-.vbo-room-result-inner .vbo-room-result-head, .vbageintervals, .vbo-showprc-price-entry { background: var(--nv-dark-bg);}
-.vbo-room-result-inner > div > .vbo-room-result-head-price, .vbo-room-result-body-bookingsolution .vbo-room-result-body-price-amount {
+    background-color: var(--nv-light-bg);
+}
+
+.vbo-room-result-inner .vbo-room-result-head,
+.vbageintervals,
+.vbo-showprc-price-entry {
+    background: var(--nv-dark-bg);
+}
+
+.vbo-room-result-inner>div>.vbo-room-result-head-price,
+.vbo-room-result-body-bookingsolution .vbo-room-result-body-price-amount {
     flex-basis: fit-content;
     min-width: fit-content;
     flex-grow: inherit;
 }
-.vbo-showprc-room-head{background-color: var(--nv-dark-bg); border: none;}
-.vbo-showprc-room-block{background-color: var(--nv-light-bg); border: none;}
-.vbroomimgdesc, .room_carats {border-bottom: 1px solid var(--nv-primary-accent);}
-.vbpaymentchangetot {background: var(--nv-dark-bg); color: var(--nv-text-color);}
-.vbo-goback-link
- {
+
+.vbo-showprc-room-head {
+    background-color: var(--nv-dark-bg);
+    border: none;
+}
+
+.vbo-showprc-room-block {
+    background-color: var(--nv-light-bg);
+    border: none;
+}
+
+.vbroomimgdesc,
+.room_carats {
+    border-bottom: 1px solid var(--nv-primary-accent);
+}
+
+.vbpaymentchangetot {
+    background: var(--nv-dark-bg);
+    color: var(--nv-text-color);
+}
+
+.vbo-goback-link {
     border: 2px solid var(--nv-secondary-accent) !important;
     color: var(--nv-primary-accent) !important;
     background: transparent !important;
 }
-.vbo-results-head > div > i {
+
+.vbo-results-head>div>i {
     color: var(--vbo-blue-color) !important;
 }
-ol.vbo-stepbar li.vbo-step-complete, ol.vbo-stepbar li.vbo-step-current, ol.vbo-stepbar li.vbo-step-current:before, .vbo-coupon-outer, .vbo-enterpin-block
- {
+
+ol.vbo-stepbar li.vbo-step-complete,
+ol.vbo-stepbar li.vbo-step-current,
+ol.vbo-stepbar li.vbo-step-current:before,
+.vbo-coupon-outer,
+.vbo-enterpin-block {
     border-color: none;
 }
-.vbo-search-submit .btn
- {
-    padding: 10px 25px !important;}
 
-.vbo-results-head > div
- {
+.vbo-search-submit .btn {
+    padding: 10px 25px !important;
+}
+
+.vbo-results-head>div {
     padding: 15px;
     border-right: 1px solid var(--nv-secondary-accent);
 }
 
-.vblistroomcat, .vbrowroomcapacity,
-.vblistcontainer-grid .vbrowroomcapacity {display: none;}
-
-  .read-more-content {
+.vblistroomcat,
+.vbrowroomcapacity,
+.vblistcontainer-grid .vbrowroomcapacity {
     display: none;
-  }
+}
 
-  .read-more-toggle {
+.read-more-content {
+    display: none;
+}
+
+.read-more-toggle {
     display: inline-block;
     margin-top: 10px;
     color: #0db7e4;
     cursor: pointer;
     font-weight: bold;
     text-decoration: underline;
-  }
+}
+
+.comprovante {
+    border: 1px solid #555;
+    margin: 5px 25%;
+    padding: 20px;
+    border-radius: 25px;
+    background: #fff;
+}
+
+.forminator-ui.forminator-custom-form[data-design=flat] .forminator-file-upload {
+    flex-direction: column;
+}
