@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.6\n"
+"X-Generator: Poedit 3.8\n"
 
 #: admin/com_vikbooking:VBSAVE admin/com_vikbooking:VBAPPLYDISCOUNTSAVE
 #: admin/com_vikbooking:VBOSIGNATURESAVE site/com_vikbooking:VBOSIGNATURESAVE
@@ -57,15 +57,15 @@ msgstr "Status"
 
 #: admin/com_vikbooking:VBMAINDEAFULTTITLE
 msgid "Vik Booking - Rooms List"
-msgstr "Vik Booking - Lista de Quartos"
+msgstr "Vik Booking - Lista de Unidades"
 
 #: admin/com_vikbooking:VBMAINDEFAULTDEL
 msgid "Delete Room"
-msgstr "Apagar Quarto"
+msgstr "Apagar Unidade"
 
 #: admin/com_vikbooking:VBMAINDEFAULTEDITC
 msgid "Edit Room"
-msgstr "Editar Quarto"
+msgstr "Editar Unidade"
 
 #: admin/com_vikbooking:VBMAINDEFAULTEDITT
 msgid "Edit/View Rates"
@@ -73,11 +73,11 @@ msgstr "Editar/Ver Preços"
 
 #: admin/com_vikbooking:VBMAINDEFAULTCAL
 msgid "Rooms Calendar"
-msgstr "Calendário Quartos"
+msgstr "Calendário Unidades"
 
 #: admin/com_vikbooking:VBMAINDEFAULTNEW
 msgid "New Room"
-msgstr "Novo Quarto"
+msgstr "Novo Unidade"
 
 #: admin/com_vikbooking:VBMAINIVATITLE
 msgid "Vik Booking - Tax Rates List"
@@ -201,15 +201,15 @@ msgstr "Vik Booking - Editar Opções"
 
 #: admin/com_vikbooking:VBMAINROOMTITLENEW
 msgid "Vik Booking - New Room"
-msgstr "Vik Booking - Novo Quarto"
+msgstr "Vik Booking - Novo Unidade"
 
 #: admin/com_vikbooking:VBMAINROOMTITLEEDIT
 msgid "Vik Booking - Edit Room"
-msgstr "Vik Booking - Editar Quarto"
+msgstr "Vik Booking - Editar Unidade"
 
 #: admin/com_vikbooking:VBMAINTARIFFETITLE
 msgid "Vik Booking - Rooms Base Rates"
-msgstr "Vik Booking - Preços de Quartos"
+msgstr "Vik Booking - Preços de Unidades"
 
 #: admin/com_vikbooking:VBMAINTARIFFEDEL
 msgid "Delete Rates"
@@ -325,7 +325,7 @@ msgstr "Para"
 
 #: admin/com_vikbooking:VBROOMNOTRIT
 msgid "Room is not available from"
-msgstr "Quarto não está disponível a partir do"
+msgstr "Unidade não está disponível a partir do"
 
 #: admin/com_vikbooking:ERRPREV
 msgid "Check-out date is previous than Check-in"
@@ -333,7 +333,7 @@ msgstr "Data de Saída é anterior a de chegada"
 
 #: admin/com_vikbooking:ERRROOMLOCKED
 msgid "The room is not available in the days requested. The Room is waiting for the payment to confirm the reservation"
-msgstr "O quarto não está disponível nos dias solicitados. O quarto está aguardando o pagamento para confirmar a ordem"
+msgstr "A Unidade não está disponível nos dias solicitados. A Unidade está aguardando o pagamento para confirmar a ordem"
 
 #: admin/com_vikbooking:RESUPDATED
 msgid "Reservation Updated"
@@ -367,7 +367,7 @@ msgstr "Completado"
 
 #: admin/com_vikbooking:ERRCONFORDERROOMNA
 msgid "Error, the Room is no longer available. Reservation was set to confirmed"
-msgstr "Erro, o quarto não está mais disponível. A ordem foi definida como confirmado"
+msgstr "Erro, a unidade não está mais disponível. A ordem foi definida como confirmado"
 
 #: admin/com_vikbooking:VBORDERSETASCONF
 msgid "Booking successfully set to Confirmed"
@@ -375,7 +375,7 @@ msgstr "Ordem definida com sucesso para Confirmado"
 
 #: admin/com_vikbooking:VBOVERVIEWNOROOMS
 msgid "No Room Found"
-msgstr "Quarto não encontrado"
+msgstr "Unidade não encontrado"
 
 #: admin/com_vikbooking:VBFOOTER
 msgid "VikBooking v.%s - Powered by"
@@ -440,7 +440,7 @@ msgstr "Reserva foi salva"
 
 #: admin/com_vikbooking:VBBOOKNOTMADE
 msgid "Unable to save the Reservation, Room not Available"
-msgstr "Não foi possível salvar a Reserva, Quarto não Disponível"
+msgstr "Não foi possível salvar a Reserva, Unidade não Disponível"
 
 #: admin/com_vikbooking:VBMSGTHREE
 msgid "Check-in Field is empty"
@@ -545,7 +545,7 @@ msgstr "Check-out"
 
 #: admin/com_vikbooking:VBNOROOMSFOUND
 msgid "No rooms found"
-msgstr "Quartos não encontrados"
+msgstr "Unidades não encontrados"
 
 #: admin/com_vikbooking:VBJSDELROOM
 msgid "Every selected Room will be removed with its own contents. Confirm"
@@ -636,7 +636,7 @@ msgstr "Data"
 #: site/mod_vikbooking_horizontalsearch:VBMFORMROOMSN
 #: site/mod_vikbooking_channelrates:VBMFORMROOMSN
 msgid "Rooms"
-msgstr "Quartos"
+msgstr "Unidades"
 
 #: admin/com_vikbooking:VBPVIEWORDERSPEOPLE
 #: admin/com_vikbooking:VBQUICKRESGUESTS admin/com_vikbooking:VBOINVTOTGUESTS
@@ -821,7 +821,7 @@ msgstr "Informações do Comprados"
 #: site/mod_vikbooking_pricefilter:VBMODPRICEFILTERROOM
 #: site/mod_vikbooking_channelrates:VBMFORMNUMROOM
 msgid "Room"
-msgstr "Quarto"
+msgstr "Unidade"
 
 #: admin/com_vikbooking:VBEDITORDERSEVEN
 msgid "Rate"
@@ -901,35 +901,35 @@ msgstr "Se for maior que"
 
 #: admin/com_vikbooking:VBNEWROOMONE
 msgid "Room Category"
-msgstr "Categoria do Quarto"
+msgstr "Categoria do Unidade"
 
 #: admin/com_vikbooking:VBNEWROOMTHREE
 msgid "Room Characteristics"
-msgstr "Características do Quarto"
+msgstr "Características do Unidade"
 
 #: admin/com_vikbooking:VBNEWROOMFOUR
 msgid "Room Options"
-msgstr "Opções do Quarto"
+msgstr "Opções do Unidade"
 
 #: admin/com_vikbooking:VBNEWROOMFIVE
 msgid "Room Name"
-msgstr "Nome do Quarto"
+msgstr "Nome do Unidade"
 
 #: admin/com_vikbooking:VBNEWROOMSIX
 msgid "Room Main Image"
-msgstr "Imagem do Quarto"
+msgstr "Imagem do Unidade"
 
 #: admin/com_vikbooking:VBNEWROOMSEVEN
 msgid "Room Description"
-msgstr "Descrição do Quarto"
+msgstr "Descrição do Unidade"
 
 #: admin/com_vikbooking:VBNEWROOMEIGHT
 msgid "Room Published/Available"
-msgstr "Quarto Disponível"
+msgstr "Unidade Disponível"
 
 #: admin/com_vikbooking:VBNEWROOMNINE
 msgid "Room Units"
-msgstr "Unidades de Quarto"
+msgstr "Unidades de Unidade"
 
 #: admin/com_vikbooking:VBNOTARFOUND
 msgid "No Rates found"
@@ -969,7 +969,7 @@ msgstr "Horas para extensão do período de gratuidade "
 
 #: admin/com_vikbooking:VBCONFIGONENINE
 msgid "Checked-out room is available after"
-msgstr "Quarto com check-out está disponível depois"
+msgstr "Unidade com check-out está disponível depois"
 
 #: admin/com_vikbooking:VBCONFIGONEELEVEN
 msgid "Check-in/out Date Format"
@@ -986,7 +986,7 @@ msgstr "YYYY/MM/DD"
 
 #: admin/com_vikbooking:VBCONFIGONETENFOUR
 msgid "Choose Rooms Category"
-msgstr "Escolher Categoria de Quartos"
+msgstr "Escolher Categoria de Unidades"
 
 #: admin/com_vikbooking:VBCONFIGONETENFIVE
 msgid "Token Form Booking Submit"
@@ -1174,7 +1174,7 @@ msgstr "Ordem recebida no"
 
 #: admin/com_vikbooking:VBLIBTHREE site/com_vikbooking:VBLIBTHREE
 msgid "Rooms Reserved"
-msgstr "Quartos Reservados"
+msgstr "Unidades Reservados"
 
 #: admin/com_vikbooking:VBLIBSEVEN admin/com_vikbooking:VBCSVEXPFILTBSTATUS
 #: admin/com_vikbooking:VBCALBOOKINGSTATUS site/com_vikbooking:VBLIBSEVEN
@@ -1188,7 +1188,7 @@ msgstr "Detalhes Pessoais"
 
 #: admin/com_vikbooking:VBLIBTEN site/com_vikbooking:VBLIBTEN
 msgid "Rooms Booked"
-msgstr "Quartos Reservados"
+msgstr "Unidades Reservados"
 
 #: admin/com_vikbooking:VBLIBTENTHREE site/com_vikbooking:VBLIBTENTHREE
 msgid "To see your booking details, visit the following page"
@@ -1485,7 +1485,7 @@ msgstr "Taxas de Impostos"
 #: admin/com_vikbooking:VBMENUTEN
 #: admin/sys:COM_VIKBOOKING_ROOMSLIST_VIEW_DEFAULT_TITLE
 msgid "Rooms List"
-msgstr "Listar Quartos"
+msgstr "Listar Unidades"
 
 #: admin/com_vikbooking:VBMENUTWELVE
 msgid "Configuration"
@@ -1734,7 +1734,7 @@ msgstr "Chegada deve ser  após o início da Temporada"
 
 #: admin/com_vikbooking:VBSELVEHICLE
 msgid "Select Room"
-msgstr "Selecionar Quarto"
+msgstr "Selecionar Unidade"
 
 #: admin/com_vikbooking:VBNEWOPTFORCESEL
 msgid "Always Selected"
@@ -1783,7 +1783,7 @@ msgstr "Sempre Válido"
 
 #: admin/com_vikbooking:VBCOUPONALLVEHICLES
 msgid "All Rooms"
-msgstr "Todos os Quartos"
+msgstr "Todos os Unidades"
 
 #: admin/com_vikbooking:VBNEWCOUPONONE
 msgid "Coupon Code"
@@ -1904,7 +1904,7 @@ msgstr "Adultos Custos/Descontos"
 
 #: admin/com_vikbooking:VBNEWROOMADULTSDIFFHELP
 msgid "With this function you can set charges or discounts based on the Adults Occupancy of the room. The standard room price(s) are meant for the maximum or minimum number of adults that this room allows. For example a double room for maximum 2 adults can be given also to a single adult, in this case you might want to set a discount or a charge for the single usage of the double room. The price(s) for 2 adults are the Prices per Night that this room has defined in the Rates Table (in case the Rates Table is meant for the maximum occupancy of the room)."
-msgstr "Aqui você pode definir taxas ou descontos em função do número de adultos que irão utilizar este quarto. O preço do quarto standard (s) são destinadas para o número máximo ou mínimo de adultos que este quarto permite. Por exemplo, um quarto de casal para um máximo de 2 adultos pode ser dada também a um único adulto, neste caso, você pode querer definir um desconto ou uma taxa para o uso individual do quarto duplo. O preço (s) para 2 adultos são os preços por diária que este quarto tem na Tabela de Taxas (no caso a Tabela de Taxas é significado para a ocupação máxima do quarto)."
+msgstr "Aqui você pode definir taxas ou descontos em função do número de adultos que irão utilizar este quarto. O preço da unidade standard (s) são destinadas para o número máximo ou mínimo de adultos que este quarto permite. Por exemplo, um quarto de casal para um máximo de 2 adultos pode ser dada também a um único adulto, neste caso, você pode querer definir um desconto ou uma taxa para o uso individual da unidade duplo. O preço (s) para 2 adultos são os preços por diária que este quarto tem na Tabela de Taxas (no caso a Tabela de Taxas é significado para a ocupação máxima da unidade)."
 
 #: admin/com_vikbooking:VBNEWROOMNOTCHANGENUMMESS
 msgid "You have changed the minimum and the maximum number of adults for this room, please save the changes and enter this page again for adding Charges or Discounts based on the Adults Occupancy."
@@ -1932,7 +1932,7 @@ msgstr "Curta Descrição"
 
 #: admin/com_vikbooking:VBMAILROOMNUM site/com_vikbooking:VBMAILROOMNUM
 msgid "Room #"
-msgstr "Quarto #"
+msgstr "Unidade #"
 
 #: admin/com_vikbooking:VBMAILADULT site/com_vikbooking:VBSEARCHRESADULT
 #: site/com_vikbooking:VBMAILADULT
@@ -2094,7 +2094,7 @@ msgstr "Pesquisar Parâmetros"
 
 #: admin/com_vikbooking:VBCONFIGSEARCHPNUMROOM
 msgid "Number of Rooms"
-msgstr "Número de Quartos"
+msgstr "Número de Unidades"
 
 #: admin/com_vikbooking:VBCONFIGSEARCHPNUMADULTS
 msgid "Number of Adults"
@@ -2124,11 +2124,11 @@ msgstr "Fechar quarto nessas datas"
 #: admin/com_vikbooking:VBDBTEXTROOMCLOSED
 #: site/com_vikbooking:VBDBTEXTROOMCLOSED
 msgid "Room Closed"
-msgstr "Quarto Fechado"
+msgstr "Unidade Fechado"
 
 #: admin/com_vikbooking:VBSUBMCLOSEROOM
 msgid "Close Room"
-msgstr "Fechar Quarto"
+msgstr "Fechar Unidade"
 
 #: admin/com_vikbooking:VBCANCELLED admin/com_vikbooking:VBCSVSTATUSCANCELLED
 #: site/com_vikbooking:VBORDERSTATUSCANCELLED site/com_vikbooking:VBCANCELLED
@@ -2276,7 +2276,7 @@ msgstr "Aplicar para todos os quartos"
 
 #: admin/com_vikbooking:VBNEWRESTRICTIONROOMSAFF
 msgid "Rooms affected by this restriction"
-msgstr "Quartos afetados por esta restrição:"
+msgstr "Unidades afetados por esta restrição"
 
 #: admin/com_vikbooking:VBRESTRALLROOMS
 msgid "ALL"
@@ -2308,7 +2308,7 @@ msgstr "Dias de antecedência para reservas"
 
 #: admin/com_vikbooking:VBNEWROOMPARAMS
 msgid "Room Parameters"
-msgstr "Parâmetros do quarto"
+msgstr "Parâmetros da unidade"
 
 #: admin/com_vikbooking:VBPARAMLASTAVAIL
 msgid "Show how many units are still available when less than"
@@ -2324,7 +2324,7 @@ msgstr "Personalizar preços a partir de"
 
 #: admin/com_vikbooking:VBPARAMCUSTPRICEHELP
 msgid "the Views Rooms List and Room Details will display this price. If empty, the price displayed will be taken from the page Rates Table."
-msgstr "Os pontos de vista Quartos Lista e detalhes dos quartos irá exibir esse preço. Se vazio, o sistema irá calcular automaticamente o custo por Diária, dependendo dos preços da Tabela de Taxas."
+msgstr "Os pontos de vista Unidades Lista e detalhes dos quartos irá exibir esse preço. Se vazio, o sistema irá calcular automaticamente o custo por Diária, dependendo dos preços da Tabela de Taxas."
 
 #: admin/com_vikbooking:VBPARAMCUSTPRICETEXT
 msgid "Custom Price Label"
@@ -2399,7 +2399,7 @@ msgstr "Ativado"
 
 #: admin/com_vikbooking:VBPARAMPRICECALENDARHELP
 msgid "if enabled, the View Room Details will display the cost for each day in the availability calendars"
-msgstr "Se ativado, o Ver detalhes Quarto irá exibir o custo de cada dia no calendário de disponibilidade"
+msgstr "Se ativado, o Ver detalhes Unidade irá exibir o custo de cada dia no calendário de disponibilidade"
 
 #: admin/com_vikbooking:VBPARAMDEFCALCOST
 msgid "Default Cost per Night"
@@ -2546,7 +2546,7 @@ msgstr "Calendários primeiro dia da semana"
 
 #: admin/com_vikbooking:VBROOMFILTER
 msgid "Filter by Room"
-msgstr "Filtrar por Quarto"
+msgstr "Filtrar por Unidade"
 
 #: admin/com_vikbooking:VBIMGCAPTION
 msgid "Image Caption"
@@ -2589,15 +2589,15 @@ msgstr "%s Adultos"
 
 #: admin/com_vikbooking:VBSWITCHRWITH
 msgid "Switch Room"
-msgstr "Mudar Quarto com"
+msgstr "Mudar Unidade com"
 
 #: admin/com_vikbooking:VBSWITCHRERR
 msgid "Error: the room %s cannot be switched to the %s on these dates."
-msgstr "Error: o quarto %s não pode ser alternado com o %s nessas datas."
+msgstr "Error: a unidade %s não pode ser alternado com o %s nessas datas."
 
 #: admin/com_vikbooking:VBSWITCHROK
 msgid "The room %s has been switched to the %s. Choose Rates and Options for all the Rooms then click the Save button again."
-msgstr "O Quarto %s foi ligado com o %s. Escolha tarifas e opções para todos os quartos, em seguida, clique novamente no botão Salvar."
+msgstr "O Unidade %s foi ligado com o %s. Escolha tarifas e opções para todos os quartos, em seguida, clique novamente no botão Salvar."
 
 #: admin/com_vikbooking:VBDELCONFIRM
 msgid "Some records will be deleted. Proceed?"
@@ -2711,7 +2711,7 @@ msgstr "se habilitado, a página de detalhes deste quarto permitirá que os usu�
 #: admin/com_vikbooking:VBOSEASONAFFECTEDROOMS
 #: admin/com_vikbooking:VBPACKAGESROOMSCOUNT
 msgid "Rooms Affected"
-msgstr "Quartos Afectados"
+msgstr "Unidades Afectados"
 
 #: admin/com_vikbooking:VBMENURATESOVERVIEW
 msgid "Rates Overview"
@@ -2768,7 +2768,7 @@ msgstr "Calculando..."
 
 #: admin/com_vikbooking:VBCALCRATESROOMNOTAVAILCOMBO
 msgid "The room is not available from %s to %s or has no rates for this combination of adults/children."
-msgstr "O quarto não está disponível de %s a %s ou não possui tarifas para esta combinação de adultos/crianças."
+msgstr "A Unidade não está disponível de %s a %s ou não possui tarifas para esta combinação de adultos/crianças."
 
 #: admin/com_vikbooking:VBCALCRATESNET admin/com_vikbooking:VBOINVCOLNETPRICE
 #: site/com_vikbooking:VBOINVCOLNETPRICE
@@ -2791,7 +2791,7 @@ msgstr "%d Ocupação de Adultos:"
 
 #: admin/com_vikbooking:VBAFFANYROOM
 msgid "Any Room"
-msgstr "Qualquer Quarto"
+msgstr "Qualquer Unidade"
 
 #: admin/com_vikbooking:VBSHORTMONTHONE site/com_vikbooking:VBSHORTMONTHONE
 msgid "Jan"
@@ -3080,7 +3080,7 @@ msgstr "Total de Impostos"
 
 #: admin/com_vikbooking:VBDASHROOMSLOCKED
 msgid "Rooms Locked - Waiting for Confirmation"
-msgstr "Quartos Bloqueados - Aguardando Confirmação"
+msgstr "Unidades Bloqueados - Aguardando Confirmação"
 
 #: admin/com_vikbooking:VBDASHLOCKUNTIL
 msgid "Locked Until"
@@ -3154,7 +3154,7 @@ msgstr "Código PIN"
 
 #: admin/com_vikbooking:VBUPDROOMOK
 msgid "Room Updated Successfully"
-msgstr "Quarto Atualizado com Sucesso"
+msgstr "Unidade Atualizado com Sucesso"
 
 #: admin/com_vikbooking:VBOXMLTRANSLATEOPTIONS
 msgid "Options, Taxes, Fees"
@@ -3266,7 +3266,7 @@ msgstr "Remover todas as Fotos"
 
 #: admin/com_vikbooking:VBOROOMSAVEOK
 msgid "Room created successfully!"
-msgstr "Quarto criado com sucesso!"
+msgstr "Unidade criado com sucesso!"
 
 #: admin/com_vikbooking:VBOGOTORATES
 msgid "Go to Rates Table page"
@@ -3291,11 +3291,11 @@ msgstr "Alternar Características Distintivas"
 #: admin/com_vikbooking:VBODEFAULTDISTFEATUREONE
 #: site/com_vikbooking:VBODEFAULTDISTFEATUREONE
 msgid "Room Number"
-msgstr "Número do Quarto"
+msgstr "Número do Unidade"
 
 #: admin/com_vikbooking:VBODEFAULTDISTFEATURETWO
 msgid "Room Code"
-msgstr "Código do Quarto"
+msgstr "Código do Unidade"
 
 #: admin/com_vikbooking:VBODISTFEATURETXT
 msgid "Feature"
@@ -3304,7 +3304,7 @@ msgstr "Recurso"
 #: admin/com_vikbooking:VBODISTFEATURERUNIT
 #: site/com_vikbooking:VBODISTFEATURERUNIT
 msgid "Room Unit #"
-msgstr "Unidade do Quarto #"
+msgstr "Unidade do Unidade #"
 
 #: admin/com_vikbooking:VBODISTFEATUREADD
 msgid "Add Feature"
@@ -3320,19 +3320,19 @@ msgstr "Não Especificado"
 
 #: admin/com_vikbooking:VBOFEATUNITASSIGNED
 msgid "Room Unit Assigned"
-msgstr "Unidade de Quarto Atribuída"
+msgstr "Unidade de Unidade Atribuída"
 
 #: admin/com_vikbooking:VBDASHTODROCC
 msgid "Today's Room Occupancy"
-msgstr "Ocupação de Quarto de Hoje"
+msgstr "Ocupação de Unidade de Hoje"
 
 #: admin/com_vikbooking:VBCONFIGAUTODISTFEATURE
 msgid "Auto-Assign Room Units"
-msgstr "Atribuir Unidades de Quarto Automaticamente"
+msgstr "Atribuir Unidades de Unidade Automaticamente"
 
 #: admin/com_vikbooking:VBCONFIGAUTODISTFEATUREHELP
 msgid "The room types (with more than 1 unit) using the Units Distinctive Features, can automatically assign the first available room unit to the bookings. For example: new bookings can be automatically assigned to the room number #101, #102, #103 etc.."
-msgstr "Os tipos de quarto (com mais de 1 unidade) que usam as Características Distintivas das Unidades podem atribuir automaticamente a primeira unidade de quarto disponível para as reservas. Por exemplo: novas reservas podem ser automaticamente atribuídas ao quarto número #101, #102, #103 etc."
+msgstr "Os tipos de quarto (com mais de 1 unidade) que usam as Características Distintivas das Unidades podem atribuir automaticamente a primeira unidade de quarto disponível para as reservas. Por exemplo: novas reservas podem ser automaticamente atribuídas aa unidade número #101, #102, #103 etc."
 
 #: admin/com_vikbooking:VBOCONFIGEDITTMPLFILE
 msgid "Edit Template File"
@@ -3420,11 +3420,11 @@ msgstr "Custo Por Pessoa"
 
 #: admin/com_vikbooking:VBNEWPKGSHOWOPT
 msgid "Display Rooms Options"
-msgstr "Exibir Opções de Quartos"
+msgstr "Exibir Opções de Unidades"
 
 #: admin/com_vikbooking:VBNEWPKGSHOWOPTALL
 msgid "Display all the assigned Rooms Options"
-msgstr "Exibir todas as Opções de Quartos atribuídas"
+msgstr "Exibir todas as Opções de Unidades atribuídas"
 
 #: admin/com_vikbooking:VBNEWPKGSHOWOPTOBL
 msgid "Apply just the mandatory Options (i.e. City Taxes)"
@@ -3432,7 +3432,7 @@ msgstr "Aplicar apenas as Opções obrigatórias (por exemplo, Taxas Municipais)
 
 #: admin/com_vikbooking:VBNEWPKGHIDEOPT
 msgid "Hide all Rooms Options"
-msgstr "Ocultar todas as Opções de Quartos"
+msgstr "Ocultar todas as Opções de Unidades"
 
 #: admin/com_vikbooking:VBNEWPKGDESCR
 msgid "Package Description"
@@ -3456,7 +3456,7 @@ msgstr "por exemplo, Economize xx% e ganhe xyz gratuito."
 
 #: admin/com_vikbooking:VBNEWPKGROOMS
 msgid "Available Rooms"
-msgstr "Quartos Disponíveis"
+msgstr "Unidades Disponíveis"
 
 #: admin/com_vikbooking:VBOEXCLWEEKD
 msgid "Exclude Week Days"
@@ -3473,7 +3473,7 @@ msgstr "Pacote Atualizado Com Sucesso!"
 #: admin/com_vikbooking:VBOROOMCUSTRATEPLAN
 #: site/com_vikbooking:VBOROOMCUSTRATEPLAN
 msgid "Room Rate"
-msgstr "Taxa de Quarto"
+msgstr "Taxa de Unidade"
 
 #: admin/com_vikbooking:VBOROOMCUSTRATEPLANADD
 msgid "Set Custom Rate"
@@ -4064,7 +4064,7 @@ msgstr "Carregando Foto... Por favor, aguarde"
 
 #: admin/com_vikbooking:VBOSTATSALLROOMS
 msgid "- All Rooms"
-msgstr "- Todos os Quartos"
+msgstr "- Todos os Unidades"
 
 #: admin/com_vikbooking:VBOFILTERBYDATES
 msgid "Filter by Date"
@@ -4150,7 +4150,7 @@ msgstr "--- Detalhes do Cartão de Crédito removidos por razões de PCI-DSS ---
 
 #: admin/com_vikbooking:VBRATESOVWCLOSEOPENRRP
 msgid "Close/Open Room Rate Plan"
-msgstr "Fechar/Abrir Plano de Tarifas do Quarto"
+msgstr "Fechar/Abrir Plano de Tarifas do Unidade"
 
 #: admin/com_vikbooking:VBRATESOVWCLOSERRP
 msgid "Close Rate Plan"
@@ -4186,7 +4186,7 @@ msgstr "Modificando ID de Reserva %d"
 
 #: admin/com_vikbooking:VBOVWDNDMOVINGROOM
 msgid "Switching room to %s"
-msgstr "Mudando quarto para %s"
+msgstr "Mudanda unidade para %s"
 
 #: admin/com_vikbooking:VBOVWDNDMOVINGDATES
 msgid "Modifying dates to %s"
@@ -4198,7 +4198,7 @@ msgstr "Erro, faltando dados para modificar a reserva."
 
 #: admin/com_vikbooking:VBOVWALTBKSWITCHROK
 msgid "The room %s has been switched to the %s."
-msgstr "O quarto %s foi trocado para o %s."
+msgstr "A Unidade %s foi trocado para o %s."
 
 #: admin/com_vikbooking:VBOVERVIEWLEGDND
 msgid "Drag &amp; Drop"
@@ -4463,7 +4463,7 @@ msgstr "Valor Total da Reserva"
 
 #: admin/com_vikbooking:VBOCUSTOMERCMMSONRRATES
 msgid "Rooms Rates only"
-msgstr "Apenas Tarifas dos Quartos"
+msgstr "Apenas Tarifas dos Unidades"
 
 #: admin/com_vikbooking:VBOCUSTOMERCMMSONTAX
 msgid "Apply Commissions on"
@@ -4530,7 +4530,7 @@ msgstr "ID do IVA"
 
 #: admin/com_vikbooking:VBOPREVROOMMOVED
 msgid "Previous room %s was switched on %s"
-msgstr "O quarto anterior %s foi trocado em %s"
+msgstr "A Unidade anterior %s foi trocado em %s"
 
 #: admin/com_vikbooking:VBOBOOKINGCREATEDBY
 msgid "Booking created by User ID %s"
@@ -4836,11 +4836,11 @@ msgstr "Idioma"
 
 #: admin/com_vikbooking:VBOBOOKADDROOM
 msgid "Add Room"
-msgstr "Adicionar Quarto"
+msgstr "Adicionar Unidade"
 
 #: admin/com_vikbooking:VBOBOOKCANTADDROOM
 msgid "The room cannot be added to the booking"
-msgstr "O quarto não pode ser adicionado à reserva"
+msgstr "A Unidade não pode ser adicionado à reserva"
 
 #: admin/com_vikbooking:VBOBOOKADDROOMERR
 msgid "%s is not available from %s to %s"
@@ -4892,7 +4892,7 @@ msgstr "Os quartos desta reserva não têm tarifas definidas. Certifique-se de d
 
 #: admin/com_vikbooking:VBOREMOVEROOM
 msgid "Remove Room"
-msgstr "Remover Quarto"
+msgstr "Remover Unidade"
 
 #: admin/com_vikbooking:VBCONFIGCLOSINGDATESHELP
 msgid "The property closing dates are settings defined at account-level for the booking engine of the website. The closed dates will not be selectable from the calendars in the front-end. However, these settings will NOT apply to the channels connected through the Channel Manager (unless you submit the Bulk Action). You should rather close the rooms from the page Calendar if you wanted the Channel Manager to immediately close the availability on the OTAs as well."
@@ -4979,7 +4979,7 @@ msgid ""
 msgstr ""
 "Reserva modificada em %s.\n"
 "Datas anteriores reservadas: %s.\n"
-"Quartos anteriores reservados: %s.\n"
+"Unidades anteriores reservados: %s.\n"
 "Total anterior: %s."
 
 #: admin/com_vikbooking:VBOPRICETYPEMINLOS
@@ -4988,7 +4988,7 @@ msgstr "Diárias Mínimas de Estadia"
 
 #: admin/com_vikbooking:VBOPRICETYPEMINLOSHELP
 msgid "The minimum number of nights of stay required for this type of price to be available for selection. This setting defines a restriction at rate plan level. In order to apply restrictions at room level, use the apposite function &quot;Restrictions&quot;."
-msgstr "O número mínimo de Diárias de estadia necessário para que este tipo de preço esteja disponível para seleção. Esta configuração define uma restrição ao nível do plano tarifário. Para aplicar restrições ao nível do quarto, use a função apropriada \"Restrições\"."
+msgstr "O número mínimo de Diárias de estadia necessário para que este tipo de preço esteja disponível para seleção. Esta configuração define uma restrição ao nível do plano tarifário. Para aplicar restrições ao nível da unidade, use a função apropriada \"Restrições\"."
 
 #: admin/com_vikbooking:VBOSEARCHEXISTCUST
 msgid "Existing Customer"
@@ -5008,11 +5008,11 @@ msgstr "Defina o número mínimo de horas de antecedência entre a data de reser
 
 #: admin/com_vikbooking:VBOAGEINTVALBCOSTPCENT
 msgid "% (Room Rate)"
-msgstr "% (Tarifa do Quarto)"
+msgstr "% (Tarifa do Unidade)"
 
 #: admin/com_vikbooking:VBOSUCCUPDOPTION
 msgid "Room Option updated successfully"
-msgstr "Opção de Quarto atualizada com sucesso"
+msgstr "Opção de Unidade atualizada com sucesso"
 
 #: admin/com_vikbooking:VBOFISCRECEIPT
 msgid "Receipt"
@@ -5210,7 +5210,7 @@ msgstr "Data até"
 
 #: admin/com_vikbooking:VBOREPORTSROOMFILT
 msgid "Room Filter"
-msgstr "Filtro de Quarto"
+msgstr "Filtro de Unidade"
 
 #: admin/com_vikbooking:VBOREPORTSERRNODATES
 msgid "Please select the desired dates for the Report."
@@ -5226,7 +5226,7 @@ msgstr "Exportar como CSV"
 
 #: admin/com_vikbooking:VBOREPORTREVENUERSOLD
 msgid "Rooms Sold"
-msgstr "Quartos Vendidos"
+msgstr "Unidades Vendidos"
 
 #: admin/com_vikbooking:VBOREPORTREVENUEPOCC
 #: site/com_vikbooking:VBOREPORTREVENUEPOCC
@@ -5249,7 +5249,7 @@ msgstr "ADR"
 
 #: admin/com_vikbooking:VBOREPORTREVENUEADRHELP
 msgid "The &quot;Average Daily Rate&quot; is calculated by dividing the Total Revenue by the number of Rooms Sold."
-msgstr "A \"Taxa Média Diária\" é calculada dividindo a Receita Total pelo número de Quartos Vendidos."
+msgstr "A \"Taxa Média Diária\" é calculada dividindo a Receita Total pelo número de Unidades Vendidos."
 
 #: admin/com_vikbooking:VBOREPORTREVENUEREVPAR
 msgid "RevPAR"
@@ -5257,7 +5257,7 @@ msgstr "RevPAR"
 
 #: admin/com_vikbooking:VBOREPORTREVENUEREVPARH
 msgid "The &quot;Revenue Per Available Room&quot; is calculated by dividing the Total Revenue by the total number of Rooms Available."
-msgstr "O \"Receita por Quarto Disponível\" é calculado dividindo a Receita Total pelo número total de Quartos Disponíveis."
+msgstr "O \"Receita por Unidade Disponível\" é calculado dividindo a Receita Total pelo número total de Unidades Disponíveis."
 
 #: admin/com_vikbooking:VBOREPORTREVENUETAX
 msgid "Taxes/Fees"
@@ -5273,7 +5273,7 @@ msgstr "Impostos Turísticos"
 
 #: admin/com_vikbooking:VBOREPORTOPTIONSEXTRASHELP
 msgid "The values for the Options/Extras are tax included. The amount is calculated by subtracting the amount of City Taxes and Room Costs from the Booking Total. It's the sum of all costs excluding the City Taxes and the costs of the rooms. It may include costs per children based on their age."
-msgstr "Os valores para as Opções/Extras incluem impostos. O valor é calculado subtraindo o valor dos Impostos Municipais e Custos dos Quartos do Total da Reserva. É a soma de todos os custos, excluindo os Impostos Municipais e os custos dos quartos. Pode incluir custos por crianças baseado na idade."
+msgstr "Os valores para as Opções/Extras incluem impostos. O valor é calculado subtraindo o valor dos Impostos Municipais e Custos dos Unidades do Total da Reserva. É a soma de todos os custos, excluindo os Impostos Municipais e os custos dos quartos. Pode incluir custos por crianças baseado na idade."
 
 #: admin/com_vikbooking:VBOREPORTFILTALLOPTS
 msgid "- All Options"
@@ -5385,7 +5385,7 @@ msgstr "Datas da Reserva"
 
 #: admin/com_vikbooking:VBTRKROOMSRATES
 msgid "Rooms and Rates"
-msgstr "Quartos e Tarifas"
+msgstr "Unidades e Tarifas"
 
 #: admin/com_vikbooking:VBTRKTGLPUBLISHED
 msgid "Invert Tracking Status"
@@ -5625,7 +5625,7 @@ msgstr "Dias Visíveis"
 
 #: admin/com_vikbooking:VBOPERMTBLXROOMS
 msgid "Visible Rooms"
-msgstr "Quartos Visíveis"
+msgstr "Unidades Visíveis"
 
 #: admin/com_vikbooking:VBOADDOPERATORPERM
 msgid "Add operator permission"
@@ -5713,11 +5713,11 @@ msgstr "Se você deseja aplicar descontos apenas para reservas de última hora, 
 
 #: admin/com_vikbooking:VBOPTPCENTROOMFEE
 msgid "% room total fee"
-msgstr "% da taxa total do quarto"
+msgstr "% da taxa total da unidade"
 
 #: admin/com_vikbooking:VBOPTPCENTROOMFEEHELP
 msgid "The price of this service can be an absolute value in your currency, or a percentage value of the room final price comprehensive of any modifications for the occupancy. The percentage costs are usually needed in some countries to calculate special tourist tax or tourism levy."
-msgstr "O preço deste serviço pode ser um valor absoluto na sua moeda, ou um valor percentual do preço final do quarto, incluindo quaisquer modificações para a ocupação. Os custos percentuais são geralmente necessários em alguns países para calcular impostos turísticos especiais ou taxas de turismo."
+msgstr "O preço deste serviço pode ser um valor absoluto na sua moeda, ou um valor percentual do preço final da unidade, incluindo quaisquer modificações para a ocupação. Os custos percentuais são geralmente necessários em alguns países para calcular impostos turísticos especiais ou taxas de turismo."
 
 #: admin/com_vikbooking:VBOCALCLOSEOTHERROOMS
 msgid "Close other rooms"
@@ -5793,7 +5793,7 @@ msgstr "O chat está disponível após o check-out por # dias"
 
 #: admin/com_vikbooking:VBOREPORTDAILYROOMREPORT
 msgid "Daily Room Report"
-msgstr "Relatório Diário de Quartos"
+msgstr "Relatório Diário de Unidades"
 
 #: admin/com_vikbooking:VBOTYPEARRIVAL site/com_vikbooking:VBDAL
 msgid "Arrival"
@@ -5976,7 +5976,7 @@ msgstr "Especifique o custo base por Diária para cada plano de tarifas."
 
 #: admin/com_vikbooking:VBOWIZARDTARIFFSHELP
 msgid "This should be the cost applied for the longer period of the year for the room's default occupancy. You will be able to set later the occupancy based pricing, as well as some seasonal pricing or different costs for some dates of the year."
-msgstr "Este deve ser o custo aplicado para o período mais longo do ano para a ocupação padrão do quarto. Você poderá definir depois os preços baseados na ocupação, bem como alguns preços sazonais ou custos diferentes para algumas datas do ano."
+msgstr "Este deve ser o custo aplicado para o período mais longo do ano para a ocupação padrão da unidade. Você poderá definir depois os preços baseados na ocupação, bem como alguns preços sazonais ou custos diferentes para algumas datas do ano."
 
 #: admin/com_vikbooking:VBOWIZARDTARIFFSWHTC
 msgid "What's the starting cost per night for your room?"
@@ -5996,15 +5996,15 @@ msgstr "Calendário de disponibilidade compartilhado com outros tipos de quarto"
 
 #: admin/com_vikbooking:VBOSUBUNITOVERBOOKEDERR
 msgid "Warning - the sub-unit %s of the room %s has been overbooked from %s till %s by the booking ID %d. Please double check this reservation manually to assign a different sub-unit that was not booked yet. The main room has still got some free sub-units on these dates, and so the overbooking can be resolved manually."
-msgstr "Aviso - a subunidade %s do quarto %s foi overbooked de %s até %s pela reserva ID %d. Por favor, verifique manualmente esta reserva para atribuir uma subunidade diferente que ainda não tenha sido reservada. O quarto principal ainda tem algumas subunidades livres nessas datas, e assim o overbooking pode ser resolvido manualmente."
+msgstr "Aviso - a subunidade %s da unidade %s foi overbooked de %s até %s pela reserva ID %d. Por favor, verifique manualmente esta reserva para atribuir uma subunidade diferente que ainda não tenha sido reservada. A Unidade principal ainda tem algumas subunidades livres nessas datas, e assim o overbooking pode ser resolvido manualmente."
 
 #: admin/com_vikbooking:VBOSUBUNITOVERBOOKEDGOTO
 msgid "Adjust room sub-unit overbooked"
-msgstr "Ajustar subunidade do quarto overbooked"
+msgstr "Ajustar subunidade da unidade overbooked"
 
 #: admin/com_vikbooking:VBOROOMSUBUNITCHANGEFT
 msgid "Sub-unit changed for room %s from %s to %s"
-msgstr "Subunidade alterada para o quarto %s de %s para %s"
+msgstr "Subunidade alterada para a unidade %s de %s para %s"
 
 #: admin/com_vikbooking:VBOWIZARDRPLANSMESS
 msgid "The types of price are the rate plans that guests can choose for booking the rooms. They identify the costs, the cancellation policies and the services included."
@@ -6061,11 +6061,11 @@ msgstr "Próximo fim de semana"
 
 #: admin/com_vikbooking:VBOROOMSOCCUPANCY
 msgid "Rooms Occupancy"
-msgstr "Ocupação dos Quartos"
+msgstr "Ocupação dos Unidades"
 
 #: admin/com_vikbooking:VBOROOMSUNSOLD
 msgid "Rooms Unsold"
-msgstr "Quartos Não Vendidos"
+msgstr "Unidades Não Vendidos"
 
 #: admin/com_vikbooking:VBOFORECAST
 msgid "Forecast"
@@ -6081,7 +6081,7 @@ msgstr "Reservado em"
 
 #: admin/com_vikbooking:VBOBOOKEDATPRICEHELP
 msgid "Keep the checkbox ticked to maintain the original room cost that was selected at the time of booking. If you untick the checkbox, the new price at today will be applied. Alternatively, you can choose to set a custom rate."
-msgstr "Mantenha a caixa de seleção marcada para manter o custo original do quarto que foi selecionado no momento da reserva. Se você desmarcar a caixa, o novo preço de hoje será aplicado. Alternativamente, você pode optar por definir uma tarifa personalizada."
+msgstr "Mantenha a caixa de seleção marcada para manter o custo original da unidade que foi selecionado no momento da reserva. Se você desmarcar a caixa, o novo preço de hoje será aplicado. Alternativamente, você pode optar por definir uma tarifa personalizada."
 
 #: admin/com_vikbooking:VBOPARAMSUGGOCC
 msgid "Suggested occupancy"
@@ -6316,7 +6316,7 @@ msgstr "Você tem um conflito entre o número mínimo e máximo de hóspedes na 
 
 #: admin/com_vikbooking:VBOROOMSASSIGNED
 msgid "Rooms assigned"
-msgstr "Quartos atribuídos"
+msgstr "Unidades atribuídos"
 
 #: admin/com_vikbooking:VBOMINGUESTSFILTHELP
 msgid "Applying this option only when there is a minimum number of guests may alterate the calculation of the costs per children based on their age. For example, if the minimum number of guests is set to greater than 4, by booking a room for 2 adults and 3 children this option/extra cost will be displayed as we have 5 guests in total. However, the first 4 guests will be excluded from the calculation, and so in this example only the fifth guest, which is one child, will be asked to pay. The first and the second child will not pay for any age interval, only the third child will pay the regular fees per age. This is useful to apply extra costs only for a specific number/combination of guests. The filter can be combined with the maximum number of guests, or you can leave it empty as 0."
@@ -6380,7 +6380,7 @@ msgstr "Esta configuração determinará como a promoção será aplicada aos cu
 
 #: admin/com_vikbooking:VBOPROMOONFINALPRICETXT
 msgid "All special pricing rules are applied on the rooms base costs as a cumulative charge or discount even in case of multiple rules applied on the same stay dates. This algorithm follows the OpenTravel (OTA) standards, and here is an example of how two special pricing rules are typically applied on the bases costs to obtain the final price:<br/><br/><ul><li>Room-type base cost = 80/night</li><li>Booking for 3 nights</li><li>One Special Price sets a charge of 20/night to obtain a cost of 100/night</li><li>One Last-Minute promotion applies a 10% off</li></ul><br/><strong>Calculation of final price</strong><br/><ul><li>1st night (80 + 20 - 8) = 92</li><li>2nd night (80 + 20 - 8) = 92</li><li>3rd night (80 + 20 - 8) = 92</li><li><u>Final price</u> 92 * 3 = 276</li></ul><br/>With this default calculation method, the 10% off promotion has been applied cumulatively on the room base cost for each night affected.<br/>If the parameter <i>Apply on rooms final cost</i> was enabled, the calculation would be performed with the following method:<br/><ul><li>1st night (80 + 20) = 100</li><li>2nd night (80 + 20) = 100</li><li>3rd night (80 + 20) = 100</li><li><u>Final price before promotion</u> 100 * 3 = 300</li><li><u>Promotion applied on final cost</u> 300 - 10% = 270</li></ul><br/>You should choose the calculation method that best fits your needs. Applying promotions on the final price for specific dates is usually more handy, but you can choose to adopt the default calculation method like for all the other special pricing rules."
-msgstr "Todas as regras de preços especiais são aplicadas nos custos base dos quartos como uma cobrança ou desconto cumulativo, mesmo em caso de múltiplas regras aplicadas nas mesmas datas de estadia. Este algoritmo segue os padrões do OpenTravel (OTA), e aqui está um exemplo de como duas regras de preços especiais são tipicamente aplicadas nos custos base para obter o preço final:<br/><br/><ul><li>Custo base do tipo de quarto = 80/Diária</li><li>Reserva de 3 Diárias</li><li>Um Preço Especial define uma cobrança de 20/Diária para obter um custo de 100/Diária</li><li>Uma promoção de Última Hora aplica 10% de desconto</li></ul><br/><strong>Cálculo do preço final</strong><br/><ul><li>1ª Diária(80 + 20 - 8) = 92</li><li>2ª Diária(80 + 20 - 8) = 92</li><li>3ª Diária(80 + 20 - 8) = 92</li><li><u>Preço final</u> 92 * 3 = 276</li></ul><br/>Com este método de cálculo padrão, a promoção de 10% de desconto foi aplicada cumulativamente no custo base do quarto para cada Diária afetada.<br/>Se o parâmetro <i>Aplicar no custo final dos quartos</i> estivesse habilitado, o cálculo seria realizado com o seguinte método:<br/><ul><li>1ª Diária (80 + 20) = 100</li><li>2ª Diária (80 + 20) = 100</li><li>3ª Diária (80 + 20) = 100</li><li><u>Preço final antes da promoção</u> 100 * 3 = 300</li><li><u>Promoção aplicada no custo final</u> 300 - 10% = 270</li></ul><br/>Você deve escolher o método de cálculo que melhor se adapta às suas necessidades. Aplicar promoções no preço final para datas específicas é geralmente mais prático, mas você pode optar por adotar o método de cálculo padrão como para todas as outras regras de preços especiais."
+msgstr "Todas as regras de preços especiais são aplicadas nos custos base dos quartos como uma cobrança ou desconto cumulativo, mesmo em caso de múltiplas regras aplicadas nas mesmas datas de estadia. Este algoritmo segue os padrões do OpenTravel (OTA), e aqui está um exemplo de como duas regras de preços especiais são tipicamente aplicadas nos custos base para obter o preço final:<br/><br/><ul><li>Custo base do tipo de quarto = 80/Diária</li><li>Reserva de 3 Diárias</li><li>Um Preço Especial define uma cobrança de 20/Diária para obter um custo de 100/Diária</li><li>Uma promoção de Última Hora aplica 10% de desconto</li></ul><br/><strong>Cálculo do preço final</strong><br/><ul><li>1ª Diária(80 + 20 - 8) = 92</li><li>2ª Diária(80 + 20 - 8) = 92</li><li>3ª Diária(80 + 20 - 8) = 92</li><li><u>Preço final</u> 92 * 3 = 276</li></ul><br/>Com este método de cálculo padrão, a promoção de 10% de desconto foi aplicada cumulativamente no custo base da unidade para cada Diária afetada.<br/>Se o parâmetro <i>Aplicar no custo final dos quartos</i> estivesse habilitado, o cálculo seria realizado com o seguinte método:<br/><ul><li>1ª Diária (80 + 20) = 100</li><li>2ª Diária (80 + 20) = 100</li><li>3ª Diária (80 + 20) = 100</li><li><u>Preço final antes da promoção</u> 100 * 3 = 300</li><li><u>Promoção aplicada no custo final</u> 300 - 10% = 270</li></ul><br/>Você deve escolher o método de cálculo que melhor se adapta às suas necessidades. Aplicar promoções no preço final para datas específicas é geralmente mais prático, mas você pode optar por adotar o método de cálculo padrão como para todas as outras regras de preços especiais."
 
 #: admin/com_vikbooking:VBOCOUPONEXCLTAX
 msgid "Exclude Taxes/Fees"
@@ -6619,7 +6619,7 @@ msgstr "As futuras datas órfãs encontradas devido a restrições de reserva"
 
 #: admin/com_vikbooking:VBO_W_ROOMSLOCK_TITLE
 msgid "Rooms Locked"
-msgstr "Quartos Bloqueados"
+msgstr "Unidades Bloqueados"
 
 #: admin/com_vikbooking:VBO_W_ROOMSLOCK_DESCR
 msgid "The rooms temporary locked for bookings with pending payment"
@@ -7112,7 +7112,7 @@ msgstr "Forçar Reserva"
 
 #: admin/com_vikbooking:VBO_FORCE_BOOKDATES_HELP
 msgid "The room may not be available on the selected dates, and if you choose to force the booking, you may cause an overbooking. Forcing the reservation may be useful when you want to keep a room closed, but still be able to register reservations for those dates. The system will no longer check if the room is available on the selected dates, so be careful."
-msgstr "O quarto pode não estar disponível nas datas selecionadas, e se você optar por forçar a reserva, pode causar um overbooking. Forçar a reserva pode ser útil quando você deseja manter um quarto fechado, mas ainda assim poder registrar reservas para essas datas. O sistema não verificará mais se o quarto está disponível nas datas selecionadas, então tenha cuidado."
+msgstr "A Unidade pode não estar disponível nas datas selecionadas, e se você optar por forçar a reserva, pode causar um overbooking. Forçar a reserva pode ser útil quando você deseja manter um quarto fechado, mas ainda assim poder registrar reservas para essas datas. O sistema não verificará mais se a unidade está disponível nas datas selecionadas, então tenha cuidado."
 
 #: admin/com_vikbooking:VBO_FORCED_BOOKDATES
 msgid "Booking was forced due to non-availability"
@@ -7378,7 +7378,7 @@ msgstr "Os eventos mais recentes para suas reservas"
 #: admin/com_vikbooking:VBO_W_CHECKAV_TITLE
 #: site/com_vikbooking:VBOPKGROOMCHECKAVAIL
 msgid "Check Availability"
-msgstr "Verificar disponibilidade"
+msgstr "Disponibilidade"
 
 #: admin/com_vikbooking:VBO_W_CHECKAV_DESCR
 msgid "Calculate the rates for the available rooms"
@@ -7529,11 +7529,11 @@ msgstr "Nenhum quarto válido estava disponível no momento da consulta. Datas a
 
 #: admin/com_vikbooking:VBO_WEB_INQUIRY_AVTYPE_3
 msgid "No available room could fit the requested number of guests. Alternative rooms and dates have been applied."
-msgstr "Nenhum quarto disponível pôde acomodar o número solicitado de hóspedes. Quartos e datas alternativas foram aplicados."
+msgstr "Nenhum quarto disponível pôde acomodar o número solicitado de hóspedes. Unidades e datas alternativas foram aplicados."
 
 #: admin/com_vikbooking:VBO_WEB_INQUIRY_AVTYPE_4
 msgid "No alternative dates or rooms were found at the time of inquiry. The first room has been assigned to the reservation."
-msgstr "Não foram encontradas datas ou quartos alternativos no momento da consulta. O primeiro quarto foi atribuído à reserva."
+msgstr "Não foram encontradas datas ou quartos alternativos no momento da consulta. O primeira unidade foi atribuído à reserva."
 
 #: admin/com_vikbooking:VBO_WEB_INQUIRY_SUGG
 msgid "Adjust the reservation if needed, and get in touch with the guest for their booking request."
@@ -7812,7 +7812,7 @@ msgstr "Reserva estadias divididas"
 
 #: admin/com_vikbooking:VBO_BOOK_SPLIT_STAYS_HELP
 msgid "Split stays is a feature that allows you to split longer stays between multiple room types. In case the requested dates are not available in one same room, guests can choose to book a split stay with different rooms. Some nights of the stay will be assigned to one available room, while the other nights will be assigned to different rooms. This feature aims to maximize your rooms occupancy."
-msgstr "Estadias divididas é um recurso que permite dividir estadias mais longas entre vários tipos de quartos. Caso as datas solicitadas não estejam disponíveis em um mesmo quarto, os hóspedes podem optar por reservar uma estadia dividida com diferentes quartos. Algumas Diárias da estadia serão atribuídas a um quarto disponível, enquanto as outras Diárias serão atribuídas a quartos diferentes. Este recurso visa maximizar a ocupação de seus quartos."
+msgstr "Estadias divididas é um recurso que permite dividir estadias mais longas entre vários tipos de quartos. Caso as datas solicitadas não estejam disponíveis em um mesma unidade, os hóspedes podem optar por reservar uma estadia dividida com diferentes quartos. Algumas Diárias da estadia serão atribuídas a um quarto disponível, enquanto as outras Diárias serão atribuídas a quartos diferentes. Este recurso visa maximizar a ocupação de seus quartos."
 
 #: admin/com_vikbooking:VBO_SPLIT_STAYS_RATIO
 msgid "Nights/Transfers ratio"
@@ -7840,7 +7840,7 @@ msgstr "Modificar datas"
 
 #: admin/com_vikbooking:VBO_MODIFY_DATES_HELP
 msgid "It is possible to modify the stay dates of some rooms when multiple rooms are booked with the same reservation. However, the selectable dates are constrained by the booking global check-in and check-out dates. This function is helpful in case the guests of a room will arrive some days later or will leave some days before. It is important to note that the sole goal of this function is to free up the availability of some rooms before or after the booking check-out or check-in dates. Defining a lower number of nights of stay for a room will NOT affect the pricing, which will still be based on the total number of nights of stay of the main reservation. If you wish to adjust the pricing when a room needs to change the dates of stay, then you should remove this room from the main reservation and manually create a new booking for this room, for the same customer, by selecting the proper check-in and check-out dates. You basically need to move the room from one reservation to another."
-msgstr "É possível modificar as datas de estadia de alguns quartos quando vários quartos são reservados com a mesma reserva. No entanto, as datas selecionáveis são limitadas pelas datas de check-in e check-out globais da reserva. Esta função é útil caso os hóspedes de um quarto cheguem alguns dias depois ou saiam alguns dias antes. É importante notar que o único objetivo desta função é liberar a disponibilidade de alguns quartos antes ou depois das datas de check-out ou check-in das reservas. Definir um número menor de Diárias de estadia para um quarto NÃO afetará o preço, que ainda será baseado no número total de Diárias de estadia da reserva principal. Se você deseja ajustar o preço quando um quarto precisa alterar as datas de estadia, então você deve remover este quarto da reserva principal e criar manualmente uma nova reserva para este quarto, para o mesmo cliente, selecionando as datas adequadas de check-in e check-out. Basicamente, você precisa mover o quarto de uma reserva para outra."
+msgstr "É possível modificar as datas de estadia de alguns quartos quando vários quartos são reservados com a mesma reserva. No entanto, as datas selecionáveis são limitadas pelas datas de check-in e check-out globais da reserva. Esta função é útil caso os hóspedes de um quarto cheguem alguns dias depois ou saiam alguns dias antes. É importante notar que o único objetivo desta função é liberar a disponibilidade de alguns quartos antes ou depois das datas de check-out ou check-in das reservas. Definir um número menor de Diárias de estadia para um quarto NÃO afetará o preço, que ainda será baseado no número total de Diárias de estadia da reserva principal. Se você deseja ajustar o preço quando um quarto precisa alterar as datas de estadia, então você deve remover este quarto da reserva principal e criar manualmente uma nova reserva para este quarto, para o mesmo cliente, selecionando as datas adequadas de check-in e check-out. Basicamente, você precisa mover a unidade de uma reserva para outra."
 
 #: admin/com_vikbooking:VBO_STATE_PROVINCE
 #: site/com_vikbooking:VBCCSTATEPROVINCE site/com_vikbooking:VBO_STATE_PROVINCE
@@ -8000,15 +8000,15 @@ msgstr "Taxa de cancelamento"
 #: admin/com_vikbooking:VBO_ROOM_UPGRADE admin/com_vikbooking:VBOBOOKHISTORYTUR
 #: site/com_vikbooking:VBOBOOKHISTORYTUR
 msgid "Room Upgrade"
-msgstr "Upgrade de Quarto"
+msgstr "Upgrade de Unidade"
 
 #: admin/com_vikbooking:VBO_ROOM_UPGRADE_HELP
 msgid "If enabled, guests will be able to upgrade to \"better\" rooms by editing their reservations. It is necessary to select the compatible rooms for the upgrade option (i.e. upgrade from \"Double Room Standard\" to \"Double Room Deluxe\")."
-msgstr "Se habilitado, os hóspedes poderão fazer upgrade para quartos \"melhores\" editando suas reservas. É necessário selecionar os quartos compatíveis para a opção de upgrade (por exemplo, upgrade de \"Quarto Duplo Standard\" para \"Quarto Duplo Deluxe\")."
+msgstr "Se habilitado, os hóspedes poderão fazer upgrade para quartos \"melhores\" editando suas reservas. É necessário selecionar os quartos compatíveis para a opção de upgrade (por exemplo, upgrade de \"Unidade Duplo Standard\" para \"Unidade Duplo Deluxe\")."
 
 #: admin/com_vikbooking:VBO_ELIGIBLE_ROOMS
 msgid "Eligible rooms"
-msgstr "Quartos elegíveis"
+msgstr "Unidades elegíveis"
 
 #: admin/com_vikbooking:VBOBOOKHISTORYTGR
 msgid "Guest review"
@@ -8054,7 +8054,7 @@ msgstr "Nova Reserva"
 
 #: admin/com_vikbooking:VBO_CHILDFEES_AGEBUCKETS_HELP
 msgid "For a better compatibility with OTAs, it is recommended to define at most 3 age intervals (buckets), where the &quot;to age&quot; is inclusive, and the next from-age interval should be greater by one (i.e. from 0 to 3, from 4 to 8, from 9 to 16). Also, fixed amounts in your currency are way more compatible than percent values of the room/adults rate."
-msgstr "Para melhor compatibilidade com OTAs, é recomendado definir no máximo 3 intervalos de idade, onde o \"até idade\" é inclusivo, e o próximo intervalo \"a partir de idade\" deve ser maior em um (ou seja, de 0 a 3, de 4 a 8, de 9 a 16). Além disso, valores fixos na sua moeda são muito mais compatíveis do que valores percentuais da tarifa do quarto/adultos."
+msgstr "Para melhor compatibilidade com OTAs, é recomendado definir no máximo 3 intervalos de idade, onde o \"até idade\" é inclusivo, e o próximo intervalo \"a partir de idade\" deve ser maior em um (ou seja, de 0 a 3, de 4 a 8, de 9 a 16). Além disso, valores fixos na sua moeda são muito mais compatíveis do que valores percentuais da tarifa da unidade/adultos."
 
 #: admin/com_vikbooking:VBO_MISSING_SUBUNIT
 msgid "Missing sub-unit"
@@ -8166,7 +8166,7 @@ msgstr "J"
 
 #: admin/com_vikbooking:VBO_CONF_SWAP_RNUMB
 msgid "Do you really want to swap the room number %s with the number %s?"
-msgstr "Você realmente quer trocar o número do quarto %s com o número %s?"
+msgstr "Você realmente quer trocar o número da unidade %s com o número %s?"
 
 #: admin/com_vikbooking:VBO_SWAP_ROOMS_LOG
 msgid "%s: unit number %s was swapped with unit number %s"
@@ -8792,7 +8792,7 @@ msgstr "Defina um lembrete para uma data."
 
 #: admin/com_vikbooking:VBO_AI_DISC_FN_REMIND_GR_EXA
 msgid "We need to change the beds of the room %s before the guests arrive tomorrow. Please set a reminder for early in the morning."
-msgstr "Precisamos trocar as camas do quarto %s antes que os hóspedes cheguem amanhã. Por favor, defina um lembrete para cedo pela manhã."
+msgstr "Precisamos trocar as camas da unidade %s antes que os hóspedes cheguem amanhã. Por favor, defina um lembrete para cedo pela manhã."
 
 #: admin/com_vikbooking:VBO_AI_DISC_FN_REMIND_BR_SUMM
 msgid "Set a reminder for a booking."
@@ -8804,7 +8804,7 @@ msgstr "Defina um lembrete para a reserva de John Smith porque precisamos cobrar
 
 #: admin/com_vikbooking:VBO_AI_DISC_FN_RR_TITLE
 msgid "Room Rates"
-msgstr "Tarifas de Quartos"
+msgstr "Tarifas de Unidades"
 
 #: admin/com_vikbooking:VBO_AI_DISC_FN_RR_DESCR
 msgid "Calculate the total cost for a stay. Apply new rates and restrictions to your website and OTA rooms."
@@ -8868,7 +8868,7 @@ msgstr "O %s está disponível no próximo fim de semana por 3 Diárias?"
 
 #: admin/com_vikbooking:VBO_AI_DISC_FN_BOOK_TITLE
 msgid "Room Bookings"
-msgstr "Reservas de Quartos"
+msgstr "Reservas de Unidades"
 
 #: admin/com_vikbooking:VBO_AI_DISC_FN_BOOK_DESCR
 msgid "Create new bookings for a specific customer, room and dates. Close and occupy your rooms on specific dates."
@@ -8880,7 +8880,7 @@ msgstr "Faça uma reserva para um hóspede."
 
 #: admin/com_vikbooking:VBO_AI_DISC_FN_BOOK_MK_EXA
 msgid "Mario Rossi would like to book the room %s for 3 nights and 2 guests this Thursday. Please make a reservation for %s 200 per night. They need parking."
-msgstr "Mario Rossi gostaria de reservar o quarto %s por 3 Diárias e 2 hóspedes nesta quinta-feira. Por favor, faça uma reserva por %s 200 por Diária. Eles precisam de estacionamento."
+msgstr "Mario Rossi gostaria de reservar a unidade %s por 3 Diárias e 2 hóspedes nesta quinta-feira. Por favor, faça uma reserva por %s 200 por Diária. Eles precisam de estacionamento."
 
 #: admin/com_vikbooking:VBO_AI_DISC_FN_BOOK_CL_SUMM
 msgid "Make a room occupied on specific dates to stop the reservations."
@@ -8888,7 +8888,7 @@ msgstr "Deixe um quarto ocupado em datas específicas para parar as reservas."
 
 #: admin/com_vikbooking:VBO_AI_DISC_FN_BOOK_CL_EXA
 msgid "Please close the room %s from Monday to Friday of next week."
-msgstr "Por favor, feche o quarto %s de segunda a sexta-feira da próxima semana."
+msgstr "Por favor, feche a unidade %s de segunda a sexta-feira da próxima semana."
 
 #: admin/com_vikbooking:VBO_AI_DISC_FN_MODBOOK_TITLE
 msgid "Booking Modification"
@@ -9335,7 +9335,7 @@ msgstr "Diárias máximas de reserva"
 
 #: admin/com_vikbooking:VBO_DD_RES_MAX_LOS_HELP
 msgid "If the booking nights exceed the limit, payment will be requested together with the room reservation."
-msgstr "Se as Diárias de reserva excederem o limite, o pagamento será solicitado juntamente com a reserva do quarto."
+msgstr "Se as Diárias de reserva excederem o limite, o pagamento será solicitado juntamente com a reserva da unidade."
 
 #: admin/com_vikbooking:VBO_USE_DEFAULT
 msgid "Use default"
@@ -9359,7 +9359,7 @@ msgstr "VikBooking Formulário de Busca"
 
 #: admin/sys:COM_VIKBOOKING_ROOMSLIST_VIEW_DEFAULT_DESC
 msgid "A page that lists various room-types"
-msgstr "VikBooking Listar Quartos"
+msgstr "VikBooking Listar Unidades"
 
 #: admin/sys:COM_VIKBOOKING_CATEGORY_FIELD_SELECT_TITLE_DESC
 msgid "Select a VikBooking category"
@@ -9383,7 +9383,7 @@ msgstr "VikBooking Listar Pedidos"
 
 #: admin/sys:COM_VIKBOOKING_SORTBY_FIELD_SELECT_TITLE
 msgid "Order Rooms By"
-msgstr "Pedidos de Quartos pelo"
+msgstr "Pedidos de Unidades pelo"
 
 #: admin/sys:COM_VIKBOOKING_SORTTYPE_FIELD_SELECT_TITLE
 msgid "Sort Type"
@@ -9395,19 +9395,19 @@ msgstr "Resultados por página"
 
 #: admin/sys:COM_VIKBOOKING_ROOMDETAILS_VIEW_DEFAULT_TITLE
 msgid "Room Details"
-msgstr "Detalhes do Quarto"
+msgstr "Detalhes do Unidade"
 
 #: admin/sys:COM_VIKBOOKING_ROOMDETAILS_VIEW_DEFAULT_DESC
 msgid "Shows the details of one specific room-type"
-msgstr "VikBooking Detalhes do Quarto"
+msgstr "VikBooking Detalhes do Unidade"
 
 #: admin/sys:COM_VIKBOOKING_ROOMID_FIELD_SELECT_TITLE
 msgid "Room/Apartment"
-msgstr "Quarto/Apartamento"
+msgstr "Unidade/Apartamento"
 
 #: admin/sys:COM_VIKBOOKING_ROOMID_FIELD_SELECT_TITLE_DESC
 msgid "Select a room/apartment from the list"
-msgstr "Selecionar um Quarto/Apartamento a partir da lista"
+msgstr "Selecionar um Unidade/Apartamento a partir da lista"
 
 #: admin/sys:COM_VIKBOOKING_PROMOTIONS_VIEW_DEFAULT_TITLE
 msgid "Promotions"
@@ -9419,7 +9419,7 @@ msgstr "Mostra uma lista de todos os Preços Especiais marcados como -Promoção
 
 #: admin/sys:COM_VIKBOOKING_PROMOSHOWCARS_FIELD_TITLE
 msgid "Show Rooms"
-msgstr "Mostrar Quartos"
+msgstr "Mostrar Unidades"
 
 #: admin/sys:COM_VIKBOOKING_PROMOSHOWCARS_FIELD_TITLE_DESC
 msgid "Choose whether the rooms, for which the promotion is valid, should be displayed"
@@ -9439,7 +9439,7 @@ msgstr "Máximo de Promoções"
 
 #: admin/sys:COM_VIKBOOKING_AVAILABILITY_VIEW_DEFAULT_TITLE
 msgid "Rooms Availability"
-msgstr "Disponibilidade de Quartos"
+msgstr "Disponibilidade de Unidades"
 
 #: admin/sys:COM_VIKBOOKING_AVAILABILITY_VIEW_DEFAULT_DESC
 msgid "Shows the monthly availability of one or more rooms"
@@ -9451,7 +9451,7 @@ msgstr "Escolha os quartos a serem exibidos. Deixe vazio para exibir todos os qu
 
 #: admin/sys:COM_VIKBOOKING_AVSHOWTYPE_FIELD_SELECT_TITLE
 msgid "Rooms Units"
-msgstr "Unidades de Quartos"
+msgstr "Unidades de Unidades"
 
 #: admin/sys:COM_VIKBOOKING_AVSHOWTYPE_NONE
 msgid "Show Available Days with no numbers"
@@ -9487,11 +9487,11 @@ msgstr "Taxas de Imposto, Tipos de Preço, Códigos de Cupom"
 
 #: admin/sys:VBOACTION_ROOMS
 msgid "Rooms Management"
-msgstr "Gerenciamento de Quartos"
+msgstr "Gerenciamento de Unidades"
 
 #: admin/sys:VBOACTION_ROOMS_DESC
 msgid "Rooms, Categories, Characteristics"
-msgstr "Quartos, Categorias, Características"
+msgstr "Unidades, Categorias, Características"
 
 #: admin/sys:VBOACTION_PRICING
 msgid "Pricing Management"
@@ -9587,11 +9587,11 @@ msgstr "IP"
 
 #: site/com_vikbooking:VBROOMBOOKEDBYOTHER
 msgid "Sorry, the room has been booked. Please make a new reservation."
-msgstr "Lamentamos, mas o quarto foi reservado. Por favor, faça um novo pedido."
+msgstr "Lamentamos, mas a unidade foi reservado. Por favor, faça um novo pedido."
 
 #: site/com_vikbooking:VBROOMISLOCKED
 msgid "The room is now being booked by another customer. Please make a new reservation."
-msgstr "O Quarto está agora a ser reservado por outro cliente. Por favor, faça um novo pedido."
+msgstr "O Unidade está agora a ser reservado por outro cliente. Por favor, faça um novo pedido."
 
 #: site/com_vikbooking:VBINVALIDDATES
 msgid "Check-in and Check-out Dates are wrong"
@@ -9635,7 +9635,7 @@ msgstr "Nenhuma tarifa selecionada, por favor, tente novamente"
 
 #: site/com_vikbooking:VBROOMNOTCONS
 msgid "The Room selected is not available from the"
-msgstr "O quarto selecionado não está disponível no"
+msgstr "A Unidade selecionado não está disponível no"
 
 #: site/com_vikbooking:VBROOMNOTCONSTO
 msgid "to the"
@@ -9643,15 +9643,15 @@ msgstr "ao"
 
 #: site/com_vikbooking:VBROOMNOTRIT
 msgid "The room is not available from the"
-msgstr "Quarto não está disponível a partir do"
+msgstr "Unidade não está disponível a partir do"
 
 #: site/com_vikbooking:VBROOMNOTFND
 msgid "Room not found"
-msgstr "Quarto não encontrado"
+msgstr "Unidade não encontrado"
 
 #: site/com_vikbooking:VBROOMNOTAV
 msgid "Room not available"
-msgstr "Quarto não disponível"
+msgstr "Unidade não disponível"
 
 #: site/com_vikbooking:VBNOTARFNDSELO
 msgid "No Fares Found. Please select a different date or room"
@@ -9691,7 +9691,7 @@ msgstr "Em"
 
 #: site/com_vikbooking:VBROOMCAT
 msgid "Rooms Category"
-msgstr "Categoria dos Quartos"
+msgstr "Categoria dos Unidades"
 
 #: site/com_vikbooking:VBERRCONNPAYP
 msgid "Error while connecting to Paypal.com"
@@ -9731,7 +9731,7 @@ msgstr "Resposta do Servidor"
 
 #: site/com_vikbooking:VBROOMSFND
 msgid "Rooms Found"
-msgstr "Quartos Encontrados"
+msgstr "Unidades Encontrados"
 
 #: site/com_vikbooking:VBPROSEGUI site/com_vikbooking:VBSEARCHCONTINUESUBM
 #: site/com_vikbooking:VBDIALOGBTNCONTINUE
@@ -9800,7 +9800,7 @@ msgstr "Esta Página"
 
 #: site/com_vikbooking:VBROOMRENTED
 msgid "Room Reserved"
-msgstr "Quarto Reservado"
+msgstr "Unidade Reservado"
 
 #: site/com_vikbooking:ORDNOTAX
 msgid "Net Price"
@@ -9908,7 +9908,7 @@ msgstr "Selecionado"
 
 #: site/com_vikbooking:VBERRSELECTINGROOMS
 msgid "Error selecting the rooms, please try again."
-msgstr "Erro Seleção do quarto, por favor, tente novamente"
+msgstr "Erro Seleção da unidade, por favor, tente novamente"
 
 #: site/com_vikbooking:VBPRICEDETAILS
 msgid "Price Breakdown"
@@ -9928,7 +9928,7 @@ msgstr "Seleção de quartos"
 
 #: site/com_vikbooking:VBDIALOGMESSONE
 msgid "Room Selected:"
-msgstr "O quarto foi selecionado"
+msgstr "A Unidade foi selecionado"
 
 #: site/com_vikbooking:VBYOURRESERV
 msgid "Your Reservation"
@@ -10277,7 +10277,7 @@ msgstr "Erro, %d unidades para quarto %s não estão disponíveis nas datas soli
 
 #: site/com_vikbooking:VBERRJSNOUNITS
 msgid "There are no more units available of this room with the current selection"
-msgstr "Não há mais unidades disponíveis do quarto com a seleção atual"
+msgstr "Não há mais unidades disponíveis da unidade com a seleção atual"
 
 #: site/com_vikbooking:VBERRCURCONVNODATA
 msgid "Insufficient data received for converting the currency"
@@ -10422,7 +10422,7 @@ msgstr "Pacote não encontrado."
 
 #: site/com_vikbooking:VBOPKGERRNOTROOM
 msgid "The room requested is not available for this package."
-msgstr "O quarto solicitado não está disponível para este pacote."
+msgstr "A Unidade solicitado não está disponível para este pacote."
 
 #: site/com_vikbooking:VBOPKGERRNUMNIGHTS
 msgid "Invalid number of nights requested for this package."
@@ -10564,7 +10564,7 @@ msgstr "Nenhuma solução de reserva encontrada para o número de Diárias e hó
 
 #: site/com_vikbooking:VBOBOOKSOLSEARCHROOMS
 msgid "Search Rooms"
-msgstr "Buscar Quartos"
+msgstr "Buscar Unidades"
 
 #: site/com_vikbooking:VBOCANCYOURBOOKING
 msgid "Cancel your Booking"
@@ -10860,7 +10860,7 @@ msgstr "Grupo de quartos alternativo usado para alocar a reserva de consulta"
 
 #: site/com_vikbooking:VBO_ALT_DUMMY_INQ
 msgid "Dummy room was used to allocate the inquiry reservation due to no availability"
-msgstr "Quarto fictício foi usado para alocar a reserva de consulta devido à indisponibilidade"
+msgstr "Unidade fictício foi usado para alocar a reserva de consulta devido à indisponibilidade"
 
 #: site/com_vikbooking:VBO_SPLIT_STAY_SOLS
 msgid "Split stay solutions"
@@ -11000,7 +11000,7 @@ msgstr "Menu suspenso do formulário de pesquisa para selecionar o número de ad
 
 #: site/mod_vikbooking_horizontalsearch:FORCESINGLEROOMSEARCH
 msgid "Force Specific Room"
-msgstr "Forçar Quarto Específico"
+msgstr "Forçar Unidade Específico"
 
 #: site/mod_vikbooking_horizontalsearch:FORCESINGLEROOMSEARCHHELP
 msgid "If not disabled, the search module will check the availability only for the selected room type. Keep it disabled if you want to search over the availability of any room types."
@@ -11061,7 +11061,7 @@ msgstr "Enviar solicitação"
 
 #: site/mod_vikbooking_horizontalsearch:INQ_CHECK_AVAILABILITY
 msgid "Check availability"
-msgstr "Verificar disponibilidade"
+msgstr "Disponibilidade"
 
 #: site/mod_vikbooking_horizontalsearch:INQ_NOTES_SPREQUESTS
 msgid "Notes/Special requests"
@@ -11274,7 +11274,7 @@ msgstr "Camas"
 
 #: site/mod_vikbooking_rooms:VBROOMSCONFIGURATION
 msgid "Room Configuration"
-msgstr "Configuração do Quarto"
+msgstr "Configuração do Unidade"
 
 #: site/mod_vikbooking_rooms:VBROOMSSLIDERCONF
 msgid "Carousel Configuration"
@@ -11282,20 +11282,20 @@ msgstr "Configuração do Carrossel"
 
 #: site/mod_vikbooking_rooms:VBROOMSWIDTH
 msgid "Room Width"
-msgstr "Largura do Quarto"
+msgstr "Largura do Unidade"
 
 #: site/mod_vikbooking_rooms:VBROOMSWIDTHDESC
 msgid "With of the single room displayed"
-msgstr "Largura do quarto individual exibido"
+msgstr "Largura da unidade individual exibido"
 
 #: site/mod_vikbooking_rooms:VBROOMSNUMB
 #: site/mod_vikbooking_rooms:VBROOMSNUMBDESC
 msgid "Maximum Rooms Displayed"
-msgstr "Máximo de Quartos Exibidos"
+msgstr "Máximo de Unidades Exibidos"
 
 #: site/mod_vikbooking_rooms:VBROOMSNUMBROW
 msgid "Rooms per row"
-msgstr "Quartos por linha"
+msgstr "Unidades por linha"
 
 #: site/mod_vikbooking_rooms:VBROOMSDOTNAV
 msgid "Dotted Navigation"
@@ -11374,7 +11374,7 @@ msgstr "Mostrar Número de Pessoas"
 
 #: site/mod_vikbooking_rooms:VBROOMSSHOWPEOPLEDESC
 msgid "Show the number of the people of the room/apartment"
-msgstr "Mostrar o número de pessoas do quarto/apartamento"
+msgstr "Mostrar o número de pessoas da unidade/apartamento"
 
 #: site/mod_vikbooking_rooms:VBROOMSFILTERCAT
 msgid "Filtering by Category"
