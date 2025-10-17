@@ -2332,7 +2332,7 @@ msgstr "Personalizar Label Preço"
 
 #: admin/com_vikbooking:VBPARAMCUSTPRICETEXTHELP
 msgid "this text can be something like Per Night, Per Weekend, Per Week etc..if empty the system will display Per Night. This text can be a language definition in the .INI file."
-msgstr "Este texto pode ser algo como por Diária, por fim de semana, por semana etc..if vazio o sistema mostrará, por Diária. Este texto pode ser uma definição da linguagem no arquivo INI."
+msgstr "este texto pode ser algo como por Diária, por fim de semana, por semana etc..if vazio o sistema mostrará, por Diária. Este texto pode ser uma definição da linguagem no arquivo INI."
 
 #: admin/com_vikbooking:VBCALBOOKINGPAYMENT
 msgid "Method of payment"
@@ -2352,7 +2352,7 @@ msgstr "::Alterar Método de Pagamento::"
 
 #: admin/com_vikbooking:VBCHANGEPAYCONFIRM
 msgid "Change method of payment to "
-msgstr "Alterar Método de Pagamento para"
+msgstr "Alterar Método de Pagamento para "
 
 #: admin/com_vikbooking:VBAMOUNTPAID
 msgid "Amount Paid"
@@ -2399,7 +2399,7 @@ msgstr "Ativado"
 
 #: admin/com_vikbooking:VBPARAMPRICECALENDARHELP
 msgid "if enabled, the View Room Details will display the cost for each day in the availability calendars"
-msgstr "Se ativado, o Ver detalhes Unidade irá exibir o custo de cada dia no calendário de disponibilidade"
+msgstr "se ativado, o Ver detalhes Unidade irá exibir o custo de cada dia no calendário de disponibilidade"
 
 #: admin/com_vikbooking:VBPARAMDEFCALCOST
 msgid "Default Cost per Night"
@@ -5328,7 +5328,7 @@ msgstr "Próximo"
 #: site/mod_vikbooking_horizontalsearch:VBJQCALWKHEADER
 #: site/mod_vikbooking_channelrates:VBJQCALWKHEADER
 msgid "Wk"
-msgstr "Sem."
+msgstr "Sem"
 
 #: admin/com_vikbooking:VBMENUTRACKINGS
 msgid "Statistics Tracking"
@@ -5637,7 +5637,7 @@ msgstr "Permissões Atualizadas"
 
 #: admin/com_vikbooking:VBMENUEINVOICING
 msgid "e-Invoicing"
-msgstr "Faturamento Eletrônico"
+msgstr "e-fatura"
 
 #: admin/com_vikbooking:VBMAINEINVOICINGTITLE
 msgid "Vik Booking - e-Invoicing"
@@ -9611,7 +9611,7 @@ msgstr "Erro, dados insuficientes recebidos."
 
 #: site/com_vikbooking:VBINVALIDTOKEN
 msgid "Error, Invalid Token. Unable to Save the Reservation"
-msgstr "Erro, Token inválido. Não é possível salvar a Ordem."
+msgstr "Erro, Token inválido. Não é possível salvar a Ordem"
 
 #: site/com_vikbooking:VBERRREPSEARCH
 msgid "Error, the room is already booked and is no longer available. Please search for another one."
@@ -9744,7 +9744,7 @@ msgstr "Valor de"
 
 #: site/com_vikbooking:VBFOR
 msgid "for"
-msgstr "Para"
+msgstr "para"
 
 #: site/com_vikbooking:VBRIEPILOGOORD
 msgid "Booking Summary"
@@ -9820,7 +9820,7 @@ msgstr "Informações do Comprador"
 
 #: site/com_vikbooking:VBLISTPICK
 msgid "View Details &gt;&gt;"
-msgstr "Ver Detalhes >>"
+msgstr "Ver Detalhes &gt;&gt;"
 
 #: site/com_vikbooking:VBLEGWARNING
 msgid "Partially Reserved"
@@ -9884,7 +9884,7 @@ msgstr "Um pagamento da encomenda %s ter sido recebido. O montante total recebid
 
 #: site/com_vikbooking:VBHAVEACOUPON
 msgid "Enter here your coupon code"
-msgstr "Digite aqui seu código de cupom"
+msgstr "Tem cupom? Aplique agora"
 
 #: site/com_vikbooking:VBCOUPONNOTFOUND
 msgid "Error, Coupon not found"
@@ -9908,7 +9908,7 @@ msgstr "Selecionado"
 
 #: site/com_vikbooking:VBERRSELECTINGROOMS
 msgid "Error selecting the rooms, please try again."
-msgstr "Erro Seleção da unidade, por favor, tente novamente"
+msgstr "Erro Seleção da unidade, por favor, tente novamente."
 
 #: site/com_vikbooking:VBPRICEDETAILS
 msgid "Price Breakdown"
@@ -9928,7 +9928,7 @@ msgstr "Seleção de quartos"
 
 #: site/com_vikbooking:VBDIALOGMESSONE
 msgid "Room Selected:"
-msgstr "A Unidade foi selecionado"
+msgstr "A Unidade foi selecionado:"
 
 #: site/com_vikbooking:VBYOURRESERV
 msgid "Your Reservation"
@@ -10080,7 +10080,7 @@ msgstr "Confimar"
 
 #: site/com_vikbooking:VBSEARCHERRNOTENOUGHROOMS
 msgid "We are sorry, but there aren't enough rooms for %s. Please select a different number of rooms or guests."
-msgstr "Lamentamos mas não há quartos suficientes para %s. Por favor, selecione menos quartos ou menos pessoas por quarto"
+msgstr "Lamentamos mas não há quartos suficientes para %s. Por favor, selecione menos quartos ou menos pessoas por quarto."
 
 #: site/com_vikbooking:VBRESTRERRWDAYARRIVAL
 msgid "Error, the arrival day in %s must be on a %s. Please try again."
@@ -10201,7 +10201,7 @@ msgstr "Erro, o número de Diárias de estadia permitido nestas datas deve ser u
 
 #: site/com_vikbooking:VBRESTRERRWDAYCOMBORANGE
 msgid "Error, the departure day in these dates must be on a %s if arriving on a %s"
-msgstr "Erro, o dia de partida nestas datas deve ser em uma %s se a chegada for em uma %s."
+msgstr "Erro, o dia de partida nestas datas deve ser em uma %s se a chegada for em uma %s"
 
 #: site/com_vikbooking:VBRESTRTIPWDAYARRIVAL
 msgid "Some results were excluded: try selecting the arrival day in %s as a %s."
@@ -10221,7 +10221,7 @@ msgstr "Alguns resultados foram excluídos: o número de Diárias de estadia per
 
 #: site/com_vikbooking:VBRESTRTIPWDAYCOMBO
 msgid "Some results were excluded: the departure day in %s should be on a %s if arriving on a %s"
-msgstr "Alguns resultados foram excluídos: o dia de partida em %s deve ser em uma %s se a chegada for em uma %s."
+msgstr "Alguns resultados foram excluídos: o dia de partida em %s deve ser em uma %s se a chegada for em uma %s"
 
 #: site/com_vikbooking:VBRESTRTIPWDAYARRIVALRANGE
 msgid "Some results were excluded: the arrival day in these dates should be on a %s."
@@ -10241,7 +10241,7 @@ msgstr "Alguns resultados foram excluídos: o número de Diárias de estadia per
 
 #: site/com_vikbooking:VBRESTRTIPWDAYCOMBORANGE
 msgid "Some results were excluded: the departure day in these dates should be on a %s if arriving on a %s"
-msgstr "Alguns resultados foram excluídos: o dia de partida nestas datas deve ser em uma %s se a chegada for em uma %s."
+msgstr "Alguns resultados foram excluídos: o dia de partida nestas datas deve ser em uma %s se a chegada for em uma %s"
 
 #: site/com_vikbooking:VBLASTUNITSAVAIL
 msgid "Last %d available!"
