@@ -5,6 +5,10 @@ title: Quartos e Tipos
 # Quartos e Tipos
 Este guia apresenta em detalhes como estruturar tipos de quarto e unidades para facilitar operação e evitar inconsistências.
 
+Mapa de navegação (painel)
+- Tipos de quarto: WordPress > VikBooking > Room Types
+- Unidades: WordPress > VikBooking > Rooms
+
 1) Definições
 - Tipo de quarto (Room Type): modelo que define atributos compartilhados (capacidade, amenidades, regras de cancelamento).
 - Unidade (Room): instância física atribuída a um tipo.

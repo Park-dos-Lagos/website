@@ -5,6 +5,10 @@ title: Disponibilidade e Restrições
 # Disponibilidade e Restrições
 Este guia explica em detalhe como gerir a disponibilidade das unidades e aplicar restrições que evitem overbooking e conflitos com tarifas.
 
+Mapa de navegação (painel)
+- Disponibilidade: WordPress > VikBooking > Availability/Calendário
+- Restrições: WordPress > VikBooking > Rules/Restrictions
+
 1) Conceitos
 - Bloqueio: marcar uma unidade como indisponível por manutenção ou evento.
 - Stop-sell: impedir novas reservas em uma data/tipo específico.

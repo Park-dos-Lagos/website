@@ -5,6 +5,15 @@ title: Configuração Inicial do VikBooking
 # Configuração Inicial do VikBooking
 Este documento descreve, passo a passo, as configurações iniciais recomendadas ao ativar o VikBooking em um site WordPress.
 
+Mapa de navegação (painel)
+- Configurações gerais: WordPress > VikBooking > Settings/Configurações
+- Tipos de quarto: WordPress > VikBooking > Room Types
+- Unidades: WordPress > VikBooking > Rooms
+- Tarifas: WordPress > VikBooking > Rates/Price Plans
+- Pagamentos: WordPress > VikBooking > Payments/Pagamentos
+- E-mails: WordPress > VikBooking > Emails/Templates
+- Páginas/Shortcodes: WordPress > Páginas | Aparência > Widgets
+
 1) Pré-requisitos
 - Acesso administrador ao WordPress.
 - Backup antes de começar (veja `backup-e-manutencao.md`).
