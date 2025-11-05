@@ -5,6 +5,10 @@ title: Pagamentos (Admin)
 # Pagamentos (Admin)
 Este documento descreve, em detalhes práticos, como configurar gateways, validar webhooks e executar conciliação de pagamentos.
 
+Mapa de navegação (painel)
+- Gateways de pagamento: WordPress > VikBooking > Payments/Pagamentos
+- Webhooks (no gateway): Painel do Gateway (Stripe/PayPal/etc) > Webhooks/Notificações
+
 1) Configuração de gateways (passo a passo)
 1. VikBooking → Pagamentos / Payments → selecione o gateway.
 2. Insira credenciais (Client ID, Secret, API Key) em modo TEST/SANDBOX inicialmente.
