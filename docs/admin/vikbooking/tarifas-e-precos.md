@@ -5,6 +5,9 @@ title: Tarifas e Preços
 # Tarifas e Preços
 Este guia explica como criar e gerenciar tarifas e preços no VikBooking com exemplos, cálculos e políticas.
 
+Mapa de navegação (painel)
+- Tarifas/Planos: WordPress > VikBooking > Rates/Price Plans
+
 1) Elementos de uma tarifa
 - Períodos/temporadas (datas válidas: alta/baixa temporada).
 - Preço base por noite.
