@@ -1828,7 +1828,7 @@ msgstr "Painel de controle"
 
 #: admin/com_vikbooking:VBMENUPRICESTABLE
 msgid "Rates Table"
-msgstr "Tabela Impostos"
+msgstr "Tarifario"
 
 #: admin/com_vikbooking:VBMENUQUICKRES
 msgid "Calendar"
