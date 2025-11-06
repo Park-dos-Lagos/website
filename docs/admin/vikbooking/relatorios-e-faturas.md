@@ -5,6 +5,10 @@ title: Relatórios e Faturas
 # Relatórios e Faturas
 Relatórios e faturamento são essenciais para controle financeiro e conformidade. Este documento consolida os relatórios disponíveis e descreve procedimentos práticos para geração, exportação e conciliação.
 
+Mapa de navegação (painel)
+- Relatórios: WordPress > VikBooking > Reports/Relatórios
+- Faturamento: WordPress > VikBooking > Billing/Faturas
+
 1) Relatórios principais e uso
 - Ocupação por período e tipo de quarto: análise de demanda e sazonalidade.
 - Financeiro por status de pagamento: identificar valores pendentes, capturados e reembolsados.
