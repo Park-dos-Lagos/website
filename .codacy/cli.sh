@@ -2,7 +2,7 @@
 
 
 set -e +o pipefail
-
+ 
 # Set up paths first
 bin_name="codacy-cli-v2"
 

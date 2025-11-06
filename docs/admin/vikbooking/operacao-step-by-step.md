@@ -6,6 +6,16 @@ title: Operação do VikBooking — Passo a passo para Administradores
 
 Este documento reúne procedimentos operacionais práticos para administradores e operadores do VikBooking: passos sequenciais para configurar, operar e manter reservas no dia-a-dia.
 
+Mapa de navegação (painel)
+- Configurações: WordPress > VikBooking > Settings/Configurações
+- Tipos/Unidades: WordPress > VikBooking > Room Types | Rooms
+- Tarifas: WordPress > VikBooking > Rates/Price Plans
+- Disponibilidade/Restrições: WordPress > VikBooking > Availability | Rules/Restrictions
+- Pagamentos: WordPress > VikBooking > Payments/Pagamentos (Webhooks no painel do gateway)
+- E-mails: WordPress > VikBooking > Emails/Templates
+- Reservas: WordPress > VikBooking > Reservas/Bookings
+- Relatórios/Faturas: WordPress > VikBooking > Reports | Billing
+
 ## Contrato rápido
 - Entrada: Acesso de administrador ao painel WordPress + credenciais de gateways (se aplicável).
 - Saída: Site configurado, tarifas atualizadas, reservas operáveis e procedimentos de verificação.

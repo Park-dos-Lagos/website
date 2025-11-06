@@ -5,6 +5,9 @@ title: E-mails e Modelos
 # E-mails e Modelos
 Este documento detalha os templates de e-mail do VikBooking, variáveis disponíveis e procedimentos de teste e envio.
 
+Mapa de navegação (painel)
+- Templates de e-mail: WordPress > VikBooking > Emails/Templates
+
 1) Modelos principais e variáveis comuns
 - Confirmação de reserva: variável importantes: {guest_name}, {arrival_date}, {departure_date}, {booking_code}, {total_amount}.
 - Lembrete de pagamento/pré-check-in: {due_date}, {payment_link}, {room_details}.
