@@ -5,6 +5,10 @@ title: Shortcodes e Widgets
 # Shortcodes e Widgets
 Este documento descreve os shortcodes e widgets disponíveis, parâmetros comuns e exemplos de uso em páginas e temas.
 
+Mapa de navegação (painel)
+- Páginas: WordPress > Páginas > Adicionar nova
+- Widgets: WordPress > Aparência > Widgets
+
 1) Shortcodes principais
 - [vikbooking_search] — formulário de busca. Parâmetros comuns: `layout=horizontal|vertical`, `default_checkin=YYYY-MM-DD`.
 - [vikbooking_rooms] — listagem de quartos. Parâmetros: `type_id`, `show_images=true|false`, `limit=10`.

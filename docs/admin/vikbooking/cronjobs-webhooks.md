@@ -5,6 +5,10 @@ title: Cronjobs e Webhooks
 # Cronjobs e Webhooks
 Este documento explica como configurar, monitorar e depurar cronjobs e webhooks usados pelo VikBooking.
 
+Mapa de navegação (painel)
+- WP-Cron: WordPress > wp-cron.php (chamado pelo servidor) | Servidor > Cron (agendador)
+- Logs de webhook (plugin): WordPress > VikBooking > (Config/Logs) — conforme módulo
+
 1) Conceitos rápidos
 - Cronjobs: tarefas agendadas (ex.: lembretes, geração de relatórios, limpeza de logs).
 - Webhooks: chamadas HTTP recebidas de terceiros (gateways) notificando eventos (pagamentos, reembolsos).

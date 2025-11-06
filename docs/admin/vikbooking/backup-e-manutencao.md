@@ -5,6 +5,11 @@ title: Backup e Manutenção
 # Backup e Manutenção
 Este documento traz procedimentos detalhados e passo-a-passo para backups, verificação e manutenção do site e do plugin VikBooking.
 
+Mapa de navegação (painel)
+- Plugins de backup: WordPress > Plugins (UpdraftPlus/BackWPup etc.)
+- Backups manuais: Servidor/Hosting > Gerenciador de arquivos | SSH/SFTP
+- Snapshots: Painel de hospedagem > Snapshots/Backups
+
 1. Objetivos
 - Garantir recuperação rápida do site em caso de falha.
 - Minimizar perda de dados de reservas e transações.

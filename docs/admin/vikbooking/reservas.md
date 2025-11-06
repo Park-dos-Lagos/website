@@ -5,6 +5,9 @@ title: Reservas — Gestão Completa
 # Reservas — Gestão Completa
 Este guia aprofunda a gestão de reservas, cobrindo criação, edição, conciliação e resolução de conflitos.
 
+Mapa de navegação (painel)
+- Reservas: WordPress > VikBooking > Reservas/Bookings
+
 1) Fluxo detalhado de uma reserva
 1. Criação: reserva criada pelo hóspede via front-end ou manualmente por um operador (VikBooking → Reservas → Nova Reserva).
 2. Validação: o sistema confere disponibilidade e aplica a tarifa correspondente.
